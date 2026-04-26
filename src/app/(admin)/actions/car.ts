@@ -16,7 +16,7 @@ async function requireAdmin() {
     throw new ActionError("Unauthorized", "UNAUTHORIZED");
   }
 
-  const role = (data.claims as Record<string, unknown>)?.app_metadata?.role;
+  const role = (data.claims as { app_metadata?: { role?: string } })?.app_metadata?.role;
   if (role !== "admin") {
     throw new ActionError("Forbidden", "FORBIDDEN");
   }

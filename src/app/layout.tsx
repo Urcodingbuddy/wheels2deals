@@ -1,21 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Navbar } from "@/components/layout/Navbar";
+import { Big_Shoulders, Raleway } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const bigShoulders = Big_Shoulders({
   subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-display",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const raleway = Raleway({
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "wheels2deals",
-  description: "Find your next vehicle deal",
+  title: "wheels2deals — Premium Pre-Owned",
+  description: "Curated supercars and luxury machines, personally verified.",
 };
 
 export default function RootLayout({
@@ -24,11 +27,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
-      <body className="antialiased min-h-screen flex flex-col">
-        <Navbar />
-        <main className="container py-8 flex-1">{children}</main>
-      </body>
+    <html
+      lang="en"
+      className={`${bigShoulders.variable} ${raleway.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

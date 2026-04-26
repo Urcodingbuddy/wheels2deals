@@ -6,5 +6,5 @@ function requireEnv(key: string): string {
 
 export const env = {
   supabaseUrl: requireEnv("NEXT_PUBLIC_SUPABASE_URL"),
-  supabaseAnonKey: requireEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
+  supabasePublishableKey: requireEnv("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"),
 };

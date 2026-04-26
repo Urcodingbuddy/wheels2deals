@@ -1,0 +1,2991 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wheels2deels — Design System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Raleway:ital,wght@0,400;0,500;0,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --ivory: #f6f5f1;
+        --mist: #eeece8;
+        --chalk: #e0ddd8;
+        --pebble: #d0ccc6;
+        --ink: #0f0f0f;
+        --charcoal: #2a2a2a;
+        --slate: #555555;
+        --smoke: #888888;
+        --ghost: #bbbbbb;
+
+        --void: #080808;
+        --carbon: #141414;
+        --graphite: #1e1e1e;
+        --iron: #333333;
+        --white: #ffffff;
+        --silver: #aaaaaa;
+        --ash: #666666;
+
+        --brg: #005c2e;
+        --brg-dark: #1a6b3c;
+        --brg-hover: #004a25;
+        --brg-pressed: #003318;
+
+        --gold: #c8981a;
+        --gold-surface: rgba(200, 152, 26, 0.07);
+        --gold-border: rgba(200, 152, 26, 0.25);
+
+        --available: #22c55e;
+        --reserved: #f59e0b;
+        --sold: #6b7280;
+        --error: #ef4444;
+        --info: #3b82f6;
+
+        --nav-bg: rgba(8, 8, 8, 0.88);
+        --nav-h: 64px;
+
+        --font-display: "Big Shoulders Display", sans-serif;
+        --font-body: "Raleway", sans-serif;
+
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+
+        --dur-short: 0.15s;
+        --dur-moderate: 0.3s;
+        --dur-long: 0.5s;
+        --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        --ease-in: cubic-bezier(0.4, 0, 1, 1);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--ivory);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 15px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── NAV ── */
+      .ds-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--nav-h);
+        background: var(--nav-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+        z-index: 100;
+      }
+      .ds-nav-logo {
+        height: 28px;
+        width: auto;
+      }
+      .ds-nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+      }
+      .ds-nav-links a {
+        color: var(--silver);
+        text-decoration: none;
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: color var(--dur-short) var(--ease-out);
+      }
+      .ds-nav-links a:hover {
+        color: var(--white);
+      }
+      .ds-nav-badge {
+        font-family: var(--font-body);
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--silver);
+        letter-spacing: 0.05em;
+      }
+
+      /* ── LAYOUT ── */
+      .ds-wrap {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 0 40px;
+      }
+
+      /* ── HERO ── */
+      .ds-hero {
+        padding-top: calc(var(--nav-h) + 100px);
+        padding-bottom: 100px;
+        border-bottom: 1px solid var(--chalk);
+      }
+      .ds-hero-label {
+        font-family: var(--font-body);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--brg);
+        margin-bottom: 24px;
+      }
+      .ds-hero-title {
+        font-family: var(--font-display);
+        font-size: clamp(64px, 8vw, 120px);
+        font-weight: 800;
+        line-height: 0.92;
+        text-transform: uppercase;
+        color: var(--ink);
+        letter-spacing: -0.02em;
+        margin-bottom: 32px;
+      }
+      .ds-hero-title span {
+        color: var(--brg);
+      }
+      .ds-hero-desc {
+        max-width: 560px;
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--slate);
+        line-height: 1.7;
+      }
+      .ds-hero-meta {
+        margin-top: 48px;
+        display: flex;
+        gap: 48px;
+      }
+      .ds-hero-stat-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--smoke);
+        margin-bottom: 4px;
+      }
+      .ds-hero-stat-val {
+        font-family: var(--font-display);
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--charcoal);
+        text-transform: uppercase;
+      }
+
+      /* ── SECTIONS ── */
+      .ds-section {
+        padding: 80px 0;
+        border-bottom: 1px solid var(--chalk);
+      }
+      .ds-section-head {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 48px;
+        align-items: start;
+        margin-bottom: 56px;
+      }
+      .ds-section-num {
+        font-family: var(--font-display);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--ghost);
+        text-transform: uppercase;
+        padding-top: 6px;
+      }
+      .ds-section-title {
+        font-family: var(--font-display);
+        font-size: clamp(36px, 4vw, 56px);
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var(--ink);
+        line-height: 1;
+        letter-spacing: -0.01em;
+      }
+      .ds-section-sub {
+        font-size: 14px;
+        color: var(--smoke);
+        margin-top: 10px;
+        font-weight: 400;
+      }
+
+      /* ── COLOR SWATCHES ── */
+      .ds-color-group {
+        margin-bottom: 48px;
+      }
+      .ds-color-group-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--smoke);
+        margin-bottom: 20px;
+      }
+      .ds-swatches {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .ds-swatch {
+        width: 120px;
+      }
+      .ds-swatch-block {
+        width: 100%;
+        height: 72px;
+        border-radius: var(--radius-md);
+        margin-bottom: 10px;
+        border: 1px solid transparent;
+      }
+      .ds-swatch-block.has-border {
+        border-color: var(--chalk);
+      }
+      .ds-swatch-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--charcoal);
+        margin-bottom: 2px;
+      }
+      .ds-swatch-hex {
+        font-size: 11px;
+        color: var(--smoke);
+        font-family: "Courier New", monospace;
+      }
+      .ds-swatch-role {
+        font-size: 10px;
+        color: var(--ghost);
+        margin-top: 2px;
+      }
+
+      /* ── TYPOGRAPHY ── */
+      .ds-type-scale {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .ds-type-row {
+        display: grid;
+        grid-template-columns: 180px 1fr 140px;
+        gap: 24px;
+        align-items: baseline;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--chalk);
+      }
+      .ds-type-row:last-child {
+        border-bottom: none;
+      }
+      .ds-type-meta {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--smoke);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding-top: 4px;
+      }
+      .ds-type-sample {
+        color: var(--ink);
+      }
+      .ds-type-spec {
+        font-size: 11px;
+        color: var(--ghost);
+        font-family: "Courier New", monospace;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      /* ── SPACING ── */
+      .ds-spacing-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .ds-spacing-row {
+        display: grid;
+        grid-template-columns: 80px 1fr 80px;
+        align-items: center;
+        gap: 24px;
+      }
+      .ds-spacing-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--smoke);
+      }
+      .ds-spacing-bar-wrap {
+        height: 28px;
+        display: flex;
+        align-items: center;
+      }
+      .ds-spacing-bar {
+        height: 12px;
+        background: var(--brg);
+        border-radius: 2px;
+        opacity: 0.85;
+      }
+      .ds-spacing-val {
+        font-size: 12px;
+        color: var(--slate);
+        font-family: "Courier New", monospace;
+        text-align: right;
+      }
+
+      /* ── RADIUS ── */
+      .ds-radius-row {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+      .ds-radius-item {
+        text-align: center;
+      }
+      .ds-radius-box {
+        width: 96px;
+        height: 72px;
+        background: var(--mist);
+        border: 2px solid var(--chalk);
+        margin: 0 auto 12px;
+      }
+      .ds-radius-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--charcoal);
+        margin-bottom: 2px;
+      }
+      .ds-radius-val {
+        font-size: 11px;
+        color: var(--smoke);
+        font-family: "Courier New", monospace;
+      }
+      .ds-radius-use {
+        font-size: 10px;
+        color: var(--ghost);
+        margin-top: 4px;
+      }
+
+      /* ── MOTION ── */
+      .ds-motion-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
+      }
+      .ds-motion-card {
+        background: var(--mist);
+        border: 1px solid var(--chalk);
+        border-radius: var(--radius-md);
+        padding: 24px;
+      }
+      .ds-motion-token {
+        font-size: 11px;
+        font-family: "Courier New", monospace;
+        color: var(--brg);
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .ds-motion-val {
+        font-family: var(--font-display);
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--ink);
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .ds-motion-use {
+        font-size: 12px;
+        color: var(--smoke);
+      }
+      .ds-motion-demo {
+        margin-top: 16px;
+        height: 6px;
+        background: var(--chalk);
+        border-radius: 3px;
+        overflow: hidden;
+        position: relative;
+      }
+      .ds-motion-demo-bar {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        height: 100%;
+        width: 60%;
+        background: var(--brg);
+        border-radius: 3px;
+        animation: motionSlide 2s var(--ease-out) infinite;
+      }
+      @keyframes motionSlide {
+        0% {
+          left: -60%;
+        }
+        60% {
+          left: 100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      /* ── COMPONENTS ── */
+      .ds-component-block {
+        background: var(--mist);
+        border: 1px solid var(--chalk);
+        border-radius: var(--radius-lg);
+        padding: 40px;
+        margin-bottom: 32px;
+      }
+      .ds-component-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--smoke);
+        margin-bottom: 28px;
+      }
+
+      /* Buttons */
+      .btn-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        border: none;
+        cursor: pointer;
+        border-radius: var(--radius-sm);
+        padding: 0 20px;
+        height: 40px;
+        transition:
+          background var(--dur-short) var(--ease-out),
+          color var(--dur-short) var(--ease-out),
+          box-shadow var(--dur-short) var(--ease-out);
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .btn-primary {
+        background: var(--ink);
+        color: var(--white);
+      }
+      .btn-primary:hover {
+        background: var(--charcoal);
+      }
+      .btn-secondary {
+        background: transparent;
+        color: var(--ink);
+        border: 1.5px solid var(--ink);
+      }
+      .btn-secondary:hover {
+        background: rgba(15, 15, 15, 0.06);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--slate);
+        border: 1.5px solid var(--chalk);
+      }
+      .btn-ghost:hover {
+        border-color: var(--pebble);
+        color: var(--charcoal);
+      }
+      .btn-white {
+        background: var(--white);
+        color: var(--ink);
+        border: none;
+      }
+      .btn-white:hover {
+        background: var(--ivory);
+      }
+      .btn-sm {
+        height: 32px;
+        padding: 0 14px;
+        font-size: 12px;
+      }
+      .btn-lg {
+        height: 48px;
+        padding: 0 28px;
+        font-size: 14px;
+      }
+
+      /* Badges */
+      .badge-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--font-body);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 100px;
+      }
+      .badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .badge-available {
+        background: rgba(34, 197, 94, 0.12);
+        color: #16a34a;
+      }
+      .badge-available .badge-dot {
+        background: var(--available);
+      }
+      .badge-reserved {
+        background: rgba(245, 158, 11, 0.12);
+        color: #b45309;
+      }
+      .badge-reserved .badge-dot {
+        background: var(--reserved);
+      }
+      .badge-sold {
+        background: rgba(107, 114, 128, 0.12);
+        color: #4b5563;
+      }
+      .badge-sold .badge-dot {
+        background: var(--sold);
+      }
+      .badge-new {
+        background: rgba(0, 92, 46, 0.1);
+        color: var(--brg);
+      }
+      .badge-cpo {
+        background: var(--gold-surface);
+        color: #92700d;
+        border: 1px solid var(--gold-border);
+      }
+      .badge-used {
+        background: var(--mist);
+        color: var(--slate);
+        border: 1px solid var(--chalk);
+      }
+
+      /* Inputs */
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        max-width: 480px;
+      }
+      .input-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .input-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--charcoal);
+        letter-spacing: 0.04em;
+      }
+      .input-el {
+        width: 100%;
+        height: 44px;
+        padding: 0 14px;
+        background: var(--ivory);
+        border: 1.5px solid var(--chalk);
+        border-radius: var(--radius-sm);
+        font-family: var(--font-body);
+        font-size: 14px;
+        color: var(--ink);
+        outline: none;
+        transition: border-color var(--dur-short) var(--ease-out);
+      }
+      .input-el::placeholder {
+        color: var(--ghost);
+      }
+      .input-el:focus {
+        border-color: var(--brg);
+      }
+      .input-el.has-error {
+        border-color: var(--error);
+      }
+      .input-hint {
+        font-size: 12px;
+        color: var(--smoke);
+      }
+      .input-error {
+        font-size: 12px;
+        color: var(--error);
+      }
+
+      /* NAV PREVIEW */
+      .nav-preview {
+        background: var(--void);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+      }
+      .np-bar {
+        height: 64px;
+        background: rgba(8, 8, 8, 0.88);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 32px;
+      }
+      .np-logo {
+        height: 22px;
+        width: auto;
+      }
+      .np-links {
+        display: flex;
+        gap: 28px;
+        list-style: none;
+      }
+      .np-links a {
+        color: var(--silver);
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .np-links a.active {
+        color: var(--white);
+      }
+      .np-actions {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .np-btn-outline {
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--silver);
+        border: 1.5px solid rgba(255, 255, 255, 0.15);
+        background: transparent;
+        padding: 6px 16px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+      }
+      .np-btn-solid {
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--ink);
+        background: var(--white);
+        border: none;
+        padding: 6px 16px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+      }
+      .np-body {
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .np-body-text {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ash);
+      }
+
+      /* PRICE DISPLAY */
+      .price-display {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .price-main {
+        font-family: var(--font-display);
+        font-size: 36px;
+        font-weight: 800;
+        color: var(--brg);
+        text-transform: uppercase;
+      }
+      .price-sub {
+        font-size: 12px;
+        color: var(--smoke);
+        font-weight: 500;
+      }
+
+      /* CAR CARD */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+      }
+      .car-card {
+        background: var(--ivory);
+        border: 1px solid var(--chalk);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        transition:
+          box-shadow var(--dur-moderate) var(--ease-out),
+          transform var(--dur-moderate) var(--ease-out);
+      }
+      .car-card:hover {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+      .car-card-img {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: var(--chalk);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .car-card-img-placeholder {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--pebble);
+      }
+      .car-card-badge-group {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        display: flex;
+        gap: 6px;
+      }
+      .car-card-body {
+        padding: 20px;
+      }
+      .car-card-make {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--smoke);
+        margin-bottom: 4px;
+      }
+      .car-card-model {
+        font-family: var(--font-display);
+        font-size: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--ink);
+        line-height: 1.1;
+        margin-bottom: 8px;
+      }
+      .car-card-specs {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .car-card-spec {
+        font-size: 12px;
+        color: var(--smoke);
+      }
+      .car-card-spec b {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--charcoal);
+      }
+      .car-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 16px;
+        border-top: 1px solid var(--chalk);
+      }
+      .car-card-price {
+        font-family: var(--font-display);
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--brg);
+        text-transform: uppercase;
+      }
+      .car-card-cta {
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        color: var(--white);
+        background: var(--ink);
+        border: none;
+        padding: 8px 16px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: background var(--dur-short) var(--ease-out);
+      }
+      .car-card-cta:hover {
+        background: var(--charcoal);
+      }
+
+      /* HERO PREVIEW (dark) */
+      .hero-preview {
+        background: var(--void);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        min-height: 400px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      .hp-nav {
+        height: 64px;
+        background: rgba(8, 8, 8, 0.7);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+        flex-shrink: 0;
+      }
+      .hp-logo {
+        height: 22px;
+        width: auto;
+      }
+      .hp-nav-links {
+        display: flex;
+        gap: 28px;
+        list-style: none;
+      }
+      .hp-nav-links a {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+      }
+      .hp-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 60px 48px;
+      }
+      .hp-eyebrow {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--brg-dark);
+        margin-bottom: 20px;
+      }
+      .hp-headline {
+        font-family: var(--font-display);
+        font-size: clamp(40px, 5vw, 72px);
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var(--white);
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        margin-bottom: 24px;
+        max-width: 520px;
+      }
+      .hp-headline span {
+        color: rgba(255, 255, 255, 0.22);
+      }
+      .hp-sub {
+        font-size: 15px;
+        color: var(--silver);
+        font-weight: 400;
+        max-width: 400px;
+        line-height: 1.6;
+        margin-bottom: 36px;
+      }
+      .hp-actions {
+        display: flex;
+        gap: 12px;
+      }
+      .hp-btn-primary {
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 500;
+        background: var(--white);
+        color: var(--ink);
+        border: none;
+        padding: 12px 28px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        letter-spacing: 0.04em;
+      }
+      .hp-btn-ghost {
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 500;
+        background: transparent;
+        color: var(--silver);
+        border: 1.5px solid rgba(255, 255, 255, 0.18);
+        padding: 12px 28px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        letter-spacing: 0.04em;
+      }
+      .hp-scroll-hint {
+        position: absolute;
+        bottom: 28px;
+        left: 48px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ash);
+      }
+      .hp-scroll-line {
+        width: 40px;
+        height: 1px;
+        background: var(--iron);
+      }
+
+      /* ELEVATION */
+      .ds-elevation-row {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .ds-elevation-item {
+        flex: 1;
+        min-width: 160px;
+      }
+      .ds-elevation-block {
+        height: 72px;
+        border-radius: var(--radius-md);
+        margin-bottom: 12px;
+        border: 1px solid transparent;
+      }
+      .ds-elevation-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--charcoal);
+        margin-bottom: 2px;
+      }
+      .ds-elevation-desc {
+        font-size: 11px;
+        color: var(--smoke);
+      }
+
+      /* DO / DONT */
+      .ds-dodonts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .ds-do,
+      .ds-dont {
+        border-radius: var(--radius-md);
+        padding: 28px;
+      }
+      .ds-do {
+        background: rgba(0, 92, 46, 0.05);
+        border: 1px solid rgba(0, 92, 46, 0.2);
+      }
+      .ds-dont {
+        background: rgba(239, 68, 68, 0.04);
+        border: 1px solid rgba(239, 68, 68, 0.16);
+      }
+      .ds-dodonts-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+      .ds-do .ds-dodonts-header {
+        color: var(--brg);
+      }
+      .ds-dont .ds-dodonts-header {
+        color: var(--error);
+      }
+      .ds-dodonts-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .ds-dodonts-list li {
+        font-size: 13px;
+        color: var(--slate);
+        padding-left: 16px;
+        position: relative;
+      }
+      .ds-dodonts-list li::before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: var(--ghost);
+      }
+
+      /* LOGO SECTION */
+      .ds-logo-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .ds-logo-swatch {
+        border-radius: var(--radius-md);
+        padding: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ds-logo-swatch img,
+      .ds-logo-swatch svg {
+        max-height: 40px;
+        width: auto;
+      }
+      .ds-logo-swatch.on-dark {
+        background: var(--void);
+      }
+      .ds-logo-swatch.on-carbon {
+        background: var(--carbon);
+      }
+      .ds-logo-swatch.on-ivory {
+        background: var(--ivory);
+        border: 1px solid var(--chalk);
+      }
+      .ds-logo-caption {
+        text-align: center;
+        margin-top: 12px;
+        font-size: 11px;
+        color: var(--smoke);
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .ds-logo-wrong {
+        opacity: 0.4;
+        filter: invert(1);
+      }
+      .ds-logo-note {
+        margin-top: 28px;
+        padding: 20px 24px;
+        background: var(--mist);
+        border-radius: var(--radius-md);
+        border-left: 3px solid var(--brg);
+        font-size: 13px;
+        color: var(--slate);
+        line-height: 1.6;
+      }
+
+      /* FOOTER */
+      .ds-footer {
+        padding: 60px 0 80px;
+      }
+      .ds-footer-inner {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+      .ds-footer-left {
+      }
+      .ds-footer-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ghost);
+        margin-bottom: 8px;
+      }
+      .ds-footer-name {
+        font-family: var(--font-display);
+        font-size: 48px;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var(--chalk);
+        letter-spacing: -0.02em;
+      }
+      .ds-footer-right {
+        font-size: 12px;
+        color: var(--ghost);
+        text-align: right;
+      }
+      .ds-footer-right b {
+        color: var(--smoke);
+      }
+
+      /* Divider */
+      .ds-divider {
+        height: 1px;
+        background: var(--chalk);
+        margin: 0;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--ivory);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--pebble);
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ════════════════════════════════════════════
+       NAVIGATION
+  ════════════════════════════════════════════ -->
+    <nav class="ds-nav">
+      <img
+        src="public/logo.svg"
+        alt="wheels2deels"
+        class="ds-nav-logo"
+        style="filter: brightness(0) invert(1); height: 26px"
+      />
+      <ul class="ds-nav-links">
+        <li><a href="#colors">Colors</a></li>
+        <li><a href="#type">Type</a></li>
+        <li><a href="#spacing">Spacing</a></li>
+        <li><a href="#components">Components</a></li>
+        <li><a href="#patterns">Patterns</a></li>
+      </ul>
+      <span class="ds-nav-badge">Design System v1.0</span>
+    </nav>
+
+    <!-- ════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════ -->
+    <section class="ds-hero">
+      <div class="ds-wrap">
+        <p class="ds-hero-label">Design System — wheels2deels</p>
+        <h1 class="ds-hero-title">
+          Every<br />Detail<br /><span>Earns</span><br />Its Place.
+        </h1>
+        <p class="ds-hero-desc">
+          A precision-built design language for a premium used-car dealership.
+          British Racing Green authority, Cinematic Black drama, and off-white
+          clarity — each surface tuned to its purpose.
+        </p>
+        <div class="ds-hero-meta">
+          <div>
+            <p class="ds-hero-stat-label">Primary Accent</p>
+            <p class="ds-hero-stat-val" style="color: var(--brg)">BRG</p>
+          </div>
+          <div>
+            <p class="ds-hero-stat-label">Typefaces</p>
+            <p class="ds-hero-stat-val">2</p>
+          </div>
+          <div>
+            <p class="ds-hero-stat-label">Surface Modes</p>
+            <p class="ds-hero-stat-val">2</p>
+          </div>
+          <div>
+            <p class="ds-hero-stat-label">Radius System</p>
+            <p class="ds-hero-stat-val">4–12</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+       01 · LOGO & IDENTITY
+  ════════════════════════════════════════════ -->
+    <section class="ds-section" id="logo">
+      <div class="ds-wrap">
+        <div class="ds-section-head">
+          <div>
+            <p class="ds-section-num">01</p>
+          </div>
+          <div>
+            <h2 class="ds-section-title">Logo &amp;<br />Identity</h2>
+            <p class="ds-section-sub">
+              The W2D mark. White paths on dark only — no exceptions.
+            </p>
+          </div>
+        </div>
+
+        <div class="ds-logo-grid">
+          <div>
+            <div class="ds-logo-swatch on-dark">
+              <img
+                src="public/logo.svg"
+                alt="W2D on void"
+                style="height: 36px; filter: brightness(0) invert(1)"
+              />
+            </div>
+            <p class="ds-logo-caption">Primary — on #080808</p>
+          </div>
+          <div>
+            <div class="ds-logo-swatch on-carbon">
+              <img
+                src="public/logo.svg"
+                alt="W2D on carbon"
+                style="height: 36px; filter: brightness(0) invert(1)"
+              />
+            </div>
+            <p class="ds-logo-caption">Card Dark — on #141414</p>
+          </div>
+        </div>
+
+        <div class="ds-logo-note">
+          <strong style="color: var(--charcoal)">Logo Rule:</strong> The mark is
+          white SVG paths. It always sits on a dark surface — nav bar uses
+          <code style="font-size: 12px; color: var(--brg)"
+            >rgba(8,8,8,0.88) + blur(20px)</code
+          >. Never place the logo on the off-white platform background without a
+          dark container. Use
+          <code style="font-size: 12px; color: var(--brg)">logo.svg</code> for
+          nav and UI;
+          <code style="font-size: 12px; color: var(--brg)">logo_UHD.png</code>
+          for large-format display only.
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+       02 · COLOR SYSTEM
+  ════════════════════════════════════════════ -->
+    <section class="ds-section" id="colors">
+      <div class="ds-wrap">
+        <div class="ds-section-head">
+          <div>
+            <p class="ds-section-num">02</p>
+          </div>
+          <div>
+            <h2 class="ds-section-title">Color<br />System</h2>
+            <p class="ds-section-sub">
+              Two surface modes. One accent. One whisper.
+            </p>
+          </div>
+        </div>
+
+        <!-- Light Surfaces -->
+        <div class="ds-color-group">
+          <p class="ds-color-group-label">
+            Light Surfaces — Platform (80% of the product)
+          </p>
+          <div class="ds-swatches">
+            <div class="ds-swatch">
+              <div
+                class="ds-swatch-block has-border"
+                style="background: #f6f5f1"
+              ></div>
+              <p class="ds-swatch-name">Ivory</p>
+              <p class="ds-swatch-hex">#F6F5F1</p>
+              <p class="ds-swatch-role">Page background</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #eeece8"></div>
+              <p class="ds-swatch-name">Mist</p>
+              <p class="ds-swatch-hex">#EEECE8</p>
+              <p class="ds-swatch-role">Card background</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #e0ddd8"></div>
+              <p class="ds-swatch-name">Chalk</p>
+              <p class="ds-swatch-hex">#E0DDD8</p>
+              <p class="ds-swatch-role">Borders, input bg</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #d0ccc6"></div>
+              <p class="ds-swatch-name">Pebble</p>
+              <p class="ds-swatch-hex">#D0CCC6</p>
+              <p class="ds-swatch-role">Strong borders</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text on Light -->
+        <div class="ds-color-group">
+          <p class="ds-color-group-label">Text Hierarchy — on Light</p>
+          <div class="ds-swatches">
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #0f0f0f"></div>
+              <p class="ds-swatch-name">Ink</p>
+              <p class="ds-swatch-hex">#0F0F0F</p>
+              <p class="ds-swatch-role">Primary text</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #2a2a2a"></div>
+              <p class="ds-swatch-name">Charcoal</p>
+              <p class="ds-swatch-hex">#2A2A2A</p>
+              <p class="ds-swatch-role">Secondary headings</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #555555"></div>
+              <p class="ds-swatch-name">Slate</p>
+              <p class="ds-swatch-hex">#555555</p>
+              <p class="ds-swatch-role">Body text</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #888888"></div>
+              <p class="ds-swatch-name">Smoke</p>
+              <p class="ds-swatch-hex">#888888</p>
+              <p class="ds-swatch-role">Metadata, labels</p>
+            </div>
+            <div class="ds-swatch">
+              <div
+                class="ds-swatch-block has-border"
+                style="background: #bbbbbb"
+              ></div>
+              <p class="ds-swatch-name">Ghost</p>
+              <p class="ds-swatch-hex">#BBBBBB</p>
+              <p class="ds-swatch-role">Placeholders</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dark Surfaces -->
+        <div class="ds-color-group">
+          <p class="ds-color-group-label">
+            Dark Surfaces — Landing &amp; Login Only
+          </p>
+          <div class="ds-swatches">
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #080808"></div>
+              <p class="ds-swatch-name">Void</p>
+              <p class="ds-swatch-hex">#080808</p>
+              <p class="ds-swatch-role">Cinematic Black, landing bg</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #141414"></div>
+              <p class="ds-swatch-name">Carbon</p>
+              <p class="ds-swatch-hex">#141414</p>
+              <p class="ds-swatch-role">Dark cards</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #1e1e1e"></div>
+              <p class="ds-swatch-name">Graphite</p>
+              <p class="ds-swatch-hex">#1E1E1E</p>
+              <p class="ds-swatch-role">Dark panels</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #333333"></div>
+              <p class="ds-swatch-name">Iron</p>
+              <p class="ds-swatch-hex">#333333</p>
+              <p class="ds-swatch-role">Dark borders</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #aaaaaa"></div>
+              <p class="ds-swatch-name">Silver</p>
+              <p class="ds-swatch-hex">#AAAAAA</p>
+              <p class="ds-swatch-role">Body on dark</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #666666"></div>
+              <p class="ds-swatch-name">Ash</p>
+              <p class="ds-swatch-hex">#666666</p>
+              <p class="ds-swatch-role">Muted on dark</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BRG -->
+        <div class="ds-color-group">
+          <p class="ds-color-group-label">
+            British Racing Green — Primary Accent
+          </p>
+          <div class="ds-swatches">
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #005c2e"></div>
+              <p class="ds-swatch-name">BRG</p>
+              <p class="ds-swatch-hex">#005C2E</p>
+              <p class="ds-swatch-role">On light bg — default</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #1a6b3c"></div>
+              <p class="ds-swatch-name">BRG Dark</p>
+              <p class="ds-swatch-hex">#1A6B3C</p>
+              <p class="ds-swatch-role">On dark bg</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #004a25"></div>
+              <p class="ds-swatch-name">BRG Hover</p>
+              <p class="ds-swatch-hex">#004A25</p>
+              <p class="ds-swatch-role">Button hover state</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #003318"></div>
+              <p class="ds-swatch-name">BRG Pressed</p>
+              <p class="ds-swatch-hex">#003318</p>
+              <p class="ds-swatch-role">Button active state</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gulf Gold -->
+        <div class="ds-color-group">
+          <p class="ds-color-group-label">
+            Gulf Gold — Whisper Accent (use sparingly)
+          </p>
+          <div class="ds-swatches">
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #c8981a"></div>
+              <p class="ds-swatch-name">Gulf Gold</p>
+              <p class="ds-swatch-hex">#C8981A</p>
+              <p class="ds-swatch-role">CPO badge only</p>
+            </div>
+            <div class="ds-swatch">
+              <div
+                class="ds-swatch-block has-border"
+                style="background: rgba(200, 152, 26, 0.07)"
+              ></div>
+              <p class="ds-swatch-name">Gold Surface</p>
+              <p class="ds-swatch-hex">rgba …0.07</p>
+              <p class="ds-swatch-role">CPO badge bg</p>
+            </div>
+            <div class="ds-swatch">
+              <div
+                class="ds-swatch-block has-border"
+                style="background: rgba(200, 152, 26, 0.25)"
+              ></div>
+              <p class="ds-swatch-name">Gold Border</p>
+              <p class="ds-swatch-hex">rgba …0.25</p>
+              <p class="ds-swatch-role">CPO badge border</p>
+            </div>
+          </div>
+          <p
+            style="
+              margin-top: 16px;
+              font-size: 12px;
+              color: var(--smoke);
+              max-width: 560px;
+              line-height: 1.6;
+            "
+          >
+            Gulf Gold is a whisper accent. It appears on CPO (Certified
+            Pre-Owned) badges only. If it shows up more than twice on any page,
+            it becomes decoration — remove it until it has power again.
+          </p>
+        </div>
+
+        <!-- Semantic -->
+        <div class="ds-color-group">
+          <p class="ds-color-group-label">Semantic States</p>
+          <div class="ds-swatches">
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #22c55e"></div>
+              <p class="ds-swatch-name">Available</p>
+              <p class="ds-swatch-hex">#22C55E</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #f59e0b"></div>
+              <p class="ds-swatch-name">Reserved</p>
+              <p class="ds-swatch-hex">#F59E0B</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #6b7280"></div>
+              <p class="ds-swatch-name">Sold</p>
+              <p class="ds-swatch-hex">#6B7280</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #ef4444"></div>
+              <p class="ds-swatch-name">Error</p>
+              <p class="ds-swatch-hex">#EF4444</p>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: #3b82f6"></div>
+              <p class="ds-swatch-name">Info</p>
+              <p class="ds-swatch-hex">#3B82F6</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+       03 · TYPOGRAPHY
+  ════════════════════════════════════════════ -->
+    <section class="ds-section" id="type">
+      <div class="ds-wrap">
+        <div class="ds-section-head">
+          <div>
+            <p class="ds-section-num">03</p>
+          </div>
+          <div>
+            <h2 class="ds-section-title">Typog-<br />raphy</h2>
+            <p class="ds-section-sub">
+              Big Shoulders Display for presence. Raleway for everything else.
+            </p>
+          </div>
+        </div>
+
+        <!-- Font Families -->
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 56px;
+          "
+        >
+          <div class="ds-component-block">
+            <p class="ds-component-label">Display Font</p>
+            <p
+              style="
+                font-family: var(--font-display);
+                font-size: 48px;
+                font-weight: 800;
+                text-transform: uppercase;
+                line-height: 1;
+                color: var(--ink);
+                margin-bottom: 12px;
+              "
+            >
+              Big<br />Shoulders
+            </p>
+            <p style="font-size: 13px; color: var(--smoke)">
+              Weight 700 &amp; 800 — always uppercase at display sizes
+            </p>
+          </div>
+          <div class="ds-component-block">
+            <p class="ds-component-label">Body Font</p>
+            <p
+              style="
+                font-family: var(--font-body);
+                font-size: 32px;
+                font-weight: 400;
+                color: var(--ink);
+                margin-bottom: 4px;
+              "
+            >
+              Raleway
+            </p>
+            <p
+              style="
+                font-family: var(--font-body);
+                font-size: 24px;
+                font-weight: 500;
+                color: var(--charcoal);
+                margin-bottom: 4px;
+              "
+            >
+              Raleway Medium
+            </p>
+            <p
+              style="
+                font-family: var(--font-body);
+                font-size: 20px;
+                font-weight: 600;
+                color: var(--slate);
+                margin-bottom: 12px;
+              "
+            >
+              Raleway SemiBold
+            </p>
+            <p style="font-size: 13px; color: var(--smoke)">
+              Weights 400, 500, 600 — never italic, never thin
+            </p>
+          </div>
+        </div>
+
+        <!-- Type Scale -->
+        <div class="ds-type-scale">
+          <div class="ds-type-row">
+            <p class="ds-type-meta">Display Hero</p>
+            <p
+              class="ds-type-sample"
+              style="
+                font-family: var(--font-display);
+                font-size: clamp(64px, 8vw, 96px);
+                font-weight: 800;
+                text-transform: uppercase;
+                line-height: 0.92;
+                letter-spacing: -0.02em;
+              "
+            >
+              W2D
+            </p>
+            <p class="ds-type-spec">
+              96px / 800 / -2% ls<br />Big Shoulders, UPPER
+            </p>
+          </div>
+          <div class="ds-type-row">
+            <p class="ds-type-meta">Display Large</p>
+            <p
+              class="ds-type-sample"
+              style="
+                font-family: var(--font-display);
+                font-size: clamp(48px, 5vw, 72px);
+                font-weight: 800;
+                text-transform: uppercase;
+                line-height: 0.95;
+                letter-spacing: -0.015em;
+              "
+            >
+              Precision Drives
+            </p>
+            <p class="ds-type-spec">
+              72px / 800 / -1.5% ls<br />Big Shoulders, UPPER
+            </p>
+          </div>
+          <div class="ds-type-row">
+            <p class="ds-type-meta">Display Medium</p>
+            <p
+              class="ds-type-sample"
+              style="
+                font-family: var(--font-display);
+                font-size: clamp(36px, 4vw, 54px);
+                font-weight: 700;
+                text-transform: uppercase;
+                line-height: 1;
+                letter-spacing: -0.01em;
+              "
+            >
+              Every Detail Counts
+            </p>
+            <p class="ds-type-spec">
+              54px / 700 / -1% ls<br />Big Shoulders, UPPER
+            </p>
+          </div>
+          <div class="ds-type-row">
+            <p class="ds-type-meta">Heading XL</p>
+            <p
+              class="ds-type-sample"
+              style="
+                font-family: var(--font-display);
+                font-size: 36px;
+                font-weight: 700;
+                text-transform: uppercase;
+                line-height: 1.05;
+                letter-spacing: -0.005em;
+              "
+            >
+              Featured Inventory
+            </p>
+            <p class="ds-type-spec">36px / 700<br />Big Shoulders, UPPER</p>
+          </div>
+          <div class="ds-type-row">
+            <p class="ds-type-meta">Heading L</p>
+            <p
+              class="ds-type-sample"
+              style="
+                font-family: var(--font-display);
+                font-size: 28px;
+                font-weight: 700;
+                text-transform: uppercase;
+                line-height: 1.1;
+              "
+            >
+              2024 Porsche Taycan
+            </p>
+            <p class="ds-type-spec">28px / 700<br />Big Shoulders, UPPER</p>
+          </div>
+          <div class="ds-type-row">
+            <p class="ds-type-meta">Heading M</p>
+            <p
+              class="ds-type-sample"
+              style="
+                font-family: var(--font-display);
+                font-size: 22px;
+                font-weight: 700;
+                text-transform: uppercase;
+                line-height: 1.15;
+              "
+            >
+              Vehicle Details
+            </p>
+            <p class="ds-type-spec">22px / 700<br />Big Shoulders, UPPER</p>
+          </div>
+          <div class="ds-type-row">
+            <p class="ds-type-meta">Subheading</p>
+            <p
+              class="ds-type-sample"
+              style="
+                font-family: var(--font-body);
+                font-size: 18px;
+                font-weight: 600;
+                line-height: 1.3;
+                color: var(--charcoal);
+              "
+            >
+              Why choose wheels2deels
+            </p>
+            <p class="ds-type-spec">18px / 600<br />Raleway SemiBold</p>
+          </div>
+          <div class="ds-type-row">
+            <p class="ds-type-meta">Body Large</p>
+            <p
+              class="ds-type-sample"
+              style="
+                font-family: var(--font-body);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 1.7;
+                color: var(--slate);
+              "
+            >
+              Every car in our inventory is personally inspected and priced with
+              precision. No surprises — just excellent machines.
+            </p>
+            <p class="ds-type-spec">16px / 400<br />Raleway Regular</p>
+          </div>
+          <div class="ds-type-row">
+            <p class="ds-type-meta">Body</p>
+            <p
+              class="ds-type-sample"
+              style="
+                font-family: var(--font-body);
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.65;
+                color: var(--slate);
+              "
+            >
+              All vehicles come with complete service history, vehicle report,
+              and 30-day mechanical warranty included in the price.
+            </p>
+            <p class="ds-type-spec">14px / 400<br />Raleway Regular</p>
+          </div>
+          <div class="ds-type-row">
+            <p class="ds-type-meta">Caption / Label</p>
+            <p
+              class="ds-type-sample"
+              style="
+                font-family: var(--font-body);
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 1.5;
+                color: var(--smoke);
+              "
+            >
+              32,000 km · Automatic · Petrol · 2024
+            </p>
+            <p class="ds-type-spec">12px / 500<br />Raleway Medium</p>
+          </div>
+          <div class="ds-type-row">
+            <p class="ds-type-meta">Eyebrow / Tag</p>
+            <p
+              class="ds-type-sample"
+              style="
+                font-family: var(--font-body);
+                font-size: 11px;
+                font-weight: 600;
+                line-height: 1.4;
+                color: var(--smoke);
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+              "
+            >
+              Now in stock
+            </p>
+            <p class="ds-type-spec">
+              11px / 600 / +10% ls<br />Raleway SemiBold, UPPER
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+       04 · SPACING
+  ════════════════════════════════════════════ -->
+    <section class="ds-section" id="spacing">
+      <div class="ds-wrap">
+        <div class="ds-section-head">
+          <div>
+            <p class="ds-section-num">04</p>
+          </div>
+          <div>
+            <h2 class="ds-section-title">Spacing</h2>
+            <p class="ds-section-sub">
+              Base-8 scale. Consistent rhythm across every surface.
+            </p>
+          </div>
+        </div>
+
+        <div class="ds-spacing-rows">
+          <div class="ds-spacing-row">
+            <p class="ds-spacing-label">XS</p>
+            <div class="ds-spacing-bar-wrap">
+              <div class="ds-spacing-bar" style="width: 8px"></div>
+            </div>
+            <p class="ds-spacing-val">4px / 0.5</p>
+          </div>
+          <div class="ds-spacing-row">
+            <p class="ds-spacing-label">S</p>
+            <div class="ds-spacing-bar-wrap">
+              <div class="ds-spacing-bar" style="width: 16px"></div>
+            </div>
+            <p class="ds-spacing-val">8px / 1</p>
+          </div>
+          <div class="ds-spacing-row">
+            <p class="ds-spacing-label">M</p>
+            <div class="ds-spacing-bar-wrap">
+              <div class="ds-spacing-bar" style="width: 32px"></div>
+            </div>
+            <p class="ds-spacing-val">16px / 2</p>
+          </div>
+          <div class="ds-spacing-row">
+            <p class="ds-spacing-label">L</p>
+            <div class="ds-spacing-bar-wrap">
+              <div class="ds-spacing-bar" style="width: 56px"></div>
+            </div>
+            <p class="ds-spacing-val">24px / 3</p>
+          </div>
+          <div class="ds-spacing-row">
+            <p class="ds-spacing-label">XL</p>
+            <div class="ds-spacing-bar-wrap">
+              <div class="ds-spacing-bar" style="width: 80px"></div>
+            </div>
+            <p class="ds-spacing-val">32px / 4</p>
+          </div>
+          <div class="ds-spacing-row">
+            <p class="ds-spacing-label">2XL</p>
+            <div class="ds-spacing-bar-wrap">
+              <div class="ds-spacing-bar" style="width: 128px"></div>
+            </div>
+            <p class="ds-spacing-val">48px / 6</p>
+          </div>
+          <div class="ds-spacing-row">
+            <p class="ds-spacing-label">3XL</p>
+            <div class="ds-spacing-bar-wrap">
+              <div class="ds-spacing-bar" style="width: 192px"></div>
+            </div>
+            <p class="ds-spacing-val">64px / 8</p>
+          </div>
+          <div class="ds-spacing-row">
+            <p class="ds-spacing-label">4XL</p>
+            <div class="ds-spacing-bar-wrap">
+              <div class="ds-spacing-bar" style="width: 300px"></div>
+            </div>
+            <p class="ds-spacing-val">80px / 10</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+       05 · BORDER RADIUS
+  ════════════════════════════════════════════ -->
+    <section class="ds-section" id="radius">
+      <div class="ds-wrap">
+        <div class="ds-section-head">
+          <div>
+            <p class="ds-section-num">05</p>
+          </div>
+          <div>
+            <h2 class="ds-section-title">Border<br />Radius</h2>
+            <p class="ds-section-sub">
+              Strict hierarchy. Radius signals nesting depth.
+            </p>
+          </div>
+        </div>
+
+        <div class="ds-radius-row">
+          <div class="ds-radius-item">
+            <div class="ds-radius-box" style="border-radius: 4px"></div>
+            <p class="ds-radius-name">Small</p>
+            <p class="ds-radius-val">4px</p>
+            <p class="ds-radius-use">Buttons, inputs, tags</p>
+          </div>
+          <div class="ds-radius-item">
+            <div class="ds-radius-box" style="border-radius: 8px"></div>
+            <p class="ds-radius-name">Medium</p>
+            <p class="ds-radius-val">8px</p>
+            <p class="ds-radius-use">Cards, dropdowns, tooltips</p>
+          </div>
+          <div class="ds-radius-item">
+            <div class="ds-radius-box" style="border-radius: 12px"></div>
+            <p class="ds-radius-name">Large</p>
+            <p class="ds-radius-val">12px</p>
+            <p class="ds-radius-use">Modals, drawers, panels</p>
+          </div>
+          <div class="ds-radius-item">
+            <div class="ds-radius-box" style="border-radius: 9999px"></div>
+            <p class="ds-radius-name">Pill</p>
+            <p class="ds-radius-val">9999px</p>
+            <p class="ds-radius-use">Status badges only</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+       06 · MOTION
+  ════════════════════════════════════════════ -->
+    <section class="ds-section" id="motion">
+      <div class="ds-wrap">
+        <div class="ds-section-head">
+          <div>
+            <p class="ds-section-num">06</p>
+          </div>
+          <div>
+            <h2 class="ds-section-title">Motion</h2>
+            <p class="ds-section-sub">
+              Swift, purposeful, always ease-out. Never decorative.
+            </p>
+          </div>
+        </div>
+
+        <div class="ds-motion-grid">
+          <div class="ds-motion-card">
+            <p class="ds-motion-token">--dur-short</p>
+            <p class="ds-motion-val">0.15s</p>
+            <p class="ds-motion-use">Hover, button, badge state changes</p>
+            <div class="ds-motion-demo">
+              <div
+                class="ds-motion-demo-bar"
+                style="animation-duration: 2s"
+              ></div>
+            </div>
+          </div>
+          <div class="ds-motion-card">
+            <p class="ds-motion-token">--dur-moderate</p>
+            <p class="ds-motion-val">0.30s</p>
+            <p class="ds-motion-use">Dropdowns, cards, page transitions</p>
+            <div class="ds-motion-demo">
+              <div
+                class="ds-motion-demo-bar"
+                style="animation-duration: 2.5s"
+              ></div>
+            </div>
+          </div>
+          <div class="ds-motion-card">
+            <p class="ds-motion-token">--dur-long</p>
+            <p class="ds-motion-val">0.50s</p>
+            <p class="ds-motion-use">Modals, drawers, flyouts entering</p>
+            <div class="ds-motion-demo">
+              <div
+                class="ds-motion-demo-bar"
+                style="animation-duration: 3s"
+              ></div>
+            </div>
+          </div>
+          <div class="ds-motion-card">
+            <p class="ds-motion-token">--ease-out</p>
+            <p class="ds-motion-val">Decel</p>
+            <p class="ds-motion-use">
+              All entering elements — feels natural, intentional
+            </p>
+            <div class="ds-motion-demo">
+              <div class="ds-motion-demo-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+       07 · ELEVATION
+  ════════════════════════════════════════════ -->
+    <section class="ds-section" id="elevation">
+      <div class="ds-wrap">
+        <div class="ds-section-head">
+          <div>
+            <p class="ds-section-num">07</p>
+          </div>
+          <div>
+            <h2 class="ds-section-title">Elevation</h2>
+            <p class="ds-section-sub">
+              Depth through surface color, not shadows. One level per step.
+            </p>
+          </div>
+        </div>
+
+        <div class="ds-elevation-row">
+          <div class="ds-elevation-item">
+            <div
+              class="ds-elevation-block"
+              style="background: #f6f5f1; border: 1px solid #e0ddd8"
+            ></div>
+            <p class="ds-elevation-name">Base</p>
+            <p class="ds-elevation-desc">Page background — Ivory</p>
+          </div>
+          <div class="ds-elevation-item">
+            <div
+              class="ds-elevation-block"
+              style="background: #eeece8; border: 1px solid #e0ddd8"
+            ></div>
+            <p class="ds-elevation-name">Raised</p>
+            <p class="ds-elevation-desc">Cards, sections — Mist</p>
+          </div>
+          <div class="ds-elevation-item">
+            <div
+              class="ds-elevation-block"
+              style="background: #e0ddd8; border: 1px solid #d0ccc6"
+            ></div>
+            <p class="ds-elevation-name">Overlay</p>
+            <p class="ds-elevation-desc">Tooltips, dropdowns — Chalk</p>
+          </div>
+          <div class="ds-elevation-item">
+            <div class="ds-elevation-block" style="background: #080808"></div>
+            <p class="ds-elevation-name">Dark Base</p>
+            <p class="ds-elevation-desc">Landing bg — Void</p>
+          </div>
+          <div class="ds-elevation-item">
+            <div class="ds-elevation-block" style="background: #141414"></div>
+            <p class="ds-elevation-name">Dark Raised</p>
+            <p class="ds-elevation-desc">Dark cards — Carbon</p>
+          </div>
+          <div class="ds-elevation-item">
+            <div
+              class="ds-elevation-block"
+              style="
+                background: rgba(8, 8, 8, 0.88);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.06);
+              "
+            ></div>
+            <p class="ds-elevation-name">Frosted</p>
+            <p class="ds-elevation-desc">Nav, overlays — glass blur</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+       08 · COMPONENTS
+  ════════════════════════════════════════════ -->
+    <section class="ds-section" id="components">
+      <div class="ds-wrap">
+        <div class="ds-section-head">
+          <div>
+            <p class="ds-section-num">08</p>
+          </div>
+          <div>
+            <h2 class="ds-section-title">Comp-<br />onents</h2>
+            <p class="ds-section-sub">
+              Live previews. Every interactive state shown.
+            </p>
+          </div>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="ds-component-block">
+          <p class="ds-component-label">Buttons</p>
+          <div class="btn-row" style="margin-bottom: 20px">
+            <button class="btn btn-primary">Enquire Now</button>
+            <button class="btn btn-secondary">View Details</button>
+            <button class="btn btn-ghost">Save Vehicle</button>
+          </div>
+          <div class="btn-row" style="margin-bottom: 20px">
+            <button class="btn btn-primary btn-sm">Book Test Drive</button>
+            <button class="btn btn-secondary btn-sm">Compare</button>
+            <button class="btn btn-ghost btn-sm">Share</button>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary btn-lg">Browse Inventory</button>
+            <button class="btn btn-secondary btn-lg">Get Finance Quote</button>
+          </div>
+          <!-- On dark surface -->
+          <div
+            style="
+              background: var(--void);
+              border-radius: var(--radius-sm);
+              padding: 20px 0 4px;
+              margin-top: 20px;
+              display: flex;
+              gap: 12px;
+              padding: 16px 20px;
+              border-radius: var(--radius-sm);
+            "
+          >
+            <button class="btn btn-white">Browse Cars</button>
+            <button
+              class="btn btn-ghost"
+              style="
+                border-color: rgba(255, 255, 255, 0.2);
+                color: var(--silver);
+              "
+            >
+              Learn More
+            </button>
+          </div>
+          <p style="margin-top: 8px; font-size: 11px; color: var(--smoke)">
+            ↑ On dark surfaces: white fill (btn-white) + ghost with light border
+          </p>
+          <p style="margin-top: 16px; font-size: 12px; color: var(--smoke)">
+            Radius: 4px across all sizes · Font: Raleway 500 · Height: 32 / 40 /
+            48px · BRG is never a button background
+          </p>
+        </div>
+
+        <!-- BADGES -->
+        <div class="ds-component-block">
+          <p class="ds-component-label">Badges — Status &amp; Condition</p>
+          <div class="badge-row" style="margin-bottom: 16px">
+            <span class="badge badge-available"
+              ><span class="badge-dot"></span>Available</span
+            >
+            <span class="badge badge-reserved"
+              ><span class="badge-dot"></span>Reserved</span
+            >
+            <span class="badge badge-sold"
+              ><span class="badge-dot"></span>Sold</span
+            >
+          </div>
+          <div class="badge-row">
+            <span class="badge badge-new">New Arrival</span>
+            <span class="badge badge-cpo">CPO Certified</span>
+            <span class="badge badge-used">Pre-Owned</span>
+          </div>
+          <p style="margin-top: 16px; font-size: 12px; color: var(--smoke)">
+            Gulf Gold appears only on CPO badge. Status dots pulse can be added
+            via CSS animation on <code>badge-available</code>.
+          </p>
+        </div>
+
+        <!-- INPUTS -->
+        <div class="ds-component-block">
+          <p class="ds-component-label">Form Inputs</p>
+          <div class="input-group">
+            <div class="input-field">
+              <label class="input-label">Full Name</label>
+              <input class="input-el" type="text" placeholder="John Smith" />
+            </div>
+            <div class="input-field">
+              <label class="input-label">Budget Range</label>
+              <select class="input-el" style="cursor: pointer">
+                <option value="">Select budget</option>
+                <option>Under ₹10L</option>
+                <option>₹10L – ₹20L</option>
+                <option>₹20L – ₹50L</option>
+                <option>₹50L+</option>
+              </select>
+            </div>
+            <div class="input-field">
+              <label class="input-label">Message</label>
+              <input
+                class="input-el"
+                type="text"
+                placeholder="I'm interested in the Taycan..."
+              />
+              <span class="input-hint">We respond within 2 hours</span>
+            </div>
+            <div class="input-field">
+              <label class="input-label">Registration Number</label>
+              <input
+                class="input-el has-error"
+                type="text"
+                placeholder="MH 02 XX 1234"
+                value="INVALID"
+              />
+              <span class="input-error">Enter a valid registration number</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRICE -->
+        <div class="ds-component-block">
+          <p class="ds-component-label">Price Display</p>
+          <div
+            style="
+              display: flex;
+              gap: 48px;
+              flex-wrap: wrap;
+              align-items: flex-end;
+            "
+          >
+            <div class="price-display">
+              <span class="price-main">₹48,50,000</span>
+              <span class="price-sub">On-road price · UAE</span>
+            </div>
+            <div class="price-display">
+              <span class="price-main" style="font-size: 28px">₹22,00,000</span>
+              <span class="price-sub">Ex-showroom</span>
+            </div>
+            <div>
+              <p
+                style="
+                  font-size: 11px;
+                  font-weight: 600;
+                  letter-spacing: 0.1em;
+                  text-transform: uppercase;
+                  color: var(--smoke);
+                  margin-bottom: 4px;
+                "
+              >
+                EMI from
+              </p>
+              <p
+                style="
+                  font-family: var(--font-display);
+                  font-size: 24px;
+                  font-weight: 700;
+                  color: var(--charcoal);
+                "
+              >
+                ₹58,400<span
+                  style="font-size: 14px; font-weight: 400; color: var(--smoke)"
+                  >/mo</span
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CAR CARD -->
+        <div class="ds-component-block">
+          <p class="ds-component-label">Vehicle Card</p>
+          <div class="card-grid">
+            <div class="car-card">
+              <div class="car-card-img">
+                <p class="car-card-img-placeholder">Vehicle Photo</p>
+                <div class="car-card-badge-group">
+                  <span
+                    class="badge badge-available"
+                    style="font-size: 10px; padding: 3px 8px"
+                    ><span class="badge-dot"></span>Available</span
+                  >
+                  <span
+                    class="badge badge-cpo"
+                    style="font-size: 10px; padding: 3px 8px"
+                    >CPO</span
+                  >
+                </div>
+              </div>
+              <div class="car-card-body">
+                <p class="car-card-make">Porsche</p>
+                <p class="car-card-model">Taycan<br />4S</p>
+                <div class="car-card-specs">
+                  <div class="car-card-spec">
+                    <b>2023</b>
+                    Year
+                  </div>
+                  <div class="car-card-spec">
+                    <b>18,400 km</b>
+                    Odometer
+                  </div>
+                  <div class="car-card-spec">
+                    <b>Auto</b>
+                    Trans.
+                  </div>
+                </div>
+                <div class="car-card-footer">
+                  <p class="car-card-price">₹1.24 Cr</p>
+                  <button class="car-card-cta">View Car</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="car-card">
+              <div class="car-card-img">
+                <p class="car-card-img-placeholder">Vehicle Photo</p>
+                <div class="car-card-badge-group">
+                  <span
+                    class="badge badge-reserved"
+                    style="font-size: 10px; padding: 3px 8px"
+                    ><span class="badge-dot"></span>Reserved</span
+                  >
+                </div>
+              </div>
+              <div class="car-card-body">
+                <p class="car-card-make">BMW</p>
+                <p class="car-card-model">M5<br />Competition</p>
+                <div class="car-card-specs">
+                  <div class="car-card-spec">
+                    <b>2022</b>
+                    Year
+                  </div>
+                  <div class="car-card-spec">
+                    <b>32,000 km</b>
+                    Odometer
+                  </div>
+                  <div class="car-card-spec">
+                    <b>Auto</b>
+                    Trans.
+                  </div>
+                </div>
+                <div class="car-card-footer">
+                  <p class="car-card-price">₹1.05 Cr</p>
+                  <button
+                    class="car-card-cta"
+                    style="background: var(--smoke); cursor: not-allowed"
+                  >
+                    Reserved
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="car-card" style="opacity: 0.65">
+              <div class="car-card-img">
+                <p class="car-card-img-placeholder">Vehicle Photo</p>
+                <div class="car-card-badge-group">
+                  <span
+                    class="badge badge-sold"
+                    style="font-size: 10px; padding: 3px 8px"
+                    ><span class="badge-dot"></span>Sold</span
+                  >
+                </div>
+              </div>
+              <div class="car-card-body">
+                <p class="car-card-make">Ferrari</p>
+                <p class="car-card-model">Roma<br />Coupe</p>
+                <div class="car-card-specs">
+                  <div class="car-card-spec">
+                    <b>2021</b>
+                    Year
+                  </div>
+                  <div class="car-card-spec">
+                    <b>9,800 km</b>
+                    Odometer
+                  </div>
+                  <div class="car-card-spec">
+                    <b>Auto</b>
+                    Trans.
+                  </div>
+                </div>
+                <div class="car-card-footer">
+                  <p class="car-card-price" style="color: var(--smoke)">
+                    ₹3.80 Cr
+                  </p>
+                  <button
+                    class="car-card-cta"
+                    style="background: var(--ghost); cursor: not-allowed"
+                  >
+                    Sold
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NAV COMPONENT -->
+        <div class="ds-component-block" style="padding: 0; overflow: hidden">
+          <div style="padding: 24px 28px 16px">
+            <p class="ds-component-label">Navigation Bar</p>
+          </div>
+          <div class="nav-preview">
+            <div class="np-bar">
+              <img
+                src="public/logo.svg"
+                alt="W2D"
+                class="np-logo"
+                style="filter: brightness(0) invert(1)"
+              />
+              <ul class="np-links">
+                <li><a href="#" class="active">Inventory</a></li>
+                <li><a href="#">Finance</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+              <div class="np-actions">
+                <button class="np-btn-outline">Search</button>
+                <button class="np-btn-solid">Enquire</button>
+              </div>
+            </div>
+            <div class="np-body">
+              <p class="np-body-text">
+                Page content renders here below the fixed nav
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+       09 · PAGE PATTERNS
+  ════════════════════════════════════════════ -->
+    <section class="ds-section" id="patterns">
+      <div class="ds-wrap">
+        <div class="ds-section-head">
+          <div>
+            <p class="ds-section-num">09</p>
+          </div>
+          <div>
+            <h2 class="ds-section-title">Page<br />Patterns</h2>
+            <p class="ds-section-sub">
+              Two modes. Never mix them on the same surface.
+            </p>
+          </div>
+        </div>
+
+        <!-- Landing Page Preview (Dark) -->
+        <div style="margin-bottom: 32px">
+          <p
+            style="
+              font-size: 11px;
+              font-weight: 600;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              color: var(--smoke);
+              margin-bottom: 16px;
+            "
+          >
+            Landing Page — Dark Mode
+          </p>
+          <div class="hero-preview">
+            <div class="hp-nav">
+              <img
+                src="public/logo.svg"
+                alt="W2D"
+                class="hp-logo"
+                style="filter: brightness(0) invert(1)"
+              />
+              <ul class="hp-nav-links">
+                <li><a href="#">Inventory</a></li>
+                <li><a href="#">Finance</a></li>
+                <li><a href="#">About</a></li>
+              </ul>
+              <div style="display: flex; gap: 10px">
+                <button
+                  style="
+                    font-family: var(--font-body);
+                    font-size: 12px;
+                    background: transparent;
+                    border: 1.5px solid rgba(255, 255, 255, 0.15);
+                    color: var(--silver);
+                    padding: 6px 16px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                  "
+                >
+                  Login
+                </button>
+                <button
+                  style="
+                    font-family: var(--font-body);
+                    font-size: 12px;
+                    background: var(--white);
+                    border: none;
+                    color: var(--ink);
+                    padding: 6px 16px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                  "
+                >
+                  Browse Cars
+                </button>
+              </div>
+            </div>
+            <div class="hp-body">
+              <p class="hp-eyebrow">Premium Pre-Owned · UAE</p>
+              <h2 class="hp-headline">
+                Driven By<br /><span>Legends.</span><br />Owned By You.
+              </h2>
+              <p class="hp-sub">
+                Curated supercar and luxury inventory, personally verified. No
+                haggling. No surprises. Just exceptional cars.
+              </p>
+              <div class="hp-actions">
+                <button class="hp-btn-primary">Browse Inventory</button>
+                <button class="hp-btn-ghost">How It Works</button>
+              </div>
+            </div>
+            <div class="hp-scroll-hint">
+              <span class="hp-scroll-line"></span>
+              Scroll to explore
+            </div>
+          </div>
+        </div>
+
+        <!-- Platform (Light) -->
+        <div>
+          <p
+            style="
+              font-size: 11px;
+              font-weight: 600;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              color: var(--smoke);
+              margin-bottom: 16px;
+            "
+          >
+            Platform Pages — Light Mode
+          </p>
+          <div
+            style="
+              background: var(--ivory);
+              border: 1px solid var(--chalk);
+              border-radius: var(--radius-lg);
+              overflow: hidden;
+            "
+          >
+            <!-- Simulated nav -->
+            <div
+              style="
+                height: 56px;
+                background: rgba(8, 8, 8, 0.92);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 28px;
+              "
+            >
+              <img
+                src="public/logo.svg"
+                alt="W2D"
+                style="height: 18px; filter: brightness(0) invert(1)"
+              />
+              <div style="display: flex; gap: 24px">
+                <span
+                  style="
+                    font-size: 11px;
+                    font-weight: 500;
+                    color: var(--silver);
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                  "
+                  >Inventory</span
+                >
+                <span
+                  style="
+                    font-size: 11px;
+                    font-weight: 500;
+                    color: var(--ash);
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                  "
+                  >Finance</span
+                >
+                <span
+                  style="
+                    font-size: 11px;
+                    font-weight: 500;
+                    color: var(--ash);
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                  "
+                  >About</span
+                >
+              </div>
+              <button
+                style="
+                  font-family: var(--font-body);
+                  font-size: 11px;
+                  background: var(--white);
+                  border: none;
+                  color: var(--ink);
+                  padding: 5px 14px;
+                  border-radius: 4px;
+                  cursor: pointer;
+                "
+              >
+                Enquire
+              </button>
+            </div>
+            <!-- Page content mockup -->
+            <div style="padding: 40px 40px 32px">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: flex-start;
+                  margin-bottom: 36px;
+                "
+              >
+                <div>
+                  <p
+                    style="
+                      font-size: 11px;
+                      font-weight: 600;
+                      letter-spacing: 0.1em;
+                      text-transform: uppercase;
+                      color: var(--smoke);
+                      margin-bottom: 6px;
+                    "
+                  >
+                    12 Vehicles Available
+                  </p>
+                  <h3
+                    style="
+                      font-family: var(--font-display);
+                      font-size: 32px;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      color: var(--ink);
+                      line-height: 1;
+                    "
+                  >
+                    All Inventory
+                  </h3>
+                </div>
+                <div style="display: flex; gap: 10px">
+                  <button class="btn btn-ghost btn-sm">Filter</button>
+                  <button class="btn btn-ghost btn-sm">Sort</button>
+                  <button class="btn btn-primary btn-sm">+ Add Vehicle</button>
+                </div>
+              </div>
+              <!-- Mini cards row -->
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(3, 1fr);
+                  gap: 16px;
+                "
+              >
+                <div
+                  style="
+                    background: var(--mist);
+                    border: 1px solid var(--chalk);
+                    border-radius: 8px;
+                    overflow: hidden;
+                  "
+                >
+                  <div
+                    style="
+                      height: 80px;
+                      background: var(--chalk);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    <p
+                      style="
+                        font-size: 10px;
+                        color: var(--pebble);
+                        font-weight: 600;
+                        letter-spacing: 0.06em;
+                        text-transform: uppercase;
+                      "
+                    >
+                      Photo
+                    </p>
+                  </div>
+                  <div style="padding: 14px">
+                    <p
+                      style="
+                        font-size: 9px;
+                        font-weight: 600;
+                        letter-spacing: 0.1em;
+                        text-transform: uppercase;
+                        color: var(--smoke);
+                        margin-bottom: 2px;
+                      "
+                    >
+                      Porsche
+                    </p>
+                    <p
+                      style="
+                        font-family: var(--font-display);
+                        font-size: 16px;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        color: var(--ink);
+                      "
+                    >
+                      Taycan 4S
+                    </p>
+                    <p
+                      style="
+                        font-size: 11px;
+                        color: var(--smoke);
+                        margin-top: 6px;
+                      "
+                    >
+                      2023 · 18,400 km
+                    </p>
+                    <p
+                      style="
+                        font-family: var(--font-display);
+                        font-size: 17px;
+                        font-weight: 800;
+                        color: var(--brg);
+                        margin-top: 8px;
+                      "
+                    >
+                      ₹1.24 Cr
+                    </p>
+                  </div>
+                </div>
+                <div
+                  style="
+                    background: var(--mist);
+                    border: 1px solid var(--chalk);
+                    border-radius: 8px;
+                    overflow: hidden;
+                  "
+                >
+                  <div
+                    style="
+                      height: 80px;
+                      background: var(--chalk);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    <p
+                      style="
+                        font-size: 10px;
+                        color: var(--pebble);
+                        font-weight: 600;
+                        letter-spacing: 0.06em;
+                        text-transform: uppercase;
+                      "
+                    >
+                      Photo
+                    </p>
+                  </div>
+                  <div style="padding: 14px">
+                    <p
+                      style="
+                        font-size: 9px;
+                        font-weight: 600;
+                        letter-spacing: 0.1em;
+                        text-transform: uppercase;
+                        color: var(--smoke);
+                        margin-bottom: 2px;
+                      "
+                    >
+                      BMW
+                    </p>
+                    <p
+                      style="
+                        font-family: var(--font-display);
+                        font-size: 16px;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        color: var(--ink);
+                      "
+                    >
+                      M5 Comp.
+                    </p>
+                    <p
+                      style="
+                        font-size: 11px;
+                        color: var(--smoke);
+                        margin-top: 6px;
+                      "
+                    >
+                      2022 · 32,000 km
+                    </p>
+                    <p
+                      style="
+                        font-family: var(--font-display);
+                        font-size: 17px;
+                        font-weight: 800;
+                        color: var(--brg);
+                        margin-top: 8px;
+                      "
+                    >
+                      ₹1.05 Cr
+                    </p>
+                  </div>
+                </div>
+                <div
+                  style="
+                    background: var(--mist);
+                    border: 1px solid var(--chalk);
+                    border-radius: 8px;
+                    overflow: hidden;
+                    opacity: 0.5;
+                  "
+                >
+                  <div
+                    style="
+                      height: 80px;
+                      background: var(--chalk);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    <p
+                      style="
+                        font-size: 10px;
+                        color: var(--pebble);
+                        font-weight: 600;
+                        letter-spacing: 0.06em;
+                        text-transform: uppercase;
+                      "
+                    >
+                      Photo
+                    </p>
+                  </div>
+                  <div style="padding: 14px">
+                    <p
+                      style="
+                        font-size: 9px;
+                        font-weight: 600;
+                        letter-spacing: 0.1em;
+                        text-transform: uppercase;
+                        color: var(--smoke);
+                        margin-bottom: 2px;
+                      "
+                    >
+                      Ferrari
+                    </p>
+                    <p
+                      style="
+                        font-family: var(--font-display);
+                        font-size: 16px;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        color: var(--ink);
+                      "
+                    >
+                      Roma
+                    </p>
+                    <p
+                      style="
+                        font-size: 11px;
+                        color: var(--smoke);
+                        margin-top: 6px;
+                      "
+                    >
+                      2021 · 9,800 km
+                    </p>
+                    <p
+                      style="
+                        font-family: var(--font-display);
+                        font-size: 17px;
+                        font-weight: 800;
+                        color: var(--smoke);
+                        margin-top: 8px;
+                      "
+                    >
+                      ₹3.80 Cr
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+       10 · DO's & DON'Ts
+  ════════════════════════════════════════════ -->
+    <section class="ds-section" id="rules">
+      <div class="ds-wrap">
+        <div class="ds-section-head">
+          <div>
+            <p class="ds-section-num">10</p>
+          </div>
+          <div>
+            <h2 class="ds-section-title">Rules</h2>
+            <p class="ds-section-sub">
+              The design language has edges. Stay inside them.
+            </p>
+          </div>
+        </div>
+
+        <div class="ds-dodonts">
+          <div class="ds-do">
+            <div class="ds-dodonts-header">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="7" r="7" fill="#005C2E" />
+                <path
+                  d="M4 7.5l2 2 4-4"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Do
+            </div>
+            <ul class="ds-dodonts-list">
+              <li>
+                Use Big Shoulders Display in UPPERCASE only at display sizes
+              </li>
+              <li>Keep BRG as accent — prices, labels, focus rings, badges</li>
+              <li>
+                Use Gulf Gold exclusively for CPO badges (max twice per page)
+              </li>
+              <li>Always place the logo on a dark surface</li>
+              <li>
+                Use surface-color elevation on dark pages, not box shadows
+              </li>
+              <li>
+                Keep border radius strict: 4px → 8px → 12px by nesting level
+              </li>
+              <li>
+                Let prices use Big Shoulders Display — they deserve presence
+              </li>
+              <li>Scale spacing in multiples of 8</li>
+              <li>Apply ease-out to every entering element</li>
+              <li>Use the nav frosted glass on both light and dark pages</li>
+            </ul>
+          </div>
+          <div class="ds-dont">
+            <div class="ds-dodonts-header">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="7" r="7" fill="#EF4444" />
+                <path
+                  d="M5 5l4 4M9 5l-4 4"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+              Don't
+            </div>
+            <ul class="ds-dodonts-list">
+              <li>
+                Never use BRG or Gold as a CTA background — buttons are black or
+                white only
+              </li>
+              <li>Never mix dark and light surfaces on the same page</li>
+              <li>Never use gradients on UI chrome or buttons</li>
+              <li>Never use thin or italic font weights</li>
+              <li>
+                Never put the logo on the ivory background without a dark
+                container
+              </li>
+              <li>
+                Never use custom or static px font sizes — use the type scale
+              </li>
+              <li>
+                Never animate for decoration — every motion must serve clarity
+              </li>
+              <li>Never use more than 2 accent colors on a single view</li>
+              <li>Never nest grids inside grids</li>
+              <li>Never use a border radius that isn't 4, 8, 12, or 9999px</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+    <footer class="ds-footer">
+      <div class="ds-wrap">
+        <div class="ds-divider" style="margin-bottom: 48px"></div>
+        <div class="ds-footer-inner">
+          <div class="ds-footer-left">
+            <p class="ds-footer-label">Design System</p>
+            <p class="ds-footer-name">W2D</p>
+          </div>
+          <div class="ds-footer-right">
+            <p><b>Version</b> 1.0 — April 2026</p>
+            <p style="margin-top: 4px">
+              <b>Primary</b> British Racing Green #005C2E
+            </p>
+            <p style="margin-top: 4px"><b>Accent</b> Gulf Gold #C8981A</p>
+            <p style="margin-top: 4px">
+              <b>Type</b> Big Shoulders Display + Raleway
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

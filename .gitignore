@@ -39,3 +39,24 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# video files (large binaries — hosted on Supabase Storage)
+*.mp4
+*.webm
+*.mov
+*.avi
+*.mkv
+
+# local design reference folders
+bmw/
+ferrari/
+lamborghini/
+porsche/
+renault/
+tesla/
+
+# Claude Code local settings
+.claude/
+
+# MCP config (project-local)
+.mcp.json

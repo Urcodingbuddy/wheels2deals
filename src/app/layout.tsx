@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Big_Shoulders, Raleway } from "next/font/google";
+import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 import "./globals.css";
 
 const bigShoulders = Big_Shoulders({
@@ -17,7 +18,7 @@ const raleway = Raleway({
 });
 
 export const metadata: Metadata = {
-  title: "wheels2deals — Premium Pre-Owned",
+  title: "Wheels2Deals - Premium Pre-Owned",
   description: "Curated supercars and luxury machines, personally verified.",
 };
 
@@ -32,7 +33,9 @@ export default function RootLayout({
       className={`${bigShoulders.variable} ${raleway.variable}`}
       suppressHydrationWarning
     >
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+      </body>
     </html>
   );
 }

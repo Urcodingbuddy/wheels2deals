@@ -85,30 +85,21 @@ const PREVIEW_CARDS = [
     tag: "Buy & Sell",
     title: "Your Deal,\nOur Expertise",
     img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80&auto=format&fit=crop",
-    accent: "#1A6B3C",
+    accent: "#C8981A",
   },
   {
     tag: "Vehicle Services",
     title: "Inspect.\nInsure. Transfer.",
     img: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80&auto=format&fit=crop",
-    accent: "#1A6B3C",
+    accent: "#C8981A",
   },
   {
     tag: "Company",
     title: "One Standard.\nAlways.",
     img: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80&auto=format&fit=crop",
-    accent: "#1A6B3C",
+    accent: "#C8981A",
   },
 ];
-
-const LABEL: React.CSSProperties = {
-  fontFamily: "var(--font-body)",
-  fontSize: 12,
-  fontWeight: 600,
-  letterSpacing: "0.16em",
-  textTransform: "uppercase",
-  color: "rgba(255,255,255,0.7)",
-};
 
 function TwoLineIcon({ size }: { size: number }) {
   return (
@@ -155,64 +146,30 @@ export function LandingNav() {
       {/* ── Gradient vignette behind navbar ── */}
       <div
         aria-hidden
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 200,
-          background:
-            "linear-gradient(to bottom, rgba(8,8,8,0.8) 0%, transparent 100%)",
-          zIndex: 99,
-          pointerEvents: "none",
-        }}
+        className="absolute top-0 left-0 right-0 h-[200px] bg-gradient-to-b from-[#080808cc] to-transparent z-[99] pointer-events-none"
       />
 
       {/* ── Navbar ── */}
-      <header
-        style={{
-          position: "fixed",
-          top: 40,
-          left: 0,
-          right: 0,
-          height: 64,
-          background: "transparent",
-          zIndex: 100,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 40px",
-        }}
-      >
+      <header className="absolute top-[30px] left-0 right-0 h-16 bg-transparent z-[100] flex items-center justify-between px-10">
         {/* Left — 2-line hamburger */}
         <button
           onClick={() => setOpen(true)}
           aria-label="Open navigation"
-          className="flex items-center gap-2 cursor-pointer px-3 py-2 rounded-lg border border-transparent transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-md hover:border-white/15"
-          style={{ background: "none" }}
+          className="flex items-center gap-2 cursor-pointer px-3 py-2 rounded-lg border border-transparent transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-md hover:border-white/15 bg-transparent"
         >
           <TwoLineIcon size={22} />
-          <span style={LABEL}>Menu</span>
+          <span className="font-[family-name:var(--font-body)] text-[12px] font-semibold tracking-[0.16em] uppercase text-white/70">
+            Menu
+          </span>
         </button>
 
         {/* Center — logo */}
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
-        >
-          <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <Link href="/" className="flex items-center">
             <img
               src="/logo.svg"
               alt="wheels2deals"
-              style={{
-                height: 45,
-                width: "auto",
-                filter: "brightness(0) invert(1)",
-                display: "block",
-              }}
+              className="h-[45px] w-auto brightness-0 invert block"
             />
           </Link>
         </div>
@@ -223,7 +180,9 @@ export function LandingNav() {
           aria-label="Account"
           className="flex items-center gap-2 no-underline px-3 py-2 rounded-lg border border-transparent transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-md hover:border-white/15"
         >
-          <span style={LABEL}>Login</span>
+          <span className="font-[family-name:var(--font-body)] text-[12px] font-semibold tracking-[0.16em] uppercase text-white/70">
+            Login
+          </span>
           <User size={20} color="#ffffff" strokeWidth={1.5} />
         </Link>
       </header>
@@ -233,95 +192,36 @@ export function LandingNav() {
         <>
           {/* Blurred backdrop */}
           <div
-            className="menu-backdrop"
+            className="menu-backdrop fixed inset-0 bg-[#08080899] backdrop-blur-[8px] z-[150]"
             onClick={close}
-            style={{
-              position: "fixed",
-              inset: 0,
-              background: "rgba(8,8,8,0.6)",
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
-              zIndex: 150,
-            }}
           />
 
           {/* White panel */}
-          <div
-            className="menu-panel"
-            style={{
-              position: "fixed",
-              top: 20,
-              left: 20,
-              bottom: 20,
-              width: "min(936px, calc(100vw - 40px))",
-              background: "#ffffff",
-              zIndex: 200,
-              display: "flex",
-              flexDirection: "column",
-              borderRadius: 20,
-              overflow: "hidden",
-              boxShadow:
-                "0 32px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(0,0,0,0.06)",
-            }}
-          >
+          <div className="menu-panel fixed top-5 left-5 bottom-5 w-[min(936px,calc(100vw-40px))] bg-white z-[200] flex flex-col rounded-[10px] overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.45),0_0_0_1px_rgba(0,0,0,0.06)]">
             {/* Panel header */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                padding: "24px 36px",
-                borderBottom: "1px solid #EDEAE6",
-              }}
-            >
+            <div className="flex items-center px-10 py-6 border-b border-[#EDEAE6]">
               <button
                 onClick={close}
-                className="flex items-center gap-3 cursor-pointer px-3 py-2 rounded-lg transition-colors duration-200 hover:bg-gray-100"
-                style={{ background: "none", border: "none" }}
+                className="flex items-center gap-3 cursor-pointer px-3 py-2 -ml-3 rounded-lg transition-colors duration-200 hover:bg-gray-100 bg-transparent border-none"
               >
                 <X size={28} color="#0F0F0F" strokeWidth={1.5} />
-                <span
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 10,
-                    fontWeight: 600,
-                    letterSpacing: "0.18em",
-                    textTransform: "uppercase",
-                    color: "#999",
-                  }}
-                >
+                <span className="font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.18em] uppercase text-[#999]">
                   Close
                 </span>
               </button>
             </div>
 
             {/* Panel body */}
-            <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
+            <div className="flex flex-1 overflow-hidden">
               {/* ── Left nav rail ── */}
-              <div
-                className="no-scrollbar"
-                style={{
-                  flex: "0 0 38%",
-                  padding: "36px 40px 40px",
-                  overflowY: "auto",
-                  borderRight: "1px solid #EDEAE6",
-                }}
-              >
+              <div className="no-scrollbar flex-[0_0_38%] px-10 pt-9 pb-10 overflow-y-auto border-r border-[#EDEAE6]">
                 {(() => {
                   let idx = 0;
                   return SERVICE_GROUPS.map((group) => (
-                    <div key={group.label} style={{ marginBottom: 36 }}>
+                    <div key={group.label} className="mb-9">
                       <p
-                        className="nav-item-anim"
-                        style={{
-                          fontFamily: "var(--font-body)",
-                          fontSize: 13,
-                          fontWeight: 700,
-                          letterSpacing: "0.18em",
-                          textTransform: "uppercase",
-                          color: "#C8981A",
-                          marginBottom: 8,
-                          animationDelay: `${idx++ * 0.06 + 0.15}s`,
-                        }}
+                        className="nav-item-anim font-[family-name:var(--font-body)] text-[13px] font-bold tracking-[0.18em] uppercase text-[#1A6B3C] mb-2"
+                        style={{ animationDelay: `${idx++ * 0.06 + 0.15}s` }}
                       >
                         {group.label}
                       </p>
@@ -333,30 +233,10 @@ export function LandingNav() {
                           onClick={close}
                           onMouseEnter={() => setActive(item)}
                           onMouseLeave={() => setActive(DEFAULT)}
-                          className="menu-rail-link nav-item-anim"
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            padding: "13px 0",
-                            borderBottom: "1px solid #F2EFEb",
-                            textDecoration: "none",
-                            animationDelay: `${idx++ * 0.06 + 0.15}s`,
-                          }}
+                          className="menu-rail-link nav-item-anim flex items-center justify-between py-[13px] border-b border-[#F2EFEb] no-underline"
+                          style={{ animationDelay: `${idx++ * 0.06 + 0.15}s` }}
                         >
-                          <span
-                            className="menu-rail-label"
-                            style={{
-                              fontFamily: "var(--font-display)",
-                              fontSize: 21,
-                              fontWeight: 800,
-                              textTransform: "uppercase",
-                              color: "#0F0F0F",
-                              letterSpacing: "-0.01em",
-                              lineHeight: 1,
-                              transition: "color 0.2s ease-out",
-                            }}
-                          >
+                          <span className="menu-rail-label font-[family-name:var(--font-display)] text-[21px] font-extrabold uppercase text-[#0F0F0F] tracking-[-0.01em] leading-none transition-colors duration-200">
                             {item.label}
                           </span>
                           <ChevronRight
@@ -373,85 +253,30 @@ export function LandingNav() {
               </div>
 
               {/* ── Right — three landscape cards ── */}
-              <div
-                className="no-scrollbar"
-                style={{
-                  flex: 1,
-                  padding: "28px 28px 28px 20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
-                  overflowY: "auto",
-                }}
-              >
+              <div className="no-scrollbar flex-1 p-[28px_20px_28px_20px] flex flex-col gap-[20px] overflow-y-auto">
                 {PREVIEW_CARDS.map((card, i) => (
                   <div
                     key={card.tag}
-                    className="nav-item-anim"
+                    className="nav-item-anim flex-1 min-h-0 rounded-[12px] bg-cover bg-center relative overflow-hidden flex flex-col justify-end px-5 py-4"
                     style={{
-                      flex: 1,
-                      minHeight: 0,
-                      borderRadius: 12,
                       backgroundImage: `url(${card.img})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      position: "relative",
-                      overflow: "hidden",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "flex-end",
-                      padding: "16px 20px",
                       animationDelay: `${0.2 + i * 0.1}s`,
                     }}
                   >
                     {/* Dark overlay for readability */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        background: "rgba(0,0,0,0.35)",
-                      }}
-                    />
+                    <div className="absolute inset-0 bg-black/35" />
 
                     {/* Bottom gradient */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        height: "70%",
-                        background:
-                          "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)",
-                      }}
-                    />
+                    <div className="absolute bottom-0 left-0 right-0 h-[70%] bg-gradient-to-t from-[#000000d9] to-transparent" />
 
-                    <div style={{ position: "relative", zIndex: 1 }}>
+                    <div className="relative z-10">
                       <p
-                        style={{
-                          fontFamily: "var(--font-body)",
-                          fontSize: 8,
-                          fontWeight: 700,
-                          letterSpacing: "0.22em",
-                          textTransform: "uppercase",
-                          color: card.accent,
-                          marginBottom: 6,
-                        }}
+                        className="font-[family-name:var(--font-body)] text-[8px] font-bold tracking-[0.22em] uppercase mb-[6px]"
+                        style={{ color: card.accent }}
                       >
                         {card.tag}
                       </p>
-                      <h3
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontSize: "clamp(14px, 1.6vw, 20px)",
-                          fontWeight: 800,
-                          textTransform: "uppercase",
-                          color: "#ffffff",
-                          lineHeight: 1.05,
-                          letterSpacing: "-0.01em",
-                          whiteSpace: "pre-line",
-                        }}
-                      >
+                      <h3 className="font-[family-name:var(--font-display)] text-[clamp(14px,1.6vw,20px)] font-extrabold uppercase text-white leading-[1.05] tracking-[-0.01em] whitespace-pre-line">
                         {card.title}
                       </h3>
                     </div>

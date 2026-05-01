@@ -40,7 +40,7 @@ export default function BuyPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {/* Placeholder cards */}
           {Array.from({ length: 6 }).map((_, i) => (
-            <AppCard key={i} as="article" onClick={() => {}}>
+            <AppCard key={i} as="article">
               {/* Image placeholder */}
               <div className="w-full aspect-[16/10] rounded-xl bg-white/[0.04] border border-white/[0.06] mb-4 overflow-hidden">
                 <div className="w-full h-full flex items-center justify-center">

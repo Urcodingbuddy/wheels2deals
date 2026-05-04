@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { X, User, ChevronRight } from "lucide-react";
+import { X, ChevronRight } from "lucide-react";
 
-/* ── Service groups ── */
 const SERVICE_GROUPS = [
   {
     label: "Buy & Sell",
@@ -58,8 +57,8 @@ const SERVICE_GROUPS = [
       {
         label: "About",
         href: "/about",
-        title: "One Dealer. One Standard.",
-        sub: "Our story and philosophy",
+        title: "The W2D Story",
+        sub: "Our mission and broker model",
       },
       {
         label: "Contact",
@@ -76,8 +75,8 @@ type Item = (typeof SERVICE_GROUPS)[0]["items"][0];
 const DEFAULT: Item = {
   label: "",
   href: "/",
-  title: "Premium Pre-Owned",
-  sub: "Curated cars. Verified quality. UAE.",
+  title: "UAE's Car Broker",
+  sub: "Buy. Sell. Service. One platform.",
 };
 
 const PREVIEW_CARDS = [
@@ -85,19 +84,19 @@ const PREVIEW_CARDS = [
     tag: "Buy & Sell",
     title: "Your Deal,\nOur Expertise",
     img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80&auto=format&fit=crop",
-    accent: "#C8981A",
+    accent: "#C9A84C",
   },
   {
     tag: "Vehicle Services",
     title: "Inspect.\nInsure. Transfer.",
     img: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80&auto=format&fit=crop",
-    accent: "#C8981A",
+    accent: "#C9A84C",
   },
   {
     tag: "Company",
-    title: "One Standard.\nAlways.",
+    title: "One Broker.\nEvery Deal.",
     img: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80&auto=format&fit=crop",
-    accent: "#C8981A",
+    accent: "#C9A84C",
   },
 ];
 
@@ -110,24 +109,8 @@ function TwoLineIcon({ size }: { size: number }) {
       fill="none"
       aria-hidden
     >
-      <line
-        x1="0"
-        y1="2"
-        x2="30"
-        y2="2"
-        stroke="white"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-      <line
-        x1="0"
-        y1="13"
-        x2="30"
-        y2="13"
-        stroke="white"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
+      <line x1="0" y1="2" x2="30" y2="2" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+      <line x1="0" y1="13" x2="30" y2="13" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }
@@ -143,68 +126,71 @@ export function LandingNav() {
 
   return (
     <>
-      {/* ── Gradient vignette behind navbar ── */}
-      <div
-        aria-hidden
-        className="absolute top-0 left-0 right-0 h-[200px] bg-gradient-to-b from-[#080808cc] to-transparent z-[99] pointer-events-none"
-      />
 
-      {/* ── Navbar ── */}
-      <header className="absolute top-[30px] left-0 right-0 h-16 bg-transparent z-[100] flex items-center justify-between px-10">
-        {/* Left — 2-line hamburger */}
-        <button
-          onClick={() => setOpen(true)}
-          aria-label="Open navigation"
-          className="flex items-center gap-2 cursor-pointer px-3 py-2 rounded-lg border border-transparent transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-md hover:border-white/15 bg-transparent"
-        >
-          <TwoLineIcon size={22} />
-          <span className="font-[family-name:var(--font-body)] text-[12px] font-semibold tracking-[0.16em] uppercase text-white/70">
-            Menu
-          </span>
-        </button>
+      {/* Navbar */}
+      <header className="absolute top-10 left-0 right-0 z-[100] flex items-center justify-between px-10">
 
-        {/* Center — logo */}
-        <div className="absolute left-1/2 -translate-x-1/2">
-          <Link href="/" className="flex items-center">
+        {/* Left — circular menu icon + logo */}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setOpen(true)}
+            aria-label="Open navigation"
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/15 backdrop-blur-md cursor-pointer transition-all duration-300 hover:bg-white/20 hover:border-white/30"
+          >
+            <TwoLineIcon size={16} />
+          </button>
+
+          <Link href="/" className="flex items-center no-underline">
             <img
               src="/logo.svg"
               alt="wheels2deals"
-              className="h-[45px] w-auto brightness-0 invert block"
+              className="h-[38px] w-auto brightness-0 invert block"
             />
           </Link>
         </div>
 
-        {/* Right — login */}
+        {/* Center — scroll anchors */}
+        <nav className="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
+          {[
+            { label: "How it Works", href: "#how-it-works" },
+            { label: "Services",     href: "#services"     },
+            { label: "Reviews",      href: "#reviews"      },
+          ].map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="font-[family-name:var(--font-body)] text-[15px] font-normal tracking-[0.02em] text-white no-underline transition-colors duration-200 hover:text-white/70"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        {/* Right — Get Started */}
         <Link
-          href="/login"
-          aria-label="Account"
-          className="flex items-center gap-2 no-underline px-3 py-2 rounded-lg border border-transparent transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-md hover:border-white/15"
+          href="/buy"
+          className="hidden md:inline-flex items-center rounded-full bg-white px-5 py-2.5 font-[family-name:var(--font-display)] text-[12px] font-bold tracking-[0.05em] text-[#0D1B3E] no-underline transition-all duration-200 hover:bg-white/85 hover:scale-[1.03]"
         >
-          <span className="font-[family-name:var(--font-body)] text-[12px] font-semibold tracking-[0.16em] uppercase text-white/70">
-            Login
-          </span>
-          <User size={20} color="#ffffff" strokeWidth={1.5} />
+          Get Started
         </Link>
       </header>
 
-      {/* ── Mega menu ── */}
+      {/* Mega menu */}
       {open && (
         <>
-          {/* Blurred backdrop */}
           <div
-            className="menu-backdrop fixed inset-0 bg-[#08080899] backdrop-blur-[8px] z-[150]"
+            className="menu-backdrop fixed inset-0 bg-[#0D1B3E]/90 backdrop-blur-[8px] z-[150]"
             onClick={close}
           />
 
-          {/* White panel */}
-          <div className="menu-panel fixed top-5 left-5 bottom-5 w-[min(936px,calc(100vw-40px))] bg-white z-[200] flex flex-col rounded-[10px] overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.45),0_0_0_1px_rgba(0,0,0,0.06)]">
+          <div className="menu-panel fixed top-5 left-5 bottom-5 w-[min(936px,calc(100vw-40px))] bg-white z-[200] flex flex-col rounded-[10px] overflow-hidden shadow-[0_32px_80px_rgba(13,27,62,0.5),0_0_0_1px_rgba(13,27,62,0.08)]">
             {/* Panel header */}
             <div className="flex items-center px-10 py-6 border-b border-[#EDEAE6]">
               <button
                 onClick={close}
                 className="flex items-center gap-3 cursor-pointer px-3 py-2 -ml-3 rounded-lg transition-colors duration-200 hover:bg-gray-100 bg-transparent border-none"
               >
-                <X size={28} color="#0F0F0F" strokeWidth={1.5} />
+                <X size={28} color="#0D1B3E" strokeWidth={1.5} />
                 <span className="font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.18em] uppercase text-[#999]">
                   Close
                 </span>
@@ -213,14 +199,14 @@ export function LandingNav() {
 
             {/* Panel body */}
             <div className="flex flex-1 overflow-hidden">
-              {/* ── Left nav rail ── */}
+              {/* Left nav rail */}
               <div className="no-scrollbar flex-[0_0_38%] px-10 pt-9 pb-10 overflow-y-auto border-r border-[#EDEAE6]">
                 {(() => {
                   let idx = 0;
                   return SERVICE_GROUPS.map((group) => (
                     <div key={group.label} className="mb-9">
                       <p
-                        className="nav-item-anim font-[family-name:var(--font-body)] text-[13px] font-bold tracking-[0.18em] uppercase text-[#1A6B3C] mb-2"
+                        className="nav-item-anim font-[family-name:var(--font-body)] text-[13px] font-bold tracking-[0.18em] uppercase text-[#C9A84C] mb-2"
                         style={{ animationDelay: `${idx++ * 0.06 + 0.15}s` }}
                       >
                         {group.label}
@@ -236,7 +222,7 @@ export function LandingNav() {
                           className="menu-rail-link nav-item-anim flex items-center justify-between py-[13px] border-b border-[#F2EFEb] no-underline"
                           style={{ animationDelay: `${idx++ * 0.06 + 0.15}s` }}
                         >
-                          <span className="menu-rail-label font-[family-name:var(--font-display)] text-[21px] font-extrabold uppercase text-[#0F0F0F] tracking-[-0.01em] leading-none transition-colors duration-200">
+                          <span className="menu-rail-label font-[family-name:var(--font-display)] text-[21px] font-extrabold text-[#0D1B3E] tracking-[-0.01em] leading-none transition-colors duration-200">
                             {item.label}
                           </span>
                           <ChevronRight
@@ -252,7 +238,7 @@ export function LandingNav() {
                 })()}
               </div>
 
-              {/* ── Right — three landscape cards ── */}
+              {/* Right — preview cards */}
               <div className="no-scrollbar flex-1 p-[28px_20px_28px_20px] flex flex-col gap-[20px] overflow-y-auto">
                 {PREVIEW_CARDS.map((card, i) => (
                   <div
@@ -263,11 +249,8 @@ export function LandingNav() {
                       animationDelay: `${0.2 + i * 0.1}s`,
                     }}
                   >
-                    {/* Dark overlay for readability */}
-                    <div className="absolute inset-0 bg-black/35" />
-
-                    {/* Bottom gradient */}
-                    <div className="absolute bottom-0 left-0 right-0 h-[70%] bg-gradient-to-t from-[#000000d9] to-transparent" />
+                    <div className="absolute inset-0 bg-[#0D1B3E]/30" />
+                    <div className="absolute bottom-0 left-0 right-0 h-[70%] bg-gradient-to-t from-[#0D1B3Ed9] to-transparent" />
 
                     <div className="relative z-10">
                       <p
@@ -276,7 +259,7 @@ export function LandingNav() {
                       >
                         {card.tag}
                       </p>
-                      <h3 className="font-[family-name:var(--font-display)] text-[clamp(14px,1.6vw,20px)] font-extrabold uppercase text-white leading-[1.05] tracking-[-0.01em] whitespace-pre-line">
+                      <h3 className="font-[family-name:var(--font-display)] text-[clamp(14px,1.6vw,20px)] font-extrabold text-white leading-[1.05] tracking-[-0.01em] whitespace-pre-line">
                         {card.title}
                       </h3>
                     </div>

@@ -61,7 +61,7 @@ const CARS = [
 
 // Per-slot values indexed 0 (far-left) → 6 (far-right); slots ±3 are off-screen buffers
 const SCALES    = [0.50, 0.62, 0.78, 1.00, 0.78, 0.62, 0.50];
-const OPACITIES = [0.00, 0.40, 0.62, 1.00, 0.62, 0.40, 0.00];
+const OPACITIES = [0.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.00];
 const SLOT_GAP  = 268; // px between card centres
 
 function mod(n: number, m: number) {
@@ -89,11 +89,11 @@ export function ShowroomCarousel() {
           const pos = getPos(idx);
           if (Math.abs(pos) > 3) return null;
 
-          const si      = pos + 3;
-          const scale   = SCALES[si];
-          const opacity = OPACITIES[si];
-          const xOffset = pos * SLOT_GAP;
-          const zIndex  = 5 - Math.abs(pos);
+          const si       = pos + 3;
+          const scale    = SCALES[si];
+          const opacity  = OPACITIES[si];
+          const xOffset  = pos * SLOT_GAP;
+          const zIndex   = 5 - Math.abs(pos);
           const isActive = pos === 0;
 
           return (
@@ -145,17 +145,15 @@ export function ShowroomCarousel() {
 
       {/* Controls */}
       <div className="flex items-center justify-center gap-5 mt-10">
-        {/* Prev */}
         <button
           onClick={prev}
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-transparent text-white/40 transition-all duration-200 hover:border-white/35 hover:text-white"
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[#0D1B3E]/20 bg-transparent text-[#0D1B3E]/40 transition-all duration-200 hover:border-[#0D1B3E] hover:text-[#0D1B3E]"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M15 18l-6-6 6-6" />
           </svg>
         </button>
 
-        {/* Dots */}
         <div className="flex items-center gap-[7px]">
           {CARS.map((_, i) => (
             <button
@@ -165,16 +163,15 @@ export function ShowroomCarousel() {
               style={{
                 width:           active === i ? "22px" : "6px",
                 height:          "6px",
-                backgroundColor: active === i ? "#ffffff" : "rgba(255,255,255,0.25)",
+                backgroundColor: active === i ? "#0D1B3E" : "rgba(13,27,62,0.2)",
               }}
             />
           ))}
         </div>
 
-        {/* Next */}
         <button
           onClick={next}
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-transparent text-white/40 transition-all duration-200 hover:border-white/35 hover:text-white"
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[#0D1B3E]/20 bg-transparent text-[#0D1B3E]/40 transition-all duration-200 hover:border-[#0D1B3E] hover:text-[#0D1B3E]"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 18l6-6-6-6" />

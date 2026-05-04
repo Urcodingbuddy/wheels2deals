@@ -1,8 +1,7 @@
 import { LandingNav } from "@/components/landing/LandingNav";
 import { RevealObserver } from "@/components/landing/RevealObserver";
-import { LandingColorShift } from "@/components/landing/LandingColorShift";
 import { HeroSection } from "@/components/landing/HeroSection";
-import { BrandsSection } from "@/components/landing/BrandsSection";
+import { CategorySection } from "@/components/landing/CategorySection";
 import { JourneySection } from "@/components/landing/JourneySection";
 import { QuoteSection } from "@/components/landing/QuoteSection";
 import { BannerSection } from "@/components/landing/BannerSection";
@@ -14,13 +13,12 @@ export default function HomePage() {
     <div
       id="page-root"
       style={{ backgroundColor: "#ffffff" }}
-      className="text-white overflow-x-hidden selection:bg-[#1A6B3C] selection:text-white"
+      className="text-white overflow-x-hidden selection:bg-[#C9A84C] selection:text-[#0D1B3E]"
     >
       <RevealObserver />
-      <LandingColorShift />
       <LandingNav />
       <HeroSection />
-      <BrandsSection />
+      <CategorySection />
       <JourneySection />
       <QuoteSection />
       <BannerSection />

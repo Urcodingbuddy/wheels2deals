@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
-import { Big_Shoulders, Raleway } from "next/font/google";
+import { Montserrat, Inter } from "next/font/google";
 import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 import "./globals.css";
 
-const bigShoulders = Big_Shoulders({
+const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["700", "800"],
   variable: "--font-display",
   display: "swap",
 });
 
-const raleway = Raleway({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Wheels2Deals - Premium Pre-Owned",
-  description: "Curated supercars and luxury machines, personally verified.",
+  title: "Wheels2Deals — UAE Car Broker",
+  description: "The smartest bridge between every car deal in the UAE. Free for buyers and sellers.",
 };
 
 export default function RootLayout({
@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bigShoulders.variable} ${raleway.variable}`}
+      className={`${montserrat.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
       <body className="antialiased">

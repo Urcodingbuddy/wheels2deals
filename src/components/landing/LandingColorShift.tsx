@@ -19,7 +19,7 @@ export function LandingColorShift() {
         start: "top 80%",
         onEnter: () =>
           gsap.to(root, {
-            backgroundColor: "#000000",
+            backgroundColor: "#0a0a0a",
             duration: 2.8,
             ease: "power4.inOut",
           }),

@@ -23,20 +23,20 @@
   --color-ghost:    #BBBBBB;
 
   /* Dark surfaces */
-  --color-void:     #080808;
-  --color-carbon:   #141414;
-  --color-graphite: #1E1E1E;
-  --color-iron:     #333333;
+  --color-void:     #0D1B3E;
+  --color-carbon:   #0a1428;
+  --color-graphite: #122040;
+  --color-iron:     #1A2F5E;
   --color-silver:   #AAAAAA;
   --color-ash:      #666666;
 
-  /* BRG accent */
-  --color-brg:         #005C2E;
-  --color-brg-dark:    #1A6B3C;
-  --color-brg-hover:   #004A25;
-
-  /* Gulf Gold whisper */
-  --color-gold:        #C8981A;
+  /* Brand accent */
+  --color-navy:        #0D1B3E;
+  --color-gold:        #C9A84C;
+  --color-gold-dark:   #9E7B2A;
+  --color-teal:        #1A6B72;
+  --color-sand:        #E8E4DC;
+  --color-stone:       #5A5A5A;
 
   /* Semantic */
   --color-available:   #22C55E;
@@ -144,7 +144,7 @@
     font-family: var(--font-body), sans-serif;
     overflow-x: hidden;
     scrollbar-width: thin;
-    scrollbar-color: #2a2a2a transparent;
+    scrollbar-color: #0D1B3E transparent;
   }
 }
 
@@ -160,11 +160,11 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
+  background: #0D1B3E;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
+  background: #1A2F5E;
 }
 
 /* ── Scroll reveal ── */
@@ -285,10 +285,10 @@
 
 /* ── Menu rail link hover ── */
 .menu-rail-link:hover .menu-rail-label {
-  color: #1A6B3C !important;
+  color: #C9A84C !important;
 }
 .menu-rail-link:hover .menu-rail-chevron {
-  color: #1A6B3C !important;
+  color: #C9A84C !important;
   transform: translateX(4px);
 }
 .menu-rail-chevron {

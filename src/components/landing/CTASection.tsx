@@ -7,13 +7,14 @@ export function CTASection() {
         <p className="reveal font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.25em] uppercase text-[#1A6B3C] mb-6">
           Ready to Find Yours?
         </p>
-        <h2 className="reveal reveal-delay-1 font-[family-name:var(--font-display)] text-[clamp(36px,5.5vw,72px)] font-extrabold uppercase leading-[0.92] text-white tracking-[-0.02em] mb-9">
+        <h2 className="reveal reveal-delay-1 font-[family-name:var(--font-display)] text-[clamp(36px,5.5vw,72px)] font-semibold uppercase leading-[0.92] text-white tracking-[-0.02em] mb-9">
           Find Your
           <br />
           <span className="text-white/15">Next Car.</span>
         </h2>
         <p className="reveal reveal-delay-2 font-[family-name:var(--font-body)] text-[15px] font-normal text-[#aaaaaa] leading-[1.7] mb-12">
-          Browse our current inventory or get in touch — we&apos;ll help you find exactly what you&apos;re looking for.
+          Browse our current inventory or get in touch — we&apos;ll help you
+          find exactly what you&apos;re looking for.
         </p>
         <div className="reveal reveal-delay-3 flex flex-wrap justify-center gap-4">
           <Link

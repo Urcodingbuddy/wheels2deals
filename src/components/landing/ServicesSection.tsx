@@ -3,7 +3,16 @@ import Link from "next/link";
 const SERVICES = [
   {
     icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#C9A84C"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3" />
         <rect x="9" y="11" width="14" height="10" rx="2" />
         <circle cx="12" cy="16" r="1" />
@@ -16,7 +25,16 @@ const SERVICES = [
   },
   {
     icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#C9A84C"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
         <line x1="7" y1="7" x2="7.01" y2="7" />
       </svg>
@@ -28,7 +46,16 @@ const SERVICES = [
   },
   {
     icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#C9A84C"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <line x1="12" y1="1" x2="12" y2="23" />
         <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
       </svg>
@@ -40,7 +67,16 @@ const SERVICES = [
   },
   {
     icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#C9A84C"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
       </svg>
     ),
@@ -51,7 +87,16 @@ const SERVICES = [
   },
   {
     icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#C9A84C"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <polyline points="23 7 23 1 17 1" />
         <path d="M23 1l-7 7" />
         <path d="M2 11.5a10 10 0 0 1 18.8-4.3" />
@@ -65,7 +110,16 @@ const SERVICES = [
   },
   {
     icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#C9A84C"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
         <polyline points="14 2 14 8 20 8" />
         <line x1="16" y1="13" x2="8" y2="13" />
@@ -90,14 +144,15 @@ export function ServicesSection() {
             <p className="font-[family-name:var(--font-body)] text-[10px] font-bold tracking-[0.2em] uppercase text-[#C9A84C] mb-4">
               Our Services
             </p>
-            <h2 className="font-[family-name:var(--font-display)] text-[clamp(32px,4vw,48px)] font-extrabold text-white leading-[1.05] tracking-[-0.01em]">
+            <h2 className="font-[family-name:var(--font-display)] text-[clamp(32px,4vw,48px)] font-semibold text-white leading-[1.05] tracking-[-0.01em]">
               Everything You Need.
               <br />
               <span className="text-[#C9A84C]">One Broker.</span>
             </h2>
           </div>
           <p className="font-[family-name:var(--font-body)] text-[14px] text-white/55 max-w-[320px] leading-[1.7] md:text-right">
-            From finding your car to insuring it and transferring ownership — W2D handles every step.
+            From finding your car to insuring it and transferring ownership —
+            W2D handles every step.
           </p>
         </div>
 
@@ -122,7 +177,16 @@ export function ServicesSection() {
               </p>
               <span className="font-[family-name:var(--font-body)] text-[12px] font-semibold text-[#C9A84C] tracking-[0.06em] flex items-center gap-1.5 transition-gap duration-200 group-hover:gap-2.5">
                 Learn more
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </span>

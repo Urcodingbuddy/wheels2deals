@@ -1,21 +1,40 @@
 import Link from "next/link";
 
 const CATEGORIES = [
-  { label: "Economy Cars", count: 16, href: "/buy?type=economy", img: "/car_01.png" },
-  { label: "Exotic Cars",  count: 8,  href: "/buy?type=exotic",  img: "/car_02.png" },
-  { label: "Sport Cars",   count: 16, href: "/buy?type=sport",   img: "/car_03.png" },
-  { label: "Luxury Cars",  count: 24, href: "/buy?type=luxury",  img: "/car_04.png" },
-  { label: "SUVs",         count: 9,  href: "/buy?type=suv",     img: "/car_05.png" },
+  {
+    label: "Economy Cars",
+    count: 16,
+    href: "/buy?type=economy",
+    img: "/car_01.png",
+  },
+  {
+    label: "Exotic Cars",
+    count: 8,
+    href: "/buy?type=exotic",
+    img: "/car_02.png",
+  },
+  {
+    label: "Sport Cars",
+    count: 16,
+    href: "/buy?type=sport",
+    img: "/car_03.png",
+  },
+  {
+    label: "Luxury Cars",
+    count: 24,
+    href: "/buy?type=luxury",
+    img: "/car_04.png",
+  },
+  { label: "SUVs", count: 9, href: "/buy?type=suv", img: "/car_05.png" },
 ];
 
 export function CategorySection() {
   return (
     <section className="py-20 px-10 bg-[var(--color-page-bg)]">
       <div className="max-w-[1440px] mx-auto">
-
         {/* Header */}
         <div className="reveal mb-12">
-          <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-extrabold text-[#2A3510] leading-[1.05] mb-2">
+          <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-semibold text-[#2A3510] leading-[1.05] mb-2">
             Selected top-rated cars
           </h2>
           <p className="font-[family-name:var(--font-body)] text-[14px] text-[#888] font-normal">

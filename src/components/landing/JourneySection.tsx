@@ -5,37 +5,43 @@ const CARS = [
     title: "BMW 3 Series",
     specs: "AWD · 2.0T Turbo · 8-Speed",
     href: "/buy?model=bmw-3-series",
-    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Mercedes C-Class",
     specs: "RWD · 2.0T Turbo · 9-Speed",
     href: "/buy?model=mercedes-c-class",
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Toyota Land Cruiser",
     specs: "4WD · 3.3L Twin-Turbo · 10-Speed",
     href: "/buy?model=land-cruiser",
-    image: "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=1200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Nissan Patrol",
     specs: "4WD · 5.6L V8 · 7-Speed",
     href: "/buy?model=nissan-patrol",
-    image: "https://images.unsplash.com/photo-1520031441872-265e4ff70366?q=80&w=1200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1520031441872-265e4ff70366?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Porsche Cayenne",
     specs: "AWD · 3.0T · 8-Speed Tiptronic",
     href: "/buy?model=porsche-cayenne",
-    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Range Rover Sport",
     specs: "AWD · 3.0L Inline-6 · 8-Speed",
     href: "/buy?model=range-rover-sport",
-    image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=1200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -44,7 +50,8 @@ const ROWS = [CARS.slice(0, 3), CARS.slice(3, 6)];
 function ArrowIcon() {
   return (
     <svg
-      width="14" height="14"
+      width="14"
+      height="14"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -60,17 +67,19 @@ function ArrowIcon() {
 
 export function JourneySection() {
   return (
-    <section id="how-it-works" className="py-20 px-10 bg-[var(--color-page-bg)]">
+    <section
+      id="how-it-works"
+      className="py-20 px-10 bg-[var(--color-page-bg)]"
+    >
       <div className="max-w-[1440px] mx-auto">
-
         {/* Header row */}
         <div className="reveal flex items-end justify-between mb-10 gap-6">
           <div>
-            <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-extrabold text-[#2A3510] leading-[1.05] mb-2">
+            <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-semibold text-[#2A3510] leading-[1.05] mb-2">
               Explore popular car models
             </h2>
             <p className="font-[family-name:var(--font-body)] text-[14px] text-[#888] font-normal">
-              Handpicked models — trending across the UAE this week
+              Handpicked models - trending across the UAE this week
             </p>
           </div>
           <Link
@@ -83,9 +92,12 @@ export function JourneySection() {
         </div>
 
         {/* 3 × 2 flex-expand grid */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-8">
           {ROWS.map((row, rowIdx) => (
-            <div key={rowIdx} className="journey-row" style={{ height: "500px" }}>
+            <div
+              key={rowIdx}
+              className="journey-row h-60"
+            >
               {row.map((car, colIdx) => {
                 const delayClass = `reveal-delay-${rowIdx * 3 + colIdx + 1}`;
                 return (
@@ -107,7 +119,7 @@ export function JourneySection() {
                     {/* Bottom content */}
                     <div className="absolute bottom-0 left-0 right-0 px-6 pb-6 pt-10 flex items-end justify-between">
                       <div>
-                        <p className="font-[family-name:var(--font-display)] text-[clamp(18px,1.8vw,24px)] font-extrabold text-white leading-tight tracking-[-0.02em] mb-1">
+                        <p className="font-[family-name:var(--font-display)] text-[clamp(18px,1.8vw,24px)] font-semibold text-white leading-tight tracking-[-0.02em] mb-1">
                           {car.title}
                         </p>
                         <p className="font-[family-name:var(--font-body)] text-[11px] font-medium text-white/55 tracking-[0.03em]">

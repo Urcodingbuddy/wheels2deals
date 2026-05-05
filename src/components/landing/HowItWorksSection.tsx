@@ -3,7 +3,16 @@ export function HowItWorksSection() {
     {
       num: "01",
       icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#BAC095" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#BAC095"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
           <circle cx="12" cy="7" r="4" />
         </svg>
@@ -14,7 +23,16 @@ export function HowItWorksSection() {
     {
       num: "02",
       icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#BAC095" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#BAC095"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m8 0h3a2 2 0 0 0 2-2v-3" />
           <circle cx="12" cy="12" r="3" />
         </svg>
@@ -25,7 +43,16 @@ export function HowItWorksSection() {
     {
       num: "03",
       icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#BAC095" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#BAC095"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
           <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
         </svg>
@@ -43,11 +70,12 @@ export function HowItWorksSection() {
           <span className="inline-block font-[family-name:var(--font-body)] text-[10px] font-bold tracking-[0.18em] uppercase text-white bg-[#1A6B72] px-4 py-1.5 rounded-full mb-5">
             How It Works
           </span>
-          <h2 className="font-[family-name:var(--font-display)] text-[clamp(32px,4vw,48px)] font-extrabold text-[#2A3510] leading-[1.1] tracking-[-0.01em] mb-4">
+          <h2 className="font-[family-name:var(--font-display)] text-[clamp(32px,4vw,48px)] font-semibold text-[#2A3510] leading-[1.1] tracking-[-0.01em] mb-4">
             One Platform. Every Car Deal.
           </h2>
           <p className="font-[family-name:var(--font-body)] text-[16px] text-[#5A5A5A] max-w-[520px] mx-auto leading-[1.7]">
-            We connect the right people, at the right time, with the right partners. You never pay a thing.
+            We connect the right people, at the right time, with the right
+            partners. You never pay a thing.
           </p>
         </div>
 
@@ -85,7 +113,8 @@ export function HowItWorksSection() {
 
         {/* Footer note */}
         <p className="reveal text-center font-[family-name:var(--font-body)] text-[12px] text-[#5A5A5A]/60 mt-14 tracking-[0.04em]">
-          Partners pay W2D per qualified connection &nbsp;·&nbsp; You always use W2D completely free
+          Partners pay W2D per qualified connection &nbsp;·&nbsp; You always use
+          W2D completely free
         </p>
       </div>
     </section>

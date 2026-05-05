@@ -2,69 +2,69 @@
 
 import { useState } from "react";
 
-const CARS = [
+const BLOGS = [
   {
-    make: "Porsche",
-    model: "Taycan 4S",
-    price: "AED 380,000",
+    category: "Buying Guide",
+    title: "How to Spot a Flood-Damaged Car Before You Buy",
+    readTime: "5 min read",
     image:
-      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=800&auto=format&fit=crop",
   },
   {
-    make: "BMW",
-    model: "M5 Competition",
-    price: "AED 320,000",
+    category: "Market Trends",
+    title: "UAE's Most In-Demand Cars of 2025",
+    readTime: "4 min read",
     image:
-      "https://images.unsplash.com/photo-1523983388277-336a66bf9bcd?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=800&auto=format&fit=crop",
   },
   {
-    make: "Mercedes",
-    model: "AMG GT 63 S",
-    price: "AED 740,000",
+    category: "Finance",
+    title: "Car Loans in the UAE: Everything You Need to Know",
+    readTime: "6 min read",
+    image:
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    category: "Selling Tips",
+    title: "10 Tricks That Get You a Higher Price for Your Car",
+    readTime: "5 min read",
+    image:
+      "https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    category: "Electric Vehicles",
+    title: "Is the UAE Ready for an EV Revolution?",
+    readTime: "7 min read",
+    image:
+      "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    category: "Insurance",
+    title: "Third-Party vs Comprehensive: Which Cover Do You Need?",
+    readTime: "4 min read",
+    image:
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    category: "Ownership",
+    title: "RTA Transfer Process Explained Step by Step",
+    readTime: "5 min read",
+    image:
+      "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    category: "Luxury",
+    title: "Inside the UAE's Booming Pre-Owned Supercar Market",
+    readTime: "6 min read",
     image:
       "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=800&auto=format&fit=crop",
   },
   {
-    make: "Lamborghini",
-    model: "Urus S",
-    price: "AED 1,200,000",
+    category: "Inspection",
+    title: "What Happens During a Pre-Purchase Car Inspection?",
+    readTime: "4 min read",
     image:
-      "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    make: "Rolls-Royce",
-    model: "Ghost",
-    price: "AED 2,100,000",
-    image:
-      "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    make: "Ferrari",
-    model: "SF90 Stradale",
-    price: "AED 3,200,000",
-    image:
-      "https://images.unsplash.com/photo-1592198084033-aade902d1aae?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    make: "Bentley",
-    model: "Continental GT",
-    price: "AED 1,650,000",
-    image:
-      "https://images.unsplash.com/photo-1580274455191-1c62238fa1c9?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    make: "McLaren",
-    model: "720S",
-    price: "AED 1,400,000",
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    make: "Aston Martin",
-    model: "DB12",
-    price: "AED 1,100,000",
-    image:
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=800&auto=format&fit=crop",
   },
 ];
 
@@ -77,9 +77,9 @@ function mod(n: number, m: number) {
   return ((n % m) + m) % m;
 }
 
-export function ShowroomCarousel() {
+export function BlogsCarousel() {
   const [active, setActive] = useState(0);
-  const total = CARS.length;
+  const total = BLOGS.length;
 
   function getPos(idx: number): number {
     let p = mod(idx - active, total);
@@ -94,7 +94,7 @@ export function ShowroomCarousel() {
     <div className="select-none">
       {/* Track */}
       <div className="relative h-[430px] overflow-hidden">
-        {CARS.map((car, idx) => {
+        {BLOGS.map((blog, idx) => {
           const pos = getPos(idx);
           if (Math.abs(pos) > 3) return null;
 
@@ -107,7 +107,7 @@ export function ShowroomCarousel() {
 
           return (
             <div
-              key={car.model}
+              key={blog.title}
               onClick={() => !isActive && setActive(idx)}
               style={{
                 position: "absolute",
@@ -126,8 +126,8 @@ export function ShowroomCarousel() {
               {/* Card */}
               <div className="relative h-[390px] rounded-2xl overflow-hidden">
                 <img
-                  src={car.image}
-                  alt={`${car.make} ${car.model}`}
+                  src={blog.image}
+                  alt={blog.title}
                   className="w-full h-full object-cover"
                 />
 
@@ -136,14 +136,14 @@ export function ShowroomCarousel() {
 
                 {/* Text overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <p className="font-[family-name:var(--font-body)] text-[9.5px] font-semibold tracking-[0.22em] uppercase text-white/45 mb-1">
-                    {car.make}
+                  <p className="font-[family-name:var(--font-body)] text-[9.5px] font-semibold tracking-[0.22em] uppercase text-[#C9A84C] mb-1">
+                    {blog.category}
                   </p>
-                  <h3 className="font-[family-name:var(--font-display)] text-[24px] font-semibold uppercase text-white leading-none tracking-[-0.01em] mb-2">
-                    {car.model}
+                  <h3 className="font-[family-name:var(--font-display)] text-[18px] font-semibold text-white leading-[1.25] tracking-[-0.01em] mb-2">
+                    {blog.title}
                   </h3>
-                  <p className="font-[family-name:var(--font-body)] text-[12px] font-medium text-white/60">
-                    {car.price}
+                  <p className="font-[family-name:var(--font-body)] text-[12px] font-medium text-white/50">
+                    {blog.readTime}
                   </p>
                 </div>
               </div>
@@ -173,7 +173,7 @@ export function ShowroomCarousel() {
         </button>
 
         <div className="flex items-center gap-[7px]">
-          {CARS.map((_, i) => (
+          {BLOGS.map((_, i) => (
             <button
               key={i}
               onClick={() => setActive(i)}

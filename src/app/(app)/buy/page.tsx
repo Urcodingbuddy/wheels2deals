@@ -11,7 +11,7 @@ export default function BuyPage() {
             <p className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.18em] uppercase text-[#1A6B3C] mb-1">
               Inventory
             </p>
-            <h1 className="font-[family-name:var(--font-display)] text-[clamp(28px,4vw,44px)] font-extrabold uppercase tracking-[-0.01em] text-white leading-none">
+            <h1 className="font-[family-name:var(--font-display)] text-[clamp(28px,4vw,44px)] font-semibold uppercase tracking-[-0.01em] text-white leading-none">
               Browse Cars
             </h1>
           </div>
@@ -52,7 +52,7 @@ export default function BuyPage() {
 
               {/* Meta */}
               <div className="flex items-start justify-between gap-2 mb-1">
-                <p className="font-[family-name:var(--font-display)] text-[18px] font-extrabold uppercase tracking-[-0.01em] text-white leading-tight">
+                <p className="font-[family-name:var(--font-display)] text-[18px] font-semibold uppercase tracking-[-0.01em] text-white leading-tight">
                   Car Title
                 </p>
                 <span className="shrink-0 font-[family-name:var(--font-body)] text-[11px] font-bold text-[#C8981A] bg-[#C8981A]/10 rounded-md px-2 py-0.5">

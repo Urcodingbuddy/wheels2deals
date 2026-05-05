@@ -8,96 +8,32 @@ const SERVICE_GROUPS = [
   {
     label: "Buy & Sell",
     items: [
-      {
-        label: "Buy a Car",
-        href: "/buy",
-        title: "Find Your Next Car",
-        sub: "Guided buying, end to end",
-      },
-      {
-        label: "Sell Your Car",
-        href: "/sell",
-        title: "Sell With Confidence",
-        sub: "Best price, minimum effort",
-      },
-      {
-        label: "Finance & Loans",
-        href: "/finance",
-        title: "Drive Now, Pay Smart",
-        sub: "Flexible plans, trusted lenders",
-      },
+      { label: "Buy a Car", href: "/buy" },
+      { label: "Sell Your Car", href: "/sell" },
+      { label: "Finance & Loans", href: "/finance" },
     ],
   },
   {
     label: "Vehicle Services",
     items: [
-      {
-        label: "Inspection",
-        href: "/inspect",
-        title: "Know What You're Buying",
-        sub: "Certified, unbiased assessments",
-      },
-      {
-        label: "Insurance",
-        href: "/insurance",
-        title: "Stay Protected",
-        sub: "Right coverage, competitive rates",
-      },
-      {
-        label: "Transfer & Renewals",
-        href: "/transfer",
-        title: "Paperwork, Handled",
-        sub: "Passing, registration & ownership",
-      },
+      { label: "Inspection", href: "/inspect" },
+      { label: "Insurance", href: "/insurance" },
+      { label: "Transfer & Renewals", href: "/transfer" },
     ],
   },
   {
     label: "Company",
     items: [
-      {
-        label: "About",
-        href: "/about",
-        title: "The W2D Story",
-        sub: "Our mission and broker model",
-      },
-      {
-        label: "Contact",
-        href: "/contact",
-        title: "Let's Talk Cars",
-        sub: "Reach our team, anytime",
-      },
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact" },
     ],
   },
 ];
 
-type Item = (typeof SERVICE_GROUPS)[0]["items"][0];
-
-const DEFAULT: Item = {
-  label: "",
-  href: "/",
-  title: "UAE's Car Broker",
-  sub: "Buy. Sell. Service. One platform.",
-};
-
-const PREVIEW_CARDS = [
-  {
-    tag: "Buy & Sell",
-    title: "Your Deal,\nOur Expertise",
-    img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80&auto=format&fit=crop",
-    accent: "#C9A84C",
-  },
-  {
-    tag: "Vehicle Services",
-    title: "Inspect.\nInsure. Transfer.",
-    img: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80&auto=format&fit=crop",
-    accent: "#C9A84C",
-  },
-  {
-    tag: "Company",
-    title: "One Broker.\nEvery Deal.",
-    img: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80&auto=format&fit=crop",
-    accent: "#C9A84C",
-  },
+const PREVIEW_IMAGES = [
+  "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80&auto=format&fit=crop",
 ];
 
 function TwoLineIcon({ size }: { size: number }) {
@@ -109,28 +45,38 @@ function TwoLineIcon({ size }: { size: number }) {
       fill="none"
       aria-hidden
     >
-      <line x1="0" y1="2" x2="30" y2="2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <line x1="0" y1="13" x2="30" y2="13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <line
+        x1="0"
+        y1="2"
+        x2="30"
+        y2="2"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <line
+        x1="0"
+        y1="13"
+        x2="30"
+        y2="13"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
 export function LandingNav() {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<Item>(DEFAULT);
 
-  const close = () => {
-    setOpen(false);
-    setActive(DEFAULT);
-  };
+  const close = () => setOpen(false);
 
   return (
     <>
-
       {/* Navbar */}
       <header className="absolute top-10 left-0 right-0 z-[100] flex items-center justify-between px-10">
-
-        {/* Left — logo only */}
+        {/* Left — logo */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center no-underline">
             <img
@@ -145,8 +91,8 @@ export function LandingNav() {
         <nav className="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
           {[
             { label: "How it Works", href: "#how-it-works" },
-            { label: "Services",     href: "#services"     },
-            { label: "Reviews",      href: "#reviews"      },
+            { label: "Services", href: "#services" },
+            { label: "Reviews", href: "#reviews" },
           ].map((link) => (
             <a
               key={link.href}
@@ -173,34 +119,34 @@ export function LandingNav() {
       {open && (
         <>
           <div
-            className="menu-backdrop fixed inset-0 bg-[var(--color-page-bg)]/90 backdrop-blur-[8px] z-[150]"
+            className="menu-backdrop fixed inset-0 bg-black/60 backdrop-blur-[8px] z-[150]"
             onClick={close}
           />
 
-          <div className="menu-panel fixed top-5 left-5 bottom-5 w-[min(936px,calc(100vw-40px))] bg-white z-[200] flex flex-col rounded-[10px] overflow-hidden shadow-[0_32px_80px_rgba(13,27,62,0.5),0_0_0_1px_rgba(13,27,62,0.08)]">
+          <div className="menu-panel fixed top-5 right-5 bottom-5 w-[min(860px,calc(100vw-40px))] bg-white z-[200] flex flex-col rounded-[10px] overflow-hidden shadow-[0_32px_80px_rgba(13,27,62,0.5),0_0_0_1px_rgba(13,27,62,0.08)]">
             {/* Panel header */}
-            <div className="flex items-center px-10 py-6 border-b border-[#EDEAE6]">
+            <div className="flex items-center justify-end px-6 py-3 border-b border-[#EDEAE6]">
               <button
                 onClick={close}
-                className="flex items-center gap-3 cursor-pointer px-3 py-2 -ml-3 rounded-lg transition-colors duration-200 hover:bg-gray-100 bg-transparent border-none"
+                className="flex items-center gap-2 cursor-pointer px-3 py-1.5 rounded-lg transition-colors duration-200 hover:bg-gray-100 bg-transparent border-none"
               >
-                <X size={28} color="#BAC095" strokeWidth={1.5} />
                 <span className="font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.18em] uppercase text-[#999]">
                   Close
                 </span>
+                <X size={20} color="#BAC095" strokeWidth={1.5} />
               </button>
             </div>
 
             {/* Panel body */}
             <div className="flex flex-1 overflow-hidden">
-              {/* Left nav rail */}
-              <div className="no-scrollbar flex-[0_0_38%] px-10 pt-9 pb-10 overflow-y-auto border-r border-[#EDEAE6]">
+              {/* Left — nav links */}
+              <div className="no-scrollbar flex-[0_0_42%] px-10 pt-9 pb-10 overflow-y-auto border-r border-[#EDEAE6]">
                 {(() => {
                   let idx = 0;
                   return SERVICE_GROUPS.map((group) => (
                     <div key={group.label} className="mb-9">
                       <p
-                        className="nav-item-anim font-[family-name:var(--font-body)] text-[13px] font-bold tracking-[0.18em] uppercase text-[#C9A84C] mb-2"
+                        className="nav-item-anim font-[family-name:var(--font-body)] text-[11px] font-bold tracking-[0.18em] uppercase text-[#C9A84C] mb-2"
                         style={{ animationDelay: `${idx++ * 0.06 + 0.15}s` }}
                       >
                         {group.label}
@@ -211,12 +157,10 @@ export function LandingNav() {
                           key={item.href}
                           href={item.href}
                           onClick={close}
-                          onMouseEnter={() => setActive(item)}
-                          onMouseLeave={() => setActive(DEFAULT)}
                           className="menu-rail-link nav-item-anim flex items-center justify-between py-[13px] border-b border-[#F2EFEb] no-underline"
                           style={{ animationDelay: `${idx++ * 0.06 + 0.15}s` }}
                         >
-                          <span className="menu-rail-label font-[family-name:var(--font-display)] text-[21px] font-extrabold text-[#2A3510] tracking-[-0.01em] leading-none transition-colors duration-200">
+                          <span className="menu-rail-label font-[family-name:var(--font-display)] text-[22px] font-semibold text-[#2A3510] tracking-[-0.01em] leading-none transition-colors duration-200">
                             {item.label}
                           </span>
                           <ChevronRight
@@ -232,31 +176,19 @@ export function LandingNav() {
                 })()}
               </div>
 
-              {/* Right — preview cards */}
-              <div className="no-scrollbar flex-1 p-[28px_20px_28px_20px] flex flex-col gap-[20px] overflow-y-auto">
-                {PREVIEW_CARDS.map((card, i) => (
+              {/* Right — clean images, no overlays */}
+              <div className="no-scrollbar flex-1 p-5 flex flex-col gap-4 overflow-y-auto">
+                {PREVIEW_IMAGES.map((src, i) => (
                   <div
-                    key={card.tag}
-                    className="nav-item-anim flex-1 min-h-0 rounded-[12px] bg-cover bg-center relative overflow-hidden flex flex-col justify-end px-5 py-4"
-                    style={{
-                      backgroundImage: `url(${card.img})`,
-                      animationDelay: `${0.2 + i * 0.1}s`,
-                    }}
+                    key={src}
+                    className="nav-item-anim flex-1 min-h-0 rounded-[10px] overflow-hidden"
+                    style={{ animationDelay: `${0.2 + i * 0.08}s` }}
                   >
-                    <div className="absolute inset-0 bg-[var(--color-page-bg)]/30" />
-                    <div className="absolute bottom-0 left-0 right-0 h-[70%] bg-gradient-to-t from-[#BAC095d9] to-transparent" />
-
-                    <div className="relative z-10">
-                      <p
-                        className="font-[family-name:var(--font-body)] text-[8px] font-bold tracking-[0.22em] uppercase mb-[6px]"
-                        style={{ color: card.accent }}
-                      >
-                        {card.tag}
-                      </p>
-                      <h3 className="font-[family-name:var(--font-display)] text-[clamp(14px,1.6vw,20px)] font-extrabold text-white leading-[1.05] tracking-[-0.01em] whitespace-pre-line">
-                        {card.title}
-                      </h3>
-                    </div>
+                    <img
+                      src={src}
+                      alt=""
+                      className="w-full h-full object-cover object-center"
+                    />
                   </div>
                 ))}
               </div>

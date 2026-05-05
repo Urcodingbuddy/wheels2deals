@@ -3,7 +3,7 @@ export function HowItWorksSection() {
     {
       num: "01",
       icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D1B3E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#BAC095" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
           <circle cx="12" cy="7" r="4" />
         </svg>
@@ -14,7 +14,7 @@ export function HowItWorksSection() {
     {
       num: "02",
       icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D1B3E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#BAC095" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m8 0h3a2 2 0 0 0 2-2v-3" />
           <circle cx="12" cy="12" r="3" />
         </svg>
@@ -25,7 +25,7 @@ export function HowItWorksSection() {
     {
       num: "03",
       icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D1B3E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#BAC095" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
           <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
         </svg>
@@ -36,14 +36,14 @@ export function HowItWorksSection() {
   ];
 
   return (
-    <section className="py-24 px-10 bg-white">
+    <section className="py-24 px-10 bg-[var(--color-page-bg)]">
       <div className="max-w-[1280px] mx-auto">
         {/* Header */}
         <div className="reveal text-center mb-16">
           <span className="inline-block font-[family-name:var(--font-body)] text-[10px] font-bold tracking-[0.18em] uppercase text-white bg-[#1A6B72] px-4 py-1.5 rounded-full mb-5">
             How It Works
           </span>
-          <h2 className="font-[family-name:var(--font-display)] text-[clamp(32px,4vw,48px)] font-extrabold text-[#0D1B3E] leading-[1.1] tracking-[-0.01em] mb-4">
+          <h2 className="font-[family-name:var(--font-display)] text-[clamp(32px,4vw,48px)] font-extrabold text-[#2A3510] leading-[1.1] tracking-[-0.01em] mb-4">
             One Platform. Every Car Deal.
           </h2>
           <p className="font-[family-name:var(--font-body)] text-[16px] text-[#5A5A5A] max-w-[520px] mx-auto leading-[1.7]">
@@ -67,13 +67,13 @@ export function HowItWorksSection() {
                   {step.icon}
                 </div>
                 <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-[#C9A84C] flex items-center justify-center">
-                  <span className="font-[family-name:var(--font-body)] text-[10px] font-bold text-[#0D1B3E]">
+                  <span className="font-[family-name:var(--font-body)] text-[10px] font-bold text-[#2A3510]">
                     {step.num}
                   </span>
                 </div>
               </div>
 
-              <h3 className="font-[family-name:var(--font-display)] text-[18px] font-bold text-[#0D1B3E] mb-3 leading-[1.2]">
+              <h3 className="font-[family-name:var(--font-display)] text-[18px] font-bold text-[#2A3510] mb-3 leading-[1.2]">
                 {step.title}
               </h3>
               <p className="font-[family-name:var(--font-body)] text-[14px] text-[#5A5A5A] leading-[1.65] max-w-[260px]">

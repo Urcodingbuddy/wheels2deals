@@ -19,8 +19,8 @@ function ArrowIcon() {
 
 export function FooterSection() {
   return (
-    <footer className="px-4 pb-4 pt-0 bg-white">
-      <div className="bg-[#0D1B3E] rounded-[20px] px-12 pt-14 pb-8 max-w-[1440px] mx-auto">
+    <footer className="px-4 pb-4 pt-0 bg-[var(--color-page-bg)]">
+      <div className="bg-[#2A3510] rounded-[20px] px-12 pt-14 pb-8 max-w-[1440px] mx-auto">
 
         {/* Main 3-col grid */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-12 md:gap-20 pb-12 border-b border-white/10">
@@ -41,7 +41,7 @@ export function FooterSection() {
               className="group inline-flex items-center justify-between gap-4 self-start rounded-full border border-white/20 bg-white/5 pl-6 pr-2 py-2 font-[family-name:var(--font-display)] text-[13px] font-bold text-white no-underline transition-all duration-300 hover:bg-white/10 hover:border-white/40 min-w-[200px]"
             >
               Explore Listings
-              <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#0D1B3E] flex-shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#2A3510] flex-shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                 <ArrowIcon />
               </span>
             </Link>

@@ -82,7 +82,7 @@ const SERVICES = [
 
 export function ServicesSection() {
   return (
-    <section className="py-24 px-10 bg-[#0D1B3E]">
+    <section className="py-24 px-10 bg-[var(--color-page-bg)]">
       <div className="max-w-[1280px] mx-auto">
         {/* Header */}
         <div className="reveal flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">

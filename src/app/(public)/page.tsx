@@ -3,8 +3,8 @@ import { RevealObserver } from "@/components/landing/RevealObserver";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { CategorySection } from "@/components/landing/CategorySection";
 import { JourneySection } from "@/components/landing/JourneySection";
-import { QuoteSection } from "@/components/landing/QuoteSection";
-import { BannerSection } from "@/components/landing/BannerSection";
+import { ServicesRoofSection } from "@/components/landing/ServicesRoofSection";
+import { BrandsSection } from "@/components/landing/BrandsSection";
 import { ShowroomSection } from "@/components/landing/ShowroomSection";
 import { FooterSection } from "@/components/landing/FooterSection";
 
@@ -12,16 +12,16 @@ export default function HomePage() {
   return (
     <div
       id="page-root"
-      style={{ backgroundColor: "#ffffff" }}
-      className="text-white overflow-x-hidden selection:bg-[#C9A84C] selection:text-[#0D1B3E]"
+      style={{ backgroundColor: "var(--color-page-bg)" }}
+      className="text-white overflow-x-hidden selection:bg-[#C9A84C] selection:text-[#2A3510]"
     >
       <RevealObserver />
       <LandingNav />
       <HeroSection />
       <CategorySection />
       <JourneySection />
-      <QuoteSection />
-      <BannerSection />
+      <ServicesRoofSection />
+      <BrandsSection />
       <ShowroomSection />
       <FooterSection />
     </div>

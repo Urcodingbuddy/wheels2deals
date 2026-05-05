@@ -147,7 +147,7 @@ export function ShowroomCarousel() {
       <div className="flex items-center justify-center gap-5 mt-10">
         <button
           onClick={prev}
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[#0D1B3E]/20 bg-transparent text-[#0D1B3E]/40 transition-all duration-200 hover:border-[#0D1B3E] hover:text-[#0D1B3E]"
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[#2A3510]/20 bg-transparent text-[#2A3510]/40 transition-all duration-200 hover:border-[#2A3510] hover:text-[#2A3510]"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M15 18l-6-6 6-6" />
@@ -163,7 +163,7 @@ export function ShowroomCarousel() {
               style={{
                 width:           active === i ? "22px" : "6px",
                 height:          "6px",
-                backgroundColor: active === i ? "#0D1B3E" : "rgba(13,27,62,0.2)",
+                backgroundColor: active === i ? "#2A3510" : "rgba(42,53,16,0.2)",
               }}
             />
           ))}
@@ -171,7 +171,7 @@ export function ShowroomCarousel() {
 
         <button
           onClick={next}
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[#0D1B3E]/20 bg-transparent text-[#0D1B3E]/40 transition-all duration-200 hover:border-[#0D1B3E] hover:text-[#0D1B3E]"
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[#2A3510]/20 bg-transparent text-[#2A3510]/40 transition-all duration-200 hover:border-[#2A3510] hover:text-[#2A3510]"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 18l6-6-6-6" />

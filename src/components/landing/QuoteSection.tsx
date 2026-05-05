@@ -5,7 +5,7 @@ export function QuoteSection() {
         @import url('https://fonts.cdnfonts.com/css/amigate-endgame');
       `}</style>
       <h2 
-        className="reveal text-[#0D1B3E] text-center text-[clamp(120px,20vw,160px)] whitespace-nowrap leading-none px-4"
+        className="reveal text-[#2A3510] text-center text-[clamp(120px,20vw,160px)] whitespace-nowrap leading-none px-4"
         style={{ 
           fontFamily: "'Amigate Endgame', cursive", 
           paddingRight: "1rem"

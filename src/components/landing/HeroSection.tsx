@@ -81,7 +81,7 @@ export function HeroSection() {
       </div>
 
       {/* ── Bottom-left card — Buying ── */}
-      <div className="hero-enter hero-enter-delay-3 absolute bottom-3.5 left-3.5 w-[min(420px,46%)] bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[18px] p-8 flex flex-col gap-5 z-10 shadow-[0_16px_48px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.15)]">
+      <div className="hero-enter hero-enter-delay-3 absolute bottom-3.5 left-3.5 w-[min(420px,46%)] bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 flex flex-col gap-5 z-10">
         <div>
           <p className="font-[family-name:var(--font-display)] text-[36px] leading-[1.05] tracking-[-0.02em] text-white">
             <span className="font-extrabold text-[#C9A84C]">Buying</span>{" "}
@@ -96,14 +96,14 @@ export function HeroSection() {
           className="group/btn inline-flex items-center justify-between gap-3 rounded-full bg-white/15 border border-white/25 pl-6 pr-1.5 py-1.5 font-[family-name:var(--font-display)] text-[12px] font-bold tracking-[0.04em] text-white no-underline transition-colors duration-200 hover:bg-white/25 w-full backdrop-blur-sm"
         >
           Explore Listings
-          <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#0D1B3E] flex-shrink-0 transition-transform duration-300 ease-out group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
+          <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#2A3510] flex-shrink-0 transition-transform duration-300 ease-out group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
             <ArrowIcon />
           </span>
         </Link>
       </div>
 
       {/* ── Bottom-right card — Selling ── */}
-      <div className="hero-enter hero-enter-delay-4 absolute bottom-3.5 right-3.5 w-[min(420px,46%)] bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[18px] p-8 flex flex-col gap-5 z-10 shadow-[0_16px_48px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.15)]">
+      <div className="hero-enter hero-enter-delay-4 absolute bottom-3.5 right-3.5 w-[min(420px,46%)] bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 flex flex-col gap-5 z-10">
         <div>
           <p className="font-[family-name:var(--font-display)] text-[36px] leading-[1.05] tracking-[-0.02em] text-white">
             <span className="font-extrabold text-[#C9A84C]">Selling</span>{" "}
@@ -118,7 +118,7 @@ export function HeroSection() {
           className="group/btn inline-flex items-center justify-between gap-3 rounded-full bg-white/15 border border-white/25 pl-6 pr-1.5 py-1.5 font-[family-name:var(--font-display)] text-[12px] font-bold tracking-[0.04em] text-white no-underline transition-colors duration-200 hover:bg-white/25 w-full backdrop-blur-sm"
         >
           Get Best Price
-          <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#0D1B3E] flex-shrink-0 transition-transform duration-300 ease-out group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
+          <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#2A3510] flex-shrink-0 transition-transform duration-300 ease-out group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
             <ArrowIcon />
           </span>
         </Link>

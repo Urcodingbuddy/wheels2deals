@@ -60,13 +60,13 @@ function ArrowIcon() {
 
 export function JourneySection() {
   return (
-    <section id="how-it-works" className="py-20 px-10 bg-white">
+    <section id="how-it-works" className="py-20 px-10 bg-[var(--color-page-bg)]">
       <div className="max-w-[1440px] mx-auto">
 
         {/* Header row */}
         <div className="reveal flex items-end justify-between mb-10 gap-6">
           <div>
-            <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-extrabold text-[#0D1B3E] leading-[1.05] mb-2">
+            <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-extrabold text-[#2A3510] leading-[1.05] mb-2">
               Explore popular car models
             </h2>
             <p className="font-[family-name:var(--font-body)] text-[14px] text-[#888] font-normal">
@@ -75,7 +75,7 @@ export function JourneySection() {
           </div>
           <Link
             href="/buy"
-            className="flex-shrink-0 inline-flex items-center gap-2 rounded-full border border-[#0D1B3E] px-5 py-2.5 font-[family-name:var(--font-body)] text-[12px] font-semibold text-[#0D1B3E] no-underline transition-all duration-200 hover:bg-[#0D1B3E] hover:text-white whitespace-nowrap"
+            className="flex-shrink-0 inline-flex items-center gap-2 rounded-full border border-[#2A3510] px-5 py-2.5 font-[family-name:var(--font-body)] text-[12px] font-semibold text-[#2A3510] no-underline transition-all duration-200 hover:bg-[#2A3510] hover:text-white whitespace-nowrap"
           >
             Explore All
             <ArrowIcon />

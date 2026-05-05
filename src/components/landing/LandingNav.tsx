@@ -109,8 +109,8 @@ function TwoLineIcon({ size }: { size: number }) {
       fill="none"
       aria-hidden
     >
-      <line x1="0" y1="2" x2="30" y2="2" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
-      <line x1="0" y1="13" x2="30" y2="13" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+      <line x1="0" y1="2" x2="30" y2="2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <line x1="0" y1="13" x2="30" y2="13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }

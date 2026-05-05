@@ -1,21 +1,6 @@
 import type { Metadata } from "next";
-import { Montserrat, Inter } from "next/font/google";
 import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 import "./globals.css";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["700", "800"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-body",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Wheels2Deals — UAE Car Broker",
@@ -30,7 +15,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${inter.variable}`}
+      style={
+        {
+          "--font-display": "Georgia, 'Times New Roman', serif",
+          "--font-body": "Arial, Helvetica, sans-serif",
+        } as React.CSSProperties
+      }
       suppressHydrationWarning
     >
       <body className="antialiased">

@@ -23,15 +23,18 @@
   --color-ghost:    #BBBBBB;
 
   /* Dark surfaces */
-  --color-void:     #0D1B3E;
-  --color-carbon:   #0a1428;
-  --color-graphite: #122040;
-  --color-iron:     #1A2F5E;
+  --color-void:     #3A4A20;
+  --color-carbon:   #232E12;
+  --color-graphite: #2D3A18;
+  --color-iron:     #475A28;
   --color-silver:   #AAAAAA;
   --color-ash:      #666666;
 
+  /* Page background — change this one value to retheme the whole site */
+  --color-page-bg:     #DCE1BA;
+
   /* Brand accent */
-  --color-navy:        #0D1B3E;
+  --color-olive:       #3A4A20;
   --color-gold:        #C9A84C;
   --color-gold-dark:   #9E7B2A;
   --color-teal:        #1A6B72;
@@ -144,7 +147,7 @@
     font-family: var(--font-body), sans-serif;
     overflow-x: hidden;
     scrollbar-width: thin;
-    scrollbar-color: #0D1B3E transparent;
+    scrollbar-color: #3A4A20 transparent;
   }
 }
 
@@ -160,11 +163,11 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #0D1B3E;
+  background: #3A4A20;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #1A2F5E;
+  background: #475A28;
 }
 
 /* ── Scroll reveal ── */
@@ -190,6 +193,59 @@
 .reveal-delay-4 { transition-delay: 0.5s; }
 .reveal-delay-5 { transition-delay: 0.65s; }
 .reveal-delay-6 { transition-delay: 0.8s; }
+
+/* ── Brands marquee ── */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.3333%); }
+}
+@keyframes marquee-right {
+  from { transform: translateX(-33.3333%); }
+  to   { transform: translateX(0); }
+}
+.marquee-track-left,
+.marquee-track-right {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.marquee-track-left {
+  animation: marquee-left 35s linear infinite;
+}
+.marquee-track-right {
+  animation: marquee-right 35s linear infinite;
+}
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-inline: 0.5rem;
+}
+.marquee-wrap:hover .marquee-track-left,
+.marquee-wrap:hover .marquee-track-right { animation-play-state: paused; }
+.brand-card {
+  filter: grayscale(1);
+  opacity: 0.5;
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+.brand-card:hover {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: translateY(-2px);
+  border-color: rgba(42, 53, 16, 0.18);
+  background-color: rgba(255, 255, 255, 0.92);
+}
+.brand-card-image {
+  transition: transform 0.3s ease;
+}
+.brand-card:hover .brand-card-image {
+  transform: scale(1.03);
+}
 
 /* ── Journey cards: flex-expand on hover ── */
 .journey-row {
@@ -344,4 +400,9 @@
     filter: none !important;
   }
   .reveal { opacity: 1; transform: none; filter: none; }
+  .marquee-track-left,
+  .marquee-track-right {
+    animation: none !important;
+    transform: none !important;
+  }
 }

@@ -130,16 +130,8 @@ export function LandingNav() {
       {/* Navbar */}
       <header className="absolute top-10 left-0 right-0 z-[100] flex items-center justify-between px-10">
 
-        {/* Left — circular menu icon + logo */}
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => setOpen(true)}
-            aria-label="Open navigation"
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/15 backdrop-blur-md cursor-pointer transition-all duration-300 hover:bg-white/20 hover:border-white/30"
-          >
-            <TwoLineIcon size={16} />
-          </button>
-
+        {/* Left — logo only */}
+        <div className="flex items-center">
           <Link href="/" className="flex items-center no-underline">
             <img
               src="/logo.svg"
@@ -166,20 +158,22 @@ export function LandingNav() {
           ))}
         </nav>
 
-        {/* Right — Get Started */}
-        <Link
-          href="/buy"
-          className="hidden md:inline-flex items-center rounded-full bg-white px-5 py-2.5 font-[family-name:var(--font-display)] text-[12px] font-bold tracking-[0.05em] text-[#0D1B3E] no-underline transition-all duration-200 hover:bg-white/85 hover:scale-[1.03]"
+        {/* Right — Menu */}
+        <button
+          onClick={() => setOpen(true)}
+          aria-label="Open navigation"
+          className="inline-flex items-center gap-3 rounded-full bg-white px-5 py-2.5 font-[family-name:var(--font-display)] text-[12px] font-bold tracking-[0.12em] text-[#2A3510] transition-all duration-200 hover:bg-white/85 hover:scale-[1.03]"
         >
-          Get Started
-        </Link>
+          <span>Menu</span>
+          <TwoLineIcon size={16} />
+        </button>
       </header>
 
       {/* Mega menu */}
       {open && (
         <>
           <div
-            className="menu-backdrop fixed inset-0 bg-[#0D1B3E]/90 backdrop-blur-[8px] z-[150]"
+            className="menu-backdrop fixed inset-0 bg-[var(--color-page-bg)]/90 backdrop-blur-[8px] z-[150]"
             onClick={close}
           />
 
@@ -190,7 +184,7 @@ export function LandingNav() {
                 onClick={close}
                 className="flex items-center gap-3 cursor-pointer px-3 py-2 -ml-3 rounded-lg transition-colors duration-200 hover:bg-gray-100 bg-transparent border-none"
               >
-                <X size={28} color="#0D1B3E" strokeWidth={1.5} />
+                <X size={28} color="#BAC095" strokeWidth={1.5} />
                 <span className="font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.18em] uppercase text-[#999]">
                   Close
                 </span>
@@ -222,7 +216,7 @@ export function LandingNav() {
                           className="menu-rail-link nav-item-anim flex items-center justify-between py-[13px] border-b border-[#F2EFEb] no-underline"
                           style={{ animationDelay: `${idx++ * 0.06 + 0.15}s` }}
                         >
-                          <span className="menu-rail-label font-[family-name:var(--font-display)] text-[21px] font-extrabold text-[#0D1B3E] tracking-[-0.01em] leading-none transition-colors duration-200">
+                          <span className="menu-rail-label font-[family-name:var(--font-display)] text-[21px] font-extrabold text-[#2A3510] tracking-[-0.01em] leading-none transition-colors duration-200">
                             {item.label}
                           </span>
                           <ChevronRight
@@ -249,8 +243,8 @@ export function LandingNav() {
                       animationDelay: `${0.2 + i * 0.1}s`,
                     }}
                   >
-                    <div className="absolute inset-0 bg-[#0D1B3E]/30" />
-                    <div className="absolute bottom-0 left-0 right-0 h-[70%] bg-gradient-to-t from-[#0D1B3Ed9] to-transparent" />
+                    <div className="absolute inset-0 bg-[var(--color-page-bg)]/30" />
+                    <div className="absolute bottom-0 left-0 right-0 h-[70%] bg-gradient-to-t from-[#BAC095d9] to-transparent" />
 
                     <div className="relative z-10">
                       <p

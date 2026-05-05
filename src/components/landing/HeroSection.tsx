@@ -34,7 +34,7 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-black/50 z-[1]" />
 
       {/* Center text — flex-1 on mobile so it fills space above cards; absolute centered on desktop */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 gap-3 pt-28 pb-8 md:absolute md:flex-none md:inset-x-0 md:top-1/2 md:-translate-y-1/2 md:pt-0 md:pb-0">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 gap-3 pt-22 pb-8 md:absolute md:flex-none md:inset-x-0 md:top-1/2 md:-translate-y-10/8 md:pt-0 md:pb-0">
         {/* Brand name */}
         <h1
           className="hero-enter hero-enter-delay-2 font-[family-name:var(--font-display)] font-semibold leading-[0.95] tracking-[-0.04em] select-none"

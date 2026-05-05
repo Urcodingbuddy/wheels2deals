@@ -82,8 +82,8 @@ export function BrandsSection() {
       <div className="mx-auto mb-20 max-w-[1440px]">
         <div className="reveal flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="mb-3 font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-[0.22em] text-[#2A3510]/38">
-              Trusted Makes
+            <p className="mb-3 font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-[0.22em] text-[#C5A846]">
+              Trust Makes
             </p>
             <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-semibold leading-[1.05] text-[#2A3510]">
               Brands We Deal In

@@ -79,6 +79,7 @@ function mod(n: number, m: number) {
 
 export function BlogsCarousel() {
   const [active, setActive] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
   const total = BLOGS.length;
 
   function getPos(idx: number): number {
@@ -90,8 +91,32 @@ export function BlogsCarousel() {
   const prev = () => setActive((a) => mod(a - 1, total));
   const next = () => setActive((a) => mod(a + 1, total));
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStart === null) return;
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStart - touchEnd;
+
+    // Minimum swipe distance of 50px
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        next();
+      } else {
+        prev();
+      }
+    }
+    setTouchStart(null);
+  };
+
   return (
-    <div className="select-none">
+    <div 
+      className="select-none"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Track */}
       <div className="relative h-[430px] overflow-hidden">
         {BLOGS.map((blog, idx) => {

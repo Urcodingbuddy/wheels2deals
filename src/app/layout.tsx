@@ -17,7 +17,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Wheels2Deals — UAE Car Broker",
-  description: "The smartest bridge between every car deal in the UAE. Free for buyers and sellers.",
+  description: "Built on Trust Every Leading Brand. One Reliable Platform.",
 };
 
 export default function RootLayout({

@@ -27,18 +27,27 @@ function ArrowIcon() {
 
 export function FooterSection() {
   return (
-    <footer className="px-4 pb-4 pt-0 bg-[var(--color-page-bg)]">
-      <div className="bg-[#2A3510] rounded-[20px] px-12 pt-14 pb-8 max-w-[1440px] mx-auto">
-        {/* Main 3-col grid */}
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-12 md:gap-20 pb-12 border-b border-white/10">
+    <footer className="px-3.5 pb-10 pt-0 bg-[var(--color-page-bg)]">
+      <div className="relative bg-[#2A3510] rounded-[24px] px-6 md:px-12 pt-14 md:pt-20 pb-8 max-w-[1440px] mx-auto overflow-hidden">
+        {/* Large Decal Logo */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.03] w-[75%] h-auto">
+          <img
+            src="/logo.svg"
+            alt=""
+            className="w-full h-auto brightness-0 invert"
+          />
+        </div>
+
+        {/* Main grid */}
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-10 md:gap-20 pb-10 border-b border-white/10">
           {/* Left — CTA */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-6 md:gap-8">
             <div>
-              <p className="inline-flex items-center gap-2 font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.2em] uppercase text-[#C9A84C] mb-5">
+              <p className="inline-flex items-center gap-2 font-[family-name:var(--font-body)] text-[10px] md:text-[11px] font-semibold tracking-[0.2em] uppercase text-[#C9A84C] mb-3 md:mb-5">
                 <span className="w-1 h-1 rounded-full bg-[#C9A84C] inline-block" />
                 Get in Touch
               </p>
-              <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3vw,42px)] font-semibold text-white leading-[1.1] tracking-[-0.02em]">
+              <h2 className="font-[family-name:var(--font-display)] text-[28px] md:text-[clamp(28px,3vw,42px)] font-semibold text-white leading-[1.1] tracking-[-0.02em]">
                 Are you ready
                 <br />
                 to get started?
@@ -46,7 +55,7 @@ export function FooterSection() {
             </div>
             <Link
               href="/buy"
-              className="group inline-flex items-center justify-between gap-4 self-start rounded-full border border-white/20 bg-white/5 pl-6 pr-2 py-2 font-[family-name:var(--font-display)] text-[13px] font-bold text-white no-underline transition-all duration-300 hover:bg-white/10 hover:border-white/40 min-w-[200px]"
+              className="group inline-flex items-center justify-between gap-4 self-start rounded-full border border-white/20 bg-white/5 pl-6 pr-2 py-2 font-[family-name:var(--font-display)] text-[13px] font-bold text-white no-underline transition-all duration-300 hover:bg-white/10 hover:border-white/40 min-w-[190px] md:min-w-[200px]"
             >
               Explore Listings
               <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#2A3510] flex-shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
@@ -55,86 +64,62 @@ export function FooterSection() {
             </Link>
           </div>
 
-          {/* Center — Navigation */}
-          <div className="min-w-[160px]">
-            <p className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.18em] uppercase text-white/40 mb-4 pb-4 border-b border-white/10">
-              Navigation
-            </p>
-            <ul className="flex flex-col gap-3 list-none p-0 m-0">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="font-[family-name:var(--font-body)] text-[14px] font-normal text-white/70 no-underline transition-colors duration-200 hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Right — Office + Contact */}
-          <div className="min-w-[200px] flex flex-col gap-8">
-            <div>
-              <p className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.18em] uppercase text-white/40 mb-4 pb-4 border-b border-white/10">
-                Visit Our Office
+          {/* Right — Info Grid (2 cols on mobile) */}
+          <div className="grid grid-cols-2 md:flex md:flex-row gap-8 md:gap-20">
+            {/* Navigation */}
+            <div className="min-w-[120px] md:min-w-[160px]">
+              <p className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.18em] uppercase text-white/40 mb-4 pb-3 md:pb-4 border-b border-white/10">
+                Links
               </p>
-              <p className="font-[family-name:var(--font-body)] text-[14px] text-white/70 leading-[1.6]">
-                Business Bay, Dubai
-                <br />
-                United Arab Emirates
-              </p>
-            </div>
-            <div>
-              <p className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.18em] uppercase text-white/40 mb-4">
-                Contact Us
-              </p>
-              <ul className="flex flex-col gap-2.5 list-none p-0 m-0">
-                <li className="flex items-center gap-2.5">
-                  <svg
-                    width="13"
-                    height="13"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-white/40 flex-shrink-0"
-                  >
-                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 10.79a19.79 19.79 0 01-3.07-8.67A2 2 0 012.39 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
-                  </svg>
-                  <a
-                    href="tel:+97142000000"
-                    className="font-[family-name:var(--font-body)] text-[14px] text-white/70 no-underline hover:text-white transition-colors"
-                  >
-                    +971 4 200 0000
-                  </a>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <svg
-                    width="13"
-                    height="13"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-white/40 flex-shrink-0"
-                  >
-                    <rect x="2" y="4" width="20" height="16" rx="2" />
-                    <path d="M2 7l10 7 10-7" />
-                  </svg>
-                  <a
-                    href="mailto:hello@wheels2deals.ae"
-                    className="font-[family-name:var(--font-body)] text-[14px] text-white/70 no-underline hover:text-white transition-colors"
-                  >
-                    hello@wheels2deals.ae
-                  </a>
-                </li>
+              <ul className="flex flex-col gap-2.5 md:gap-3 list-none p-0 m-0">
+                {NAV_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="font-[family-name:var(--font-body)] text-[13px] md:text-[14px] font-normal text-white/70 no-underline transition-colors duration-200 hover:text-white"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
+            </div>
+
+            {/* Office & Contact */}
+            <div className="flex flex-col gap-8 min-w-[140px] md:min-w-[200px]">
+              <div>
+                <p className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.18em] uppercase text-white/40 mb-4 pb-3 md:pb-4 border-b border-white/10">
+                  Office
+                </p>
+                <p className="font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 leading-[1.5] md:leading-[1.6]">
+                  Business Bay, Dubai
+                  <br />
+                  UAE
+                </p>
+              </div>
+              <div>
+                <p className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.18em] uppercase text-white/40 mb-3">
+                  Contact
+                </p>
+                <ul className="flex flex-col gap-2 list-none p-0 m-0">
+                  <li className="flex items-center gap-2">
+                    <a
+                      href="tel:+97142000000"
+                      className="font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 no-underline hover:text-white transition-colors"
+                    >
+                      +971 4 200 0000
+                    </a>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <a
+                      href="mailto:hello@wheels2deals.ae"
+                      className="font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 no-underline hover:text-white transition-colors truncate max-w-[140px] md:max-w-none"
+                    >
+                      Email Us
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

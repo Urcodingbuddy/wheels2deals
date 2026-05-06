@@ -29,12 +29,12 @@ const SECOND_ROW = BRANDS.slice(8);
 
 function LogoCard({ brand }: { brand: Brand }) {
   return (
-    <div className="relative mx-8 h-[64px] w-[140px] shrink-0">
+    <div className="relative mx-4 sm:mx-8 h-[40px] w-[100px] sm:h-[64px] sm:w-[140px] shrink-0">
       <Image
         src={brand.logo}
         alt={`${brand.name} logo`}
         fill
-        sizes="140px"
+        sizes="(max-width: 640px) 100px, 140px"
         className="object-contain"
       />
     </div>
@@ -54,8 +54,8 @@ function MarqueeRow({
 
   return (
     <div className="marquee-wrap relative w-full overflow-hidden">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-36 bg-[linear-gradient(to_right,var(--color-page-bg)_50%,transparent)]" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-36 bg-[linear-gradient(to_left,var(--color-page-bg)_50%,transparent)]" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 sm:w-24 bg-[linear-gradient(to_right,var(--color-page-bg)_50%,transparent)]" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 sm:w-24 bg-[linear-gradient(to_left,var(--color-page-bg)_50%,transparent)]" />
       <div className={trackClass}>
         {Array.from({ length: repeats }).map((_, repeatIndex) => (
           <div
@@ -81,15 +81,15 @@ export function BrandsSection() {
     <section className="overflow-hidden bg-[var(--color-page-bg)] pt-20 pb-8 px-10">
       <div className="mx-auto mb-20 max-w-[1440px]">
         <div className="reveal flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="mb-3 font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-[0.22em] text-[#C5A846]">
-              Trust Makes
+          <div className="flex flex-col items-start text-left">
+            <p className="mb-3 font-[family-name:var(--font-body)] text-[13px] font-bold uppercase tracking-[0.22em] text-[#C5A846]">
+              Built on Trust
             </p>
-            <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-semibold leading-[1.05] text-[#2A3510]">
-              Brands We Deal In
+            <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-semibold leading-[1.05] tracking-tight text-[#2A3510] -ml-[3px]">
+              Every Leading Brand
             </h2>
-            <p className="mt-2 max-w-[520px] font-[family-name:var(--font-body)] text-[14px] text-[#2A3510]/58">
-              Every major brand. One trusted platform.
+            <p className="mt-2 font-[family-name:var(--font-body)] text-[17px] text-[#2A3510]/58">
+              One Reliable Platform.
             </p>
           </div>
         </div>

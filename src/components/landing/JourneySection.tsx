@@ -73,68 +73,98 @@ export function JourneySection() {
     >
       <div className="max-w-[1440px] mx-auto">
         {/* Header row */}
-        <div className="reveal flex items-end justify-between mb-10 gap-6">
-          <div>
-            <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-semibold text-[#2A3510] leading-[1.05] mb-2">
+        <div className="reveal flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+          <div className="flex flex-col items-start text-left">
+            <p className="mb-3 font-[family-name:var(--font-body)] text-[13px] font-bold uppercase tracking-[0.22em] text-[#C5A846]">
+              Trending Models
+            </p>
+            <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-semibold text-[#2A3510] leading-[1.05] tracking-tight -ml-[3px]">
               Explore popular car models
             </h2>
-            <p className="font-[family-name:var(--font-body)] text-[14px] text-[#888] font-normal">
+            <p className="mt-2 font-[family-name:var(--font-body)] text-[17px] text-[#2A3510]/58">
               Handpicked models - trending across the UAE this week
             </p>
           </div>
           <Link
             href="/buy"
-            className="flex-shrink-0 inline-flex items-center gap-2 rounded-full border border-[#2A3510] px-5 py-2.5 font-[family-name:var(--font-body)] text-[12px] font-semibold text-[#2A3510] no-underline transition-all duration-200 hover:bg-[#2A3510] hover:text-white whitespace-nowrap"
+            className="flex-shrink-0 inline-flex items-center gap-2 rounded-full border border-[#2A3510] px-6 py-3 md:px-5 md:py-2.5 font-[family-name:var(--font-body)] text-[13px] md:text-[12px] font-semibold text-[#2A3510] no-underline transition-all duration-200 hover:bg-[#2A3510] hover:text-white whitespace-nowrap w-fit"
           >
             Explore All
             <ArrowIcon />
           </Link>
         </div>
 
-        {/* 3 × 2 flex-expand grid */}
+        {/* 3 × 2 flex-expand grid (Desktop) / Horizontal Scroll (Mobile) */}
         <div className="flex flex-col gap-8">
-          {ROWS.map((row, rowIdx) => (
-            <div
-              key={rowIdx}
-              className="journey-row h-60"
-            >
-              {row.map((car, colIdx) => {
-                const delayClass = `reveal-delay-${rowIdx * 3 + colIdx + 1}`;
-                return (
-                  <Link
-                    key={car.title}
-                    href={car.href}
-                    className={`journey-card reveal ${delayClass} relative rounded-[14px] overflow-hidden cursor-pointer no-underline block`}
-                  >
-                    {/* Photo */}
-                    <img
-                      src={car.image}
-                      alt={car.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
+          {/* Mobile View: Horizontal Scroll */}
+          <div className="flex md:hidden overflow-x-auto gap-4 pb-6 no-scrollbar -mx-10 px-10 snap-x snap-mandatory">
+            {CARS.map((car, idx) => (
+              <Link
+                key={car.title}
+                href={car.href}
+                className="reveal flex-shrink-0 w-[280px] h-[400px] snap-center relative rounded-[20px] overflow-hidden cursor-pointer no-underline block"
+              >
+                <img
+                  src={car.image}
+                  alt={car.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#000000e0] via-[#00000040] to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 px-6 pb-6 pt-10">
+                  <div className="flex items-start justify-between gap-3 mb-1">
+                    <p className="flex-1 font-[family-name:var(--font-display)] text-[22px] font-semibold text-white leading-[1.1] tracking-[-0.02em]">
+                      {car.title.replace("-", "\u2011")}
+                    </p>
+                    <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/15 border border-white/25 text-white translate-y-1.5">
+                      <ArrowIcon />
+                    </span>
+                  </div>
+                  <p className="font-[family-name:var(--font-body)] text-[11px] font-medium text-white/55 tracking-[0.03em]">
+                    {car.specs}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
 
-                    {/* Gradient overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#000000e0] via-[#00000040] to-transparent pointer-events-none" />
+          {/* Desktop View: 3-column Grid */}
+          <div className="hidden md:grid w-full grid-cols-3 gap-8">
+            {CARS.map((car, idx) => {
+              const delayClass = `reveal-delay-${idx + 1}`;
+              return (
+                <Link
+                  key={car.title}
+                  href={car.href}
+                  className={`reveal ${delayClass} relative aspect-[3/2] rounded-[20px] overflow-hidden cursor-pointer no-underline block group shadow-sm transition-all duration-500 hover:shadow-xl`}
+                >
+                  {/* Photo */}
+                  <img
+                    src={car.image}
+                    alt={car.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
 
-                    {/* Bottom content */}
-                    <div className="absolute bottom-0 left-0 right-0 px-6 pb-6 pt-10 flex items-end justify-between">
-                      <div>
-                        <p className="font-[family-name:var(--font-display)] text-[clamp(18px,1.8vw,24px)] font-semibold text-white leading-tight tracking-[-0.02em] mb-1">
-                          {car.title}
-                        </p>
-                        <p className="font-[family-name:var(--font-body)] text-[11px] font-medium text-white/55 tracking-[0.03em]">
-                          {car.specs}
-                        </p>
-                      </div>
-                      <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 border border-white/25 text-white flex-shrink-0 transition-all duration-300 hover:bg-[#C9A84C] hover:border-[#C9A84C]">
-                        <ArrowIcon />
-                      </span>
+                  {/* Gradient overlays */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#000000e0] via-[#00000040] to-transparent pointer-events-none" />
+
+                  {/* Bottom content */}
+                  <div className="absolute bottom-0 left-0 right-0 px-8 pb-8 pt-12 flex items-end justify-between">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-[family-name:var(--font-display)] text-[26px] font-semibold text-white leading-tight tracking-[-0.02em] mb-1 truncate">
+                        {car.title.replace("-", "\u2011")}
+                      </p>
+                      <p className="font-[family-name:var(--font-body)] text-[12px] font-medium text-white/55 tracking-[0.03em]">
+                        {car.specs}
+                      </p>
                     </div>
-                  </Link>
-                );
-              })}
-            </div>
-          ))}
+                    <span className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-white/15 border border-white/25 text-white transition-all duration-300 group-hover:bg-[#2A3510] group-hover:border-[#2A3510] group-hover:scale-110">
+                      <ArrowIcon />
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

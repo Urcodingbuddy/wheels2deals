@@ -7,20 +7,17 @@ export function ShowroomSection() {
       <div className="max-w-[1440px] mx-auto">
         {/* Section header */}
         <div className="reveal flex items-end justify-between mb-14">
-          <div>
-            <p className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.25em] uppercase text-[#C9A84C] mb-3">
+          <div className="flex flex-col items-start text-left">
+            <p className="mb-3 font-[family-name:var(--font-body)] text-[13px] font-bold uppercase tracking-[0.22em] text-[#C9A84C]">
               From the Blog
             </p>
-            <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-semibold text-[#2A3510] leading-[1.05]">
+            <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-semibold text-[#2A3510] leading-[1.05] tracking-tight -ml-[3px]">
               Tips, Trends &amp; Insights
             </h2>
+            <p className="mt-2 font-[family-name:var(--font-body)] text-[17px] text-[#2A3510]/58">
+              The latest news and advice for car buyers and sellers in the UAE.
+            </p>
           </div>
-          <Link
-            href="/blog"
-            className="flex-shrink-0 inline-flex items-center gap-2 rounded-full border border-[#2A3510] px-5 py-2.5 font-[family-name:var(--font-body)] text-[12px] font-semibold text-[#2A3510] no-underline transition-all duration-200 hover:bg-[#2A3510] hover:text-white whitespace-nowrap"
-          >
-            View All →
-          </Link>
         </div>
 
         <BlogsCarousel />

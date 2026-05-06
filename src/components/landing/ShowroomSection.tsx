@@ -3,7 +3,7 @@ import { BlogsCarousel } from "@/components/landing/BlogsCarousel";
 
 export function ShowroomSection() {
   return (
-    <section className="py-20 px-10 bg-[var(--color-page-bg)]">
+    <section className="py-20 px-3.5 bg-[var(--color-page-bg)]">
       <div className="max-w-[1440px] mx-auto">
         {/* Section header */}
         <div className="reveal flex items-end justify-between mb-14">

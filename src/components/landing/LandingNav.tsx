@@ -31,9 +31,9 @@ const SERVICE_GROUPS = [
 ];
 
 const PREVIEW_IMAGES = [
-  "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80&auto=format&fit=crop",
+  "/menu_exotic.png",
+  "/menu_suv.png",
+  "/menu_sedan.png",
 ];
 
 function TwoLineIcon({ size }: { size: number }) {
@@ -97,9 +97,10 @@ export function LandingNav() {
             <a
               key={link.href}
               href={link.href}
-              className="font-[family-name:var(--font-body)] text-[15px] font-normal tracking-[0.02em] text-white no-underline transition-colors duration-200 hover:text-white/70"
+              className="group relative font-[family-name:var(--font-body)] text-[15px] font-normal tracking-[0.02em] text-white no-underline py-1"
             >
               {link.label}
+              <span className="absolute left-0 bottom-0 right-full h-[1.5px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
             </a>
           ))}
         </nav>
@@ -122,32 +123,31 @@ export function LandingNav() {
             className="menu-backdrop fixed inset-0 bg-black/60 backdrop-blur-[8px] z-[150]"
             onClick={close}
           />
-
-          <div className="menu-panel fixed top-5 right-5 bottom-5 w-[min(860px,calc(100vw-40px))] bg-white z-[200] flex flex-col rounded-[10px] overflow-hidden shadow-[0_32px_80px_rgba(13,27,62,0.5),0_0_0_1px_rgba(13,27,62,0.08)]">
-            {/* Panel header */}
-            <div className="flex items-center justify-end px-6 py-3 border-b border-[#EDEAE6]">
+          <div className="menu-panel fixed inset-0 md:inset-5 md:left-auto md:w-[min(860px,calc(100vw-40px))] bg-white z-[200] flex flex-col md:rounded-[10px] overflow-hidden shadow-[0_32px_80px_rgba(13,27,62,0.5)]">
+            {/* Header: Close button on top left (mobile) / top right (desktop) */}
+            <div className="flex items-center justify-between md:justify-end px-6 py-4 md:py-3">
               <button
                 onClick={close}
-                className="flex items-center gap-2 cursor-pointer px-3 py-1.5 rounded-lg transition-colors duration-200 hover:bg-gray-100 bg-transparent border-none"
+                className="flex items-center justify-center w-10 h-10 md:w-auto md:h-auto -ml-2 md:ml-0 cursor-pointer transition-all duration-200 active:scale-95 bg-transparent border-none"
               >
-                <span className="font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.18em] uppercase text-[#999]">
+                <X size={28} color="#2A3510" strokeWidth={1} className="md:w-6 md:h-6" />
+                <span className="hidden md:inline font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.18em] uppercase text-[#999] ml-2">
                   Close
                 </span>
-                <X size={20} color="#BAC095" strokeWidth={1.5} />
               </button>
             </div>
 
-            {/* Panel body */}
+            {/* Panel body: 2-column split always */}
             <div className="flex flex-1 overflow-hidden">
-              {/* Left — nav links */}
-              <div className="no-scrollbar flex-[0_0_42%] px-10 pt-9 pb-10 overflow-y-auto border-r border-[#EDEAE6]">
+              {/* Left Column: Navigation Links */}
+              <div className="no-scrollbar flex-[0_0_55%] md:flex-[0_0_42%] px-6 md:px-10 pb-10 overflow-y-auto md:border-r border-[#EDEAE6]">
                 {(() => {
                   let idx = 0;
                   return SERVICE_GROUPS.map((group) => (
-                    <div key={group.label} className="mb-9">
+                    <div key={group.label} className="mb-10">
                       <p
-                        className="nav-item-anim font-[family-name:var(--font-body)] text-[11px] font-bold tracking-[0.18em] uppercase text-[#C9A84C] mb-2"
-                        style={{ animationDelay: `${idx++ * 0.06 + 0.15}s` }}
+                        className="nav-item-anim font-[family-name:var(--font-body)] text-[10px] font-bold tracking-[0.25em] uppercase text-[#2A3510] mb-6"
+                        style={{ animationDelay: `${idx++ * 0.04 + 0.1}s` }}
                       >
                         {group.label}
                       </p>
@@ -157,16 +157,17 @@ export function LandingNav() {
                           key={item.href}
                           href={item.href}
                           onClick={close}
-                          className="menu-rail-link nav-item-anim flex items-center justify-between py-[13px] border-b border-[#F2EFEb] no-underline"
-                          style={{ animationDelay: `${idx++ * 0.06 + 0.15}s` }}
+                          className="group nav-item-anim flex items-center justify-between py-2.5 mb-1 no-underline"
+                          style={{ animationDelay: `${idx++ * 0.04 + 0.1}s` }}
                         >
-                          <span className="menu-rail-label font-[family-name:var(--font-display)] text-[22px] font-semibold text-[#2A3510] tracking-[-0.01em] leading-none transition-colors duration-200">
+                          <span className="relative font-[family-name:var(--font-display)] text-[15px] sm:text-[18px] md:text-[21px] font-medium text-[#2A3510] leading-none">
                             {item.label}
+                            <span className="absolute left-0 -bottom-1.5 right-full h-[1.5px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
                           </span>
                           <ChevronRight
                             size={14}
-                            className="menu-rail-chevron"
-                            color="#C8C4BE"
+                            className="transition-transform duration-300 group-hover:translate-x-1"
+                            color="#2A3510/30"
                             strokeWidth={1.5}
                           />
                         </Link>
@@ -176,19 +177,29 @@ export function LandingNav() {
                 })()}
               </div>
 
-              {/* Right — clean images, no overlays */}
-              <div className="no-scrollbar flex-1 p-5 flex flex-col gap-4 overflow-y-auto">
-                {PREVIEW_IMAGES.map((src, i) => (
+              {/* Right Column: High-end Previews */}
+              <div className="no-scrollbar flex-1 px-3 sm:px-6 pb-10 overflow-y-auto flex flex-col gap-5">
+                {[
+                  { name: "EXOTIC COLLECTION", img: PREVIEW_IMAGES[0] },
+                  { name: "PREMIUM SUVS", img: PREVIEW_IMAGES[1] },
+                  { name: "LUXURY SEDANS", img: PREVIEW_IMAGES[2] },
+                ].map((item, i) => (
                   <div
-                    key={src}
-                    className="nav-item-anim flex-1 min-h-0 rounded-[10px] overflow-hidden"
-                    style={{ animationDelay: `${0.2 + i * 0.08}s` }}
+                    key={item.name}
+                    className="nav-item-anim relative aspect-[4/5] rounded-[4px] overflow-hidden group cursor-pointer"
+                    style={{ animationDelay: `${0.3 + i * 0.1}s` }}
                   >
                     <img
-                      src={src}
-                      alt=""
-                      className="w-full h-full object-cover object-center"
+                      src={item.img}
+                      alt={item.name}
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <p className="font-[family-name:var(--font-display)] text-[12px] sm:text-[16px] md:text-[22px] font-bold text-white tracking-wide">
+                        {item.name}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>

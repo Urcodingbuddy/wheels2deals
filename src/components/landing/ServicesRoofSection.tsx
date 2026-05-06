@@ -47,7 +47,7 @@ const services = [
 export function ServicesRoofSection() {
   return (
     <section id="services" className="px-3.5 py-4">
-      <div className="relative rounded-[24px] px-6 md:px-12 lg:px-16 py-20 md:py-24 overflow-hidden">
+      <div className="relative max-w-[1440px] mx-auto rounded-[24px] px-6 md:px-12 lg:px-16 py-20 md:py-24 overflow-hidden">
         {/* Background image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -82,10 +82,10 @@ export function ServicesRoofSection() {
         {/* Cards grid (Desktop) / Horizontal Scroll (Mobile) */}
         <div className="relative z-10">
           {/* Mobile View: Horizontal Scroll */}
-          <div className="flex md:hidden overflow-x-auto gap-4 pb-6 no-scrollbar -mx-6 px-6 snap-x snap-mandatory">
+          <div className="flex md:hidden overflow-x-auto overflow-y-hidden gap-4 pb-6 no-scrollbar -mx-6 px-6 snap-x snap-mandatory">
             {services.map((service, i) => (
               <div key={service.number} className="flex-shrink-0 w-[280px] snap-center">
-                <ServiceCard {...service} delay={i + 1} />
+                <ServiceCard {...service} delay={i + 1} isCarousel={true} />
               </div>
             ))}
           </div>
@@ -109,6 +109,7 @@ function ServiceCard({
   description,
   href,
   delay,
+  isCarousel = false,
 }: {
   number: string;
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
@@ -116,11 +117,12 @@ function ServiceCard({
   description: string;
   href: string;
   delay: number;
+  isCarousel?: boolean;
 }) {
   return (
     <Link
       href={href}
-      className={`reveal reveal-delay-${delay} group relative bg-white/[0.08] backdrop-blur-xl border border-white/10 rounded-2xl p-7 hover:bg-white/15 transition-all duration-300 cursor-pointer no-underline block`}
+      className={`${!isCarousel ? `reveal reveal-delay-${delay}` : ""} group relative bg-white/[0.08] backdrop-blur-xl border border-white/10 rounded-2xl p-7 hover:bg-white/15 transition-all duration-300 cursor-pointer no-underline block`}
     >
       {/* Card number */}
       <span className="absolute top-6 right-7 text-[#C9A84C]/20 text-5xl font-bold font-[family-name:var(--font-display)] tracking-tighter">
@@ -144,10 +146,13 @@ function ServiceCard({
       </p>
 
       {/* Learn more */}
-      <span className="group/link flex items-center gap-1.5 text-[#C9A84C] font-[family-name:var(--font-body)] text-[13px] font-bold uppercase tracking-wider group-hover:text-[#E8D5A3] transition-colors">
-        Learn more
-        <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1.5 transition-transform" />
-      </span>
+      <div className="flex items-center gap-1.5">
+        <span className="relative group/link text-[#C9A84C] font-[family-name:var(--font-body)] text-[13px] font-bold uppercase tracking-wider group-hover:text-[#E8D5A3] transition-colors py-0.5">
+          Learn more
+          <span className="absolute left-0 bottom-0 right-full h-[1.5px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
+        </span>
+        <ArrowRight className="w-4 h-4 text-[#C9A84C] group-hover:text-[#E8D5A3] group-hover:translate-x-1.5 transition-all duration-300" />
+      </div>
     </Link>
   );
 }

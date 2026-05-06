@@ -54,8 +54,8 @@ function MarqueeRow({
 
   return (
     <div className="marquee-wrap relative w-full overflow-hidden">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 sm:w-24 bg-[linear-gradient(to_right,var(--color-page-bg)_50%,transparent)]" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 sm:w-24 bg-[linear-gradient(to_left,var(--color-page-bg)_50%,transparent)]" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-4 sm:w-12 bg-[linear-gradient(to_right,var(--color-page-bg)_50%,transparent)]" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-4 sm:w-12 bg-[linear-gradient(to_left,var(--color-page-bg)_50%,transparent)]" />
       <div className={trackClass}>
         {Array.from({ length: repeats }).map((_, repeatIndex) => (
           <div
@@ -78,7 +78,7 @@ function MarqueeRow({
 
 export function BrandsSection() {
   return (
-    <section className="overflow-hidden bg-[var(--color-page-bg)] pt-20 pb-8 px-10">
+    <section className="overflow-hidden bg-[var(--color-page-bg)] pt-20 pb-8 px-3.5">
       <div className="mx-auto mb-20 max-w-[1440px]">
         <div className="reveal flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex flex-col items-start text-left">

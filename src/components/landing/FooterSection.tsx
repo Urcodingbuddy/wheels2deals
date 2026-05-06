@@ -76,9 +76,10 @@ export function FooterSection() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="font-[family-name:var(--font-body)] text-[13px] md:text-[14px] font-normal text-white/70 no-underline transition-colors duration-200 hover:text-white"
+                      className="group relative font-[family-name:var(--font-body)] text-[13px] md:text-[14px] font-normal text-white/70 no-underline transition-colors duration-200 hover:text-white py-1"
                     >
                       {link.label}
+                      <span className="absolute left-0 bottom-0 right-full h-[1px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
                     </Link>
                   </li>
                 ))}
@@ -105,17 +106,19 @@ export function FooterSection() {
                   <li className="flex items-center gap-2">
                     <a
                       href="tel:+97142000000"
-                      className="font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 no-underline hover:text-white transition-colors"
+                      className="group relative font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 no-underline hover:text-white transition-colors py-0.5"
                     >
                       +971 4 200 0000
+                      <span className="absolute left-0 bottom-0 right-full h-[1px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
                     </a>
                   </li>
                   <li className="flex items-center gap-2">
                     <a
                       href="mailto:hello@wheels2deals.ae"
-                      className="font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 no-underline hover:text-white transition-colors truncate max-w-[140px] md:max-w-none"
+                      className="group relative font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 no-underline hover:text-white transition-colors py-0.5"
                     >
                       Email Us
+                      <span className="absolute left-0 bottom-0 right-full h-[1px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
                     </a>
                   </li>
                 </ul>
@@ -137,9 +140,10 @@ export function FooterSection() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="font-[family-name:var(--font-body)] text-[12px] font-medium text-white/40 no-underline transition-colors duration-200 hover:text-white"
+                className="group relative font-[family-name:var(--font-body)] text-[12px] font-medium text-white/40 no-underline transition-colors duration-200 hover:text-white py-0.5"
               >
                 {link.label}
+                <span className="absolute left-0 bottom-0 right-full h-[1px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
               </Link>
             ))}
           </div>

@@ -31,9 +31,9 @@ const CATEGORIES = [
 
 export function CategorySection() {
   return (
-    <section className="pt-20 pb-4 px-10 bg-[var(--color-page-bg)]">
+    <section className="pt-20 pb-4 px-3.5 bg-[var(--color-page-bg)]">
       <div className="max-w-[1440px] mx-auto">
-        {/* Header */}
+        {/* Header row */}
         <div className="reveal flex flex-col items-start text-left mb-12">
           <p className="mb-3 font-[family-name:var(--font-body)] text-[13px] font-bold uppercase tracking-[0.22em] text-[#C5A846]">
             Top Categories
@@ -45,9 +45,9 @@ export function CategorySection() {
             Browse verified listings across every category in the UAE
           </p>
         </div>
-
+ 
         {/* Mobile View: Category Carousel (Parallax) */}
-        <div className="sm:hidden -mx-10">
+        <div className="sm:hidden -mx-3.5">
           <CategoryCarousel />
         </div>
 

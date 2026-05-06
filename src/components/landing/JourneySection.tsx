@@ -69,7 +69,7 @@ export function JourneySection() {
   return (
     <section
       id="how-it-works"
-      className="py-20 px-10 bg-[var(--color-page-bg)]"
+      className="py-20 px-3.5 bg-[var(--color-page-bg)]"
     >
       <div className="max-w-[1440px] mx-auto">
         {/* Header row */}
@@ -97,7 +97,7 @@ export function JourneySection() {
         {/* 3 × 2 flex-expand grid (Desktop) / Horizontal Scroll (Mobile) */}
         <div className="flex flex-col gap-8">
           {/* Mobile View: Horizontal Scroll */}
-          <div className="flex md:hidden overflow-x-auto gap-4 pb-6 no-scrollbar -mx-10 px-10 snap-x snap-mandatory">
+          <div className="flex md:hidden overflow-x-auto overflow-y-hidden gap-4 pb-6 no-scrollbar -mx-3.5 px-3.5 snap-x snap-mandatory">
             {CARS.map((car, idx) => (
               <Link
                 key={car.title}

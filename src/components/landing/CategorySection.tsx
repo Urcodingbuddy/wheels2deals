@@ -59,6 +59,8 @@ export function CategorySection() {
               <img
                 src={cat.img}
                 alt={cat.label}
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/15 transition-opacity duration-300 group-hover:opacity-0" />
@@ -81,35 +83,50 @@ export function CategorySection() {
           ))}
         </div>
 
-        {/* Desktop View: Flex accordion — hovered card expands */}
-        <div className="hidden md:flex gap-4 h-[420px] category-accordion">
-          {CATEGORIES.map((cat) => (
+        {/* Desktop View: equal-width cards, GPU-only animations */}
+        <div className="hidden md:flex gap-3 h-[440px]">
+          {CATEGORIES.map((cat, i) => (
             <Link
               key={cat.label}
               href={cat.href}
-              className="reveal group relative rounded-[8px] overflow-hidden no-underline block flex-1 hover:flex-[3]"
-              style={{ transition: "flex-grow 1s cubic-bezier(0.22, 1, 0.36, 1)", willChange: "flex-grow" }}
+              className="reveal group relative flex-1 rounded-[10px] overflow-hidden no-underline block"
+              style={{ transitionDelay: `${i * 0.07}s` }}
             >
+              {/* Image — GPU zoom */}
               <img
                 src={cat.img}
                 alt={cat.label}
-                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]"
+                style={{ willChange: "transform" }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/15 transition-opacity duration-300 group-hover:opacity-0" />
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-[#2A3510]/75 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <ExternalLink size={36} className="text-white/90" strokeWidth={1.5} />
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 px-6 pb-7 flex items-center gap-3 z-10">
-                <span className="relative font-[family-name:var(--font-display)] text-[clamp(20px,1.6vw,26px)] font-bold text-white leading-tight py-0.5 whitespace-nowrap">
-                  {cat.label}
-                  <span className="absolute left-0 bottom-0 right-full h-[1.5px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
-                </span>
-                <ArrowRight
-                  size={22}
-                  className="text-white/80 group-hover:translate-x-1.5 transition-transform duration-300"
-                  strokeWidth={2}
+
+              {/* Permanent bottom gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+
+              {/* Olive tint overlay — GPU opacity */}
+              <div className="absolute inset-0 bg-[#2A3510]/55 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              {/* Bottom content */}
+              <div className="absolute bottom-0 left-0 right-0 px-5 pb-6 z-10">
+                {/* Gold bar — draws left→right via scaleX (GPU transform) */}
+                <div
+                  className="h-[2px] w-8 bg-[#C9A84C] mb-2.5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"
+                  style={{ transitionDelay: "0.05s" }}
                 />
+                <div className="flex items-end justify-between gap-2">
+                  {/* Label lifts on hover */}
+                  <span className="font-[family-name:var(--font-display)] text-[clamp(16px,1.3vw,21px)] font-bold text-white leading-tight translate-y-1 group-hover:translate-y-0 transition-transform duration-400 ease-out">
+                    {cat.label}
+                  </span>
+                  {/* Icon scales in */}
+                  <ExternalLink
+                    size={15}
+                    strokeWidth={1.8}
+                    className="text-white/0 group-hover:text-[#C9A84C] scale-50 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-400 ease-out shrink-0 mb-0.5"
+                  />
+                </div>
               </div>
             </Link>
           ))}

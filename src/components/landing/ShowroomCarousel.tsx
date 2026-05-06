@@ -128,6 +128,8 @@ export function ShowroomCarousel() {
                 <img
                   src={car.image}
                   alt={`${car.make} ${car.model}`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
 

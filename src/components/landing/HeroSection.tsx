@@ -27,6 +27,8 @@ export function HeroSection() {
       <img
         src={HERO_IMAGE}
         alt="Hero car"
+        fetchPriority="high"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
 

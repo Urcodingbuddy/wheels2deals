@@ -122,7 +122,7 @@ function ServiceCard({
   return (
     <Link
       href={href}
-      className={`${!isCarousel ? `reveal reveal-delay-${delay}` : ""} group relative bg-white/[0.08] backdrop-blur-xl border border-white/10 rounded-2xl p-7 hover:bg-white/15 transition-all duration-300 cursor-pointer no-underline block`}
+      className={`${!isCarousel ? `reveal reveal-delay-${delay}` : ""} group relative bg-white/[0.10] backdrop-blur-sm border border-white/10 rounded-2xl p-7 hover:bg-white/15 transition-all duration-300 cursor-pointer no-underline block`}
     >
       {/* Card number */}
       <span className="absolute top-6 right-7 text-[#C9A84C]/20 text-5xl font-bold font-[family-name:var(--font-display)] tracking-tighter">

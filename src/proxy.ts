@@ -3,7 +3,7 @@ import { type NextRequest } from "next/server";
 
 const PROTECTED_PREFIXES = ["/admin"];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   return updateSession(request, PROTECTED_PREFIXES);
 }
 

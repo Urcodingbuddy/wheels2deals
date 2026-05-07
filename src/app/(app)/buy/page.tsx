@@ -11,8 +11,6 @@ export default async function BuyPage() {
     .order("created_at", { ascending: false });
 
   const allCars = cars ?? [];
-
-  // Derive unique brand list from available cars
   const brands = [...new Set(allCars.map((c) => c.brand))].sort();
 
   return <BuyClient cars={allCars} brands={brands} />;

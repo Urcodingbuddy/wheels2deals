@@ -144,15 +144,13 @@ export default function CarsTable({ cars }: { cars: CarRow[] }) {
                         <CheckCircle size={15} strokeWidth={1.8} />
                       </button>
                     )}
-                    {car.status === "available" && (
-                      <a
-                        href="/buy"
-                        title="View listing"
-                        className="p-1.5 rounded-md text-[#888888] hover:text-[#2A3510] hover:bg-[#F6F5F1] transition-colors"
-                      >
-                        <Eye size={15} strokeWidth={1.8} />
-                      </a>
-                    )}
+                    <a
+                      href={`/admin/cars/${car.slug}`}
+                      title="View inquiries"
+                      className="p-1.5 rounded-md text-[#888888] hover:text-[#2A3510] hover:bg-[#F6F5F1] transition-colors"
+                    >
+                      <Eye size={15} strokeWidth={1.8} />
+                    </a>
                     <button
                       onClick={() => handleDelete(car.id)}
                       disabled={busy}

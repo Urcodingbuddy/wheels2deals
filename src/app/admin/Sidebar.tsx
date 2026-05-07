@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutGrid, Plus, LogOut } from "lucide-react";
+import { LayoutGrid, Plus, Inbox, LogOut } from "lucide-react";
 import { createClient } from "@/lib/client";
 
 const NAV = [
-  { href: "/admin", label: "Dashboard", icon: LayoutGrid, exact: true },
-  { href: "/admin/cars/new", label: "Add Car", icon: Plus, exact: false },
+  { href: "/admin",           label: "Dashboard", icon: LayoutGrid, exact: true  },
+  { href: "/admin/inquiries", label: "Inquiries", icon: Inbox,      exact: false },
+  { href: "/admin/cars/new",  label: "Add Car",   icon: Plus,       exact: false },
 ];
 
 export default function Sidebar() {

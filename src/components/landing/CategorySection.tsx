@@ -25,9 +25,9 @@ const CATEGORIES = [
     img: "/categories_images/Luxury_car.png",
   },
   {
-    label: "Pickup Trucks",
-    href: "/buy?type=pickup",
-    img: "/categories_images/Pickup_Truck_car.png",
+    label: "Exotic Cars",
+    href: "/buy?type=exotic",
+    img: "/categories_images/Exotic_car.png",
   },
 ];
 

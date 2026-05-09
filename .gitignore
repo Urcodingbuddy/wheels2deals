@@ -40,7 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# video files (large binaries — hosted on Supabase Storage)
+# video files (large binaries - hosted on Supabase Storage)
 *.mp4
 *.webm
 *.mov

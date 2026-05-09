@@ -9,17 +9,24 @@ import { Loader2 } from "lucide-react";
 type Props = { carId: string; carTitle: string };
 
 export default function EnquireButton({ carId, carTitle }: Props) {
-  const [open, setOpen]       = useState(false);
-  const [sent, setSent]       = useState(false);
+  const [open, setOpen] = useState(false);
+  const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [form, setForm]       = useState({ name: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
   const [errors, setErrors] = useState<Partial<typeof form>>({});
 
   function validate() {
     const e: Partial<typeof form> = {};
-    if (!form.name.trim())                                    e.name  = "Name is required";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))     e.email = "Valid email required";
-    if (!/^\+?[\d\s\-()]{7,15}$/.test(form.phone))          e.phone = "Valid phone required";
+    if (!form.name.trim()) e.name = "Name is required";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+      e.email = "Valid email required";
+    if (!/^\+?[\d\s\-()]{7,15}$/.test(form.phone))
+      e.phone = "Valid phone required";
     return e;
   }
 
@@ -71,7 +78,7 @@ export default function EnquireButton({ carId, carTitle }: Props) {
 
   return (
     <>
-      {/* Desktop — inline in the right panel */}
+      {/* Desktop - inline in the right panel */}
       <button
         onClick={() => setOpen(true)}
         className="hidden lg:block w-full py-4 rounded-full bg-[#3A4A20] text-white font-[family-name:var(--font-body)] text-[12px] font-semibold tracking-[0.1em] uppercase hover:bg-[#2A3510] active:scale-[0.98] transition-all duration-150 cursor-pointer border-none"
@@ -79,7 +86,7 @@ export default function EnquireButton({ carId, carTitle }: Props) {
         Enquire About This Car
       </button>
 
-      {/* Mobile — fixed bottom bar */}
+      {/* Mobile - fixed bottom bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 py-3 bg-gradient-to-t from-white/5 to-transparent backdrop-blur-[2px]">
         <button
           onClick={() => setOpen(true)}
@@ -92,12 +99,14 @@ export default function EnquireButton({ carId, carTitle }: Props) {
       {open && (
         <>
           {/* Backdrop */}
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-[6px] z-[200]" onClick={handleClose} />
+          <div
+            className="fixed inset-0 bg-black/50 backdrop-blur-[6px] z-[200]"
+            onClick={handleClose}
+          />
 
           {/* Modal */}
           <div className="fixed inset-0 z-[210] flex items-center justify-center p-4">
             <div className="bg-white rounded-2xl w-full max-w-[440px] overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.2)] animate-in fade-in zoom-in-95 duration-200">
-
               {/* Header */}
               <div className="flex items-start justify-between px-6 pt-6 pb-4 border-b border-[#F0EDE8]">
                 <div>
@@ -119,7 +128,11 @@ export default function EnquireButton({ carId, carTitle }: Props) {
               {/* Body */}
               {sent ? (
                 <div className="px-6 py-10 flex flex-col items-center gap-3 text-center">
-                  <CheckCircle size={40} className="text-[#3A4A20]" strokeWidth={1.5} />
+                  <CheckCircle
+                    size={40}
+                    className="text-[#3A4A20]"
+                    strokeWidth={1.5}
+                  />
                   <h3 className="font-[family-name:var(--font-display)] text-[17px] font-semibold text-[#2A3510] uppercase">
                     Enquiry Sent
                   </h3>
@@ -134,28 +147,40 @@ export default function EnquireButton({ carId, carTitle }: Props) {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} noValidate className="px-6 pt-5 pb-6 flex flex-col gap-4">
-
+                <form
+                  onSubmit={handleSubmit}
+                  noValidate
+                  className="px-6 pt-5 pb-6 flex flex-col gap-4"
+                >
                   <FloatField
                     label="Full Name"
                     type="text"
                     value={form.name}
                     error={errors.name}
-                    onChange={(v) => { setForm((f) => ({ ...f, name: v })); setErrors((e) => ({ ...e, name: undefined })); }}
+                    onChange={(v) => {
+                      setForm((f) => ({ ...f, name: v }));
+                      setErrors((e) => ({ ...e, name: undefined }));
+                    }}
                   />
                   <FloatField
                     label="Email Address"
                     type="email"
                     value={form.email}
                     error={errors.email}
-                    onChange={(v) => { setForm((f) => ({ ...f, email: v })); setErrors((e) => ({ ...e, email: undefined })); }}
+                    onChange={(v) => {
+                      setForm((f) => ({ ...f, email: v }));
+                      setErrors((e) => ({ ...e, email: undefined }));
+                    }}
                   />
                   <FloatField
                     label="Phone Number"
                     type="tel"
                     value={form.phone}
                     error={errors.phone}
-                    onChange={(v) => { setForm((f) => ({ ...f, phone: v })); setErrors((e) => ({ ...e, phone: undefined })); }}
+                    onChange={(v) => {
+                      setForm((f) => ({ ...f, phone: v }));
+                      setErrors((e) => ({ ...e, phone: undefined }));
+                    }}
                   />
                   <FloatTextarea
                     label="Message"
@@ -171,10 +196,8 @@ export default function EnquireButton({ carId, carTitle }: Props) {
                     {loading && <Loader2 size={16} className="animate-spin" />}
                     {loading ? "Sending..." : "Send Enquiry"}
                   </button>
-
                 </form>
               )}
-
             </div>
           </div>
         </>
@@ -186,9 +209,17 @@ export default function EnquireButton({ carId, carTitle }: Props) {
 // ─── Floating label input ─────────────────────────────────────────────────────
 
 function FloatField({
-  label, type, value, error, onChange,
+  label,
+  type,
+  value,
+  error,
+  onChange,
 }: {
-  label: string; type: string; value: string; error?: string; onChange: (v: string) => void;
+  label: string;
+  type: string;
+  value: string;
+  error?: string;
+  onChange: (v: string) => void;
 }) {
   const [focused, setFocused] = useState(false);
   const active = focused || value.length > 0;
@@ -221,7 +252,9 @@ function FloatField({
         />
       </div>
       {error && (
-        <span className="font-[family-name:var(--font-body)] text-[11px] text-red-500">{error}</span>
+        <span className="font-[family-name:var(--font-body)] text-[11px] text-red-500">
+          {error}
+        </span>
       )}
     </div>
   );
@@ -230,9 +263,13 @@ function FloatField({
 // ─── Floating label textarea ──────────────────────────────────────────────────
 
 function FloatTextarea({
-  label, value, onChange,
+  label,
+  value,
+  onChange,
 }: {
-  label: string; value: string; onChange: (v: string) => void;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
 }) {
   const [focused, setFocused] = useState(false);
   const active = focused || value.length > 0;

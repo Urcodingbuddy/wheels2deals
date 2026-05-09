@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function ImageGallery({ images, title }: { images: string[]; title: string }) {
+export default function ImageGallery({
+  images,
+  title,
+}: {
+  images: string[];
+  title: string;
+}) {
   const [active, setActive] = useState(0);
 
   const prev = () => setActive((i) => (i - 1 + images.length) % images.length);
@@ -12,7 +18,9 @@ export default function ImageGallery({ images, title }: { images: string[]; titl
   if (images.length === 0) {
     return (
       <div className="aspect-[4/3] rounded-2xl bg-[#F3F1EC] border border-[#E8E4DE] flex items-center justify-center">
-        <span className="font-[family-name:var(--font-body)] text-[13px] text-[#BBBBBB]">No images available</span>
+        <span className="font-[family-name:var(--font-body)] text-[13px] text-[#BBBBBB]">
+          No images available
+        </span>
       </div>
     );
   }
@@ -23,7 +31,7 @@ export default function ImageGallery({ images, title }: { images: string[]; titl
       <div className="relative aspect-[2/1] rounded-2xl overflow-hidden bg-[#F3F1EC] group">
         <img
           src={images[active]}
-          alt={`${title} — photo ${active + 1}`}
+          alt={`${title} - photo ${active + 1}`}
           className="w-full h-full object-cover transition-opacity duration-300"
         />
 
@@ -63,7 +71,11 @@ export default function ImageGallery({ images, title }: { images: string[]; titl
                   : "border-transparent opacity-60 hover:opacity-90 hover:border-[#3A4A20]/40"
               }`}
             >
-              <img src={img} alt={`View ${i + 1}`} className="w-full h-full object-cover" />
+              <img
+                src={img}
+                alt={`View ${i + 1}`}
+                className="w-full h-full object-cover"
+              />
             </button>
           ))}
         </div>

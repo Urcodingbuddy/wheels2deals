@@ -5,9 +5,9 @@ import { createClient } from "@/lib/server";
 import InquiryStatusButton from "./InquiryStatusButton";
 
 const STATUS_COUNT_STYLE: Record<string, string> = {
-  new:       "bg-sky-50 text-sky-700",
+  new: "bg-sky-50 text-sky-700",
   contacted: "bg-amber-50 text-amber-700",
-  closed:    "bg-[#F0F3E8] text-[#3A4A20]",
+  closed: "bg-[#F0F3E8] text-[#3A4A20]",
 };
 
 export default async function AdminCarInquiriesPage({
@@ -34,9 +34,9 @@ export default async function AdminCarInquiriesPage({
 
   const all = inquiries ?? [];
   const counts = {
-    new:       all.filter((i) => i.status === "new").length,
+    new: all.filter((i) => i.status === "new").length,
     contacted: all.filter((i) => i.status === "contacted").length,
-    closed:    all.filter((i) => i.status === "closed").length,
+    closed: all.filter((i) => i.status === "closed").length,
   };
 
   return (
@@ -74,11 +74,16 @@ export default async function AdminCarInquiriesPage({
       {/* Summary counts */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         {(["new", "contacted", "closed"] as const).map((s) => (
-          <div key={s} className="bg-white rounded-xl border border-[#E0DDD8] px-5 py-4">
+          <div
+            key={s}
+            className="bg-white rounded-xl border border-[#E0DDD8] px-5 py-4"
+          >
             <p className="font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.18em] uppercase text-[#888888] mb-2">
               {s}
             </p>
-            <p className={`font-[family-name:var(--font-display)] text-[32px] font-semibold leading-none ${STATUS_COUNT_STYLE[s].split(" ")[1]}`}>
+            <p
+              className={`font-[family-name:var(--font-display)] text-[32px] font-semibold leading-none ${STATUS_COUNT_STYLE[s].split(" ")[1]}`}
+            >
               {counts[s]}
             </p>
           </div>
@@ -108,14 +113,16 @@ export default async function AdminCarInquiriesPage({
             <table className="w-full">
               <thead>
                 <tr className="border-b border-[#E0DDD8] bg-[#F6F5F1]">
-                  {["Contact", "Phone", "Message", "Date", "Status"].map((h) => (
-                    <th
-                      key={h}
-                      className="px-5 py-3 text-left font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.15em] uppercase text-[#888888] whitespace-nowrap"
-                    >
-                      {h}
-                    </th>
-                  ))}
+                  {["Contact", "Phone", "Message", "Date", "Status"].map(
+                    (h) => (
+                      <th
+                        key={h}
+                        className="px-5 py-3 text-left font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.15em] uppercase text-[#888888] whitespace-nowrap"
+                      >
+                        {h}
+                      </th>
+                    ),
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -147,7 +154,9 @@ export default async function AdminCarInquiriesPage({
                           {inq.phone}
                         </a>
                       ) : (
-                        <span className="font-[family-name:var(--font-body)] text-[12px] text-[#BBBBBB]">—</span>
+                        <span className="font-[family-name:var(--font-body)] text-[12px] text-[#BBBBBB]">
+                          -
+                        </span>
                       )}
                     </td>
 
@@ -158,7 +167,9 @@ export default async function AdminCarInquiriesPage({
                           {inq.message}
                         </p>
                       ) : (
-                        <span className="font-[family-name:var(--font-body)] text-[12px] text-[#BBBBBB]">—</span>
+                        <span className="font-[family-name:var(--font-body)] text-[12px] text-[#BBBBBB]">
+                          -
+                        </span>
                       )}
                     </td>
 
@@ -181,7 +192,10 @@ export default async function AdminCarInquiriesPage({
 
                     {/* Status */}
                     <td className="px-5 py-4">
-                      <InquiryStatusButton inquiryId={inq.id} current={inq.status} />
+                      <InquiryStatusButton
+                        inquiryId={inq.id}
+                        current={inq.status}
+                      />
                     </td>
                   </tr>
                 ))}

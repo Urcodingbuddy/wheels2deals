@@ -5,19 +5,19 @@ import { LandingNav } from "@/components/landing/LandingNav";
 import { FooterSection } from "@/components/landing/FooterSection";
 import { PremiumCTA } from "@/components/shared/PremiumCTA";
 import { RevealObserver } from "@/components/landing/RevealObserver";
-import { 
-  ShieldCheck, 
-  Zap, 
-  Brain, 
-  Gem, 
-  Search, 
-  Banknote, 
-  Building2, 
+import {
+  ShieldCheck,
+  Zap,
+  Brain,
+  Gem,
+  Search,
+  Banknote,
+  Building2,
   Wrench,
   Car,
   ClipboardCheck,
   Shield,
-  Users
+  Users,
 } from "lucide-react";
 
 export default function AboutPage() {
@@ -34,39 +34,89 @@ export default function AboutPage() {
     {
       icon: ShieldCheck,
       title: "Trust",
-      desc: "Every partner is vetted. Every deal is tracked. Transparency is non-negotiable — it is the foundation we build on.",
+      desc: "Every partner is vetted. Every deal is tracked. Transparency is non-negotiable - it is the foundation we build on.",
     },
     {
       icon: Zap,
       title: "Speed",
-      desc: "The UAE moves fast. Same-day connections, instant quotes, and same-week deal closures are our standard — not our exception.",
+      desc: "The UAE moves fast. Same-day connections, instant quotes, and same-week deal closures are our standard - not our exception.",
     },
     {
       icon: Brain,
       title: "Expertise",
-      desc: "Deep UAE market knowledge across RTA, insurance, and finance. We don't just connect people — we guide every step.",
+      desc: "Deep UAE market knowledge across RTA, insurance, and finance. We don't just connect people - we guide every step.",
     },
     {
       icon: Gem,
       title: "Prestige",
-      desc: "This is the UAE. Standards are high — and we hold ourselves to them. Premium service, every interaction, every time.",
+      desc: "This is the UAE. Standards are high - and we hold ourselves to them. Premium service, every interaction, every time.",
     },
   ];
 
   const services = [
-    { icon: Car, tag: "Buy", title: "Buy a Car", desc: "Vetted inventory across all UAE. Expert matching with verified dealers. Zero commission for buyers — ever." },
-    { icon: Banknote, tag: "Sell", title: "Sell Your Car", desc: "Reach 200+ verified buyers instantly. Free valuation, no listing fees, same-week deals are common." },
-    { icon: Building2, tag: "Finance", title: "Finance & Loans", desc: "Compare UAE bank rates, calculate your EMI instantly, and get pre-approved in minutes from top lenders." },
-    { icon: Search, tag: "Inspect", title: "RTA Inspection", desc: "150-point certified checks by RTA-approved centres across Dubai, Abu Dhabi and Sharjah." },
-    { icon: Shield, tag: "Insure", title: "Car Insurance", desc: "Compare 10+ UAE insurers side by side. Best rate found and applied in under 2 minutes." },
-    { icon: ClipboardCheck, tag: "Transfer", title: "Transfer & Renewals", desc: "Mulkiya renewal, ownership transfer, NOC services and export plates — all handled same day." },
+    {
+      icon: Car,
+      tag: "Buy",
+      title: "Buy a Car",
+      desc: "Vetted inventory across all UAE. Expert matching with verified dealers. Zero commission for buyers - ever.",
+    },
+    {
+      icon: Banknote,
+      tag: "Sell",
+      title: "Sell Your Car",
+      desc: "Reach 200+ verified buyers instantly. Free valuation, no listing fees, same-week deals are common.",
+    },
+    {
+      icon: Building2,
+      tag: "Finance",
+      title: "Finance & Loans",
+      desc: "Compare UAE bank rates, calculate your EMI instantly, and get pre-approved in minutes from top lenders.",
+    },
+    {
+      icon: Search,
+      tag: "Inspect",
+      title: "RTA Inspection",
+      desc: "150-point certified checks by RTA-approved centres across Dubai, Abu Dhabi and Sharjah.",
+    },
+    {
+      icon: Shield,
+      tag: "Insure",
+      title: "Car Insurance",
+      desc: "Compare 10+ UAE insurers side by side. Best rate found and applied in under 2 minutes.",
+    },
+    {
+      icon: ClipboardCheck,
+      tag: "Transfer",
+      title: "Transfer & Renewals",
+      desc: "Mulkiya renewal, ownership transfer, NOC services and export plates - all handled same day.",
+    },
   ];
 
   const team = [
-    { initials: "AK", name: "Ahmed Al Khalidi", role: "Founder & CEO", bio: "12 years in UAE automotive. Former dealer principal. Built W2D to solve the problem he lived every day." },
-    { initials: "SR", name: "Sara Rahman", role: "Head of Partnerships", bio: "Grew W2D's dealer network from 0 to 200+ partners in under 18 months across all 7 emirates." },
-    { initials: "MJ", name: "Malik Jassim", role: "Head of Technology", bio: "Led digital platforms at two major UAE automotive groups before joining W2D to build the future." },
-    { initials: "LA", name: "Layla Al Ameri", role: "Head of Client Success", bio: "Personally oversees quality for every partner relationship. The reason our satisfaction rate is 98%." },
+    {
+      initials: "AK",
+      name: "Ahmed Al Khalidi",
+      role: "Founder & CEO",
+      bio: "12 years in UAE automotive. Former dealer principal. Built W2D to solve the problem he lived every day.",
+    },
+    {
+      initials: "SR",
+      name: "Sara Rahman",
+      role: "Head of Partnerships",
+      bio: "Grew W2D's dealer network from 0 to 200+ partners in under 18 months across all 7 emirates.",
+    },
+    {
+      initials: "MJ",
+      name: "Malik Jassim",
+      role: "Head of Technology",
+      bio: "Led digital platforms at two major UAE automotive groups before joining W2D to build the future.",
+    },
+    {
+      initials: "LA",
+      name: "Layla Al Ameri",
+      role: "Head of Client Success",
+      bio: "Personally oversees quality for every partner relationship. The reason our satisfaction rate is 98%.",
+    },
   ];
 
   return (
@@ -92,66 +142,92 @@ export default function AboutPage() {
               About Wheels2Deals
             </span>
             <h1 className="font-[family-name:var(--font-display)] text-[clamp(40px,7vw,100px)] font-bold text-white leading-[0.95] md:leading-[0.9] tracking-tighter mb-12">
-              We Don't Sell Cars.<br />
-              <span className="italic font-light text-[#C9A84C]">We Make Deals Happen.</span>
+              We Don't Sell Cars.
+              <br />
+              <span className="italic font-light text-[#C9A84C]">
+                We Make Deals Happen.
+              </span>
             </h1>
             <p className="font-[family-name:var(--font-body)] text-white/70 text-[18px] md:text-[22px] leading-relaxed mb-10 max-w-lg">
-              Born in Dubai. Built for the UAE. W2D is the intelligent broker platform connecting every buyer, seller, dealer and service partner — all in one place.
+              Born in Dubai. Built for the UAE. W2D is the intelligent broker
+              platform connecting every buyer, seller, dealer and service
+              partner - all in one place.
             </p>
             <div className="flex flex-wrap gap-4">
               <PremiumCTA href="/buy" text="Start a Deal" variant="primary" />
-              <PremiumCTA href="/contact" text="Partner With Us" variant="outline" />
             </div>
           </div>
 
-          <div className="reveal hidden lg:block" style={{ transitionDelay: '0.2s' }}>
+          <div className="reveal hidden lg:block" style={{ transitionDelay: "0.2s" }}>
             <div className="relative group">
-              <div className="absolute -inset-1 bg-[#C9A84C]/20 blur-xl rounded-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 p-12 rounded-[40px] overflow-hidden">
-                <div className="absolute top-0 right-0 p-8 text-white/[0.03] font-black text-8xl pointer-events-none tracking-tighter">W2D</div>
+              {/* Soft Outer Glow */}
+              <div className="absolute -inset-1 bg-[#C9A84C]/10 blur-2xl rounded-[48px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              
+              {/* Main Dark Olive Card */}
+              <div className="relative bg-[#2A3510] p-12 md:p-16 rounded-[32px] shadow-[0_40px_100px_rgba(0,0,0,0.3)] border border-white/10 min-h-[500px] flex flex-col justify-between overflow-visible">
                 
-                <div className="flex items-center gap-3 mb-10">
-                  <div className="w-8 h-[1px] bg-[#C9A84C]/40" />
-                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] opacity-80">The Bridge Model</p>
-                </div>
-                
-                <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 mb-10">
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center hover:bg-[#C9A84C]/10 hover:border-[#C9A84C]/30 transition-all duration-500 group/node">
-                    <Users className="w-8 h-8 text-[#C9A84C] mx-auto mb-3 transition-transform group-hover/node:scale-110" />
-                    <span className="block text-[12px] font-bold uppercase tracking-widest text-white">Buyers</span>
-                  </div>
-                  
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-12 h-[1px] bg-gradient-to-r from-[#C9A84C]/40 to-transparent relative" />
-                    <div className="w-2 h-2 rounded-full bg-[#C9A84C] animate-pulse" />
-                    <div className="w-12 h-[1px] bg-gradient-to-l from-[#C9A84C]/40 to-transparent relative" />
-                  </div>
-
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center hover:bg-[#C9A84C]/10 hover:border-[#C9A84C]/30 transition-all duration-500 group/node">
-                    <Car className="w-8 h-8 text-[#C9A84C] mx-auto mb-3 transition-transform group-hover/node:scale-110" />
-                    <span className="block text-[12px] font-bold uppercase tracking-widest text-white">Sellers</span>
-                  </div>
+                {/* Top Label */}
+                <div className="absolute top-12 left-12 flex items-center gap-3">
+                  <div className="w-6 h-[1px] bg-[#C9A84C]/60" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#C9A84C]">The Bridge Model</span>
                 </div>
 
-                <div className="relative mb-10 text-center">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-dashed border-white/10" />
+                {/* TIER 1: BUYERS & SELLERS */}
+                <div className="relative grid grid-cols-2 gap-10 mt-8 mb-4">
+                  {/* Arc SVG behind boxes */}
+                  <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-20 overflow-visible z-0 pointer-events-none" viewBox="0 0 400 100" fill="none">
+                    <path 
+                      d="M 50,80 Q 200,0 350,80" 
+                      stroke="#C9A84C" 
+                      strokeWidth="2.5" 
+                      strokeDasharray="4 6" 
+                      className="opacity-40"
+                    />
+                    <circle cx="200" cy="40" r="5" fill="#C9A84C" className="animate-pulse shadow-[0_0_15px_rgba(201,168,76,0.5)]" />
+                  </svg>
+
+                  <div className="relative z-10 bg-white/5 border border-white/10 p-8 rounded-2xl text-center group/node hover:border-[#C9A84C]/40 hover:bg-white/10 transition-all duration-500">
+                    <Users className="w-7 h-7 text-[#C9A84C] mx-auto mb-3 transition-transform group-hover/node:scale-110" />
+                    <span className="block text-[11px] font-bold uppercase tracking-[0.2em] text-white">Buyers</span>
                   </div>
-                  <div className="relative inline-flex items-center justify-center bg-[#2A3510] px-6 py-3 border border-[#C9A84C]/30 rounded-xl shadow-lg">
-                     <span className="font-[family-name:var(--font-display)] font-black text-2xl text-[#C9A84C] tracking-tighter">W2D</span>
+
+                  <div className="relative z-10 bg-white/5 border border-white/10 p-8 rounded-2xl text-center group/node hover:border-[#C9A84C]/40 hover:bg-white/10 transition-all duration-500">
+                    <Car className="w-7 h-7 text-[#C9A84C] mx-auto mb-3 transition-transform group-hover/node:scale-110" />
+                    <span className="block text-[11px] font-bold uppercase tracking-[0.2em] text-white">Sellers</span>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                    <Building2 className="w-5 h-5 text-[#C9A84C]/60" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/60">Dealers</span>
+                {/* TIER 2: CENTRAL HUB (W2D) */}
+                <div className="relative flex flex-col items-center">
+                  {/* Vertical Connection Lines (Top to Middle) */}
+                  <div className="flex gap-16 mb-2">
+                    <div className="w-[2.5px] h-10 bg-gradient-to-b from-white/10 via-[#C9A84C] to-[#C9A84C] shadow-[0_0_10px_rgba(201,168,76,0.3)]" />
+                    <div className="w-[2.5px] h-10 bg-gradient-to-b from-white/10 via-[#C9A84C] to-[#C9A84C] shadow-[0_0_10px_rgba(201,168,76,0.3)]" />
                   </div>
-                  <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                    <Wrench className="w-5 h-5 text-[#C9A84C]/60" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/60">Services</span>
+
+                  <div className="relative px-8 py-4 bg-[#2A3510] border-2 border-[#C9A84C] rounded-xl shadow-[0_0_30px_rgba(201,168,76,0.2)] z-20 group/w2d hover:scale-105 transition-transform duration-500">
+                    <span className="font-[family-name:var(--font-display)] font-black text-3xl text-[#C9A84C] tracking-tighter">W2D</span>
+                  </div>
+
+                  {/* Vertical Connection Lines (Middle to Bottom) */}
+                  <div className="flex gap-16 mt-2">
+                    <div className="w-[2.5px] h-10 bg-gradient-to-t from-white/10 via-[#C9A84C] to-[#C9A84C] shadow-[0_0_10px_rgba(201,168,76,0.3)]" />
+                    <div className="w-[2.5px] h-10 bg-gradient-to-t from-white/10 via-[#C9A84C] to-[#C9A84C] shadow-[0_0_10px_rgba(201,168,76,0.3)]" />
                   </div>
                 </div>
+
+                {/* TIER 3: DEALERS & SERVICES */}
+                <div className="grid grid-cols-2 gap-6 mt-4">
+                  <div className="flex items-center justify-center gap-4 py-6 px-4 bg-white/5 border border-white/10 rounded-xl group/node hover:border-[#C9A84C]/40 hover:bg-white/10 transition-all duration-500">
+                    <Building2 className="w-5 h-5 text-white/40 group-hover/node:text-[#C9A84C] transition-colors" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 group-hover/node:text-white transition-colors">Dealers</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-4 py-6 px-4 bg-white/5 border border-white/10 rounded-xl group/node hover:border-[#C9A84C]/40 hover:bg-white/10 transition-all duration-500">
+                    <Wrench className="w-5 h-5 text-white/40 group-hover/node:text-[#C9A84C] transition-colors" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 group-hover/node:text-white transition-colors">Services</span>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -163,9 +239,17 @@ export default function AboutPage() {
         <div className="max-w-[1440px] mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 md:gap-4">
             {stats.map((s, i) => (
-              <div key={i} className="reveal text-center group" style={{ transitionDelay: `${i * 0.1}s` }}>
-                <p className="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-black text-[#C9A84C] mb-2 tracking-tighter group-hover:scale-110 transition-transform duration-500">{s.num}</p>
-                <p className="text-[11px] font-bold uppercase tracking-widest text-white/40">{s.label}</p>
+              <div
+                key={i}
+                className="reveal text-center group"
+                style={{ transitionDelay: `${i * 0.1}s` }}
+              >
+                <p className="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-black text-[#C9A84C] mb-2 tracking-tighter group-hover:scale-110 transition-transform duration-500">
+                  {s.num}
+                </p>
+                <p className="text-[11px] font-bold uppercase tracking-widest text-white/40">
+                  {s.label}
+                </p>
               </div>
             ))}
           </div>
@@ -176,35 +260,75 @@ export default function AboutPage() {
       <section className="py-32 px-6 md:px-12 relative bg-transparent z-10">
         <div className="max-w-[1440px] mx-auto grid lg:grid-cols-2 gap-24 items-center">
           <div className="reveal">
-            <span className="text-[12px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-6 block font-[family-name:var(--font-body)]">Our Story</span>
+            <span className="text-[12px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-6 block font-[family-name:var(--font-body)]">
+              Our Story
+            </span>
             <div className="pl-8 border-l-4 border-[#C9A84C] mb-10">
               <h2 className="font-[family-name:var(--font-display)] text-3xl md:text-5xl font-bold leading-tight text-white">
                 "The Smartest Bridge Between Every Car Deal in the UAE"
               </h2>
             </div>
             <div className="space-y-6 text-white/70 font-[family-name:var(--font-body)] text-[17px] leading-relaxed">
-              <p>Wheels2Deals was born from a simple frustration: buying or selling a car in the UAE shouldn't be this hard. Buyers were getting lost in unverified listings. Sellers were leaving money on the table. Dealers were drowning in unqualified leads.</p>
-              <p>Everyone was juggling five different platforms just to complete one deal. So we built one platform to fix all of it.</p>
-              <p>W2D is not a showroom. We are not a classifieds site. We are the intelligent layer that sits between every buyer, seller, dealer, and service partner — matching the right people, at the right time, with the right verified professionals.</p>
+              <p>
+                Wheels2Deals was born from a simple frustration: buying or
+                selling a car in the UAE shouldn't be this hard. Buyers were
+                getting lost in unverified listings. Sellers were leaving money
+                on the table. Dealers were drowning in unqualified leads.
+              </p>
+              <p>
+                Everyone was juggling five different platforms just to complete
+                one deal. So we built one platform to fix all of it.
+              </p>
+              <p>
+                W2D is not a showroom. We are not a classifieds site. We are the
+                intelligent layer that sits between every buyer, seller, dealer,
+                and service partner - matching the right people, at the right
+                time, with the right verified professionals.
+              </p>
             </div>
           </div>
 
-          <div className="reveal lg:pl-12" style={{ transitionDelay: '0.2s' }}>
-            <span className="text-[12px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-8 block">The Gap We Saw</span>
+          <div className="reveal lg:pl-12" style={{ transitionDelay: "0.2s" }}>
+            <span className="text-[12px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-8 block">
+              The Gap We Saw
+            </span>
             <div className="space-y-4">
               {[
-                { icon: Search, title: "Unverified Listings", desc: "Buyers wasted hours on phantom listings and private sellers with no accountability." },
-                { icon: Banknote, title: "Sellers Left Money Behind", desc: "Without reach or expertise, sellers settled for less than their car was truly worth." },
-                { icon: Building2, title: "Dealers Had No Lead Quality", desc: "Dealer partners wasted resources on cold, unqualified traffic from classifieds." },
-                { icon: Wrench, title: "Services Were Disconnected", desc: "Insurance, inspection, finance and RTA paperwork had zero coordination — until now." }
+                {
+                  icon: Search,
+                  title: "Unverified Listings",
+                  desc: "Buyers wasted hours on phantom listings and private sellers with no accountability.",
+                },
+                {
+                  icon: Banknote,
+                  title: "Sellers Left Money Behind",
+                  desc: "Without reach or expertise, sellers settled for less than their car was truly worth.",
+                },
+                {
+                  icon: Building2,
+                  title: "Dealers Had No Lead Quality",
+                  desc: "Dealer partners wasted resources on cold, unqualified traffic from classifieds.",
+                },
+                {
+                  icon: Wrench,
+                  title: "Services Were Disconnected",
+                  desc: "Insurance, inspection, finance and RTA paperwork had zero coordination - until now.",
+                },
               ].map((item, i) => (
-                <div key={i} className="group p-6 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-6 hover:bg-[#C9A84C]/5 hover:border-[#C9A84C]/30 transition-all duration-500 backdrop-blur-sm">
+                <div
+                  key={i}
+                  className="group p-6 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-6 hover:bg-[#C9A84C]/5 hover:border-[#C9A84C]/30 transition-all duration-500 backdrop-blur-sm"
+                >
                   <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                     <item.icon className="w-6 h-6 text-[#C9A84C]" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-[16px] mb-1 group-hover:text-[#C9A84C] transition-colors">{item.title}</h4>
-                    <p className="text-[13px] text-white/40 leading-relaxed">{item.desc}</p>
+                    <h4 className="font-bold text-[16px] mb-1 group-hover:text-[#C9A84C] transition-colors">
+                      {item.title}
+                    </h4>
+                    <p className="text-[13px] text-white/40 leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -217,17 +341,31 @@ export default function AboutPage() {
       <section className="py-32 px-6 md:px-12 bg-[#2A3510] text-white rounded-t-[40px] md:rounded-t-[60px] relative z-20 shadow-[0_-20px_40px_rgba(0,0,0,0.3)]">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-20 reveal">
-            <span className="text-[12px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-6 block">Our Values</span>
-            <h2 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-bold mb-6 tracking-tight">Four Pillars. One Standard.</h2>
-            <p className="text-white/40 max-w-2xl mx-auto">Every interaction at W2D is governed by these four principles.</p>
+            <span className="text-[12px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-6 block">
+              Our Values
+            </span>
+            <h2 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+              Four Pillars. One Standard.
+            </h2>
+            <p className="text-white/40 max-w-2xl mx-auto">
+              Every interaction at W2D is governed by these four principles.
+            </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {pillars.map((p, i) => (
-              <div key={i} className="reveal p-10 rounded-[32px] bg-white/5 border border-white/10 hover:bg-[#C9A84C]/5 hover:border-[#C9A84C]/30 transition-all duration-700 group" style={{ transitionDelay: `${i * 0.1}s` }}>
+              <div
+                key={i}
+                className="reveal p-10 rounded-[32px] bg-white/5 border border-white/10 hover:bg-[#C9A84C]/5 hover:border-[#C9A84C]/30 transition-all duration-700 group"
+                style={{ transitionDelay: `${i * 0.1}s` }}
+              >
                 <p.icon className="w-10 h-10 text-[#C9A84C] mb-8 group-hover:scale-110 transition-transform duration-500" />
-                <h4 className="font-[family-name:var(--font-display)] text-xl font-bold mb-4 text-[#C9A84C]">{p.title}</h4>
-                <p className="text-white/40 text-[14px] leading-relaxed">{p.desc}</p>
+                <h4 className="font-[family-name:var(--font-display)] text-xl font-bold mb-4 text-[#C9A84C]">
+                  {p.title}
+                </h4>
+                <p className="text-white/40 text-[14px] leading-relaxed">
+                  {p.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -236,35 +374,51 @@ export default function AboutPage() {
 
       {/* PLATFORM SECTION - REDESIGNED FOR HIGH IMPACT */}
       <section className="py-32 px-6 md:px-12 bg-[#2A3510] text-white relative z-20 overflow-hidden">
-        
         <div className="max-w-[1440px] mx-auto relative z-10">
           <div className="mb-20 reveal">
-            <span className="text-[12px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-6 block font-[family-name:var(--font-body)]">Everything Car</span>
+            <span className="text-[12px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-6 block font-[family-name:var(--font-body)]">
+              Everything Car
+            </span>
             <h2 className="font-[family-name:var(--font-display)] text-[clamp(40px,6.5vw,90px)] font-bold mb-8 tracking-tighter leading-[0.95]">
-              One Platform.<br />
-              <span className="italic font-light text-[#C9A84C]">Every problem solved.</span>
+              One Platform.
+              <br />
+              <span className="italic font-light text-[#C9A84C]">
+                Every problem solved.
+              </span>
             </h2>
             <p className="text-white/60 max-w-xl text-[18px] md:text-[20px] leading-relaxed font-[family-name:var(--font-body)]">
-              Most car transactions involve five separate moving parts. W2D brings every one of them under a single roof — free for consumers, every time.
+              Most car transactions involve five separate moving parts. W2D
+              brings every one of them under a single roof - free for consumers,
+              every time.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((s, i) => (
-              <div key={i} className="reveal group relative p-10 rounded-[40px] bg-white/5 border border-white/10 hover:border-[#C9A84C]/40 hover:bg-[#C9A84C]/5 transition-all duration-700 backdrop-blur-sm" style={{ transitionDelay: `${i * 0.1}s` }}>
+              <div
+                key={i}
+                className="reveal group relative p-10 rounded-[40px] bg-white/5 border border-white/10 hover:border-[#C9A84C]/40 hover:bg-[#C9A84C]/5 transition-all duration-700 backdrop-blur-sm"
+                style={{ transitionDelay: `${i * 0.1}s` }}
+              >
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-[#C9A84C]/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                
+
                 <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:bg-[#C9A84C] group-hover:border-[#C9A84C] transition-all duration-500">
                   <s.icon className="w-8 h-8 text-[#C9A84C] group-hover:text-[#2A3510] transition-colors duration-500" />
                 </div>
-                
+
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="px-3 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] text-[9px] font-bold uppercase tracking-widest border border-[#C9A84C]/20">{s.tag}</span>
+                  <span className="px-3 py-1 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] text-[9px] font-bold uppercase tracking-widest border border-[#C9A84C]/20">
+                    {s.tag}
+                  </span>
                   <div className="h-[1px] flex-1 bg-white/10" />
                 </div>
 
-                <h4 className="font-[family-name:var(--font-display)] text-2xl font-bold mb-4 text-white group-hover:text-[#C9A84C] transition-colors duration-500">{s.title}</h4>
-                <p className="text-white/40 leading-relaxed text-[15px] group-hover:text-white/60 transition-colors duration-500">{s.desc}</p>
+                <h4 className="font-[family-name:var(--font-display)] text-2xl font-bold mb-4 text-white group-hover:text-[#C9A84C] transition-colors duration-500">
+                  {s.title}
+                </h4>
+                <p className="text-white/40 leading-relaxed text-[15px] group-hover:text-white/60 transition-colors duration-500">
+                  {s.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -272,13 +426,18 @@ export default function AboutPage() {
       </section>
 
       {/* TEAM SECTION - REDESIGNED FOR PRESTIGE */}
-      <section className="py-32 px-6 md:px-12 bg-[#2A3510] z-20 relative rounded-b-[40px] md:rounded-b-[60px] shadow-[0_20px_40px_rgba(0,0,0,0.2)]">
+      {/* <section className="py-32 px-6 md:px-12 bg-[#2A3510] z-20 relative rounded-b-[40px] md:rounded-b-[60px] shadow-[0_20px_40px_rgba(0,0,0,0.2)]">
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-24 reveal">
-            <span className="text-[12px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-6 block font-[family-name:var(--font-body)]">The Team</span>
+            <span className="text-[12px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-6 block font-[family-name:var(--font-body)]">
+              The Team
+            </span>
             <h2 className="font-[family-name:var(--font-display)] text-[clamp(40px,6.5vw,90px)] font-bold mb-8 tracking-tighter leading-[0.95] text-white">
-              Built by UAE<br />
-              <span className="italic font-light text-[#C9A84C]">Automotive Insiders.</span>
+              Built by UAE
+              <br />
+              <span className="italic font-light text-[#C9A84C]">
+                Automotive Insiders.
+              </span>
             </h2>
             <p className="text-white/60 max-w-xl text-[18px] md:text-[20px] leading-relaxed font-[family-name:var(--font-body)]">
               Deep market experience across every layer of the UAE car industry.
@@ -287,35 +446,58 @@ export default function AboutPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {team.map((m, i) => (
-              <div key={i} className="reveal group relative bg-white/5 backdrop-blur-sm p-10 rounded-[48px] text-center border border-white/10 hover:border-[#C9A84C]/40 hover:bg-[#C9A84C]/5 transition-all duration-700" style={{ transitionDelay: `${i * 0.1}s` }}>
+              <div
+                key={i}
+                className="reveal group relative bg-white/5 backdrop-blur-sm p-10 rounded-[48px] text-center border border-white/10 hover:border-[#C9A84C]/40 hover:bg-[#C9A84C]/5 transition-all duration-700"
+                style={{ transitionDelay: `${i * 0.1}s` }}
+              >
                 <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#C9A84C] to-[#9E7B2A] flex items-center justify-center mx-auto mb-8 relative shadow-[0_0_30px_rgba(201,168,76,0.2)] group-hover:scale-110 transition-transform duration-500">
-                  <span className="font-[family-name:var(--font-display)] text-3xl font-black text-[#2A3510]">{m.initials}</span>
+                  <span className="font-[family-name:var(--font-display)] text-3xl font-black text-[#2A3510]">
+                    {m.initials}
+                  </span>
                 </div>
-                <h4 className="font-[family-name:var(--font-display)] text-xl font-bold mb-1 text-white group-hover:text-[#C9A84C] transition-colors duration-500">{m.name}</h4>
-                <p className="text-[#C9A84C] text-[11px] font-bold uppercase tracking-[0.2em] mb-6">{m.role}</p>
+                <h4 className="font-[family-name:var(--font-display)] text-xl font-bold mb-1 text-white group-hover:text-[#C9A84C] transition-colors duration-500">
+                  {m.name}
+                </h4>
+                <p className="text-[#C9A84C] text-[11px] font-bold uppercase tracking-[0.2em] mb-6">
+                  {m.role}
+                </p>
                 <div className="w-8 h-[1px] bg-white/20 mx-auto mb-6" />
-                <p className="text-white/40 text-[14px] leading-relaxed group-hover:text-white/60 transition-colors duration-500">{m.bio}</p>
+                <p className="text-white/40 text-[14px] leading-relaxed group-hover:text-white/60 transition-colors duration-500">
+                  {m.bio}
+                </p>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* FINAL CTA - MATCHING DESIGN PATTERN */}
       <section className="relative py-40 px-6 md:px-12 overflow-hidden bg-transparent z-10">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-[radial-gradient(ellipse_at_top,rgba(201,168,76,0.1),transparent_70%)] pointer-events-none z-0" />
-        
+
         <div className="relative z-10 max-w-4xl mx-auto text-center reveal">
           <h2 className="font-[family-name:var(--font-display)] text-[clamp(32px,6vw,90px)] font-bold mb-8 tracking-tighter leading-[1.05]">
-            Ready to Experience<br />
-            <span className="italic font-light text-[#C9A84C]">the W2D difference.</span>
+            Ready to Experience
+            <br />
+            <span className="italic font-light text-[#C9A84C]">
+              the W2D difference.
+            </span>
           </h2>
           <p className="text-white/60 text-[18px] md:text-[24px] mb-12 leading-relaxed max-w-2xl mx-auto">
-            Whether you're buying, selling, or looking to partner with us — the conversation starts right here.
+            Whether you're buying, selling, or looking to partner with us - the
+            conversation starts right here.
           </p>
-          <div className="flex flex-wrap justify-center gap-6">
-            <PremiumCTA href="/buy" text="I'm Buying" variant="primary" />
-            <PremiumCTA href="/sell" text="I'm Selling" variant="outline" />
+          <div className="flex flex-col items-center gap-8">
+            <div className="flex flex-wrap justify-center gap-6">
+              <PremiumCTA href="/buy" text="I'm Buying" variant="primary" />
+              <PremiumCTA href="/sell" text="I'm Selling" variant="outline" />
+            </div>
+            <PremiumCTA
+              href="https://wa.me/971501568003?text=Hi%20Wheels2Deals%2C%20I'm%20interested%20in%20a%20professional%20partnership%20with%20your%20platform."
+              text="Partner With Us"
+              variant="outline"
+            />
           </div>
         </div>
       </section>

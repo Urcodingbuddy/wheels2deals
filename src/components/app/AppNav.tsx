@@ -16,10 +16,11 @@ export function AppNav() {
   return (
     <>
       {/* ── Sticky navbar ── */}
-      <header className={`sticky top-0 z-50 h-[60px] ${isDetailPage ? "bg-white" : "bg-[#F6F5F1]/95"} backdrop-blur-md`}>
+      <header
+        className={`sticky top-0 z-50 h-[60px] ${isDetailPage ? "bg-white" : "bg-[#F6F5F1]/95"} backdrop-blur-md`}
+      >
         <div className="h-full w-[90vw] mx-auto flex items-center justify-between">
-
-          {/* Left — Back button (detail pages) or Logo */}
+          {/* Left - Back button (detail pages) or Logo */}
           <div className="flex items-center gap-4">
             {isDetailPage && (
               <Link
@@ -48,7 +49,7 @@ export function AppNav() {
             </Link>
           </div>
 
-          {/* Right — Menu pill */}
+          {/* Right - Menu pill */}
           <button
             onClick={() => setOpen(true)}
             aria-label="Open navigation"

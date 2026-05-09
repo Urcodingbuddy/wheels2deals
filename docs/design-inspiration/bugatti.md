@@ -2,13 +2,14 @@
 
 ## Context for Claude (read this first)
 
-This file is a design reference for the **wheels2deals** project — a luxury car marketplace built with Next.js 16, React 19, Tailwind CSS v4, and Supabase.
+This file is a design reference for the **wheels2deals** project - a luxury car marketplace built with Next.js 16, React 19, Tailwind CSS v4, and Supabase.
 
 When the user says "use the Bugatti file" or "refer to Bugatti design", they mean: apply the visual language, typography choices, layout patterns, spacing, color philosophy, and interaction cues documented below to whatever UI/design task they're working on.
 
-The goal is not to copy Bugatti's site, but to extract the *feeling* — ultra-premium, minimal, dramatic, performance-oriented — and translate it into wheels2deals components and pages.
+The goal is not to copy Bugatti's site, but to extract the _feeling_ - ultra-premium, minimal, dramatic, performance-oriented - and translate it into wheels2deals components and pages.
 
 Key things to extract from the pasted content below:
+
 - Color palette (backgrounds, text, accent colors)
 - Typography scale and font choices
 - Layout density and whitespace usage
@@ -19,9 +20,9 @@ Key things to extract from the pasted content below:
 
 ---
 
-## Bugatti Website — Scrolled Content
+## Bugatti Website - Scrolled Content
 
-Here's a complete breakdown of everything I captured from the Bugatti website — the GIF has been downloaded as **bugatti-scroll-animation.gif** so you can visually review the scroll journey.
+Here's a complete breakdown of everything I captured from the Bugatti website - the GIF has been downloaded as **bugatti-scroll-animation.gif** so you can visually review the scroll journey.
 
 ---
 
@@ -47,22 +48,29 @@ Here's a complete breakdown of everything I captured from the Bugatti website �
 ```
 
 **Tailwind classes used:**
+
 ```html
 <div class="transition-all duration-700 ease-out opacity-0 blur-sm">
   <!-- becomes -->
-<div class="transition-all duration-700 ease-out opacity-100 blur-0">
+  <div class="transition-all duration-700 ease-out opacity-100 blur-0"></div>
+</div>
 ```
 
 The site uses the **IntersectionObserver API** (confirmed in code) to toggle these classes when sections scroll into view.
 
 ---
 
-### 2. Auto-playing Looping Hero Videos (No Animation — Just Video)
+### 2. Auto-playing Looping Hero Videos (No Animation - Just Video)
 
 ```html
-<video autoplay muted loop playsinline
-  class="pointer-events-none h-full w-full object-cover">
-  <source src="hero.mp4">
+<video
+  autoplay
+  muted
+  loop
+  playsinline
+  class="pointer-events-none h-full w-full object-cover"
+>
+  <source src="hero.mp4" />
 </video>
 ```
 
@@ -72,7 +80,7 @@ The "animation" feel on the hero is entirely from **cinematic video backgrounds*
 
 ### 3. Full-Screen Section Stacking (Scroll Snap / Section Takeover)
 
-Each major content block fills the full viewport height with a fixed-image or video background. The visual effect is that each section "replaces" the previous one as you scroll — a **full-page scrolljacking aesthetic** without actually hijacking scroll.
+Each major content block fills the full viewport height with a fixed-image or video background. The visual effect is that each section "replaces" the previous one as you scroll - a **full-page scrolljacking aesthetic** without actually hijacking scroll.
 
 ```css
 .hero-section {
@@ -90,8 +98,12 @@ A CSS-only infinite horizontal scrolling ticker for brand names or highlights:
 
 ```css
 @keyframes marquee-left {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(calc(-100% - var(--gap))); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
 }
 
 .animate-marquee-left {
@@ -129,9 +141,11 @@ The car product cards use a group-hover scale effect on the inner image:
 
 ```html
 <div class="group overflow-hidden rounded">
-  <img class="absolute inset-0 h-full w-full 
+  <img
+    class="absolute inset-0 h-full w-full 
               transition-transform duration-300 
-              group-hover:scale-105" />
+              group-hover:scale-105"
+  />
 </div>
 ```
 
@@ -139,18 +153,22 @@ The car product cards use a group-hover scale effect on the inner image:
 
 ### 6. Crossfade Image Reveal on Hover (Opacity Swap)
 
-Some cards have TWO overlaid images — one fades out, another fades in on hover (dark/light treatment of the same car):
+Some cards have TWO overlaid images - one fades out, another fades in on hover (dark/light treatment of the same car):
 
 ```html
 <div class="group relative overflow-hidden">
   <!-- Default image -->
-  <img class="absolute inset-0 h-full w-full 
+  <img
+    class="absolute inset-0 h-full w-full 
               transition duration-300 
-              group-hover:opacity-0" />
+              group-hover:opacity-0"
+  />
   <!-- Hover image -->
-  <img class="absolute inset-0 opacity-0 
+  <img
+    class="absolute inset-0 opacity-0 
               transition duration-300 
-              group-hover:opacity-100" />
+              group-hover:opacity-100"
+  />
 </div>
 ```
 
@@ -168,7 +186,9 @@ path {
   animation: draw 2s ease forwards;
 }
 @keyframes draw {
-  to { stroke-dashoffset: 0; }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 ```
 
@@ -177,9 +197,10 @@ path {
 ### 8. Typography & Font System
 
 Four custom Bugatti fonts are loaded:
-- `Bugatti Display` — the script/serif logo font
-- `Bugatti Text Bold` / `Bugatti Text Regular` — body/UI text
-- `Bugatti Monospace` — used for all caps labels, prices, small text
+
+- `Bugatti Display` - the script/serif logo font
+- `Bugatti Text Bold` / `Bugatti Text Regular` - body/UI text
+- `Bugatti Monospace` - used for all caps labels, prices, small text
 
 Text styling is **ALL CAPS**, widely tracked (`letter-spacing: 0.1em+`), and always white on dark backgrounds.
 
@@ -192,7 +213,7 @@ The nav starts **transparent with a gradient fade** from black at top and become
 ```css
 nav {
   position: absolute; /* then becomes fixed */
-  background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
   transition: all 300ms;
 }
 ```
@@ -209,14 +230,14 @@ Pill/rounded ghost buttons with border, all caps monospace text:
   border-radius: 9999px;
   padding: 12px 24px;
   color: white;
-  font-family: 'Bugatti Monospace';
+  font-family: "Bugatti Monospace";
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-size: 0.75rem;
   transition: background 300ms;
 }
 .btn:hover {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
 }
 ```
 
@@ -224,15 +245,15 @@ Pill/rounded ghost buttons with border, all caps monospace text:
 
 ### 11. Overall Design Pattern: **Dark Luxury Editorial**
 
-| Property | Value |
-|---|---|
-| **Background** | Pure black (`#000`) throughout |
-| **Text** | White only |
-| **Accent** | None — restrained, no color accents |
-| **Grid** | 2-column equal cards, full-width hero |
-| **Spacing** | Generous vertical padding (100px+ between sections) |
-| **Images** | Full-bleed, cinematic, motion-blur photography |
-| **Framework** | Tailwind CSS + React/custom bundler (no Next.js) |
+| Property       | Value                                               |
+| -------------- | --------------------------------------------------- |
+| **Background** | Pure black (`#000`) throughout                      |
+| **Text**       | White only                                          |
+| **Accent**     | None - restrained, no color accents                 |
+| **Grid**       | 2-column equal cards, full-width hero               |
+| **Spacing**    | Generous vertical padding (100px+ between sections) |
+| **Images**     | Full-bleed, cinematic, motion-blur photography      |
+| **Framework**  | Tailwind CSS + React/custom bundler (no Next.js)    |
 
 ---
 
@@ -240,21 +261,28 @@ Pill/rounded ghost buttons with border, all caps monospace text:
 
 ```js
 // IntersectionObserver for scroll-in animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.remove('opacity-0', 'blur-sm');
-      entry.target.classList.add('opacity-100', 'blur-0');
-    }
-  });
-}, { threshold: 0.15 });
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove("opacity-0", "blur-sm");
+        entry.target.classList.add("opacity-100", "blur-0");
+      }
+    });
+  },
+  { threshold: 0.15 },
+);
 
-document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+document
+  .querySelectorAll(".animate-on-scroll")
+  .forEach((el) => observer.observe(el));
 ```
 
 ```html
 <!-- Wrap each section -->
-<div class="animate-on-scroll transition-all duration-700 ease-out opacity-0 blur-sm">
+<div
+  class="animate-on-scroll transition-all duration-700 ease-out opacity-0 blur-sm"
+>
   <!-- section content -->
 </div>
 ```

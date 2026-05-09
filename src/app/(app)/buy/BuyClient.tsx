@@ -1,7 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Heart, ChevronDown, ChevronUp, X, MapPin, Gauge, Fuel, Settings2 } from "lucide-react";
+import {
+  Heart,
+  ChevronDown,
+  ChevronUp,
+  X,
+  MapPin,
+  Gauge,
+  Fuel,
+  Settings2,
+} from "lucide-react";
 import Link from "next/link";
 import type { Tables, Enums } from "@/types/database";
 
@@ -20,30 +29,57 @@ function deriveCondition(kmDriven: number): "New" | "Certified" | "Used" {
 // ─── Filter constants ─────────────────────────────────────────────────────────
 
 const BODY_TYPES: Enums<"car_type">[] = [
-  "sedan", "suv", "hatchback", "coupe", "convertible", "wagon", "van", "truck", "motorcycle", "other",
+  "sedan",
+  "suv",
+  "hatchback",
+  "coupe",
+  "convertible",
+  "wagon",
+  "van",
+  "truck",
+  "motorcycle",
+  "other",
 ];
 
 const FUEL_LABELS: Record<Enums<"fuel_type">, string> = {
-  petrol: "Petrol", diesel: "Diesel", electric: "Electric",
-  hybrid: "Hybrid", cng: "CNG", lpg: "LPG",
+  petrol: "Petrol",
+  diesel: "Diesel",
+  electric: "Electric",
+  hybrid: "Hybrid",
+  cng: "CNG",
+  lpg: "LPG",
 };
 
 const TRANSMISSION_LABELS: Record<Enums<"transmission_type">, string> = {
-  manual: "Manual", automatic: "Automatic", cvt: "CVT", amt: "AMT",
+  manual: "Manual",
+  automatic: "Automatic",
+  cvt: "CVT",
+  amt: "AMT",
 };
 
 const BODY_TYPE_LABELS: Record<Enums<"car_type">, string> = {
-  sedan: "Sedan", suv: "SUV", hatchback: "Hatchback", coupe: "Coupe",
-  convertible: "Convertible", wagon: "Wagon", van: "Van", truck: "Truck",
-  motorcycle: "Motorcycle", other: "Other",
+  sedan: "Sedan",
+  suv: "SUV",
+  hatchback: "Hatchback",
+  coupe: "Coupe",
+  convertible: "Convertible",
+  wagon: "Wagon",
+  van: "Van",
+  truck: "Truck",
+  motorcycle: "Motorcycle",
+  other: "Other",
 };
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 function CollapsibleSection({
-  title, children, defaultOpen = true,
+  title,
+  children,
+  defaultOpen = true,
 }: {
-  title: string; children: React.ReactNode; defaultOpen?: boolean;
+  title: string;
+  children: React.ReactNode;
+  defaultOpen?: boolean;
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
@@ -55,9 +91,11 @@ function CollapsibleSection({
         <span className="font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.18em] uppercase text-[#888888]">
           {title}
         </span>
-        {open
-          ? <ChevronUp size={13} className="text-[#BBBBBB] shrink-0" />
-          : <ChevronDown size={13} className="text-[#BBBBBB] shrink-0" />}
+        {open ? (
+          <ChevronUp size={13} className="text-[#BBBBBB] shrink-0" />
+        ) : (
+          <ChevronDown size={13} className="text-[#BBBBBB] shrink-0" />
+        )}
       </button>
       {open && children}
     </div>
@@ -65,7 +103,9 @@ function CollapsibleSection({
 }
 
 function ToggleGroup({
-  options, value, onChange,
+  options,
+  value,
+  onChange,
 }: {
   options: { value: string; label: string }[];
   value: string;
@@ -91,9 +131,15 @@ function ToggleGroup({
 }
 
 function CheckboxGroup<T extends string>({
-  options, values, onChange, labelMap,
+  options,
+  values,
+  onChange,
+  labelMap,
 }: {
-  options: T[]; values: Set<T>; onChange: (v: Set<T>) => void; labelMap: Record<T, string>;
+  options: T[];
+  values: Set<T>;
+  onChange: (v: Set<T>) => void;
+  labelMap: Record<T, string>;
 }) {
   const toggle = (opt: T) => {
     const next = new Set(values);
@@ -103,7 +149,11 @@ function CheckboxGroup<T extends string>({
   return (
     <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
       {options.map((opt) => (
-        <label key={opt} className="flex items-center gap-2 cursor-pointer group" onClick={() => toggle(opt)}>
+        <label
+          key={opt}
+          className="flex items-center gap-2 cursor-pointer group"
+          onClick={() => toggle(opt)}
+        >
           <div
             className={`w-[14px] h-[14px] rounded-[3px] border shrink-0 flex items-center justify-center transition-all duration-150 ${
               values.has(opt)
@@ -113,7 +163,13 @@ function CheckboxGroup<T extends string>({
           >
             {values.has(opt) && (
               <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
-                <path d="M1 3L3 5L7 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M1 3L3 5L7 1"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             )}
           </div>
@@ -127,9 +183,9 @@ function CheckboxGroup<T extends string>({
 }
 
 const CONDITION_STYLE: Record<string, string> = {
-  New:       "bg-emerald-500 text-white",
+  New: "bg-emerald-500 text-white",
   Certified: "bg-sky-500 text-white",
-  Used:      "bg-[#3A4A20] text-white",
+  Used: "bg-[#3A4A20] text-white",
 };
 
 const BUBBLE_ANGLES = [0, 60, 120, 180, 240, 300];
@@ -151,13 +207,13 @@ function CarCard({ car }: { car: Car }) {
 
   const condition = deriveCondition(car.km_driven);
   const imageUrl = car.images[0] ?? null;
-  const kmLabel = car.km_driven === 0 ? "Brand New" : `${car.km_driven.toLocaleString()} km`;
+  const kmLabel =
+    car.km_driven === 0 ? "Brand New" : `${car.km_driven.toLocaleString()} km`;
 
   return (
     <div className="relative">
       <Link href={`/buy/${car.slug}`} className="block">
         <article className="group bg-white rounded-2xl overflow-hidden border border-[#E8E4DE] shadow-[0_2px_8px_rgba(42,53,16,0.06)] hover:shadow-[0_12px_36px_rgba(42,53,16,0.13)] hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-
           {/* ── Image ── */}
           <div className="relative aspect-[16/9] overflow-hidden bg-[#F6F5F1]">
             {imageUrl ? (
@@ -168,12 +224,16 @@ function CarCard({ car }: { car: Car }) {
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <span className="font-[family-name:var(--font-body)] text-[11px] text-[#BBBBBB]">No image</span>
+                <span className="font-[family-name:var(--font-body)] text-[11px] text-[#BBBBBB]">
+                  No image
+                </span>
               </div>
             )}
 
             {/* Condition badge */}
-            <span className={`absolute top-3 left-3 font-[family-name:var(--font-body)] text-[9px] font-bold tracking-[0.14em] uppercase px-2.5 py-1 rounded-full shadow-sm ${CONDITION_STYLE[condition]}`}>
+            <span
+              className={`absolute top-3 left-3 font-[family-name:var(--font-body)] text-[9px] font-bold tracking-[0.14em] uppercase px-2.5 py-1 rounded-full shadow-sm ${CONDITION_STYLE[condition]}`}
+            >
               {condition}
             </span>
 
@@ -198,11 +258,19 @@ function CarCard({ car }: { car: Car }) {
                 {FUEL_LABELS[car.fuel_type]}
               </span>
               <span className="inline-flex items-center gap-1 font-[family-name:var(--font-body)] text-[10.5px] text-[#666] bg-[#F3F1EC] px-2 py-0.5 rounded-md">
-                <Settings2 size={10} strokeWidth={1.8} className="text-[#3A4A20]" />
+                <Settings2
+                  size={10}
+                  strokeWidth={1.8}
+                  className="text-[#3A4A20]"
+                />
                 {TRANSMISSION_LABELS[car.transmission]}
               </span>
               <span className="inline-flex items-center gap-1 font-[family-name:var(--font-body)] text-[10.5px] text-[#666] bg-[#F3F1EC] px-2 py-0.5 rounded-md">
-                <MapPin size={10} strokeWidth={1.8} className="text-[#3A4A20]" />
+                <MapPin
+                  size={10}
+                  strokeWidth={1.8}
+                  className="text-[#3A4A20]"
+                />
                 {car.location}
               </span>
             </div>
@@ -210,25 +278,28 @@ function CarCard({ car }: { car: Car }) {
         </article>
       </Link>
 
-      {/* Heart — outside the Link to prevent navigation on click */}
+      {/* Heart - outside the Link to prevent navigation on click */}
       <div className="absolute top-3 right-3 z-10">
         <button
           onClick={handleLike}
           aria-label="Save to favourites"
           className="relative cursor-pointer border-none bg-transparent p-1.5"
         >
-          {burst && BUBBLE_ANGLES.map((angle, i) => (
-            <span
-              key={angle}
-              className="heart-bubble"
-              style={{
-                "--angle": `${angle}deg`,
-                width: i % 2 === 0 ? 5 : 4,
-                height: i % 2 === 0 ? 5 : 4,
-                animationDelay: `${i * 20}ms`,
-              } as React.CSSProperties}
-            />
-          ))}
+          {burst &&
+            BUBBLE_ANGLES.map((angle, i) => (
+              <span
+                key={angle}
+                className="heart-bubble"
+                style={
+                  {
+                    "--angle": `${angle}deg`,
+                    width: i % 2 === 0 ? 5 : 4,
+                    height: i % 2 === 0 ? 5 : 4,
+                    animationDelay: `${i * 20}ms`,
+                  } as React.CSSProperties
+                }
+              />
+            ))}
           <Heart
             key={popKey}
             size={20}
@@ -248,15 +319,22 @@ function CarCard({ car }: { car: Car }) {
 
 // ─── Main client component ────────────────────────────────────────────────────
 
-export default function BuyClient({ cars, brands }: { cars: Car[]; brands: string[] }) {
-  const [condition,    setCondition]    = useState<Condition>("Any");
-  const [bodyTypes,    setBodyTypes]    = useState<Set<Enums<"car_type">>>(new Set());
+export default function BuyClient({
+  cars,
+  brands,
+}: {
+  cars: Car[];
+  brands: string[];
+}) {
+  const [condition, setCondition] = useState<Condition>("Any");
+  const [bodyTypes, setBodyTypes] = useState<Set<Enums<"car_type">>>(new Set());
   const [transmission, setTransmission] = useState("any");
-  const [fuels,        setFuels]        = useState<Set<Enums<"fuel_type">>>(new Set());
-  const [brand,        setBrand]        = useState("All");
+  const [fuels, setFuels] = useState<Set<Enums<"fuel_type">>>(new Set());
+  const [brand, setBrand] = useState("All");
 
   const filtered = cars.filter((c) => {
-    if (condition !== "Any" && deriveCondition(c.km_driven) !== condition) return false;
+    if (condition !== "Any" && deriveCondition(c.km_driven) !== condition)
+      return false;
     if (bodyTypes.size > 0 && !bodyTypes.has(c.type)) return false;
     if (transmission !== "any" && c.transmission !== transmission) return false;
     if (fuels.size > 0 && !fuels.has(c.fuel_type)) return false;
@@ -273,21 +351,24 @@ export default function BuyClient({ cars, brands }: { cars: Car[]; brands: strin
   };
 
   const conditionOptions = [
-    { value: "Any", label: "Any" }, { value: "New", label: "New" },
-    { value: "Certified", label: "Certified" }, { value: "Used", label: "Used" },
+    { value: "Any", label: "Any" },
+    { value: "New", label: "New" },
+    { value: "Certified", label: "Certified" },
+    { value: "Used", label: "Used" },
   ];
 
   const transmissionOptions = [
-    { value: "any", label: "Any" }, { value: "automatic", label: "Automatic" },
-    { value: "manual", label: "Manual" }, { value: "cvt", label: "CVT" }, { value: "amt", label: "AMT" },
+    { value: "any", label: "Any" },
+    { value: "automatic", label: "Automatic" },
+    { value: "manual", label: "Manual" },
+    { value: "cvt", label: "CVT" },
+    { value: "amt", label: "AMT" },
   ];
 
   return (
     <div className="flex" style={{ minHeight: "calc(100vh - 60px)" }}>
-
       {/* ── Filter Sidebar ── */}
       <aside className="w-[260px] shrink-0 bg-[#F6F5F1] sticky top-[60px] h-[calc(100vh-60px)] overflow-y-auto px-5 py-5">
-
         <div className="flex items-center justify-between mb-5">
           <span className="font-[family-name:var(--font-body)] text-[13.5px] font-semibold text-[#2A3510]">
             Filter by
@@ -304,7 +385,11 @@ export default function BuyClient({ cars, brands }: { cars: Car[]; brands: strin
           <p className="font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.18em] uppercase text-[#888888] mb-3">
             Condition
           </p>
-          <ToggleGroup options={conditionOptions} value={condition} onChange={(v) => setCondition(v as Condition)} />
+          <ToggleGroup
+            options={conditionOptions}
+            value={condition}
+            onChange={(v) => setCondition(v as Condition)}
+          />
         </div>
 
         <CollapsibleSection title="Car Brand" defaultOpen={false}>
@@ -326,11 +411,20 @@ export default function BuyClient({ cars, brands }: { cars: Car[]; brands: strin
         </CollapsibleSection>
 
         <CollapsibleSection title="Body Type">
-          <CheckboxGroup options={BODY_TYPES} values={bodyTypes} onChange={setBodyTypes} labelMap={BODY_TYPE_LABELS} />
+          <CheckboxGroup
+            options={BODY_TYPES}
+            values={bodyTypes}
+            onChange={setBodyTypes}
+            labelMap={BODY_TYPE_LABELS}
+          />
         </CollapsibleSection>
 
         <CollapsibleSection title="Transmission">
-          <ToggleGroup options={transmissionOptions} value={transmission} onChange={setTransmission} />
+          <ToggleGroup
+            options={transmissionOptions}
+            value={transmission}
+            onChange={setTransmission}
+          />
         </CollapsibleSection>
 
         <CollapsibleSection title="Fuel Type">
@@ -341,12 +435,10 @@ export default function BuyClient({ cars, brands }: { cars: Car[]; brands: strin
             labelMap={FUEL_LABELS}
           />
         </CollapsibleSection>
-
       </aside>
 
       {/* ── Main Content ── */}
       <main className="flex-1 px-6 py-6 overflow-y-auto bg-white">
-
         <div className="flex items-center justify-between mb-6">
           <h1 className="font-[family-name:var(--font-display)] text-[clamp(20px,2.2vw,28px)] font-semibold uppercase tracking-[-0.01em] text-[#2A3510] leading-none">
             {filtered.length} vehicles for sale
@@ -372,7 +464,6 @@ export default function BuyClient({ cars, brands }: { cars: Car[]; brands: strin
             </div>
           )}
         </div>
-
       </main>
     </div>
   );

@@ -24,21 +24,31 @@ export function ImageUploader({ hook, className }: ImageUploaderProps) {
   } = hook;
 
   const [dragging, setDragging] = useState(false);
-  const [compressProgress, setCompressProgress] = useState<{ completed: number; total: number } | null>(null);
+  const [compressProgress, setCompressProgress] = useState<{
+    completed: number;
+    total: number;
+  } | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFiles = useCallback(
     async (incoming: FileList | File[]) => {
       if (!canAddMore) return;
-      const limited = Array.from(incoming).slice(0, MAX_IMAGES - previews.length);
+      const limited = Array.from(incoming).slice(
+        0,
+        MAX_IMAGES - previews.length,
+      );
       setErrors([]);
       setCompressProgress({ completed: 0, total: limited.length });
 
-      const { previews: prepared, errors: errs, duplicates } = await prepareImages(
+      const {
+        previews: prepared,
+        errors: errs,
+        duplicates,
+      } = await prepareImages(
         limited,
         previews.map((p) => p.file),
-        (completed, total) => setCompressProgress({ completed, total })
+        (completed, total) => setCompressProgress({ completed, total }),
       );
 
       setCompressProgress(null);
@@ -50,7 +60,7 @@ export function ImageUploader({ hook, className }: ImageUploaderProps) {
       if (allErrors.length) setErrors(allErrors);
       if (prepared.length) addPreviews(prepared);
     },
-    [previews, canAddMore, addPreviews]
+    [previews, canAddMore, addPreviews],
   );
 
   const onDrop = useCallback(
@@ -59,45 +69,61 @@ export function ImageUploader({ hook, className }: ImageUploaderProps) {
       setDragging(false);
       handleFiles(e.dataTransfer.files);
     },
-    [handleFiles]
+    [handleFiles],
   );
 
   const busy = !!compressProgress || isUploading;
 
   return (
     <div className={cn("space-y-3", className)}>
-      {/* Drop zone — hidden when at hard limit */}
+      {/* Drop zone - hidden when at hard limit */}
       {canAddMore && (
         <div
           onClick={() => !busy && inputRef.current?.click()}
-          onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDragging(true);
+          }}
           onDragLeave={() => setDragging(false)}
           onDrop={onDrop}
           className={cn(
             "border-2 border-dashed rounded-lg p-8 text-center transition-colors",
             busy ? "cursor-not-allowed opacity-60" : "cursor-pointer",
-            dragging ? "border-primary bg-primary/5" : "border-border hover:border-primary/50"
+            dragging
+              ? "border-primary bg-primary/5"
+              : "border-border hover:border-primary/50",
           )}
         >
           {compressProgress ? (
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">
-                Compressing {compressProgress.completed}/{compressProgress.total}...
+                Compressing {compressProgress.completed}/
+                {compressProgress.total}...
               </p>
-              <ProgressBar value={compressProgress.completed} max={compressProgress.total} />
+              <ProgressBar
+                value={compressProgress.completed}
+                max={compressProgress.total}
+              />
             </div>
           ) : isUploading && uploadProgress ? (
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">
-                Uploading {uploadProgress.completed}/{uploadProgress.total} images...
+                Uploading {uploadProgress.completed}/{uploadProgress.total}{" "}
+                images...
               </p>
-              <ProgressBar value={uploadProgress.completed} max={uploadProgress.total} />
+              <ProgressBar
+                value={uploadProgress.completed}
+                max={uploadProgress.total}
+              />
             </div>
           ) : (
             <>
-              <p className="text-sm font-medium">Drop images here or click to select</p>
+              <p className="text-sm font-medium">
+                Drop images here or click to select
+              </p>
               <p className="text-xs text-muted-foreground mt-1">
-                JPEG, PNG, WebP · Max 10MB each · {previews.length}/{MAX_IMAGES} · Min {MIN_IMAGES} required
+                JPEG, PNG, WebP · Max 10MB each · {previews.length}/{MAX_IMAGES}{" "}
+                · Min {MIN_IMAGES} required
               </p>
             </>
           )}
@@ -122,12 +148,16 @@ export function ImageUploader({ hook, className }: ImageUploaderProps) {
       {/* Validation / errors */}
       {errors.length > 0 && (
         <ul className="text-xs text-destructive space-y-0.5">
-          {errors.map((e) => <li key={e}>• {e}</li>)}
+          {errors.map((e) => (
+            <li key={e}>• {e}</li>
+          ))}
         </ul>
       )}
 
       {validationError && (
-        <p className="text-xs text-amber-600 dark:text-amber-400">{validationError}</p>
+        <p className="text-xs text-amber-600 dark:text-amber-400">
+          {validationError}
+        </p>
       )}
 
       {/* Failed upload retry */}
@@ -147,14 +177,18 @@ export function ImageUploader({ hook, className }: ImageUploaderProps) {
       {/* Previews */}
       {previews.length > 0 && (
         <>
-          <p className="text-xs text-muted-foreground">Tap an image to set it as cover</p>
+          <p className="text-xs text-muted-foreground">
+            Tap an image to set it as cover
+          </p>
           <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5">
             {previews.map((preview, i) => (
               <div
                 key={preview.previewUrl}
                 className={cn(
                   "relative aspect-square group rounded-md overflow-hidden ring-2 transition-all cursor-pointer",
-                  preview.isCover ? "ring-primary" : "ring-transparent hover:ring-primary/40"
+                  preview.isCover
+                    ? "ring-primary"
+                    : "ring-transparent hover:ring-primary/40",
                 )}
                 onClick={() => setCover(i)}
               >
@@ -165,7 +199,10 @@ export function ImageUploader({ hook, className }: ImageUploaderProps) {
                 />
                 <button
                   type="button"
-                  onClick={(e) => { e.stopPropagation(); remove(i); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    remove(i);
+                  }}
                   className="absolute top-1 right-1 bg-black/60 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
                 >
                   ✕

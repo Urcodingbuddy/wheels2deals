@@ -91,7 +91,7 @@ export function useImageUpload(): UseImageUploadReturn {
         (completed, total) => setUploadProgress({ completed, total })
       );
 
-      // Sort by index after async settle — guarantees cover is index 0
+      // Sort by index after async settle - guarantees cover is index 0
       result.succeeded.sort((a, b) => a.index - b.index);
 
       setFailedUploads(result.failed);
@@ -156,7 +156,7 @@ export function useImageUpload(): UseImageUploadReturn {
   };
 }
 
-// Helper for DB consistency — call if DB insert fails after upload
+// Helper for DB consistency - call if DB insert fails after upload
 export async function rollbackUpload(succeeded: UploadResult[]): Promise<void> {
   await deleteUploadedImages(succeeded);
 }

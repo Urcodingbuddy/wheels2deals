@@ -9,7 +9,7 @@ const VIDEO_BUCKET = "car-videos";
 const ALLOWED_VIDEO_TYPES = ["video/mp4", "video/quicktime", "video/webm"];
 const MAX_VIDEO_SIZE = 500 * 1024 * 1024;
 
-// Anchored to carId (unique) — not slug (can collide)
+// Anchored to carId (unique) - not slug (can collide)
 function buildImagePath(carId: string, index: number): string {
   return `${carId}/${index}-${Date.now()}.webp`;
 }
@@ -71,7 +71,7 @@ export async function uploadCarImages(
     }
   });
 
-  // Enforce order by original index — async uploads can complete out of order
+  // Enforce order by original index - async uploads can complete out of order
   succeeded.sort((a, b) => a.index - b.index);
 
   return { succeeded, failed };

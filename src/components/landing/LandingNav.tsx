@@ -13,7 +13,7 @@ export function LandingNav() {
     <>
       {/* Navbar */}
       <header className="absolute top-10 left-0 right-0 z-[100] flex items-center justify-between px-10">
-        {/* Left — logo */}
+        {/* Left - logo */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center no-underline">
             <img
@@ -24,7 +24,7 @@ export function LandingNav() {
           </Link>
         </div>
 
-        {/* Center — scroll anchors */}
+        {/* Center - scroll anchors */}
         <nav className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
           {[
             { label: "How it Works", href: "/how-it-works" },
@@ -43,7 +43,7 @@ export function LandingNav() {
           ))}
         </nav>
 
-        {/* Right — Menu */}
+        {/* Right - Menu */}
         <button
           onClick={() => setOpen(true)}
           aria-label="Open navigation"

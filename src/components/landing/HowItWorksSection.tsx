@@ -18,7 +18,7 @@ export function HowItWorksSection() {
         </svg>
       ),
       title: "Tell Us What You Need",
-      body: "Buying, selling, or need a service? Share your requirement in under a minute — no forms, no jargon.",
+      body: "Buying, selling, or need a service? Share your requirement in under a minute - no forms, no jargon.",
     },
     {
       num: "02",
@@ -38,7 +38,7 @@ export function HowItWorksSection() {
         </svg>
       ),
       title: "We Match the Right Partner",
-      body: "Our team connects you with a vetted UAE dealer or service partner — the right one for your exact situation.",
+      body: "Our team connects you with a vetted UAE dealer or service partner - the right one for your exact situation.",
     },
     {
       num: "03",

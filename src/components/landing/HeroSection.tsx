@@ -36,7 +36,7 @@ export function HeroSection() {
       {/* Dark overlay for text legibility */}
       <div className="absolute inset-0 bg-black/50 z-[1]" />
 
-      {/* Center text — flex-1 on mobile so it fills space above cards; absolute centered on desktop */}
+      {/* Center text - flex-1 on mobile so it fills space above cards; absolute centered on desktop */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 gap-3 pt-28 pb-12 md:absolute md:flex-none md:inset-x-0 md:top-1/2 md:-translate-y-1/2 md:pt-0 md:pb-0">
         {/* Brand name */}
         <h1
@@ -81,7 +81,7 @@ export function HeroSection() {
         </p>
       </div>
 
-      {/* Bottom cards — in-flow on mobile (stacked), absolute on desktop (side-by-side) */}
+      {/* Bottom cards - in-flow on mobile (stacked), absolute on desktop (side-by-side) */}
       <div className="relative z-10 flex flex-col gap-3 p-3.5 pt-0 md:absolute md:bottom-3.5 md:left-3.5 md:right-3.5 md:p-0 md:flex-row md:justify-between">
         {/* Buying */}
         <div className="hero-enter hero-enter-delay-3 flex-1 md:flex-none md:w-[360px] bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 md:p-8 flex flex-col gap-4 md:gap-5">
@@ -95,7 +95,7 @@ export function HeroSection() {
               Browse verified listings across the UAE.
             </p>
           </div>
-          <PremiumCTA 
+          <PremiumCTA
             href="/buy"
             text="Explore Listings"
             variant="outline"
@@ -115,7 +115,7 @@ export function HeroSection() {
               Get your car's true value in minutes.
             </p>
           </div>
-          <PremiumCTA 
+          <PremiumCTA
             href="/sell"
             text="Get Best Price"
             variant="outline"
@@ -124,7 +124,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll indicator — hidden on mobile */}
+      {/* Scroll indicator - hidden on mobile */}
       <div className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 z-10">
         <span className="font-[family-name:var(--font-body)] text-[8.5px] font-semibold tracking-[0.24em] uppercase text-white/25 mb-1">
           Scroll

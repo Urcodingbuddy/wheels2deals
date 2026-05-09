@@ -13,7 +13,7 @@ export function CTASection() {
           <span className="text-white/15">Next Car.</span>
         </h2>
         <p className="reveal reveal-delay-2 font-[family-name:var(--font-body)] text-[15px] font-normal text-[#aaaaaa] leading-[1.7] mb-12">
-          Browse our current inventory or get in touch — we&apos;ll help you
+          Browse our current inventory or get in touch - we&apos;ll help you
           find exactly what you&apos;re looking for.
         </p>
         <div className="reveal reveal-delay-3 flex flex-wrap justify-center gap-4">

@@ -7,27 +7,27 @@ const CATEGORIES = [
   {
     label: "Economy Cars",
     href: "/buy?type=economy",
-    img: "/categories_images/Economy_car.png",
+    img: "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-images/site_images/Economy_car.webp",
   },
   {
     label: "Sports Cars",
     href: "/buy?type=sport",
-    img: "/categories_images/Sports_car.png",
+    img: "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-images/site_images/Sports_car.webp",
   },
   {
     label: "SUV Cars",
     href: "/buy?type=suv",
-    img: "/categories_images/SUV_car.png",
+    img: "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-images/site_images/SUV_car.webp",
   },
   {
     label: "Luxury Cars",
     href: "/buy?type=luxury",
-    img: "/categories_images/Luxury_car.png",
+    img: "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-images/site_images/Luxury_car.webp",
   },
   {
     label: "Exotic Cars",
     href: "/buy?type=exotic",
-    img: "/categories_images/Exotic_car.png",
+    img: "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-images/site_images/Exotic_car.webp",
   },
 ];
 
@@ -66,7 +66,11 @@ export function CategorySection() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/15 transition-opacity duration-300 group-hover:opacity-0" />
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-[#2A3510]/75 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <ExternalLink size={32} className="text-white/90" strokeWidth={1.5} />
+                <ExternalLink
+                  size={32}
+                  className="text-white/90"
+                  strokeWidth={1.5}
+                />
               </div>
               <div className="absolute bottom-0 left-0 right-0 px-5 pb-6 flex items-center justify-between z-10">
                 <span className="relative font-[family-name:var(--font-display)] text-[20px] font-bold text-white leading-tight py-0.5">
@@ -92,7 +96,7 @@ export function CategorySection() {
               className="reveal group relative flex-1 rounded-[10px] overflow-hidden no-underline block"
               style={{ transitionDelay: `${i * 0.07}s` }}
             >
-              {/* Image — GPU zoom */}
+              {/* Image - GPU zoom */}
               <img
                 src={cat.img}
                 alt={cat.label}
@@ -105,12 +109,12 @@ export function CategorySection() {
               {/* Permanent bottom gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
 
-              {/* Olive tint overlay — GPU opacity */}
+              {/* Olive tint overlay - GPU opacity */}
               <div className="absolute inset-0 bg-[#2A3510]/55 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               {/* Bottom content */}
               <div className="absolute bottom-0 left-0 right-0 px-5 pb-6 z-10">
-                {/* Gold bar — draws left→right via scaleX (GPU transform) */}
+                {/* Gold bar - draws left→right via scaleX (GPU transform) */}
                 <div
                   className="h-[2px] w-8 bg-[#C9A84C] mb-2.5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"
                   style={{ transitionDelay: "0.05s" }}

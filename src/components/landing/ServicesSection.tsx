@@ -41,7 +41,7 @@ const SERVICES = [
     ),
     label: "SELL YOUR CAR",
     title: "Sell Your Car",
-    body: "Get the best price without the hassle. We connect you to the right buyers — same-week deals.",
+    body: "Get the best price without the hassle. We connect you to the right buyers - same-week deals.",
     href: "/sell",
   },
   {
@@ -129,7 +129,7 @@ const SERVICES = [
     ),
     label: "TRANSFER",
     title: "Transfer & Renewals",
-    body: "Ownership transfers, Mulkiya renewals, RTA paperwork — handled same day so you don't have to queue.",
+    body: "Ownership transfers, Mulkiya renewals, RTA paperwork - handled same day so you don't have to queue.",
     href: "/transfer",
   },
 ];
@@ -151,7 +151,7 @@ export function ServicesSection() {
             </h2>
           </div>
           <p className="font-[family-name:var(--font-body)] text-[14px] text-white/55 max-w-[320px] leading-[1.7] md:text-right">
-            From finding your car to insuring it and transferring ownership —
+            From finding your car to insuring it and transferring ownership -
             W2D handles every step.
           </p>
         </div>

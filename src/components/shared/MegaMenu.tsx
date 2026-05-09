@@ -71,8 +71,14 @@ export function TwoLineIcon({ size }: { size: number }) {
 
 export function MegaMenu({ onClose }: { onClose: () => void }) {
   const pathname = usePathname();
-  const pageName = pathname === "/" ? "Home" : pathname.split("/").filter(Boolean).pop()?.replace(/-/g, " ") || pathname;
-  const whatsappText = encodeURIComponent(`Hi Wheels2Deals, I'm reaching out from the ${pageName} page and would like to know more about your services.`);
+  const pageName =
+    pathname === "/"
+      ? "Home"
+      : pathname.split("/").filter(Boolean).pop()?.replace(/-/g, " ") ||
+        pathname;
+  const whatsappText = encodeURIComponent(
+    `Hi Wheels2Deals, I'm reaching out from the ${pageName} page and would like to know more about your services.`,
+  );
 
   return (
     <>
@@ -101,7 +107,7 @@ export function MegaMenu({ onClose }: { onClose: () => void }) {
 
         {/* Body */}
         <div className="flex flex-1 overflow-hidden">
-          {/* Left — nav links */}
+          {/* Left - nav links */}
           <div className="no-scrollbar flex-[0_0_55%] md:flex-[0_0_42%] px-6 md:px-10 pb-10 overflow-y-auto md:border-r border-[#EDEAE6]">
             {SERVICE_GROUPS.map((group, gIdx) => (
               <div key={group.label} className="mb-10">
@@ -137,7 +143,7 @@ export function MegaMenu({ onClose }: { onClose: () => void }) {
             ))}
           </div>
 
-          {/* Right — image cards */}
+          {/* Right - image cards */}
           <div className="no-scrollbar flex-1 px-3 sm:px-6 pb-10 overflow-y-auto flex flex-col gap-5">
             {PREVIEW_CARDS.map((card, i) => (
               <div

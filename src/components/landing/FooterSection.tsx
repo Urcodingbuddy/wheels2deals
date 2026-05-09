@@ -41,7 +41,7 @@ export function FooterSection() {
 
         {/* Main grid */}
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-10 md:gap-20 pb-10 border-b border-white/10">
-          {/* Left — CTA */}
+          {/* Left - CTA */}
           <div className="flex flex-col gap-6 md:gap-8">
             <div>
               <p className="inline-flex items-center gap-2 font-[family-name:var(--font-body)] text-[10px] md:text-[11px] font-semibold tracking-[0.2em] uppercase text-[#C9A84C] mb-3 md:mb-5">
@@ -54,7 +54,7 @@ export function FooterSection() {
                 to get started?
               </h2>
             </div>
-            <PremiumCTA 
+            <PremiumCTA
               href="/buy"
               text="Explore Listings"
               variant="outline"
@@ -62,7 +62,7 @@ export function FooterSection() {
             />
           </div>
 
-          {/* Right — Info Grid (2 cols on mobile) */}
+          {/* Right - Info Grid (2 cols on mobile) */}
           <div className="grid grid-cols-2 md:flex md:flex-row gap-8 md:gap-20">
             {/* Navigation */}
             <div className="min-w-[120px] md:min-w-[160px]">
@@ -91,7 +91,7 @@ export function FooterSection() {
                   Office
                 </p>
                 <p className="font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 leading-[1.5] md:leading-[1.6]">
-                  Business Bay, Dubai
+                  SIT Tower Dubai silicon Oasis
                   <br />
                   UAE
                 </p>
@@ -103,10 +103,10 @@ export function FooterSection() {
                 <ul className="flex flex-col gap-2 list-none p-0 m-0">
                   <li className="flex items-center gap-2">
                     <a
-                      href="tel:+97142000000"
+                      href="tel:+971501568003"
                       className="group relative font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 no-underline hover:text-white transition-colors py-0.5"
                     >
-                      +971 4 200 0000
+                      +971501568003
                       <span className="absolute left-0 bottom-0 right-full h-[1px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
                     </a>
                   </li>

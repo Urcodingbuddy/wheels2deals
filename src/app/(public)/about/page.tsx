@@ -490,13 +490,13 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-col items-center gap-8">
             <div className="flex flex-wrap justify-center gap-6">
-              <PremiumCTA href="/buy" text="I'm Buying" variant="primary" />
+              <PremiumCTA href="/buy" text="I'm Buying" variant="outline" />
               <PremiumCTA href="/sell" text="I'm Selling" variant="outline" />
             </div>
             <PremiumCTA
               href="https://wa.me/971561498485?text=Hi%20Wheels2Deals%2C%20I'm%20interested%20in%20a%20professional%20partnership%20with%20your%20platform."
               text="Partner With Us"
-              variant="outline"
+              variant="gold"
             />
           </div>
         </div>

@@ -10,14 +10,16 @@ interface PremiumCTAProps {
   type?: "button" | "submit";
   text: string;
   className?: string;
-  variant?: "primary" | "outline";
+  variant?: "primary" | "outline" | "gold";
 }
 
 export const PremiumCTA = ({ href, onClick, type = "button", text, className = "", variant = "primary" }: PremiumCTAProps) => {
-  const baseClasses = `group relative inline-flex items-center min-w-[200px] h-[56px] rounded-full overflow-hidden transition-all duration-700 shadow-lg ${
+  const baseClasses = `group relative inline-flex items-center min-w-[200px] h-[56px] rounded-full overflow-hidden transition-all duration-700 shadow-lg border border-white/20 ${
     variant === "primary" 
       ? "bg-[#2A3510] text-white hover:shadow-[#C9A84C]/20" 
-      : "bg-white text-[#2A3510] border border-[#2A3510]/10"
+      : variant === "gold"
+      ? "bg-[#C9A84C] text-[#2A3510] hover:shadow-[#C9A84C]/40"
+      : "bg-white text-[#2A3510]"
   } ${className}`;
 
   const content = (
@@ -40,7 +42,7 @@ export const PremiumCTA = ({ href, onClick, type = "button", text, className = "
       <div className={`absolute top-1 right-1 z-20 w-[48px] h-[48px] rounded-full flex items-center justify-center transition-all duration-700 ease-in-out ${
         variant === "primary" 
           ? "bg-white text-[#2A3510]" 
-          : "bg-[#C9A84C] text-[#2A3510]"
+          : "bg-white text-[#2A3510]"
       } group-hover:right-[calc(100%-48px-4px)]`}>
         <ArrowRight className="w-5 h-5" />
       </div>

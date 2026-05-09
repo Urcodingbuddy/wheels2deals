@@ -1,72 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
-const BLOGS = [
-  {
-    category: "Buying Guide",
-    title: "How to Spot a Flood-Damaged Car Before You Buy",
-    readTime: "5 min read",
-    image:
-      "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "Market Trends",
-    title: "UAE's Most In-Demand Cars of 2025",
-    readTime: "4 min read",
-    image:
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "Finance",
-    title: "Car Loans in the UAE: Everything You Need to Know",
-    readTime: "6 min read",
-    image:
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "Selling Tips",
-    title: "10 Tricks That Get You a Higher Price for Your Car",
-    readTime: "5 min read",
-    image:
-      "https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "Electric Vehicles",
-    title: "Is the UAE Ready for an EV Revolution?",
-    readTime: "7 min read",
-    image:
-      "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "Insurance",
-    title: "Third-Party vs Comprehensive: Which Cover Do You Need?",
-    readTime: "4 min read",
-    image:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "Ownership",
-    title: "RTA Transfer Process Explained Step by Step",
-    readTime: "5 min read",
-    image:
-      "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "Luxury",
-    title: "Inside the UAE's Booming Pre-Owned Supercar Market",
-    readTime: "6 min read",
-    image:
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "Inspection",
-    title: "What Happens During a Pre-Purchase Car Inspection?",
-    readTime: "4 min read",
-    image:
-      "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=800&auto=format&fit=crop",
-  },
-];
+import { BLOGS } from "@/data/blogs";
 
 // Per-slot values indexed 0 (far-left) → 6 (far-right); slots ±3 are off-screen buffers
 const SCALES = [0.5, 0.62, 0.78, 1.0, 0.78, 0.62, 0.5];
@@ -130,6 +67,8 @@ export function BlogsCarousel() {
           const zIndex = 5 - Math.abs(pos);
           const isActive = pos === 0;
 
+          const slug = blog.title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+
           return (
             <div
               key={blog.title}
@@ -148,32 +87,55 @@ export function BlogsCarousel() {
                 pointerEvents: Math.abs(pos) >= 3 ? "none" : "auto",
               }}
             >
-              {/* Card */}
-              <div className="relative h-[390px] rounded-2xl overflow-hidden">
-                <img
-                  src={blog.image}
-                  alt={blog.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover"
-                />
-
-                {/* Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
-
-                {/* Text overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <p className="font-[family-name:var(--font-body)] text-[9.5px] font-semibold tracking-[0.22em] uppercase text-[#C9A84C] mb-1">
-                    {blog.category}
-                  </p>
-                  <h3 className="font-[family-name:var(--font-display)] text-[18px] font-semibold text-white leading-[1.25] tracking-[-0.01em] mb-2">
-                    {blog.title}
-                  </h3>
-                  <p className="font-[family-name:var(--font-body)] text-[12px] font-medium text-white/50">
-                    {blog.readTime}
-                  </p>
+              {isActive ? (
+                <Link href={`/blog/${slug}`}>
+                  {/* Card */}
+                  <div className="relative h-[390px] rounded-2xl overflow-hidden group/blog hover:scale-[1.02] transition-transform duration-300">
+                    <img
+                      src={blog.image}
+                      alt={blog.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <p className="font-[family-name:var(--font-body)] text-[9.5px] font-semibold tracking-[0.22em] uppercase text-[#C9A84C] mb-1">
+                        {blog.category}
+                      </p>
+                      <h3 className="font-[family-name:var(--font-display)] text-[18px] font-semibold text-white leading-[1.25] tracking-[-0.01em] mb-2 group-hover/blog:text-[#C9A84C] transition-colors">
+                        {blog.title}
+                      </h3>
+                      <p className="font-[family-name:var(--font-body)] text-[12px] font-medium text-white/50">
+                        {blog.readTime}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              ) : (
+                /* Static Card (for carousel background) */
+                <div className="relative h-[390px] rounded-2xl overflow-hidden">
+                  <img
+                    src={blog.image}
+                    alt={blog.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <p className="font-[family-name:var(--font-body)] text-[9.5px] font-semibold tracking-[0.22em] uppercase text-[#C9A84C] mb-1">
+                      {blog.category}
+                    </p>
+                    <h3 className="font-[family-name:var(--font-display)] text-[18px] font-semibold text-white leading-[1.25] tracking-[-0.01em] mb-2">
+                      {blog.title}
+                    </h3>
+                    <p className="font-[family-name:var(--font-body)] text-[12px] font-medium text-white/50">
+                      {blog.readTime}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           );
         })}

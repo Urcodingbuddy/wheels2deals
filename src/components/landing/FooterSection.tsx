@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { PremiumCTA } from "@/components/shared/PremiumCTA";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Buy a Car", href: "/buy" },
   { label: "Sell Your Car", href: "/sell" },
-  { label: "How it Works", href: "#how-it-works" },
-  { label: "Reviews", href: "#reviews" },
+  { label: "How it Works", href: "/how-it-works" },
+  { label: "About Us", href: "/about" },
 ];
 
 function ArrowIcon() {
@@ -53,15 +54,12 @@ export function FooterSection() {
                 to get started?
               </h2>
             </div>
-            <Link
+            <PremiumCTA 
               href="/buy"
-              className="group inline-flex items-center justify-between gap-4 self-start rounded-full border border-white/20 bg-white/5 pl-6 pr-2 py-2 font-[family-name:var(--font-display)] text-[13px] font-bold text-white no-underline transition-all duration-300 hover:bg-white/10 hover:border-white/40 min-w-[190px] md:min-w-[200px]"
-            >
-              Explore Listings
-              <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#2A3510] flex-shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                <ArrowIcon />
-              </span>
-            </Link>
+              text="Explore Listings"
+              variant="outline"
+              className="self-start"
+            />
           </div>
 
           {/* Right — Info Grid (2 cols on mobile) */}

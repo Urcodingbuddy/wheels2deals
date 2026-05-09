@@ -6,6 +6,7 @@ import { JourneySection } from "@/components/landing/JourneySection";
 import { ServicesRoofSection } from "@/components/landing/ServicesRoofSection";
 import { BrandsSection } from "@/components/landing/BrandsSection";
 import { ShowroomSection } from "@/components/landing/ShowroomSection";
+import { TestimonialSection } from "@/components/landing/TestimonialSection";
 import { FooterSection } from "@/components/landing/FooterSection";
 
 export default function HomePage() {
@@ -23,6 +24,7 @@ export default function HomePage() {
       <ServicesRoofSection />
       <BrandsSection />
       <ShowroomSection />
+      <TestimonialSection />
       <FooterSection />
     </div>
   );

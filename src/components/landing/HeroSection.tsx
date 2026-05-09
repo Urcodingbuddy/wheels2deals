@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PremiumCTA } from "@/components/shared/PremiumCTA";
 
 const HERO_IMAGE = "./blue_car_hero.webp";
 
@@ -94,15 +95,12 @@ export function HeroSection() {
               Browse verified listings across the UAE.
             </p>
           </div>
-          <Link
+          <PremiumCTA 
             href="/buy"
-            className="group/btn inline-flex items-center justify-between gap-3 rounded-full bg-white/15 border border-white/25 pl-6 pr-1.5 py-1.5 font-[family-name:var(--font-display)] text-[12px] font-bold tracking-[0.04em] text-white no-underline transition-colors duration-200 hover:bg-white/25 w-full backdrop-blur-sm"
-          >
-            Explore Listings
-            <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#2A3510] flex-shrink-0 transition-transform duration-300 ease-out group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
-              <ArrowIcon />
-            </span>
-          </Link>
+            text="Explore Listings"
+            variant="outline"
+            className="w-full !min-w-0"
+          />
         </div>
 
         {/* Selling */}
@@ -117,15 +115,12 @@ export function HeroSection() {
               Get your car's true value in minutes.
             </p>
           </div>
-          <Link
+          <PremiumCTA 
             href="/sell"
-            className="group/btn inline-flex items-center justify-between gap-3 rounded-full bg-white/15 border border-white/25 pl-6 pr-1.5 py-1.5 font-[family-name:var(--font-display)] text-[12px] font-bold tracking-[0.04em] text-white no-underline transition-colors duration-200 hover:bg-white/25 w-full backdrop-blur-sm"
-          >
-            Get Best Price
-            <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#2A3510] flex-shrink-0 transition-transform duration-300 ease-out group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
-              <ArrowIcon />
-            </span>
-          </Link>
+            text="Get Best Price"
+            variant="outline"
+            className="w-full !min-w-0"
+          />
         </div>
       </div>
 

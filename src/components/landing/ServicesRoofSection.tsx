@@ -3,44 +3,68 @@
 import {
   ArrowRight,
   Wallet,
-  CircleCheckBig,
   ShieldCheck,
-  FileKey,
+  BadgeDollarSign,
+  CarFront,
+  ClipboardCheck,
+  Sparkles,
 } from "lucide-react";
 import Link from "next/link";
 
 const services = [
   {
     number: "01",
-    icon: Wallet,
-    title: "Finance & Loans",
+    icon: CarFront,
+    title: "Car Buying Support",
     description:
-      "UAE-wide assistance with expert support for locals and expats.",
-    href: "/finance",
+      "End-to-end assistance for a smart, stress-free purchase.",
+    href: "/buying",
+    className: "md:col-span-2 lg:col-span-2",
   },
   {
     number: "02",
-    icon: CircleCheckBig,
-    title: "RTA Inspection",
+    icon: BadgeDollarSign,
+    title: "Car Selling Support",
     description:
-      "UAE-wide assistance with expert support for locals and expats.",
-    href: "/inspect",
+      "Sell your vehicle quickly, securely, and at the best price.",
+    href: "/selling",
+    className: "md:col-span-2 lg:col-span-2",
   },
   {
     number: "03",
-    icon: ShieldCheck,
-    title: "Car Insurance",
+    icon: ClipboardCheck,
+    title: "Inspection, Passing & Ownership Transfer",
     description:
-      "UAE-wide assistance with expert support for locals and expats.",
-    href: "/insurance",
+      "Hassle-free vehicle compliance and administrative support.",
+    href: "/inspection-and-transfer",
+    className: "md:col-span-1 lg:col-span-1",
   },
   {
     number: "04",
-    icon: FileKey,
-    title: "Registration & Transfer",
+    icon: ShieldCheck,
+    title: "Car Insurance Services",
     description:
-      "UAE-wide assistance with expert support for locals and expats.",
-    href: "/transfer",
+      "Tailored coverage from trusted insurers at the best rates.",
+    href: "/insurance",
+    className: "md:col-span-1 lg:col-span-1",
+  },
+  {
+    number: "05",
+    icon: Wallet,
+    title: "Car Finance & Loan Assistance",
+    description:
+      "Competitive rates and flexible repayment plans made easy.",
+    href: "/finance",
+    className: "md:col-span-1 lg:col-span-1",
+  },
+  {
+    number: "06",
+    icon: Sparkles,
+    title: "Car Detailing & Protection",
+    description:
+      "Polish, ceramic coating, and premium aesthetic care.",
+    href: "/detailing",
+    className: "md:col-span-1 lg:col-span-1",
   },
 ];
 
@@ -67,16 +91,6 @@ export function ServicesRoofSection() {
               Under One Roof
             </span>
           </h2>
-
-          {/* 
-          <Link
-            href="/services"
-            className="group flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-white font-[family-name:var(--font-body)] text-sm font-medium hover:bg-white/10 transition-colors w-fit no-underline"
-          >
-            All Services
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-          </Link>
-          */}
         </div>
 
         {/* Cards grid (Desktop) / Horizontal Scroll (Mobile) */}
@@ -84,13 +98,13 @@ export function ServicesRoofSection() {
           {/* Mobile View: Horizontal Scroll */}
           <div className="flex md:hidden overflow-x-auto overflow-y-hidden gap-4 pb-6 no-scrollbar -mx-6 px-6 snap-x snap-mandatory">
             {services.map((service, i) => (
-              <div key={service.number} className="flex-shrink-0 w-[280px] snap-center">
+              <div key={service.number} className="flex-shrink-0 w-[280px] snap-center h-[340px]">
                 <ServiceCard {...service} delay={i + 1} isCarousel={true} />
               </div>
             ))}
           </div>
 
-          {/* Desktop View: Grid */}
+          {/* Desktop View: Bento Grid */}
           <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service, i) => (
               <ServiceCard key={service.number} {...service} delay={i + 1} />
@@ -110,6 +124,7 @@ function ServiceCard({
   href,
   delay,
   isCarousel = false,
+  className = "",
 }: {
   number: string;
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
@@ -118,11 +133,12 @@ function ServiceCard({
   href: string;
   delay: number;
   isCarousel?: boolean;
+  className?: string;
 }) {
   return (
     <Link
       href={href}
-      className={`${!isCarousel ? `reveal reveal-delay-${delay}` : ""} group relative bg-white/[0.10] backdrop-blur-sm border border-white/10 rounded-2xl p-7 hover:bg-white/15 transition-all duration-300 cursor-pointer no-underline block`}
+      className={`${!isCarousel ? `reveal reveal-delay-${delay} ${className}` : "h-full"} group relative bg-white/[0.10] backdrop-blur-sm border border-white/10 rounded-2xl p-7 hover:bg-white/15 transition-all duration-300 cursor-pointer no-underline flex flex-col`}
     >
       {/* Card number */}
       <span className="absolute top-6 right-7 text-[#C9A84C]/20 text-5xl font-bold font-[family-name:var(--font-display)] tracking-tighter">
@@ -138,15 +154,17 @@ function ServiceCard({
       </div>
 
       {/* Content */}
-      <h3 className="font-[family-name:var(--font-display)] text-white font-bold text-xl mb-3">
-        {title}
-      </h3>
-      <p className="font-[family-name:var(--font-body)] text-white/85 text-[14px] leading-relaxed mb-8">
-        {description}
-      </p>
+      <div className="flex-1">
+        <h3 className="font-[family-name:var(--font-display)] text-white font-bold text-xl mb-3 pr-12">
+          {title}
+        </h3>
+        <p className="font-[family-name:var(--font-body)] text-white/85 text-[14px] leading-relaxed">
+          {description}
+        </p>
+      </div>
 
       {/* Learn more */}
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-1.5 mt-auto pt-5">
         <span className="relative group/link text-[#C9A84C] font-[family-name:var(--font-body)] text-[13px] font-bold uppercase tracking-wider group-hover:text-[#E8D5A3] transition-colors py-0.5">
           Learn more
           <span className="absolute left-0 bottom-0 right-full h-[1.5px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />

@@ -25,20 +25,21 @@ export function LandingNav() {
         </div>
 
         {/* Center — scroll anchors */}
-        <nav className="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
+        <nav className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
           {[
-            { label: "How it Works", href: "#how-it-works" },
-            { label: "Services", href: "#services" },
-            { label: "Reviews", href: "#reviews" },
+            { label: "How it Works", href: "/how-it-works" },
+            { label: "About Us", href: "/about" },
+            { label: "Services", href: "/#services" },
+            { label: "Reviews", href: "/#reviews" },
           ].map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="group relative font-[family-name:var(--font-body)] text-[15px] font-normal tracking-[0.02em] text-white no-underline py-1"
             >
               {link.label}
               <span className="absolute left-0 bottom-0 right-full h-[1.5px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
-            </a>
+            </Link>
           ))}
         </nav>
 

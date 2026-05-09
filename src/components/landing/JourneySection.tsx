@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PremiumCTA } from "@/components/shared/PremiumCTA";
 
 const CARS = [
   {
@@ -85,13 +86,12 @@ export function JourneySection() {
               Handpicked models - trending across the UAE this week
             </p>
           </div>
-          <Link
+          <PremiumCTA 
             href="/buy"
-            className="flex-shrink-0 inline-flex items-center gap-2 rounded-full border border-[#2A3510] px-6 py-3 md:px-5 md:py-2.5 font-[family-name:var(--font-body)] text-[13px] md:text-[12px] font-semibold text-[#2A3510] no-underline transition-all duration-200 hover:bg-[#2A3510] hover:text-white whitespace-nowrap w-fit"
-          >
-            Explore All
-            <ArrowIcon />
-          </Link>
+            text="Explore All"
+            variant="primary"
+            className="flex-shrink-0"
+          />
         </div>
 
         {/* 3 × 2 flex-expand grid (Desktop) / Horizontal Scroll (Mobile) */}

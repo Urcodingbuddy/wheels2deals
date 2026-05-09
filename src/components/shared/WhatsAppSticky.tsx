@@ -5,7 +5,7 @@ import { Phone } from "lucide-react";
 
 export function WhatsAppSticky() {
   const pathname = usePathname();
-  const phoneNumber = "971501568003";
+  const phoneNumber = "971561498485";
 
   const getMessage = () => {
     if (pathname === "/") return "Hi Wheels2Deals, I'm on your homepage and would like to learn more about your car services.";

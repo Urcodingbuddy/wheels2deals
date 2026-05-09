@@ -103,10 +103,10 @@ export function FooterSection() {
                 <ul className="flex flex-col gap-2 list-none p-0 m-0">
                   <li className="flex items-center gap-2">
                     <a
-                      href="tel:+971501568003"
+                      href="tel:+971561498485"
                       className="group relative font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 no-underline hover:text-white transition-colors py-0.5"
                     >
-                      +971501568003
+                      +971 56 149 8485
                       <span className="absolute left-0 bottom-0 right-full h-[1px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
                     </a>
                   </li>

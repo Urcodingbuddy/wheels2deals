@@ -494,7 +494,7 @@ export default function AboutPage() {
               <PremiumCTA href="/sell" text="I'm Selling" variant="outline" />
             </div>
             <PremiumCTA
-              href="https://wa.me/971501568003?text=Hi%20Wheels2Deals%2C%20I'm%20interested%20in%20a%20professional%20partnership%20with%20your%20platform."
+              href="https://wa.me/971561498485?text=Hi%20Wheels2Deals%2C%20I'm%20interested%20in%20a%20professional%20partnership%20with%20your%20platform."
               text="Partner With Us"
               variant="outline"
             />

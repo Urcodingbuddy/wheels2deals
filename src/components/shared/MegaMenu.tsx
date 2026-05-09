@@ -188,7 +188,7 @@ export function MegaMenu({ onClose }: { onClose: () => void }) {
           {/* Social Links */}
           <div className="flex gap-8">
             <a
-              href={`https://wa.me/971501568003?text=${whatsappText}`}
+              href={`https://wa.me/971561498485?text=${whatsappText}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#2A3510] hover:text-[#C9A84C] transition-all hover:-translate-y-1"

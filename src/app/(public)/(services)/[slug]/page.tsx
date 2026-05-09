@@ -363,7 +363,7 @@ export default async function ServicePage({ params }: PageProps) {
               with {content.title.toLowerCase()}.
             </p>
             <PremiumCTA
-              href={`https://wa.me/971501568003?text=${encodeURIComponent(`Hi Wheels2Deals, I'm interested in ${content.title}. Could you help me with more information?`)}`}
+              href={`https://wa.me/971561498485?text=${encodeURIComponent(`Hi Wheels2Deals, I'm interested in ${content.title}. Could you help me with more information?`)}`}
               text="Contact via WhatsApp"
               variant="primary"
             />

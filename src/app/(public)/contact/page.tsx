@@ -191,8 +191,8 @@ export default function ContactPage() {
                  <a href="mailto:hello@wheels2deals.ae" className="block text-white/80 hover:text-[#C9A84C] transition-all font-medium text-[17px] hover:translate-x-2">
                    hello@wheels2deals.ae
                  </a>
-                 <a href="tel:+971501568003" className="block text-white/80 hover:text-[#C9A84C] transition-all font-medium text-[17px] hover:translate-x-2">
-                   +971 50 156 8003
+                 <a href="tel:+971561498485" className="block text-white/80 hover:text-[#C9A84C] transition-all font-medium text-[17px] hover:translate-x-2">
+                   +971 56 149 8485
                  </a>
               </div>
            </div>
@@ -205,7 +205,7 @@ export default function ContactPage() {
               </div>
               <div className="pl-12 flex gap-6">
                 <a 
-                  href={`https://wa.me/971501568003?text=${encodeURIComponent("Hi, I'm reaching out from the Wheels2Deals Contact page. I'd like to inquire about your services.")}`}
+                  href={`https://wa.me/971561498485?text=${encodeURIComponent("Hi, I'm reaching out from the Wheels2Deals Contact page. I'd like to inquire about your services.")}`}
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-white/40 hover:text-[#C9A84C] transition-all hover:-translate-y-1"

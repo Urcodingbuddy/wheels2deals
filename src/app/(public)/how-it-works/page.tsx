@@ -258,7 +258,7 @@ export default function HowItWorksPage() {
       <div className="fixed inset-0 bg-[#2A3510]/60 pointer-events-none" />
 
       {/* Editorial Hero */}
-      <section className="pt-32 md:pt-48 pb-16 md:pb-24 px-6 border-b border-white/5 relative overflow-hidden bg-transparent">
+      <section className="pt-32 md:pt-48 pb-5 md:pb-24 px-6 border-b border-white/5 relative overflow-hidden bg-transparent">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-[radial-gradient(ellipse_at_top,rgba(201,168,76,0.15),transparent_70%)] pointer-events-none z-0" />
 
         <div className="relative z-10 max-w-[1440px] mx-auto">
@@ -292,10 +292,10 @@ export default function HowItWorksPage() {
       </section>
 
       {/* Dynamic Journey Section */}
-      <section className="py-16 md:py-24 px-6 min-h-[70vh] md:min-h-[80vh] bg-transparent rounded-b-[40px] md:rounded-b-[60px]">
+      <section className="relative z-10  md:pt-24 md:pb-24 px-6 min-h-[70vh] md:min-h-[80vh] bg-transparent rounded-b-[40px] md:rounded-b-[60px]">
         <div className="max-w-[1440px] mx-auto">
           <div className="grid lg:grid-cols-[0.7fr_1.3fr] gap-12 md:gap-20 items-start">
-            <div className="lg:sticky lg:top-40">
+            <div className="relative z-10 lg:sticky lg:top-40">
               <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center text-[#C9A84C] mb-6 md:mb-10">
                 <activeData.icon className="w-8 h-8 md:w-10 md:h-10" />
               </div>

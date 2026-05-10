@@ -58,6 +58,18 @@ export default function EnquireButton({ carId, carTitle }: Props) {
         return;
       }
 
+      // WhatsApp Integration
+      const whatsappNumber = "971561498485";
+      const messageText = `*New Car Enquiry*\n\n` +
+        `*Vehicle:* ${carTitle}\n` +
+        `*Name:* ${form.name.trim()}\n` +
+        `*Phone:* ${form.phone.trim()}\n` +
+        `*Email:* ${form.email.trim()}\n` +
+        `*Message:* ${form.message.trim() || "Interested in this car."}`;
+      
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
+      window.open(whatsappUrl, "_blank");
+
       setSent(true);
     } catch (err) {
       console.error("Unexpected error:", err);

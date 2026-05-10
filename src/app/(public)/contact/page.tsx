@@ -175,9 +175,7 @@ export default function ContactPage() {
                 <h4 className="text-[#C9A84C] font-bold uppercase tracking-[0.2em] text-[11px]">Headquarters</h4>
               </div>
               <p className="text-white/80 font-medium leading-loose text-[17px] pl-12 group-hover:text-white transition-colors">
-                One Central, The Offices 2,<br />
-                Dubai World Trade Centre,<br />
-                Dubai, United Arab Emirates
+                SIT Tower, Dubai silicon Oasis, UAE
               </p>
            </div>
 
@@ -188,8 +186,8 @@ export default function ContactPage() {
                 <h4 className="text-[#C9A84C] font-bold uppercase tracking-[0.2em] text-[11px]">Direct Channels</h4>
               </div>
               <div className="pl-12 space-y-4">
-                 <a href="mailto:hello@wheels2deals.ae" className="block text-white/80 hover:text-[#C9A84C] transition-all font-medium text-[17px] hover:translate-x-2">
-                   hello@wheels2deals.ae
+                 <a href="mailto:info@wheels2deals.com" className="block text-white/80 hover:text-[#C9A84C] transition-all font-medium text-[17px] hover:translate-x-2">
+                   info@wheels2deals.com
                  </a>
                  <a href="tel:+971561498485" className="block text-white/80 hover:text-[#C9A84C] transition-all font-medium text-[17px] hover:translate-x-2">
                    +971 56 149 8485

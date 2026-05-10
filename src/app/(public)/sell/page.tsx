@@ -127,7 +127,7 @@ export default function HowItWorksPage() {
       
       await supabase.from("inquiries").insert({
         name: "Valuation Request",
-        email: "no-email@wheels2deals.com",
+        email: "info@wheels2deals.com",
         phone: phone || "Not specified",
         message: message,
         status: "new"
@@ -739,7 +739,7 @@ export default function HowItWorksPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-32 px-6 text-center">
+      <section className="py-32 px-6 text-center bg-white rounded-b-[40px] md:rounded-b-[60px]">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-[family-name:var(--font-display)] text-[clamp(40px,6vw,80px)] font-bold text-[#2A3510] leading-[1.05] tracking-tight mb-8">
             Your car deserves
@@ -761,6 +761,9 @@ export default function HowItWorksPage() {
           </button>
         </div>
       </section>
+
+      {/* Gap matching Footer Layout */}
+      <div className="h-24 md:h-15 bg-[var(--color-page-bg)]" />
 
       <FooterSection />
     </main>

@@ -27,7 +27,7 @@ export default function AboutPage() {
     { num: "98%", label: "Satisfaction Rate" },
     { num: "7", label: "Emirates Covered" },
     { num: "5.3", label: "Avg. Days to Sell" },
-    { num: "2min", label: "Insurance Compare" },
+    { num: "2mins", label: "Insurance Compare" },
   ];
 
   const pillars = [
@@ -174,17 +174,7 @@ export default function AboutPage() {
 
                 {/* TIER 1: BUYERS & SELLERS */}
                 <div className="relative grid grid-cols-2 gap-10 mt-8 mb-4">
-                  {/* Arc SVG behind boxes */}
-                  <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-20 overflow-visible z-0 pointer-events-none" viewBox="0 0 400 100" fill="none">
-                    <path 
-                      d="M 50,80 Q 200,0 350,80" 
-                      stroke="#C9A84C" 
-                      strokeWidth="2.5" 
-                      strokeDasharray="4 6" 
-                      className="opacity-40"
-                    />
-                    <circle cx="200" cy="40" r="5" fill="#C9A84C" className="animate-pulse shadow-[0_0_15px_rgba(201,168,76,0.5)]" />
-                  </svg>
+
 
                   <div className="relative z-10 bg-white/5 border border-white/10 p-8 rounded-2xl text-center group/node hover:border-[#C9A84C]/40 hover:bg-white/10 transition-all duration-500">
                     <Users className="w-7 h-7 text-[#C9A84C] mx-auto mb-3 transition-transform group-hover/node:scale-110" />

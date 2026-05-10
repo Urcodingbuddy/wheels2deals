@@ -91,7 +91,7 @@ export function FooterSection() {
                   Office
                 </p>
                 <p className="font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 leading-[1.5] md:leading-[1.6]">
-                  SIT Tower Dubai silicon Oasis
+                  SIT Tower, Dubai silicon Oasis, UAE
                   <br />
                   UAE
                 </p>
@@ -112,10 +112,10 @@ export function FooterSection() {
                   </li>
                   <li className="flex items-center gap-2">
                     <a
-                      href="mailto:hello@wheels2deals.ae"
+                      href="mailto:info@wheels2deals.com"
                       className="group relative font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 no-underline hover:text-white transition-colors py-0.5"
                     >
-                      Email Us
+                      info@wheels2deals.com
                       <span className="absolute left-0 bottom-0 right-full h-[1px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
                     </a>
                   </li>

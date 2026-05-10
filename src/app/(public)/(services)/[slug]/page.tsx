@@ -3,6 +3,7 @@ import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { notFound } from "next/navigation";
 import { LandingNav } from "@/components/landing/LandingNav";
 import { PremiumCTA } from "@/components/shared/PremiumCTA";
+import { FooterSection } from "@/components/landing/FooterSection";
 
 type Feature = {
   title: string;
@@ -275,8 +276,10 @@ export default async function ServicePage({ params }: PageProps) {
   }
 
   return (
-    <main className="relative min-h-screen bg-[#2A3510] text-white selection:bg-[#C9A84C] selection:text-[#2A3510]">
+    <main className="relative min-h-screen bg-[var(--color-page-bg)] text-white selection:bg-[#C9A84C] selection:text-[#2A3510]">
       <LandingNav />
+
+      <div className="bg-[#2A3510] rounded-b-[40px] md:rounded-b-[60px] pb-20 relative overflow-hidden">
 
       {/* Fixed Background Image */}
       <div
@@ -370,6 +373,12 @@ export default async function ServicePage({ params }: PageProps) {
           </div>
         </div>
       </section>
+      </div>
+
+      {/* Gap matching Footer Layout */}
+      <div className="h-24 md:h-15 bg-[var(--color-page-bg)]" />
+
+      <FooterSection />
     </main>
   );
 }

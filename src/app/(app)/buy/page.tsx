@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { createClient } from "@/lib/server";
 import type { Enums } from "@/types/database";
 import BuyClient from "./BuyClient";

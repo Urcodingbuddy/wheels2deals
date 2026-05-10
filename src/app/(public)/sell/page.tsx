@@ -18,6 +18,7 @@ import {
 
 import { LandingNav } from "@/components/landing/LandingNav";
 import { FooterSection } from "@/components/landing/FooterSection";
+import { createClient } from "@/lib/client";
 
 const BRANDS = [
   { name: "Toyota", logo: "/brands/toyota.png" },
@@ -27,7 +28,10 @@ const BRANDS = [
   { name: "Nissan", logo: "/brands/nissan.png" },
   { name: "Porsche", logo: "/brands/porsche.png" },
   { name: "Lexus", logo: "/brands/lexus.png" },
-  { name: "Land Rover", logo: "/brands/land-rover.png" },
+];
+
+const ALL_BRANDS = [
+  "Abarth", "Acura", "Alfa Romeo", "Alpina", "AMG", "Arcfox", "Aston Martin", "Audi", "Avatr", "BAIC", "Baojun", "Benelli", "Bentley", "Bertone", "Bestune", "BMW", "Borgward", "Brilliance", "Bugatti", "Buick", "BYD", "Cadillac", "Chevrolet", "Chrysler", "Citroën", "Corvette", "Cupra", "Dacia", "Daewoo", "Datsun", "DFSK", "Dodge", "Dongfeng", "DS Automobiles", "Ducati", "Exeed", "FAW", "Ferrari", "Fiat", "Ford", "Foton", "GAC", "GAC Motors", "Geely", "Genesis", "Gillet", "GMC", "Great Wall (GWM)", "Haval", "Honda", "Hongqi", "Hummer", "Hyundai", "Infiniti", "Isuzu", "JAC", "Jaguar", "Jeep", "Jetour", "Kia", "Koenigsegg", "KTM", "Lamborghini", "Lancia", "Land Rover", "Lexus", "Lincoln", "Lotus", "Luxgen", "Maserati", "Maxus", "Mazda", "McLaren", "Mercedes Benz", "MG", "Mini", "Mitsubishi", "Mustang", "NIO", "Nissan", "Opel", "Ora", "Polestar", "Pontiac", "Porsche", "Qoros", "Renault", "Rivian", "Roewe", "Rolls-Royce", "Saab", "SAIC", "Seat", "Soueast", "Subaru", "Suzuki", "Tata", "Tesla", "Toyota", "Volkswagen", "Volvo", "W Motors", "Wuling", "Xpeng"
 ];
 
 const PROCESS_STEPS = [
@@ -92,6 +96,10 @@ export default function HowItWorksPage() {
   const [formSuccess, setFormSuccess] = useState(false);
   const [selectedYear, setSelectedYear] = useState<string>("");
   const [yearDropdownOpen, setYearDropdownOpen] = useState(false);
+  const [brandDropdownOpen, setBrandDropdownOpen] = useState(false);
+  const [customBrand, setCustomBrand] = useState("");
+  const [mileage, setMileage] = useState("");
+  const [phone, setPhone] = useState("");
 
   const handleBrandClick = (brand: string) => {
     setSelectedBrand(brand);
@@ -108,14 +116,34 @@ export default function HowItWorksPage() {
     if (valStep < 3) setValStep(3);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setValStep(4);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    
+    try {
+      const supabase = createClient();
+      const message = `Valuation Request:\nBrand: ${selectedBrand || "Not specified"}\nYear: ${selectedYear || "Not specified"}\nMileage: ${mileage || "Not specified"}`;
+      
+      await supabase.from("inquiries").insert({
+        name: "Valuation Request",
+        email: "no-email@wheels2deals.com",
+        phone: phone || "Not specified",
+        message: message,
+        status: "new"
+      });
+
+      // Send to WhatsApp
+      const waText = encodeURIComponent(`Hi Wheels2Deals,\nI would like to get a valuation for my car:\n\nBrand: ${selectedBrand || "Not specified"}\nYear: ${selectedYear || "Not specified"}\nMileage: ${mileage || "Not specified"}\nPhone: ${phone || "Not specified"}`);
+      window.open(`https://wa.me/971561498485?text=${waText}`, "_blank");
+
       setFormSuccess(true);
-    }, 1500);
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong, please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -237,11 +265,92 @@ export default function HowItWorksPage() {
                           ...
                         </span>
                       )}
-                      <span className="text-[10px] font-semibold uppercase tracking-wider">
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-center leading-tight">
                         {brand.name}
                       </span>
                     </button>
                   ))}
+                  
+                  {/* Dropdown for More Brands */}
+                  <div className="relative">
+                    <button
+                      type="button"
+                      onClick={() => setBrandDropdownOpen(!brandDropdownOpen)}
+                      className={`w-full h-full min-h-[64px] py-2 px-1 flex flex-col items-center justify-center gap-2 rounded-xl transition-all duration-300 ${
+                        (selectedBrand && !BRANDS.some(b => b.name === selectedBrand)) || brandDropdownOpen
+                          ? "border-2 border-[#C9A84C] bg-[#C9A84C]/5 text-[#C9A84C] shadow-sm ring-2 ring-[#C9A84C]/20"
+                          : "border border-[#2A3510]/10 text-[#2A3510]/70 hover:border-[#2A3510]/30 hover:bg-[#F1F3E1]"
+                      }`}
+                    >
+                      <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${brandDropdownOpen ? 'rotate-180' : ''}`} />
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-center leading-tight truncate px-1 max-w-full w-full">
+                        {(selectedBrand && !BRANDS.some(b => b.name === selectedBrand)) ? selectedBrand : "More"}
+                      </span>
+                    </button>
+
+                    {brandDropdownOpen && (
+                      <>
+                        <div 
+                          className="fixed inset-0 z-20" 
+                          onClick={() => setBrandDropdownOpen(false)} 
+                        />
+                        <div className="absolute top-[calc(100%+8px)] right-0 w-[280px] sm:w-[320px] bg-white border border-[#2A3510]/10 rounded-2xl shadow-2xl z-30 flex flex-col overflow-hidden animate-in fade-in zoom-in-95">
+                          <div className="p-3 bg-[#F1F3E1]/50 border-b border-[#2A3510]/5 flex items-center justify-between">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60">All Brands</span>
+                            <span className="text-[10px] font-medium bg-white px-2 py-0.5 rounded-full text-[#2A3510]/40 border border-[#2A3510]/5">{ALL_BRANDS.length} listed</span>
+                          </div>
+                          
+                          <div 
+                            className="max-h-[220px] overflow-y-auto overscroll-contain flex flex-col py-1"
+                            onWheel={(e) => e.stopPropagation()}
+                            onTouchMove={(e) => e.stopPropagation()}
+                          >
+                            {ALL_BRANDS.map(b => (
+                              <button
+                                key={b}
+                                type="button"
+                                onClick={() => {
+                                  handleBrandClick(b);
+                                  setBrandDropdownOpen(false);
+                                }}
+                                className={`text-left px-4 py-2.5 text-[13px] font-medium transition-colors hover:bg-[#F1F3E1] ${selectedBrand === b ? 'text-[#C9A84C] bg-[#C9A84C]/5' : 'text-[#2A3510]'}`}
+                              >
+                                {b}
+                              </button>
+                            ))}
+                          </div>
+
+                          <div className="p-3 border-t border-[#2A3510]/10 bg-[#F9FAEC]">
+                            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60 mb-2">
+                              Other Brand?
+                            </label>
+                            <div className="flex gap-2">
+                              <input
+                                type="text"
+                                placeholder="Enter brand name"
+                                value={customBrand}
+                                onChange={(e) => setCustomBrand(e.target.value)}
+                                className="w-full bg-white border border-[#2A3510]/10 rounded-lg px-3 py-2 text-[13px] outline-none focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] placeholder:text-[#2A3510]/30"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (customBrand.trim()) {
+                                    handleBrandClick(customBrand.trim());
+                                    setBrandDropdownOpen(false);
+                                    setCustomBrand("");
+                                  }
+                                }}
+                                className="bg-[#2A3510] text-white px-4 py-2 rounded-lg text-[12px] font-bold hover:bg-[#2A3510]/80 transition-colors whitespace-nowrap"
+                              >
+                                Add
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -269,36 +378,44 @@ export default function HowItWorksPage() {
 
                   {/* Dropdown Menu */}
                   {yearDropdownOpen && (
-                    <div className="absolute top-[calc(100%+6px)] left-0 w-full bg-white border border-[#2A3510]/10 rounded-xl shadow-lg z-20 overflow-hidden py-1 animate-in fade-in slide-in-from-top-1">
-                      {[
-                        "2024",
-                        "2023",
-                        "2022",
-                        "2021",
-                        "2020",
-                        "2019",
-                        "Older",
-                      ].map((year) => (
-                        <button
-                          key={year}
-                          type="button"
-                          onClick={() => handleYearSelect(year)}
-                          className={`w-full text-left px-4 py-2 hover:bg-[#F1F3E1] transition-colors text-[14px] font-medium ${selectedYear === year ? "text-[#C9A84C] bg-[#C9A84C]/5" : "text-[#2A3510]"}`}
+                    <>
+                      <div 
+                        className="fixed inset-0 z-20" 
+                        onClick={() => setYearDropdownOpen(false)} 
+                      />
+                      <div className="absolute top-[calc(100%+6px)] left-0 w-full bg-white border border-[#2A3510]/10 rounded-2xl shadow-2xl z-30 flex flex-col overflow-hidden animate-in fade-in zoom-in-95">
+                        <div className="p-3 bg-[#F1F3E1]/50 border-b border-[#2A3510]/5 flex items-center justify-between">
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60">Select Year</span>
+                        </div>
+                        <div 
+                          className="max-h-[220px] overflow-y-auto overscroll-contain flex flex-col py-1"
+                          onWheel={(e) => e.stopPropagation()}
+                          onTouchMove={(e) => e.stopPropagation()}
                         >
-                          {year}
-                        </button>
-                      ))}
-                    </div>
+                          {Array.from({ length: new Date().getFullYear() - 1950 + 1 }, (_, i) => (new Date().getFullYear() - i).toString()).map((year) => (
+                            <button
+                              key={year}
+                              type="button"
+                              onClick={() => handleYearSelect(year)}
+                              className={`w-full text-left px-4 py-2.5 hover:bg-[#F1F3E1] transition-colors text-[13px] font-medium ${selectedYear === year ? "text-[#C9A84C] bg-[#C9A84C]/5" : "text-[#2A3510]"}`}
+                            >
+                              {year}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </>
                   )}
                 </div>
                 <div>
                   <label className="block font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60 mb-2">
-                    Mileage (km)
+                    ODO meter reading
                   </label>
                   <input
                     type="text"
+                    value={mileage}
                     placeholder="e.g. 45,000"
-                    onChange={handleFormChange}
+                    onChange={(e) => { setMileage(e.target.value); handleFormChange(); }}
                     className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[14px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30"
                   />
                 </div>
@@ -310,8 +427,9 @@ export default function HowItWorksPage() {
                 </label>
                 <input
                   type="tel"
+                  value={phone}
                   placeholder="+971 50 000 0000"
-                  onChange={() => setValStep(4)}
+                  onChange={(e) => { setPhone(e.target.value); setValStep(4); }}
                   className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[14px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30"
                 />
               </div>

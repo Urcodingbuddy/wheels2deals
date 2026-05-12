@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { createClient } from "@/lib/server";
-import type { Enums } from "@/types/database";
+import type { Enums, Tables } from "@/types/database";
 import BuyClient from "./BuyClient";
 import {
   BODY_TYPES,
@@ -11,6 +11,8 @@ import {
   type SortOption,
 } from "./filters";
 import { matchesCarSearch } from "./search";
+
+type Car = Tables<"cars">;
 
 type SearchParamValue = string | string[] | undefined;
 

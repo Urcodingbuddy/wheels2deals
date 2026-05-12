@@ -1,28 +1,13 @@
 "use server";
 
 import { createClient } from "@/lib/server";
+import { requireAdmin } from "../../../lib/auth-server";
 import { carSchema, updateImagesSchema, type CarFormValues } from "@/lib/validations/car";
 import { generateUniqueSlug } from "@/lib/slug";
 import { deleteUploadedImages } from "@/lib/storage.server";
 import type { UploadResult } from "@/lib/storage";
 
-// ─── Auth guard ───────────────────────────────────────────────────────────────
-
-async function requireAdmin() {
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.getClaims();
-
-  if (error || !data?.claims) {
-    throw new ActionError("Unauthorized", "UNAUTHORIZED");
-  }
-
-  const role = (data.claims as { app_metadata?: { role?: string } })?.app_metadata?.role;
-  if (role !== "admin") {
-    throw new ActionError("Forbidden", "FORBIDDEN");
-  }
-
-  return { supabase };
-}
+// Auth guard moved to @/lib/auth-server
 
 // ─── Error class ──────────────────────────────────────────────────────────────
 
@@ -68,17 +53,32 @@ export async function createDraftCar(
       throw new ActionError("Validation failed", "VALIDATION_ERROR", fields);
     }
 
-    const slug = await generateUniqueSlug(parsed.data.title, parsed.data.brand, parsed.data.year);
+    const slug = await generateUniqueSlug(parsed.data.title, parsed.data.brand, Number(parsed.data.year));
+
+    const d = parsed.data;
+    const dbPayload = {
+      title:        d.title,
+      brand:        d.brand,
+      model:        d.model,
+      year:         Number(d.year),
+      km_driven:    Number(d.km_driven),
+      price:        d.price ? Number(d.price) : null,
+      type:         d.type as "suv" | "sedan" | "hatchback" | "coupe" | "convertible" | "wagon" | "van" | "truck" | "motorcycle" | "other",
+      fuel_type:    d.fuel_type as "petrol" | "diesel" | "electric" | "hybrid" | "cng" | "lpg",
+      transmission: d.transmission as "manual" | "automatic" | "cvt" | "amt",
+      location:     d.location,
+      description:  d.description ?? null,
+      color:        d.color ?? null,
+      video_url:    d.video_url || null,
+      category:     (d.category ?? null) as any,
+      slug,
+      status:       "draft" as const,
+      images:       [] as string[],
+    };
 
     const { data, error } = await supabase
       .from("cars")
-      .insert({
-        ...parsed.data,
-        slug,
-        status: "draft",
-        images: [],
-        video_url: parsed.data.video_url || null,
-      })
+      .insert(dbPayload as any)
       .select("id, slug")
       .single();
 
@@ -185,9 +185,49 @@ export async function updateCar(
       throw new ActionError("Validation failed", "VALIDATION_ERROR", fields);
     }
 
+    const d = parsed.data;
+    const updatePayload: Record<string, unknown> = {};
+    if (d.title        !== undefined) updatePayload.title        = d.title;
+    if (d.brand        !== undefined) updatePayload.brand        = d.brand;
+    if (d.model        !== undefined) updatePayload.model        = d.model;
+    if (d.year         !== undefined) updatePayload.year         = Number(d.year);
+    if (d.km_driven    !== undefined) updatePayload.km_driven    = Number(d.km_driven);
+    if (d.type         !== undefined) updatePayload.type         = d.type;
+    if (d.fuel_type    !== undefined) updatePayload.fuel_type    = d.fuel_type;
+    if (d.transmission !== undefined) updatePayload.transmission = d.transmission;
+    if (d.location     !== undefined) updatePayload.location     = d.location;
+    if (d.description  !== undefined) updatePayload.description  = d.description ?? null;
+    if (d.color        !== undefined) updatePayload.color        = d.color ?? null;
+    if (d.video_url    !== undefined) updatePayload.video_url    = d.video_url || null;
+    if (d.category     !== undefined) updatePayload.category     = d.category ?? null;
+    // Price: explicitly set null when cleared
+    if ("price" in values) updatePayload.price = d.price ? Number(d.price) : null;
+    if ("owners_count" in values) updatePayload.owners_count = d.owners_count ? Number(d.owners_count) : null;
+
     const { error } = await supabase
       .from("cars")
-      .update(parsed.data)
+      .update(updatePayload as any)
+      .eq("id", carId);
+
+    if (error) throw new ActionError(error.message, "DB_ERROR");
+
+    return ok(undefined);
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+// ─── Update Status ──────────────────────────────────────────────────────────
+export async function updateCarStatus(
+  carId: string,
+  status: "available" | "sold" | "reserved" | "draft"
+): Promise<ActionResult<void>> {
+  try {
+    const { supabase } = await requireAdmin();
+
+    const { error } = await supabase
+      .from("cars")
+      .update({ status })
       .eq("id", carId);
 
     if (error) throw new ActionError(error.message, "DB_ERROR");

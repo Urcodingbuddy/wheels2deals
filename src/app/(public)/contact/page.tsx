@@ -21,6 +21,20 @@ export default function ContactPage() {
 
   const selectedLabel = services.find(s => s.id === selectedService)?.label || "Select a Service";
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
+    const serviceLabel = services.find(s => s.id === selectedService)?.label || "General Inquiry";
+
+    const whatsappMessage = `Hi Wheels2Deals! 👋\n\n*Name:* ${name}\n*Email:* ${email}\n*Inquiry:* ${serviceLabel}\n\n*Message:* ${message}`;
+    const whatsappUrl = `https://wa.me/971561498485?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <main className="min-h-screen bg-[var(--color-page-bg)] text-white selection:bg-[#C9A84C] selection:text-[#2A3510]">
       <LandingNav />
@@ -40,13 +54,15 @@ export default function ContactPage() {
         </div>
 
         <div className="max-w-3xl mx-auto mb-48">
-          <form className="space-y-16">
+          <form onSubmit={handleSubmit} className="space-y-16">
             <div className="grid md:grid-cols-2 gap-16">
               {/* Name Input */}
               <div className="group relative">
                 <input 
                   type="text" 
                   id="name"
+                  name="name"
+                  required
                   placeholder=" "
                   className="peer w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none focus:border-[#C9A84C] transition-all"
                 />
@@ -63,6 +79,8 @@ export default function ContactPage() {
                 <input 
                   type="email" 
                   id="email"
+                  name="email"
+                  required
                   placeholder=" "
                   className="peer w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none focus:border-[#C9A84C] transition-all"
                 />
@@ -137,6 +155,8 @@ export default function ContactPage() {
             <div className="group relative">
               <textarea 
                 id="message"
+                name="message"
+                required
                 rows={3}
                 placeholder=" "
                 className="peer w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none focus:border-[#C9A84C] transition-all resize-none"

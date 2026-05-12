@@ -11,6 +11,7 @@ export type BuyFilters = {
   fuels: Enums<"fuel_type">[];
   brand: string;
   sort: SortOption;
+  category: Enums<"car_category"> | null;
 };
 
 export const DEFAULT_BUY_FILTERS: BuyFilters = {
@@ -21,6 +22,7 @@ export const DEFAULT_BUY_FILTERS: BuyFilters = {
   fuels: [],
   brand: "All",
   sort: "newest",
+  category: null,
 };
 
 export const BODY_TYPES: Enums<"car_type">[] = [
@@ -77,6 +79,14 @@ export const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "price-high", label: "Price: high to low" },
   { value: "year-newest", label: "Latest model year" },
 ];
+
+export const CATEGORY_LABELS: Record<Enums<"car_category">, string> = {
+  economy: "Economy",
+  sports: "Sports",
+  suv: "SUV",
+  luxury: "Luxury",
+  exotic: "Exotic",
+};
 
 export function deriveCondition(kmDriven: number): Exclude<Condition, "Any"> {
   if (kmDriven === 0) return "New";

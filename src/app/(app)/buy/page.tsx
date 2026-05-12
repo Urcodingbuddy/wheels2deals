@@ -63,6 +63,7 @@ function parseFilters(
   const brand = getSingleParam(params.brand).trim() || DEFAULT_BUY_FILTERS.brand;
   const bodyTypes = getMultiParam(params.type).filter(isBodyType);
   const fuels = getMultiParam(params.fuel).filter(isFuelType);
+  const category = (getSingleParam(params.category) as Enums<"car_category">) || null;
 
   return {
     q,
@@ -72,6 +73,7 @@ function parseFilters(
     fuels,
     brand,
     sort,
+    category,
   };
 }
 
@@ -110,7 +112,7 @@ export default async function BuyPage({
   }
 
   if (filters.brand !== "All") {
-    carsQuery = carsQuery.eq("brand", filters.brand);
+    carsQuery = carsQuery.ilike("brand", `%${filters.brand}%`);
   }
 
   switch (filters.sort) {
@@ -129,6 +131,10 @@ export default async function BuyPage({
       break;
   }
 
+  if (filters.category) {
+    carsQuery = carsQuery.eq("category", filters.category);
+  }
+
   const [{ data: cars }, { data: brandRows }] = await Promise.all([
     carsQuery,
     supabase.from("cars").select("brand").eq("status", "available").order("brand"),
@@ -137,7 +143,30 @@ export default async function BuyPage({
   const matchedCars = filters.q
     ? (cars ?? []).filter((car) => matchesCarSearch(car, filters.q))
     : (cars ?? []);
+
+  // Fetch recommendations if results are low
+  let otherCars: Car[] = [];
+  if (matchedCars.length < 6) {
+    const matchedIds = matchedCars.map(c => c.id);
+    const { data: recommendations } = await supabase
+      .from("cars")
+      .select("*")
+      .eq("status", "available")
+      .not("id", "in", `(${matchedIds.length > 0 ? matchedIds.join(",") : "00000000-0000-0000-0000-000000000000"})`)
+      .limit(8)
+      .order("created_at", { ascending: false });
+    
+    otherCars = recommendations ?? [];
+  }
+
   const brands = [...new Set((brandRows ?? []).map((car) => car.brand))].sort();
 
-  return <BuyClient cars={matchedCars} brands={brands} filters={filters} />;
+  return (
+    <BuyClient 
+      cars={matchedCars} 
+      otherCars={otherCars} 
+      brands={brands} 
+      filters={filters} 
+    />
+  );
 }

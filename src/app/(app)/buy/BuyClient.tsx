@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useMemo, useState, useTransition, useRef, useEffect } from "react";
 import {
   ArrowRight,
   CalendarDays,
@@ -30,6 +30,7 @@ import {
   deriveCondition,
   type BuyFilters,
   type Condition,
+  CATEGORY_LABELS,
 } from "./filters";
 import { KNOWN_BRANDS } from "./search";
 
@@ -59,6 +60,8 @@ function formatActiveLabel(filters: BuyFilters, key: ActiveFilterKey) {
       return "Body Type";
     case "fuel":
       return "Fuel Type";
+    case "category":
+      return filters.category ? CATEGORY_LABELS[filters.category] : "";
     default:
       return key;
   }
@@ -80,6 +83,9 @@ function createSearchParams(filters: BuyFilters) {
   if (filters.sort !== DEFAULT_BUY_FILTERS.sort) {
     params.set("sort", filters.sort);
   }
+  if (filters.category) {
+    params.set("category", filters.category);
+  }
 
   for (const type of filters.bodyTypes) {
     params.append("type", type);
@@ -98,7 +104,8 @@ type ActiveFilterKey =
   | "brand"
   | "transmission"
   | "bodyType"
-  | "fuel";
+  | "fuel"
+  | "category";
 
 function CollapsibleSection({
   title,
@@ -150,7 +157,7 @@ function ToggleGroup({
           <button
             key={option.value}
             type="button"
-            onClick={() => onChange(option.value)}
+            onClick={() => onChange(value === option.value ? "" : option.value)}
             className={`rounded-full border px-3.5 py-2 font-[family-name:var(--font-body)] text-[11px] font-medium transition-all duration-200 ${
               selected
                 ? "border-[#2A3510] bg-[#2A3510] text-white shadow-[0_10px_24px_rgba(42,53,16,0.2)]"
@@ -282,20 +289,19 @@ function CarCard({ car }: { car: Car }) {
         </div>
 
         <div className="flex flex-grow flex-col space-y-4 px-4 pb-4 pt-3.5 sm:px-5">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
+          <div className="space-y-1">
+            <div className="flex items-center justify-between gap-2">
               <p className="font-[family-name:var(--font-body)] text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6F674F]">
                 {car.brand}
               </p>
-              <h3 className="mt-1 line-clamp-2 font-[family-name:var(--font-display)] text-[15px] font-semibold uppercase leading-tight tracking-[-0.02em] text-[#223006]">
-                {car.title}
-              </h3>
-            </div>
-            <div className="text-right">
-              <p className="font-[family-name:var(--font-body)] text-[11px] font-medium text-[#5E5748]">
+              <span className="inline-flex items-center rounded-full bg-[#3A4A20]/5 px-2 py-0.5 font-[family-name:var(--font-body)] text-[9px] font-bold uppercase tracking-[0.15em] text-[#3A4A20] whitespace-nowrap">
                 Ready to drive
-              </p>
+              </span>
             </div>
+            
+            <h3 className="line-clamp-2 font-[family-name:var(--font-display)] text-[15px] font-semibold uppercase leading-tight tracking-[-0.02em] text-[#223006]">
+              {car.title}
+            </h3>
           </div>
 
           <div className="flex flex-wrap gap-1.5">
@@ -328,10 +334,10 @@ function CarCard({ car }: { car: Car }) {
           <div className="mt-auto flex items-center justify-between rounded-[16px] border border-[#DCD2C2] bg-white/90 px-3.5 py-2.5">
             <div>
               <p className="font-[family-name:var(--font-body)] text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6F674F]">
-                Vehicle type
+                {car.category ? `${CATEGORY_LABELS[car.category]} • ` : ""} {BODY_TYPE_LABELS[car.type]}
               </p>
               <p className="mt-1 font-[family-name:var(--font-body)] text-[13px] font-semibold text-[#223006]">
-                {BODY_TYPE_LABELS[car.type]}
+                Ready to drive
               </p>
             </div>
             <div className="flex items-center gap-1.5 rounded-full bg-[#2A3510] px-4 py-2 transition-all duration-300 group-hover:bg-[#C9A84C] group-hover:shadow-[0_4px_12px_rgba(201,168,76,0.3)] shadow-[0_4px_10px_rgba(0,0,0,0.1)]">
@@ -385,12 +391,23 @@ function FiltersPanel({
   filters,
   onUpdate,
   onReset,
+  isMobile = false,
 }: {
   filters: BuyFilters;
   onUpdate: (nextFilters: BuyFilters) => void;
   onReset: () => void;
+  isMobile?: boolean;
 }) {
   const [brandDropdownOpen, setBrandDropdownOpen] = useState(false);
+  const [brandSearch, setBrandSearch] = useState("");
+
+  const filteredBrands = useMemo(() => {
+    const search = brandSearch.toLowerCase().trim();
+    if (!search) return KNOWN_BRANDS;
+    return KNOWN_BRANDS.filter(brand => 
+      brand.toLowerCase().includes(search)
+    );
+  }, [brandSearch]);
 
   const conditionOptions = [
     { value: "Any", label: "Any" },
@@ -408,23 +425,36 @@ function FiltersPanel({
   ];
 
   return (
-    <div className="rounded-[24px] border border-[#DDD3C2] bg-[linear-gradient(180deg,#FBF8F2_0%,#F1EBE0_100%)] p-5 shadow-[0_16px_36px_rgba(42,53,16,0.1)]">
-      <div className="flex items-center justify-between gap-3">
-        <div>
-          <p className="font-[family-name:var(--font-body)] text-[10px] font-semibold uppercase tracking-[0.22em] text-[#8A846F]">
-            Filters
-          </p>
-          <h2 className="mt-1 font-[family-name:var(--font-display)] text-[24px] font-semibold uppercase tracking-[-0.02em] text-[#2A3510]">
-            Refine your shortlist
-          </h2>
+    <div className={isMobile ? "" : "py-2"}>
+      {!isMobile && (
+        <div className="flex items-center justify-start pb-4">
+          <button
+            type="button"
+            onClick={onReset}
+            className="inline-flex items-center gap-1.5 rounded-full border border-[#BFAF97] bg-[#FFFEFB] px-4 py-2 font-[family-name:var(--font-body)] text-[12px] font-semibold text-[#4D473E] transition-all hover:border-[#2A3510] hover:text-[#2A3510] hover:shadow-sm"
+          >
+            Reset Filters <X size={13} />
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={onReset}
-          className="inline-flex items-center gap-1 rounded-full border border-[#BFAF97] bg-[#FFFEFB] px-3 py-2 font-[family-name:var(--font-body)] text-[11px] font-semibold text-[#4D473E] transition-colors hover:border-[#8D7A45] hover:text-[#2A3510]"
-        >
-          Reset <X size={12} />
-        </button>
+      )}
+
+      <div className="mt-6">
+        <p className="mb-3 font-[family-name:var(--font-body)] text-[10px] font-semibold uppercase tracking-[0.22em] text-[#7C7A73]">
+          Car Category
+        </p>
+        <ToggleGroup
+          options={[
+            { value: "", label: "Any" },
+            ...Object.entries(CATEGORY_LABELS).map(([value, label]) => ({ value, label }))
+          ]}
+          value={filters.category ?? ""}
+          onChange={(category) =>
+            onUpdate({
+              ...filters,
+              category: (category as any) || null,
+            })
+          }
+        />
       </div>
 
       <div className="mt-6">
@@ -448,7 +478,10 @@ function FiltersPanel({
           <div className="relative">
             <button
               type="button"
-              onClick={() => setBrandDropdownOpen(!brandDropdownOpen)}
+              onClick={() => {
+                setBrandDropdownOpen(!brandDropdownOpen);
+                setBrandSearch("");
+              }}
               className="flex h-12 w-full items-center justify-between rounded-full border border-[#CDBFA8] bg-[#FFFEFB] px-4 font-[family-name:var(--font-body)] text-[12px] font-medium text-[#2A3510] shadow-[0_8px_18px_rgba(42,53,16,0.06)] outline-none transition-colors hover:border-[#9E884E] focus:border-[#8D7A45]"
             >
               <span className="truncate pr-4">
@@ -467,27 +500,40 @@ function FiltersPanel({
                   onClick={() => setBrandDropdownOpen(false)} 
                 />
                 <div className="absolute top-[calc(100%+6px)] left-0 w-full bg-white border border-[#2A3510]/10 rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden animate-in fade-in zoom-in-95">
-                  <div className="p-3 bg-[#F1F3E1]/50 border-b border-[#2A3510]/5 flex items-center justify-between">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60">Select Brand</span>
-                    <span className="text-[10px] font-medium bg-white px-2 py-0.5 rounded-full text-[#2A3510]/40 border border-[#2A3510]/5">{KNOWN_BRANDS.length} listed</span>
+                  <div className="p-2 border-b border-[#2A3510]/5 bg-[#FBF8F2]">
+                    <div className="relative">
+                      <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8A846F]" />
+                      <input
+                        autoFocus
+                        type="text"
+                        placeholder="Search brands..."
+                        value={brandSearch}
+                        onChange={(e) => setBrandSearch(e.target.value)}
+                        className="w-full h-9 pl-9 pr-4 rounded-xl border border-[#DED6C8] bg-white font-[family-name:var(--font-body)] text-[12px] focus:border-[#C9A84C] outline-none transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                    </div>
                   </div>
                   
-                  <div 
-                    className="max-h-[220px] overflow-y-auto overscroll-contain flex flex-col py-1"
+                <div 
+                  className="max-h-[220px] overflow-y-auto overscroll-contain flex flex-col py-1 no-scrollbar"
                     onWheel={(e) => e.stopPropagation()}
                     onTouchMove={(e) => e.stopPropagation()}
                   >
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onUpdate({ ...filters, brand: "All" });
-                        setBrandDropdownOpen(false);
-                      }}
-                      className={`text-left px-4 py-2.5 text-[13px] font-medium transition-colors hover:bg-[#F1F3E1] ${filters.brand === "All" ? 'text-[#C9A84C] bg-[#C9A84C]/5' : 'text-[#2A3510]'}`}
-                    >
-                      All brands
-                    </button>
-                    {KNOWN_BRANDS.map(brand => (
+                    {!brandSearch && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onUpdate({ ...filters, brand: "All" });
+                          setBrandDropdownOpen(false);
+                        }}
+                        className={`text-left px-4 py-2.5 text-[13px] font-medium transition-colors hover:bg-[#F1F3E1] ${filters.brand === "All" ? 'text-[#C9A84C] bg-[#C9A84C]/5' : 'text-[#2A3510]'}`}
+                      >
+                        All brands
+                      </button>
+                    )}
+                    
+                    {filteredBrands.map(brand => (
                       <button
                         key={brand}
                         type="button"
@@ -500,6 +546,12 @@ function FiltersPanel({
                         {brand}
                       </button>
                     ))}
+
+                    {filteredBrands.length === 0 && (
+                      <div className="px-4 py-8 text-center">
+                        <p className="text-[11px] font-medium text-[#8A846F] uppercase tracking-wider">No brands found</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </>
@@ -544,10 +596,12 @@ function FiltersPanel({
 
 export default function BuyClient({
   cars,
+  otherCars = [],
   brands,
   filters,
 }: {
   cars: Car[];
+  otherCars?: Car[];
   brands: string[];
   filters: BuyFilters;
 }) {
@@ -555,6 +609,7 @@ export default function BuyClient({
     <BuyClientView
       key={JSON.stringify(filters)}
       cars={cars}
+      otherCars={otherCars}
       brands={brands}
       filters={filters}
     />
@@ -563,10 +618,12 @@ export default function BuyClient({
 
 function BuyClientView({
   cars,
+  otherCars = [],
   brands,
   filters,
 }: {
   cars: Car[];
+  otherCars?: Car[];
   brands: string[];
   filters: BuyFilters;
 }) {
@@ -576,6 +633,26 @@ function BuyClientView({
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [localFilters, setLocalFilters] = useState(filters);
   const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
+
+  const sidebarRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = sidebarRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      // Always prevent the page from scrolling while cursor is over the sidebar
+      e.stopPropagation();
+      e.preventDefault();
+
+      // Manually scroll the sidebar instead
+      el.scrollTop += e.deltaY;
+    };
+
+    // passive: false is REQUIRED to allow preventDefault()
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    return () => el.removeEventListener("wheel", handleWheel);
+  }, []);
 
   const activeFilters = useMemo(() => {
     const items: Array<{
@@ -625,6 +702,13 @@ function BuyClientView({
       });
     }
 
+    if (localFilters.category) {
+      items.push({
+        key: "category",
+        label: formatActiveLabel(localFilters, "category"),
+      });
+    }
+
     return items;
   }, [localFilters]);
 
@@ -636,6 +720,7 @@ function BuyClientView({
 
     startTransition(() => {
       router.replace(target, { scroll: false });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   };
 
@@ -677,37 +762,77 @@ function BuyClientView({
         ...localFilters,
         fuels: localFilters.fuels.filter((item) => (item as string) !== value),
       });
+      return;
+    }
+
+    if (key === "category") {
+      applyFilters({ ...localFilters, category: null });
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#DCE1BA]">
-      <div className="bg-[#FCFAF6] rounded-b-[40px] md:rounded-b-[60px] pb-12">
-      <div className="mx-auto flex w-[92vw] max-w-[1440px] gap-6 py-6 lg:gap-8 lg:py-8">
-        <aside className="hidden w-[310px] shrink-0 lg:block">
-          <div className="lg:sticky lg:top-[84px]">
-            <FiltersPanel
-              filters={localFilters}
-              onUpdate={applyFilters}
-              onReset={resetAll}
-            />
-          </div>
-        </aside>
+    <div className="min-h-screen bg-[#FCFAF6]">
+      <aside 
+        ref={sidebarRef}
+        className="hidden lg:block fixed left-0 top-[80px] w-[320px] h-[calc(100vh-80px)] overflow-y-auto overscroll-y-contain bg-[#FBF8F2] border-r border-[#DED6C8] px-6 py-8 pb-20 z-30 pointer-events-auto"
+      >
+        <FiltersPanel
+          filters={localFilters}
+          onUpdate={applyFilters}
+          onReset={resetAll}
+        />
+      </aside>
 
-        <main className="min-w-0 flex-1">
+      <div className="flex w-full min-h-screen">
+        <main className="min-w-0 flex-1 bg-[#FCFAF6] pb-12 lg:ml-[320px]">
+          <div className="mx-auto w-full max-w-[1120px] px-6 py-6 lg:px-8 lg:py-8">
           <div className="flex flex-col gap-4 mb-6 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center justify-between gap-2 lg:justify-start">
               <button
                 type="button"
                 onClick={() => setIsMobileFiltersOpen(true)}
-                className="inline-flex items-center gap-2 rounded-full border border-[#D7CEBF] bg-white px-4 py-2 font-[family-name:var(--font-body)] text-[11px] font-semibold text-[#2A3510] shadow-[0_6px_14px_rgba(42,53,16,0.06)] transition-colors hover:border-[#A59568] lg:hidden"
+                className="inline-flex h-11 items-center gap-2 rounded-full border border-[#D7CEBF] bg-white px-5 font-[family-name:var(--font-body)] text-[12px] font-semibold text-[#2A3510] shadow-[0_6px_14px_rgba(42,53,16,0.06)] transition-colors hover:border-[#A59568] lg:hidden"
               >
                 <SlidersHorizontal size={15} />
                 Filters
               </button>
 
+              <div className="relative inline-flex h-11 min-w-[150px] items-center rounded-full border border-[#CDBFA8] bg-[#FFFEFB] shadow-[0_6px_14px_rgba(42,53,16,0.06)] lg:hidden">
+                <span className="pl-4 pr-1 font-[family-name:var(--font-body)] text-[8px] font-semibold uppercase tracking-[0.15em] text-[#8A846F] shrink-0 pointer-events-none">
+                  Sort
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
+                  className="flex h-full w-full items-center justify-between bg-transparent pr-4 font-[family-name:var(--font-body)] text-[11px] font-medium text-[#2A3510] outline-none"
+                >
+                  <span className="truncate pr-1">
+                    {SORT_OPTIONS.find((o) => o.value === localFilters.sort)?.label ?? "Sort"}
+                  </span>
+                  <ChevronDown size={14} className={`shrink-0 text-[#6C675F] transition-transform duration-300 ${sortDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
+
               {activeFilters.length > 0 ? (
-                activeFilters.map((item) => (
+                <div className="hidden lg:flex flex-wrap items-center gap-2">
+                  {activeFilters.map((item) => (
+                    <button
+                      key={`${item.key}-${item.value ?? item.label}`}
+                      type="button"
+                      onClick={() => removeFilter(item.key, item.value)}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#D7CEBF] bg-white px-3 py-1.5 font-[family-name:var(--font-body)] text-[10px] font-medium text-[#4F4A42] shadow-[0_4px_10px_rgba(42,53,16,0.05)] transition-colors hover:border-[#A59568] hover:text-[#2A3510]"
+                    >
+                      <span>{item.label}</span>
+                      <X size={12} />
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+
+            {activeFilters.length > 0 && (
+              <div className="flex flex-wrap items-center gap-2 lg:hidden">
+                {activeFilters.map((item) => (
                   <button
                     key={`${item.key}-${item.value ?? item.label}`}
                     type="button"
@@ -717,11 +842,11 @@ function BuyClientView({
                     <span>{item.label}</span>
                     <X size={12} />
                   </button>
-                ))
-              ) : null}
-            </div>
+                ))}
+              </div>
+            )}
 
-            <div className="relative inline-flex min-w-[188px] items-center rounded-full border border-[#CDBFA8] bg-[#FFFEFB] shadow-[0_6px_14px_rgba(42,53,16,0.06)] self-start lg:self-auto">
+            <div className="relative hidden lg:inline-flex min-w-[188px] items-center rounded-full border border-[#CDBFA8] bg-[#FFFEFB] shadow-[0_6px_14px_rgba(42,53,16,0.06)]">
               <span className="pl-4 pr-2 font-[family-name:var(--font-body)] text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8A846F] shrink-0 pointer-events-none">
                 Sort
               </span>
@@ -788,41 +913,39 @@ function BuyClientView({
             {cars.length > 0 ? (
               <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-5 transition-all duration-500 ${isPending ? 'opacity-30 blur-[2px]' : 'opacity-100 blur-0'}`}>
                 {cars.map((car) => (
-                  <CarCard key={car.id} car={car} />
+                   <CarCard key={car.id} car={car} />
                 ))}
               </div>
             ) : (
               !isPending && (
-                <div className="py-12 flex flex-col items-center text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
-                  <div className="w-20 h-20 rounded-full bg-[#F0EBE1] flex items-center justify-center mb-8 relative">
-                    <Search className="w-8 h-8 text-[#2A3510]/30" />
-                    <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-white border border-[#F0EBE1] flex items-center justify-center shadow-sm">
-                      <X className="w-4 h-4 text-[#C9A84C]" />
-                    </div>
-                  </div>
-                  
-                  <h3 className="font-[family-name:var(--font-display)] text-[28px] font-bold text-[#2A3510] mb-4 tracking-tight">
-                    No vehicles match this view.
-                  </h3>
-                  
-                  <p className="max-w-md mx-auto font-[family-name:var(--font-body)] text-[15px] leading-relaxed text-[#2A3510]/50 mb-10">
-                    Try a broader search, switch brand, or clear a few filters to bring more available cars back into the list.
-                  </p>
-                  
-                  <button
-                    type="button"
-                    onClick={resetAll}
-                    className="inline-flex items-center justify-center rounded-full bg-[#2A3510] px-8 py-3.5 font-[family-name:var(--font-body)] text-[12px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#C9A84C] hover:shadow-[0_8px_20px_rgba(201,168,76,0.3)] active:scale-95"
-                  >
-                    Reset all filters
-                  </button>
-                </div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#2A3510]/30 text-center mb-2">
+                  No exact matches found
+                </p>
               )
             )}
+
+            {otherCars.length > 0 && (
+              <div className={`${cars.length === 0 ? 'mt-4' : 'mt-16'} transition-all duration-500 ${isPending ? 'opacity-30 blur-[2px]' : 'opacity-100 blur-0'} animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300`}>
+                <div className="relative flex items-center justify-center mb-10">
+                  <div className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-[#CDBFA8] to-transparent" />
+                  <div className="relative bg-[#FCFAF6] px-6">
+                    <h2 className="font-[family-name:var(--font-display)] text-[16px] font-bold uppercase tracking-[0.25em] text-[#3A4A20]">
+                      Explore other premium listings
+                    </h2>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-5">
+                  {otherCars.map((car) => (
+                    <CarCard key={car.id} car={car} />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        </main>
-      </div>
-      </div>
+        </div>
+      </main>
+    </div>
 
       {/* Gap matching Footer Layout */}
       <div className="h-24 md:h-15 bg-[#DCE1BA]" />
@@ -858,6 +981,7 @@ function BuyClientView({
                 applyFilters(nextFilters);
               }}
               onReset={resetAll}
+              isMobile
             />
 
             <button

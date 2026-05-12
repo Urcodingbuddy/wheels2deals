@@ -38,6 +38,7 @@ export type Database = {
           video_url: string | null
           views_count: number
           year: number
+          category: Database["public"]["Enums"]["car_category"] | null
         }
         Insert: {
           brand: string
@@ -62,6 +63,7 @@ export type Database = {
           video_url?: string | null
           views_count?: number
           year: number
+          category?: Database["public"]["Enums"]["car_category"] | null
         }
         Update: {
           brand?: string
@@ -86,6 +88,7 @@ export type Database = {
           video_url?: string | null
           views_count?: number
           year?: number
+          category?: Database["public"]["Enums"]["car_category"] | null
         }
         Relationships: []
       }
@@ -138,6 +141,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      car_category: "economy" | "sports" | "suv" | "luxury" | "exotic"
       car_status: "available" | "sold" | "reserved" | "draft"
       car_type:
         | "sedan"
@@ -280,6 +284,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      car_category: ["economy", "sports", "suv", "luxury", "exotic"],
       car_status: ["available", "sold", "reserved", "draft"],
       car_type: [
         "sedan",

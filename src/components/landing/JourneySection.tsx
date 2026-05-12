@@ -5,42 +5,42 @@ const CARS = [
   {
     title: "BMW 3 Series",
     specs: "AWD · 2.0T Turbo · 8-Speed",
-    href: "/buy?model=bmw-3-series",
+    href: "/buy?brand=BMW",
     image:
       "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?q=80&w=1215&auto=format&fit=crop",
   },
   {
     title: "Mercedes S-Class",
     specs: "RWD · 2.0T Turbo · 9-Speed",
-    href: "/buy?model=mercedes-s-class",
+    href: "/buy?brand=Mercedes",
     image:
       "https://images.unsplash.com/photo-1610099610040-ab19f3a5ec35?q=80&w=764&auto=format&fit=crop",
   },
   {
     title: "Toyota Land Cruiser",
     specs: "4WD · 3.3L Twin-Turbo · 10-Speed",
-    href: "/buy?model=land-cruiser",
+    href: "/buy?brand=Toyota",
     image:
       "https://images.unsplash.com/photo-1650530579355-7ad9d4766043?q=80&w=1170&auto=format&fit=crop",
   },
   {
     title: "Nissan Patrol",
     specs: "4WD · 5.6L V8 · 7-Speed",
-    href: "/buy?model=nissan-patrol",
+    href: "/buy?brand=Nissan",
     image:
       "https://images.unsplash.com/photo-1742230285052-8c3b445c01fc?q=80&w=1170&auto=format&fit=crop",
   },
   {
     title: "Porsche 911",
     specs: "AWD · 3.0T · 8-Speed Tiptronic",
-    href: "/buy?model=porsche-cayenne",
+    href: "/buy?brand=Porsche",
     image:
       "https://images.unsplash.com/photo-1634673970798-a15ae56f6c65?q=80&w=1228&auto=format&fit=crop",
   },
   {
     title: "Range Rover Sport",
     specs: "AWD · 3.0L Inline-6 · 8-Speed",
-    href: "/buy?model=range-rover-sport",
+    href: "/buy?brand=land+Rover",
     image:
       "https://images.unsplash.com/photo-1725815761064-b84c3f4f9b94?q=80&w=1170&auto=format&fit=crop",
   },

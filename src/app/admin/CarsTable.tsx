@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Trash2, Eye, CheckCircle } from "lucide-react";
+import { Trash2, Eye, CheckCircle, Pencil, Inbox } from "lucide-react";
 import { deleteCar, publishCar } from "@/app/(admin)/actions/car";
 import type { Tables } from "@/types/database";
 
 type CarRow = Pick<
   Tables<"cars">,
   "id" | "title" | "brand" | "year" | "status" | "price" | "images" | "slug" | "created_at"
->;
+> & { category?: string | null };
+
+const CATEGORY_LABELS: Record<string, string> = {
+  economy: "Economy", sports: "Sports", suv: "SUV", luxury: "Luxury", exotic: "Exotic",
+};
 
 const STATUS_STYLE: Record<string, { bg: string; text: string; label: string }> = {
   available: { bg: "bg-green-50", text: "text-green-700", label: "Available" },
@@ -61,7 +65,7 @@ export default function CarsTable({ cars }: { cars: CarRow[] }) {
       <table className="w-full">
         <thead>
           <tr className="border-b border-[#E0DDD8] bg-[#F6F5F1]">
-            {["Vehicle", "Brand / Year", "Status", "Price", "Added", ""].map((h) => (
+            {["Vehicle", "Brand / Year", "Category", "Status", "Price", "Added", ""].map((h) => (
               <th
                 key={h}
                 className="px-5 py-3 text-left font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.15em] uppercase text-[#888888] whitespace-nowrap"
@@ -104,6 +108,13 @@ export default function CarsTable({ cars }: { cars: CarRow[] }) {
                   </span>
                 </td>
 
+                {/* Category */}
+                <td className="px-5 py-3.5 whitespace-nowrap">
+                  <span className="font-[family-name:var(--font-body)] text-[11px] font-bold tracking-[0.1em] uppercase text-[#888888]">
+                    {car.category ? CATEGORY_LABELS[car.category] : "-"}
+                  </span>
+                </td>
+
                 {/* Status */}
                 <td className="px-5 py-3.5">
                   <StatusBadge status={car.status} />
@@ -112,11 +123,11 @@ export default function CarsTable({ cars }: { cars: CarRow[] }) {
                 {/* Price */}
                 <td className="px-5 py-3.5 whitespace-nowrap">
                   <span className="font-[family-name:var(--font-body)] text-[13px] font-medium text-[#2A3510]">
-                    {new Intl.NumberFormat("en-AE", {
+                    {car.price ? new Intl.NumberFormat("en-AE", {
                       style: "currency",
                       currency: "AED",
                       maximumFractionDigits: 0,
-                    }).format(car.price)}
+                    }).format(car.price) : "Price on Request"}
                   </span>
                 </td>
 
@@ -145,11 +156,18 @@ export default function CarsTable({ cars }: { cars: CarRow[] }) {
                       </button>
                     )}
                     <a
+                      href={`/admin/cars/${car.slug}/edit`}
+                      title="Edit vehicle"
+                      className="p-1.5 rounded-md text-[#888888] hover:text-[#2A3510] hover:bg-[#F6F5F1] transition-colors"
+                    >
+                      <Pencil size={15} strokeWidth={1.8} />
+                    </a>
+                    <a
                       href={`/admin/cars/${car.slug}`}
                       title="View inquiries"
                       className="p-1.5 rounded-md text-[#888888] hover:text-[#2A3510] hover:bg-[#F6F5F1] transition-colors"
                     >
-                      <Eye size={15} strokeWidth={1.8} />
+                      <Inbox size={15} strokeWidth={1.8} />
                     </a>
                     <button
                       onClick={() => handleDelete(car.id)}

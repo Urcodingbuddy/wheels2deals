@@ -39,11 +39,25 @@ export function useImageUpload(): UseImageUploadReturn {
 
   const addPreviews = useCallback((incoming: ImagePreview[]) => {
     setPreviews((prev) => {
-      const remaining = MAX_IMAGES - prev.length;
-      if (remaining <= 0) return prev; // hard stop
+      // 1. Filter out duplicates (same name and size)
+      const uniqueIncoming = incoming.filter((newImg) => {
+        const isDuplicate = prev.some(
+          (existing) => 
+            existing.file.name === newImg.file.name && 
+            existing.file.size === newImg.file.size
+        );
+        return !isDuplicate;
+      });
 
-      const capped = incoming.slice(0, remaining);
+      if (uniqueIncoming.length === 0) return prev;
+
+      // 2. Respect MAX_IMAGES
+      const remaining = MAX_IMAGES - prev.length;
+      if (remaining <= 0) return prev;
+
+      const capped = uniqueIncoming.slice(0, remaining);
       const hasCover = prev.some((p) => p.isCover);
+      
       return [
         ...prev,
         ...capped.map((p, i) => ({

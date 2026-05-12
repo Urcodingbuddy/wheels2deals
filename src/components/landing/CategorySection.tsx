@@ -6,27 +6,27 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 const CATEGORIES = [
   {
     label: "Economy Cars",
-    href: "/buy?type=economy",
+    href: "/buy?category=economy",
     img: "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-images/site_images/Economy_car.webp",
   },
   {
     label: "Sports Cars",
-    href: "/buy?type=sport",
+    href: "/buy?category=sports",
     img: "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-images/site_images/Sports_car.webp",
   },
   {
     label: "SUV Cars",
-    href: "/buy?type=suv",
+    href: "/buy?category=suv",
     img: "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-images/site_images/SUV_car.webp",
   },
   {
     label: "Luxury Cars",
-    href: "/buy?type=luxury",
+    href: "/buy?category=luxury",
     img: "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-images/site_images/Luxury_car.webp",
   },
   {
     label: "Exotic Cars",
-    href: "/buy?type=exotic",
+    href: "/buy?category=exotic",
     img: "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-images/site_images/Exotic_car.webp",
   },
 ];

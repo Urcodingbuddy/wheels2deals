@@ -7,6 +7,9 @@ export function WhatsAppSticky() {
   const pathname = usePathname();
   const phoneNumber = "971561498485";
 
+  // Hide on admin pages
+  if (pathname?.startsWith("/admin")) return null;
+
   const getMessage = () => {
     if (pathname === "/") return "Hi Wheels2Deals, I'm on your homepage and would like to learn more about your car services.";
     if (pathname === "/about") return "Hi Wheels2Deals, I'm reading about you and would like to know more about the team and the bridge model.";

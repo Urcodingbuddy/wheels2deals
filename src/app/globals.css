@@ -160,6 +160,25 @@
   scrollbar-width: none;
 }
 
+/* ── Custom scrollbar utility ── */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #CDBFA8;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #A59568;
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #CDBFA8 transparent;
+}
+
 /* ── Custom scrollbar (WebKit) ── */
 ::-webkit-scrollbar {
   width: 4px;

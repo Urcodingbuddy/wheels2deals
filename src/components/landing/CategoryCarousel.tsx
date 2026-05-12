@@ -7,28 +7,28 @@ const CATEGORIES = [
   {
     label: "Economy Cars",
     count: 16,
-    href: "/buy?type=economy",
+    href: "/buy?category=economy",
     img: "/car_01.png",
   },
   {
     label: "Exotic Cars",
     count: 8,
-    href: "/buy?type=exotic",
+    href: "/buy?category=exotic",
     img: "/car_02.png",
   },
   {
     label: "Sport Cars",
     count: 16,
-    href: "/buy?type=sport",
+    href: "/buy?category=sports",
     img: "/car_03.png",
   },
   {
     label: "Luxury Cars",
     count: 24,
-    href: "/buy?type=luxury",
+    href: "/buy?category=luxury",
     img: "/car_04.png",
   },
-  { label: "SUVs", count: 9, href: "/buy?type=suv", img: "/car_05.png" },
+  { label: "SUVs", count: 9, href: "/buy?category=suv", img: "/car_05.png" },
 ];
 
 const SCALES = [0.5, 0.62, 0.78, 1.0, 0.78, 0.62, 0.5];

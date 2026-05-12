@@ -44,7 +44,7 @@ export function AppNav() {
                 <House size={15} strokeWidth={2} className="text-white" />
               </Link>
             )}
-            <Link href="/" aria-label="Wheels2Deals home">
+            <Link href="/" aria-label="Wheels2Deals home" className="hidden sm:block">
               <img
                 src="/logo.svg"
                 alt="Wheels2Deals"
@@ -59,9 +59,9 @@ export function AppNav() {
           <button
             onClick={() => setOpen(true)}
             aria-label="Open navigation"
-            className="inline-flex shrink-0 items-center gap-3 rounded-full bg-[#2A3510] px-4 py-2.5 font-[family-name:var(--font-display)] text-[11px] font-bold tracking-[0.12em] text-white transition-all duration-200 hover:bg-[#3A4A20] hover:scale-[1.03] cursor-pointer border-none sm:px-5 sm:text-[12px]"
+            className="inline-flex shrink-0 items-center justify-center gap-2.5 rounded-full bg-[#2A3510] w-11 h-11 font-[family-name:var(--font-display)] text-[11px] font-bold tracking-[0.12em] text-white transition-all duration-200 hover:bg-[#3A4A20] hover:scale-[1.03] cursor-pointer border-none sm:w-auto sm:h-auto sm:gap-3 sm:px-5 sm:py-2.5 sm:text-[12px]"
           >
-            <span>Menu</span>
+            <span className="hidden sm:inline">Menu</span>
             <TwoLineIcon size={16} />
           </button>
         </div>

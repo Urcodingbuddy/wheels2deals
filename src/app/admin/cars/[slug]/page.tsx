@@ -59,15 +59,23 @@ export default async function AdminCarInquiriesPage({
               {car.brand} &middot; {car.year} &middot; Inquiries
             </p>
           </div>
-          {car.status === "available" && (
+          <div className="flex items-center gap-2">
             <Link
-              href={`/buy/${car.slug}`}
-              target="_blank"
+              href={`/admin/cars/${car.slug}/edit`}
               className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.08em] uppercase text-[#3A4A20] border border-[#C8D0B0] px-3 py-1.5 rounded-lg hover:bg-[#F0F3E8] transition-colors"
             >
-              View Listing ↗
+              Edit Listing
             </Link>
-          )}
+            {car.status === "available" && (
+              <Link
+                href={`/buy/${car.slug}`}
+                target="_blank"
+                className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.08em] uppercase text-[#3A4A20] border border-[#C8D0B0] px-3 py-1.5 rounded-lg hover:bg-[#F0F3E8] transition-colors"
+              >
+                View Listing ↗
+              </Link>
+            )}
+          </div>
         </div>
       </div>
 

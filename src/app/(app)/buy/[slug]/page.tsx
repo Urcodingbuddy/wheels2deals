@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/server";
+import { getEmbedUrl } from "@/lib/video";
 import EnquireButton from "./EnquireButton";
 import ImageGallery from "./ImageGallery";
 import type { Enums } from "@/types/database";
@@ -97,7 +98,7 @@ export default async function CarDetailPage({
                 </h3>
                 <div className="aspect-video rounded-xl overflow-hidden bg-black">
                   <iframe
-                    src={car.video_url}
+                    src={getEmbedUrl(car.video_url)}
                     className="w-full h-full"
                     allowFullScreen
                     title={`${car.title} video`}
@@ -146,9 +147,8 @@ export default async function CarDetailPage({
                 <DetailRow label="Transmission" value={TRANS_LABELS[car.transmission]} />
                 <DetailRow label="Odometer"     value={kmLabel} />
                 {car.color        && <DetailRow label="Color"            value={car.color} />}
-                {car.owners_count != null && (
-                  <DetailRow label="Prev. Owners" value={String(car.owners_count)} />
-                )}
+                {/* Removed Prev. Owners */}
+
                 <DetailRow label="Location" value={car.location} />
               </div>
             </div>

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Check, Loader2, Save, X, Image as ImageIcon, AlertCircle, Sparkles } from "lucide-react";
+import { ArrowLeft, Check, Loader2, Save, X, Image as ImageIcon, AlertCircle, Sparkles, ChevronDown, Search } from "lucide-react";
 import { useImageUpload } from "@/hooks/useImageUpload";
 import { ImageUploader } from "@/components/ui/ImageUploader";
 import { updateCar, updateCarImages, updateCarStatus } from "@/app/(admin)/actions/car";
@@ -141,6 +141,29 @@ export default function EditCarClient({ car }: { car: Tables<"cars"> }) {
   const [currentStatus, setCurrentStatus] = useState(car.status);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+
+  // Brand / Model dropdowns
+  const [brandDropdownOpen, setBrandDropdownOpen] = useState(false);
+  const [brandSearch, setBrandSearch] = useState("");
+  const [allMakes, setAllMakes] = useState<string[]>([]);
+  const [makesLoading, setMakesLoading] = useState(false);
+  const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
+  const [modelSearch, setModelSearch] = useState("");
+  const [modelOptions, setModelOptions] = useState<string[]>([]);
+  const [modelsLoading, setModelsLoading] = useState(false);
+  const modelSearchRef = useRef<HTMLInputElement>(null);
+
+  // Fetch model options when brand changes
+  useEffect(() => {
+    const brand = (form.brand as string)?.trim();
+    if (!brand) { setModelOptions([]); return; }
+    setModelsLoading(true);
+    fetch(`/api/car-models?make=${encodeURIComponent(brand)}`)
+      .then((r) => r.json())
+      .then((d) => setModelOptions(d.models ?? []))
+      .catch(() => setModelOptions([]))
+      .finally(() => setModelsLoading(false));
+  }, [form.brand]);
 
   // Modal State
   const [modal, setModal] = useState<{
@@ -335,16 +358,18 @@ export default function EditCarClient({ car }: { car: Tables<"cars"> }) {
     await new Promise((resolve) => setTimeout(resolve, 1200));
 
     const detailsString = `
-      Year: ${form.year}
+      Listing Title: ${form.title}
       Brand: ${form.brand}
       Model: ${form.model}
+      Year: ${form.year}
       Body Type: ${form.type}
       Category: ${form.category}
       Transmission: ${form.transmission}
-      Fuel: ${form.fuel_type}
-      Mileage: ${form.km_driven} KM
-      Color: ${form.color}
+      Fuel Type: ${form.fuel_type}
+      Mileage: ${form.km_driven ? `${Number(form.km_driven).toLocaleString()} KM` : "Brand New"}
+      Color: ${form.color || "Not specified"}
       Location: ${form.location}
+      Price: ${form.price ? `AED ${Number(form.price).toLocaleString()}` : "Not specified"}
     `;
 
     const result = await generateDescriptionWithAi(detailsString);
@@ -424,20 +449,188 @@ export default function EditCarClient({ car }: { car: Tables<"cars"> }) {
             </Field>
 
             <div className="grid grid-cols-3 gap-5">
+              {/* Brand dropdown */}
               <Field label="Brand" error={errors.brand} required>
-                <Input
-                  type="text"
-                  value={(form.brand as string) ?? ""}
-                  onChange={(e) => set("brand", e.target.value)}
-                />
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setBrandDropdownOpen((o) => !o);
+                      setBrandSearch("");
+                      if (!brandDropdownOpen && allMakes.length === 0) {
+                        setMakesLoading(true);
+                        fetch("/api/car-makes")
+                          .then((r) => r.json())
+                          .then((d) => setAllMakes(d.makes ?? []))
+                          .catch(() => {})
+                          .finally(() => setMakesLoading(false));
+                      }
+                    }}
+                    className={inputCls + " flex items-center justify-between text-left"}
+                  >
+                    <span className={(form.brand as string) ? "text-[#2A3510]" : "text-[#D1CDC7]"}>
+                      {(form.brand as string) || "Select brand"}
+                    </span>
+                    <ChevronDown size={15} className={`shrink-0 text-[#888] transition-transform ${brandDropdownOpen ? "rotate-180" : ""}`} />
+                  </button>
+
+                  {brandDropdownOpen && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setBrandDropdownOpen(false)} />
+                      <div className="absolute top-[calc(100%+4px)] left-0 right-0 bg-white border border-[#E0DDD8] rounded-xl shadow-xl z-50 flex flex-col overflow-hidden">
+                        <div className="p-2 border-b border-[#E0DDD8] bg-[#F6F5F1]">
+                          <div className="relative">
+                            <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#AAA]" />
+                            <input
+                              autoFocus
+                              type="text"
+                              placeholder="Search brands…"
+                              value={brandSearch}
+                              onChange={(e) => setBrandSearch(e.target.value)}
+                              onClick={(e) => e.stopPropagation()}
+                              className="w-full h-8 pl-8 pr-3 rounded-lg border border-[#E0DDD8] bg-white font-[family-name:var(--font-body)] text-[12px] focus:border-[#C9A84C] outline-none"
+                            />
+                          </div>
+                        </div>
+                        <div className="max-h-[200px] overflow-y-auto flex flex-col py-1" onWheel={(e) => e.stopPropagation()}>
+                          {makesLoading && (
+                            <p className="text-center py-4 text-[11px] text-[#AAA]">Loading…</p>
+                          )}
+                          {!makesLoading && (() => {
+                            const q = brandSearch.toLowerCase();
+                            const list = (allMakes.length > 0 ? allMakes : []).filter((m) =>
+                              !q || m.toLowerCase().includes(q)
+                            );
+                            return (
+                              <>
+                                {list.map((make) => (
+                                  <button
+                                    key={make}
+                                    type="button"
+                                    onClick={() => {
+                                      set("brand", make);
+                                      set("model", "");
+                                      setModelSearch("");
+                                      setBrandDropdownOpen(false);
+                                    }}
+                                    className={`text-left px-4 py-2 text-[13px] font-medium transition-colors hover:bg-[#F6F5F1] ${(form.brand as string) === make ? "text-[#C9A84C] bg-[#C9A84C]/5" : "text-[#2A3510]"}`}
+                                  >
+                                    {make}
+                                  </button>
+                                ))}
+                                {brandSearch && !list.some((m) => m.toLowerCase() === q) && (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      set("brand", brandSearch);
+                                      set("model", "");
+                                      setBrandDropdownOpen(false);
+                                    }}
+                                    className="text-left px-4 py-2 text-[13px] font-medium text-[#C9A84C] hover:bg-[#F6F5F1]"
+                                  >
+                                    Use &ldquo;{brandSearch}&rdquo; →
+                                  </button>
+                                )}
+                                {!brandSearch && list.length === 0 && (
+                                  <p className="text-center py-6 text-[11px] text-[#AAA]">No brands found</p>
+                                )}
+                              </>
+                            );
+                          })()}
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
               </Field>
+
+              {/* Model dropdown */}
               <Field label="Model" error={errors.model} required>
-                <Input
-                  type="text"
-                  value={(form.model as string) ?? ""}
-                  onChange={(e) => set("model", e.target.value)}
-                />
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!(form.brand as string)) return;
+                      setModelDropdownOpen((o) => !o);
+                      setModelSearch("");
+                      setTimeout(() => modelSearchRef.current?.focus(), 50);
+                    }}
+                    className={inputCls + " flex items-center justify-between text-left " + (!(form.brand as string) ? "opacity-50 cursor-not-allowed" : "")}
+                  >
+                    <span className={(form.model as string) ? "text-[#2A3510]" : "text-[#D1CDC7]"}>
+                      {(form.model as string) || "Select model"}
+                    </span>
+                    {modelsLoading
+                      ? <Loader2 size={14} className="animate-spin text-[#AAA]" />
+                      : <ChevronDown size={15} className={`shrink-0 text-[#888] transition-transform ${modelDropdownOpen ? "rotate-180" : ""}`} />
+                    }
+                  </button>
+
+                  {modelDropdownOpen && (form.brand as string) && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setModelDropdownOpen(false)} />
+                      <div className="absolute top-[calc(100%+4px)] left-0 right-0 bg-white border border-[#E0DDD8] rounded-xl shadow-xl z-50 flex flex-col overflow-hidden">
+                        <div className="p-2 border-b border-[#E0DDD8] bg-[#F6F5F1]">
+                          <div className="relative">
+                            <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#AAA]" />
+                            <input
+                              ref={modelSearchRef}
+                              type="text"
+                              placeholder="Search models…"
+                              value={modelSearch}
+                              onChange={(e) => setModelSearch(e.target.value)}
+                              onClick={(e) => e.stopPropagation()}
+                              className="w-full h-8 pl-8 pr-3 rounded-lg border border-[#E0DDD8] bg-white font-[family-name:var(--font-body)] text-[12px] focus:border-[#C9A84C] outline-none"
+                            />
+                          </div>
+                        </div>
+                        <div className="max-h-[200px] overflow-y-auto flex flex-col py-1" onWheel={(e) => e.stopPropagation()}>
+                          {modelsLoading && (
+                            <p className="text-center py-4 text-[11px] text-[#AAA]">Loading…</p>
+                          )}
+                          {!modelsLoading && (() => {
+                            const q = modelSearch.toLowerCase();
+                            const list = modelOptions.filter((m) => !q || m.toLowerCase().includes(q));
+                            return (
+                              <>
+                                {list.map((model) => (
+                                  <button
+                                    key={model}
+                                    type="button"
+                                    onClick={() => {
+                                      set("model", model);
+                                      setModelDropdownOpen(false);
+                                    }}
+                                    className={`text-left px-4 py-2 text-[13px] font-medium transition-colors hover:bg-[#F6F5F1] ${(form.model as string) === model ? "text-[#C9A84C] bg-[#C9A84C]/5" : "text-[#2A3510]"}`}
+                                  >
+                                    {model}
+                                  </button>
+                                ))}
+                                {modelSearch && !list.some((m) => m.toLowerCase() === q) && (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      set("model", modelSearch);
+                                      setModelDropdownOpen(false);
+                                    }}
+                                    className="text-left px-4 py-2 text-[13px] font-medium text-[#C9A84C] hover:bg-[#F6F5F1]"
+                                  >
+                                    Use &ldquo;{modelSearch}&rdquo; →
+                                  </button>
+                                )}
+                                {!modelSearch && list.length === 0 && (
+                                  <p className="text-center py-6 text-[11px] text-[#AAA]">No models found</p>
+                                )}
+                              </>
+                            );
+                          })()}
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
               </Field>
+
               <Field label="Year" error={errors.year} required>
                 <Input
                   type="text"

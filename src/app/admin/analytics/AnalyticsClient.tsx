@@ -49,10 +49,10 @@ const BASE_OPTS = {
   maintainAspectRatio: false,
   plugins: { legend: { display: false } },
   scales: {
-    x: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#999" } },
+    x: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#555" } },
     y: {
-      grid: { color: "#F0EDE6" },
-      ticks: { font: { size: 11 }, color: "#999" },
+      grid: { color: "#EDEDEC" },
+      ticks: { font: { size: 11 }, color: "#555" },
       beginAtZero: true,
     },
   },

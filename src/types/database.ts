@@ -30,6 +30,7 @@ export type Database = {
           owners_count: number | null
           price: number
           slug: string
+          sort_order: number | null
           status: Database["public"]["Enums"]["car_status"]
           title: string
           transmission: Database["public"]["Enums"]["transmission_type"]
@@ -55,6 +56,7 @@ export type Database = {
           owners_count?: number | null
           price: number
           slug: string
+          sort_order?: number | null
           status?: Database["public"]["Enums"]["car_status"]
           title: string
           transmission: Database["public"]["Enums"]["transmission_type"]
@@ -80,6 +82,7 @@ export type Database = {
           owners_count?: number | null
           price?: number
           slug?: string
+          sort_order?: number | null
           status?: Database["public"]["Enums"]["car_status"]
           title?: string
           transmission?: Database["public"]["Enums"]["transmission_type"]
@@ -96,6 +99,7 @@ export type Database = {
         Row: {
           car_id: string | null
           created_at: string
+          deleted_at: string | null
           email: string
           id: string
           message: string | null
@@ -106,6 +110,7 @@ export type Database = {
         Insert: {
           car_id?: string | null
           created_at?: string
+          deleted_at?: string | null
           email: string
           id?: string
           message?: string | null
@@ -116,6 +121,7 @@ export type Database = {
         Update: {
           car_id?: string | null
           created_at?: string
+          deleted_at?: string | null
           email?: string
           id?: string
           message?: string | null
@@ -126,6 +132,65 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "inquiries_car_id_fkey"
+            columns: ["car_id"]
+            isOneToOne: false
+            referencedRelation: "cars"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      search_queries: {
+        Row: {
+          id: string
+          query: string
+          count: number
+          is_indexed: boolean
+          is_custom: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          query: string
+          count?: number
+          is_indexed?: boolean
+          is_custom?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          query?: string
+          count?: number
+          is_indexed?: boolean
+          is_custom?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      car_view_logs: {
+        Row: {
+          id: string
+          car_id: string | null
+          slug: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          car_id?: string | null
+          slug: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          car_id?: string | null
+          slug?: string
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "car_view_logs_car_id_fkey"
             columns: ["car_id"]
             isOneToOne: false
             referencedRelation: "cars"
@@ -154,6 +219,10 @@ export type Database = {
         | "truck"
         | "motorcycle"
         | "other"
+        | "crossover"
+        | "hard_top_convertible"
+        | "sports"
+        | "jeep"
       fuel_type: "petrol" | "diesel" | "electric" | "hybrid" | "cng" | "lpg"
       inquiry_status: "new" | "contacted" | "closed"
       transmission_type: "manual" | "automatic" | "cvt" | "amt"
@@ -297,6 +366,10 @@ export const Constants = {
         "truck",
         "motorcycle",
         "other",
+        "crossover",
+        "hard_top_convertible",
+        "sports",
+        "jeep",
       ],
       fuel_type: ["petrol", "diesel", "electric", "hybrid", "cng", "lpg"],
       inquiry_status: ["new", "contacted", "closed"],

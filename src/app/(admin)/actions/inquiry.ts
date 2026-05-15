@@ -28,3 +28,65 @@ export async function updateInquiryStatus(
     return { success: false, error: err instanceof Error ? err.message : "Unexpected error" };
   }
 }
+
+export async function softDeleteInquiry(
+  inquiryId: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const { supabase } = await requireAdmin();
+    const { error } = await supabase
+      .from("inquiries")
+      .update({ deleted_at: new Date().toISOString() })
+      .eq("id", inquiryId);
+    if (error) return { success: false, error: error.message };
+    return { success: true };
+  } catch (err) {
+    return { success: false, error: err instanceof Error ? err.message : "Unexpected error" };
+  }
+}
+
+export async function restoreInquiry(
+  inquiryId: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const { supabase } = await requireAdmin();
+    const { error } = await supabase
+      .from("inquiries")
+      .update({ deleted_at: null })
+      .eq("id", inquiryId);
+    if (error) return { success: false, error: error.message };
+    return { success: true };
+  } catch (err) {
+    return { success: false, error: err instanceof Error ? err.message : "Unexpected error" };
+  }
+}
+
+export async function permanentDeleteInquiry(
+  inquiryId: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const { supabase } = await requireAdmin();
+    const { error } = await supabase
+      .from("inquiries")
+      .delete()
+      .eq("id", inquiryId);
+    if (error) return { success: false, error: error.message };
+    return { success: true };
+  } catch (err) {
+    return { success: false, error: err instanceof Error ? err.message : "Unexpected error" };
+  }
+}
+
+export async function purgeExpiredInquiries(): Promise<void> {
+  try {
+    const { supabase } = await requireAdmin();
+    const cutoff = new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString();
+    await supabase
+      .from("inquiries")
+      .delete()
+      .not("deleted_at", "is", null)
+      .lt("deleted_at", cutoff);
+  } catch {
+    // non-critical background cleanup - fail silently
+  }
+}

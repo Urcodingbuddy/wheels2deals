@@ -46,6 +46,15 @@
   --color-reserved: #f59e0b;
   --color-sold: #6b7280;
 
+  /* Stitch Design Tokens */
+  --color-sovereign-navy: #0F172A;
+  --color-prestige-gold: #C9A84C;
+  --color-surface-cream: #FBF8F2;
+  --color-stone-grey: #6C675F;
+  --color-emirate-teal: #1A6B72;
+  --color-outline-variant: #DED6C8;
+  --color-surface-container-lowest: #FFFFFF;
+
   /* Shadcn tokens (preserved) */
   --color-background: var(--background);
   --color-foreground: var(--foreground);

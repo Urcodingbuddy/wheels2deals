@@ -19,11 +19,11 @@ export function AppNav() {
     <>
       {/* ── Sticky navbar ── */}
       <header
-        className={`sticky top-0 z-50 ${
+        className={`sticky top-0 z-50 h-[72px] ${
           isDetailPage ? "bg-white" : "bg-[#F6F5F1]/95"
         } backdrop-blur-md`}
       >
-        <div className="w-[90vw] mx-auto flex min-h-[60px] items-center justify-between gap-3 py-3">
+        <div className="w-[90vw] mx-auto flex h-full items-center justify-between gap-3 py-3">
           {/* Left - Back button (detail pages) or Logo */}
           <div className="flex shrink-0 items-center gap-3">
             {isDetailPage && (

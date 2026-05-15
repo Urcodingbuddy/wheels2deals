@@ -5,10 +5,9 @@ import { revalidatePath } from "next/cache";
 
 async function requireAdmin() {
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.getClaims();
-  if (error || !data?.claims) throw new Error("Unauthorized");
-  const role = (data.claims as { app_metadata?: { role?: string } })?.app_metadata?.role;
-  if (role !== "admin") throw new Error("Unauthorized");
+  const { data: { user }, error } = await supabase.auth.getUser();
+  if (error || !user) throw new Error("Unauthorized");
+  if (user.app_metadata?.role !== "admin") throw new Error("Unauthorized");
   return supabase;
 }
 
@@ -24,6 +23,18 @@ export async function toggleIndexed(id: string, isIndexed: boolean) {
 export async function deleteSearchQuery(id: string) {
   const supabase = await requireAdmin();
   await supabase.from("search_queries").delete().eq("id", id);
+  revalidatePath("/admin/search-queries");
+}
+
+export async function reorderQuery(id: string, direction: "up" | "down", allIds: string[]) {
+  const supabase = await requireAdmin();
+  const idx = allIds.indexOf(id);
+  if (idx === -1) return;
+  const swapIdx = direction === "up" ? idx - 1 : idx + 1;
+  if (swapIdx < 0 || swapIdx >= allIds.length) return;
+
+  await supabase.from("search_queries").update({ sort_order: swapIdx }).eq("id", id);
+  await supabase.from("search_queries").update({ sort_order: idx }).eq("id", allIds[swapIdx]);
   revalidatePath("/admin/search-queries");
 }
 

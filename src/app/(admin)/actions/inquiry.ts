@@ -5,10 +5,9 @@ import type { Enums } from "@/types/database";
 
 async function requireAdmin() {
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.getClaims();
-  if (error || !data?.claims) throw new Error("Unauthorized");
-  const role = (data.claims as { app_metadata?: { role?: string } })?.app_metadata?.role;
-  if (role !== "admin") throw new Error("Forbidden");
+  const { data: { user }, error } = await supabase.auth.getUser();
+  if (error || !user) throw new Error("Unauthorized");
+  if (user.app_metadata?.role !== "admin") throw new Error("Forbidden");
   return { supabase };
 }
 

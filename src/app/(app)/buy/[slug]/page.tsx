@@ -75,46 +75,20 @@ export default async function CarDetailPage({
       {/* ── Main layout ── */}
       <div className="w-[90vw] mx-auto py-8 pb-24 lg:pb-8">
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10 items-start">
+        {/*
+          Mobile:  flex-col, order 1→2→3→4 (gallery → details → video → about)
+          Desktop: 2-col grid, left col = gallery+video+about, right col = details
+        */}
+        <div className="flex flex-col lg:grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-10 lg:items-start">
 
-          {/* ── Left: Gallery ── */}
-          <div>
+          {/* ── Gallery — order 1 on mobile ── */}
+          <div className="order-1 lg:order-none">
             <ImageGallery images={car.images} title={car.title} />
-
-            {/* Description */}
-            {car.description && (
-              <div className="mt-6 p-4 bg-[#F6F5F1] rounded-xl border border-[#E8E4DE]">
-                <h3 className="font-[family-name:var(--font-body)] text-[11px] font-bold tracking-[0.12em] uppercase text-[#3A4A20] mb-2">
-                  About This Car
-                </h3>
-                <p className="font-[family-name:var(--font-body)] text-[13px] text-[#555555] leading-relaxed">
-                  {car.description}
-                </p>
-              </div>
-            )}
-
-            {/* Video */}
-            {car.video_url && (
-              <div className="mt-6">
-                <h3 className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.15em] uppercase text-[#888888] mb-3">
-                  Video
-                </h3>
-                <div className="aspect-video rounded-xl overflow-hidden bg-black">
-                  <iframe
-                    src={getEmbedUrl(car.video_url)}
-                    className="w-full h-full"
-                    allowFullScreen
-                    title={`${car.title} video`}
-                  />
-                </div>
-              </div>
-            )}
           </div>
 
-          {/* ── Right: Details panel ── */}
-          <div className="lg:sticky lg:top-6">
+          {/* ── Details panel — order 2 on mobile (comes before video/about) ── */}
+          <div className="order-2 lg:order-none lg:sticky lg:top-6">
 
-            {/* Featured badge (standalone, only if featured) */}
             {car.is_featured && (
               <div className="flex items-center gap-2 mb-3">
                 <span className="font-[family-name:var(--font-body)] text-[9px] font-bold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full bg-[#C9A84C] text-white">
@@ -123,7 +97,6 @@ export default async function CarDetailPage({
               </div>
             )}
 
-            {/* Title */}
             <h1 className="font-[family-name:var(--font-display)] text-[clamp(20px,2.8vw,30px)] font-semibold uppercase tracking-[-0.02em] text-[#2A3510] leading-tight mb-1">
               {car.title}
             </h1>
@@ -131,7 +104,6 @@ export default async function CarDetailPage({
               {car.brand} &middot; {car.model} &middot; {car.year}
             </p>
 
-            {/* Vehicle details */}
             <div className="mb-6 rounded-xl border border-[#E8E4DE] overflow-hidden">
               <div className="px-4 py-3 bg-[#F6F5F1] border-b border-[#E8E4DE] flex items-center justify-between">
                 <h3 className="font-[family-name:var(--font-body)] text-[11px] font-bold tracking-[0.12em] uppercase text-[#3A4A20]">
@@ -149,17 +121,43 @@ export default async function CarDetailPage({
                 <DetailRow label="Fuel Type"    value={FUEL_LABELS[car.fuel_type]} />
                 <DetailRow label="Transmission" value={TRANS_LABELS[car.transmission]} />
                 <DetailRow label="Odometer"     value={kmLabel} />
-                {car.color        && <DetailRow label="Color"            value={car.color} />}
-                {/* Removed Prev. Owners */}
-
-                <DetailRow label="Location" value={car.location} />
+                {car.color && <DetailRow label="Color" value={car.color} />}
+                <DetailRow label="Location"     value={car.location} />
               </div>
             </div>
 
-            {/* CTA */}
             <EnquireButton carId={car.id} carTitle={car.title} />
-
           </div>
+
+          {/* ── Video — order 3 on mobile ── */}
+          {car.video_url && (
+            <div className="order-3 lg:order-none">
+              <h3 className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.15em] uppercase text-[#888888] mb-3">
+                Video
+              </h3>
+              <div className="aspect-video rounded-xl overflow-hidden bg-black">
+                <iframe
+                  src={getEmbedUrl(car.video_url)}
+                  className="w-full h-full"
+                  allowFullScreen
+                  title={`${car.title} video`}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* ── About — order 4 on mobile (last), col-1 on desktop ── */}
+          {car.description && (
+            <div className="order-4 lg:order-none p-4 bg-[#F6F5F1] rounded-xl border border-[#E8E4DE]">
+              <h3 className="font-[family-name:var(--font-body)] text-[11px] font-bold tracking-[0.12em] uppercase text-[#3A4A20] mb-2">
+                About This Car
+              </h3>
+              <p className="font-[family-name:var(--font-body)] text-[13px] text-[#555555] leading-relaxed whitespace-pre-wrap">
+                {car.description}
+              </p>
+            </div>
+          )}
+
         </div>
       </div>
     </div>

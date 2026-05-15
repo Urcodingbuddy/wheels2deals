@@ -3,6 +3,7 @@ import { createClient } from "@/lib/server";
 import { getEmbedUrl } from "@/lib/video";
 import EnquireButton from "./EnquireButton";
 import ImageGallery from "./ImageGallery";
+import { ViewTracker } from "../ViewTracker";
 import type { Enums } from "@/types/database";
 
 // ─── Label maps ───────────────────────────────────────────────────────────────
@@ -15,9 +16,10 @@ const TRANS_LABELS: Record<Enums<"transmission_type">, string> = {
   manual: "Manual", automatic: "Automatic", cvt: "CVT", amt: "AMT",
 };
 const TYPE_LABELS: Record<Enums<"car_type">, string> = {
-  sedan: "Sedan", suv: "SUV", hatchback: "Hatchback", coupe: "Coupe",
-  convertible: "Convertible", wagon: "Wagon", van: "Van", truck: "Truck",
-  motorcycle: "Motorcycle", other: "Other",
+  sedan: "Sedan", suv: "SUV", hatchback: "HatchBack", coupe: "Coupe",
+  convertible: "Soft Top Convertible", hard_top_convertible: "Hard Top Convertible",
+  wagon: "Wagon", van: "Van", truck: "Truck", motorcycle: "Motorcycle",
+  crossover: "Cross Over", sports: "Sports Car", jeep: "Jeep", other: "Other",
 };
 
 function deriveCondition(km: number): "New" | "Certified" | "Used" {
@@ -67,6 +69,7 @@ export default async function CarDetailPage({
 
   return (
     <div className="bg-white min-h-screen">
+      <ViewTracker slug={car.slug} />
 
 
       {/* ── Main layout ── */}

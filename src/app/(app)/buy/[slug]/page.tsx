@@ -22,15 +22,14 @@ const TYPE_LABELS: Record<Enums<"car_type">, string> = {
   crossover: "Cross Over", sports: "Sports Car", jeep: "Jeep", other: "Other",
 };
 
-function deriveCondition(km: number): "New" | "Certified" | "Used" {
+function deriveCondition(km: number): "New" | "Used" {
   if (km === 0) return "New";
-  if (km < 30000) return "Certified";
+  if (km < 30000) return "Used";
   return "Used";
 }
 
 const CONDITION_STYLE = {
   New:       "bg-emerald-500 text-white",
-  Certified: "bg-sky-500 text-white",
   Used:      "bg-[#3A4A20] text-white",
 };
 
@@ -76,18 +75,26 @@ export default async function CarDetailPage({
       <div className="w-[90vw] mx-auto py-8 pb-24 lg:pb-8">
 
         {/*
-          Mobile:  flex-col, order 1→2→3→4 (gallery → details → video → about)
-          Desktop: 2-col grid, left col = gallery+video+about, right col = details
+          Mobile:  flex-col, order 1→2→3→4 (gallery+title → details → video → about)
+          Desktop: 2-col grid, left col = gallery+title / video / about, right col = details
         */}
         <div className="flex flex-col lg:grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-10 lg:items-start">
 
-          {/* ── Gallery — order 1 on mobile ── */}
-          <div className="order-1 lg:order-none">
+          {/* ── Gallery + title — order 1 on mobile, col-1 rows on desktop ── */}
+          <div className="order-1 lg:order-none flex flex-col gap-4">
             <ImageGallery images={car.images} title={car.title} />
+            <div>
+              <span className="font-[family-name:var(--font-body)] text-[10px] font-bold text-[#6C675F] uppercase tracking-[0.08em]">
+                {car.year} &middot; {car.brand} &middot; {car.model}
+              </span>
+              <h1 className="font-[family-name:var(--font-display)] text-[22px] sm:text-[26px] font-bold text-[#2A3510] leading-tight mt-0.5">
+                {car.title}
+              </h1>
+            </div>
           </div>
 
-          {/* ── Details panel — order 2 on mobile (comes before video/about) ── */}
-          <div className="order-2 lg:order-none lg:sticky lg:top-6">
+          {/* ── Details panel — order 2 on mobile, col-2 sticky spanning all rows ── */}
+          <div className="order-2 lg:order-none lg:sticky lg:top-[88px] lg:col-start-2 lg:row-start-1 lg:row-span-3">
 
             {car.is_featured && (
               <div className="flex items-center gap-2 mb-3">
@@ -96,13 +103,6 @@ export default async function CarDetailPage({
                 </span>
               </div>
             )}
-
-            <h1 className="font-[family-name:var(--font-display)] text-[clamp(20px,2.8vw,30px)] font-semibold uppercase tracking-[-0.02em] text-[#2A3510] leading-tight mb-1">
-              {car.title}
-            </h1>
-            <p className="font-[family-name:var(--font-body)] text-[13px] text-[#888888] mb-6">
-              {car.brand} &middot; {car.model} &middot; {car.year}
-            </p>
 
             <div className="mb-6 rounded-xl border border-[#E8E4DE] overflow-hidden">
               <div className="px-4 py-3 bg-[#F6F5F1] border-b border-[#E8E4DE] flex items-center justify-between">

@@ -675,9 +675,9 @@ function FilterRail({
           <button
             type="button"
             onClick={onReset}
-            className="group flex items-center gap-1.5 font-[family-name:var(--font-body)] text-[10px] font-semibold uppercase tracking-[0.1em] text-[#B0A898] hover:text-[#2A3510] transition-colors"
+            className="group flex items-center gap-1.5 font-[family-name:var(--font-body)] text-[12px] font-bold uppercase tracking-[0.1em] text-[#3A4A20] hover:text-[#2A3510] transition-colors"
           >
-            <RotateCcw size={10} className="group-hover:rotate-[-180deg] transition-transform duration-500" />
+            <RotateCcw size={13} className="group-hover:rotate-[-180deg] transition-transform duration-500" />
             Reset
           </button>
         )}
@@ -913,7 +913,7 @@ function CarCard({ car, searchQuery }: { car: Car; searchQuery?: string }) {
           )}
           <div className="absolute top-4 left-4">
             <span className="bg-surface-cream px-3 py-1.5 rounded-full font-[family-name:var(--font-body)] text-[10px] font-bold text-sovereign-navy uppercase tracking-wider">
-              {condition === "New" ? "Brand New" : condition === "Used" ? "Pre-Owned" : "Certified Pre-Owned"}
+              {condition === "New" ? "Brand New" : condition === "Used" ? "Pre-Owned" : "Pre-Owned"}
             </span>
           </div>
         </div>

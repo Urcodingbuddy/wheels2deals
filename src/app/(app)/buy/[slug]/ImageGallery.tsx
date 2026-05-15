@@ -25,7 +25,9 @@ export default function ImageGallery({
   const [initialScale, setInitialScale] = useState(1);
   const zoomIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const thumbnailsRef = useRef<HTMLDivElement>(null);
+  const inlineThumbnailsRef = useRef<HTMLDivElement>(null);
   const lastDownPos = useRef({ x: 0, y: 0 });
+  const mainSwipedRef = useRef(false);
 
   const prev = useCallback(() => setActive((i) => (i - 1 + images.length) % images.length), [images.length]);
   const next = useCallback(() => setActive((i) => (i + 1) % images.length), [images.length]);
@@ -63,16 +65,22 @@ export default function ImageGallery({
     }, 50);
   }, [stopZooming]);
 
-  // Sync thumbnail scroll
+  // Sync thumbnail scroll — fullscreen strip
   useEffect(() => {
     if (thumbnailsRef.current) {
       const activeThumb = thumbnailsRef.current.children[active] as HTMLElement;
       if (activeThumb) {
-        activeThumb.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'center'
-        });
+        activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [active]);
+
+  // Sync thumbnail scroll — inline strip
+  useEffect(() => {
+    if (inlineThumbnailsRef.current) {
+      const activeThumb = inlineThumbnailsRef.current.children[active] as HTMLElement;
+      if (activeThumb) {
+        activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
     }
   }, [active]);
@@ -268,9 +276,22 @@ export default function ImageGallery({
     <>
       <div className="space-y-4">
         {/* Main image */}
-        <div 
+        <div
           className="relative aspect-[2/1] rounded-2xl overflow-hidden bg-[#F3F1EC] group cursor-zoom-in"
-          onClick={() => setIsFullscreen(true)}
+          onClick={() => {
+            if (mainSwipedRef.current) { mainSwipedRef.current = false; return; }
+            setIsFullscreen(true);
+          }}
+          onTouchStart={e => {
+            if (e.touches.length === 1) setTouchStart(e.touches[0].clientX);
+          }}
+          onTouchEnd={e => {
+            if (touchStart === null) return;
+            const diff = touchStart - e.changedTouches[0].clientX;
+            if (diff > 50) { next(); mainSwipedRef.current = true; }
+            else if (diff < -50) { prev(); mainSwipedRef.current = true; }
+            setTouchStart(null);
+          }}
         >
           <img
             src={images[active]}
@@ -308,7 +329,7 @@ export default function ImageGallery({
 
         {/* Inline Thumbnails */}
         {images.length > 1 && (
-          <div className="flex gap-2 md:gap-3 overflow-x-auto no-scrollbar pb-1 snap-x snap-mandatory">
+          <div ref={inlineThumbnailsRef} className="flex gap-2 md:gap-3 overflow-x-auto no-scrollbar pb-1 snap-x snap-mandatory">
             {images.map((img, i) => (
               <button
                 key={i}

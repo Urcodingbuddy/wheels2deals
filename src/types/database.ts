@@ -146,6 +146,7 @@ export type Database = {
           count: number
           is_indexed: boolean
           is_custom: boolean
+          sort_order: number | null
           created_at: string
           updated_at: string
         }
@@ -155,6 +156,7 @@ export type Database = {
           count?: number
           is_indexed?: boolean
           is_custom?: boolean
+          sort_order?: number | null
           created_at?: string
           updated_at?: string
         }
@@ -164,6 +166,7 @@ export type Database = {
           count?: number
           is_indexed?: boolean
           is_custom?: boolean
+          sort_order?: number | null
           created_at?: string
           updated_at?: string
         }

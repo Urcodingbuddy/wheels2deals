@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { SearchCheck, Trash2, Plus, TrendingUp, Eye, EyeOff } from "lucide-react";
+import { SearchCheck, Trash2, Plus, TrendingUp, Eye, EyeOff, ArrowUp, ArrowDown } from "lucide-react";
 import {
   toggleIndexed,
   deleteSearchQuery,
   addCustomQuery,
+  reorderQuery,
 } from "@/app/(admin)/actions/search-queries";
 
 type SearchQuery = {
@@ -14,6 +15,7 @@ type SearchQuery = {
   count: number;
   is_indexed: boolean;
   is_custom: boolean;
+  sort_order: number | null;
   created_at: string;
 };
 
@@ -39,6 +41,19 @@ export default function SearchQueriesClient({ rows }: { rows: SearchQuery[] }) {
     });
   };
 
+  const handleReorder = (id: string, direction: "up" | "down") => {
+    const allIds = items.map((r) => r.id);
+    const idx = allIds.indexOf(id);
+    const swapIdx = direction === "up" ? idx - 1 : idx + 1;
+    if (swapIdx < 0 || swapIdx >= items.length) return;
+    const next = [...items];
+    [next[idx], next[swapIdx]] = [next[swapIdx], next[idx]];
+    setItems(next);
+    startTransition(async () => {
+      await reorderQuery(id, direction, allIds);
+    });
+  };
+
   const handleAdd = () => {
     const trimmed = newQuery.trim();
     if (!trimmed) { setAddError("Enter a query"); return; }
@@ -52,6 +67,7 @@ export default function SearchQueriesClient({ rows }: { rows: SearchQuery[] }) {
       count: 0,
       is_indexed: true,
       is_custom: true,
+      sort_order: null,
       created_at: new Date().toISOString(),
     };
     setItems((prev) => [optimistic, ...prev]);
@@ -114,6 +130,7 @@ export default function SearchQueriesClient({ rows }: { rows: SearchQuery[] }) {
         <table className="w-full">
           <thead>
             <tr className="bg-[#F6F5F1] border-b border-[#E8E4DE]">
+              <th className="text-center px-3 py-3 font-[family-name:var(--font-body)] text-[10px] font-bold tracking-[0.12em] uppercase text-[#888]">Order</th>
               <th className="text-left px-5 py-3 font-[family-name:var(--font-body)] text-[10px] font-bold tracking-[0.12em] uppercase text-[#888]">Query</th>
               <th className="text-center px-4 py-3 font-[family-name:var(--font-body)] text-[10px] font-bold tracking-[0.12em] uppercase text-[#888]">Searches</th>
               <th className="text-center px-4 py-3 font-[family-name:var(--font-body)] text-[10px] font-bold tracking-[0.12em] uppercase text-[#888]">Type</th>
@@ -134,6 +151,24 @@ export default function SearchQueriesClient({ rows }: { rows: SearchQuery[] }) {
                 key={row.id}
                 className={`border-b border-[#E8E4DE] last:border-0 transition-colors hover:bg-[#F9F8F4] ${i % 2 === 0 ? "bg-white" : "bg-[#FDFCF9]"}`}
               >
+                <td className="px-3 py-3.5 text-center">
+                  <div className="flex items-center justify-center gap-0.5">
+                    <button
+                      onClick={() => handleReorder(row.id, "up")}
+                      disabled={isPending || i === 0}
+                      className="w-6 h-6 rounded flex items-center justify-center text-[#C5BEB4] hover:text-[#2A3510] hover:bg-[#F0ECE6] transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
+                    >
+                      <ArrowUp size={13} />
+                    </button>
+                    <button
+                      onClick={() => handleReorder(row.id, "down")}
+                      disabled={isPending || i === items.length - 1}
+                      className="w-6 h-6 rounded flex items-center justify-center text-[#C5BEB4] hover:text-[#2A3510] hover:bg-[#F0ECE6] transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
+                    >
+                      <ArrowDown size={13} />
+                    </button>
+                  </div>
+                </td>
                 <td className="px-5 py-3.5">
                   <div className="flex items-center gap-2">
                     <TrendingUp size={13} className="text-[#C9A84C] shrink-0" />

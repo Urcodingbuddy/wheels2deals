@@ -6,7 +6,8 @@ export default async function SearchQueriesPage() {
 
   const { data: rows } = await supabase
     .from("search_queries")
-    .select("id, query, count, is_indexed, is_custom, created_at")
+    .select("id, query, count, is_indexed, is_custom, sort_order, created_at")
+    .order("sort_order", { ascending: true, nullsFirst: false })
     .order("count", { ascending: false });
 
   return (

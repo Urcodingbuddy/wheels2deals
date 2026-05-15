@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   CheckCircle2,
@@ -13,11 +13,13 @@ import {
   Phone,
   Clock,
   ArrowRight,
+  ArrowLeft,
   Plus,
 } from "lucide-react";
 
 import { LandingNav } from "@/components/landing/LandingNav";
 import { FooterSection } from "@/components/landing/FooterSection";
+import { PremiumCTA } from "@/components/shared/PremiumCTA";
 import { createClient } from "@/lib/client";
 
 const BRANDS = [
@@ -30,9 +32,6 @@ const BRANDS = [
   { name: "Lexus", logo: "/brands/lexus.png" },
 ];
 
-const ALL_BRANDS = [
-  "Abarth", "Acura", "Alfa Romeo", "Alpina", "AMG", "Arcfox", "Aston Martin", "Audi", "Avatr", "BAIC", "Baojun", "Benelli", "Bentley", "Bertone", "Bestune", "BMW", "Borgward", "Brilliance", "Bugatti", "Buick", "BYD", "Cadillac", "Chevrolet", "Chrysler", "Citroën", "Corvette", "Cupra", "Dacia", "Daewoo", "Datsun", "DFSK", "Dodge", "Dongfeng", "DS Automobiles", "Ducati", "Exeed", "FAW", "Ferrari", "Fiat", "Ford", "Foton", "GAC", "GAC Motors", "Geely", "Genesis", "Gillet", "GMC", "Great Wall (GWM)", "Haval", "Honda", "Hongqi", "Hummer", "Hyundai", "Infiniti", "Isuzu", "JAC", "Jaguar", "Jeep", "Jetour", "Kia", "Koenigsegg", "KTM", "Lamborghini", "Lancia", "Land Rover", "Lexus", "Lincoln", "Lotus", "Luxgen", "Maserati", "Maxus", "Mazda", "McLaren", "Mercedes Benz", "MG", "Mini", "Mitsubishi", "Mustang", "NIO", "Nissan", "Opel", "Ora", "Polestar", "Pontiac", "Porsche", "Qoros", "Renault", "Rivian", "Roewe", "Rolls-Royce", "Saab", "SAIC", "Seat", "Soueast", "Subaru", "Suzuki", "Tata", "Tesla", "Toyota", "Volkswagen", "Volvo", "W Motors", "Wuling", "Xpeng"
-];
 
 const PROCESS_STEPS = [
   {
@@ -90,6 +89,7 @@ const FAQS = [
 
 export default function HowItWorksPage() {
   const [valStep, setValStep] = useState(1);
+  const [formStep, setFormStep] = useState<1 | 2 | 3>(1);
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -98,33 +98,98 @@ export default function HowItWorksPage() {
   const [yearDropdownOpen, setYearDropdownOpen] = useState(false);
   const [brandDropdownOpen, setBrandDropdownOpen] = useState(false);
   const [customBrand, setCustomBrand] = useState("");
-  const [mileage, setMileage] = useState("");
+  const [allMakes, setAllMakes] = useState<string[]>([]);
+  const [makesLoading, setMakesLoading] = useState(false);
+  const [modelOptions, setModelOptions] = useState<string[]>([]);
+  const [modelsLoading, setModelsLoading] = useState(false);
+  const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
+  const [modelSearch, setModelSearch] = useState("");
+  const [modelText, setModelText] = useState("");
+  const [chassisNo, setChassisNo] = useState("");
+  const [kmsDriven, setKmsDriven] = useState("");
+  const [gcc, setGcc] = useState<"GCC" | "Non-GCC" | "">("");
   const [phone, setPhone] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const modelSearchRef = useRef<HTMLInputElement>(null);
+
+  // Fetch NHTSA makes once when the "More" dropdown opens
+  const handleOpenMoreBrands = () => {
+    setBrandDropdownOpen(true);
+    if (allMakes.length > 0) return;
+    setMakesLoading(true);
+    fetch("/api/car-makes")
+      .then((r) => r.json())
+      .then(({ makes }: { makes: string[] }) => setAllMakes(makes))
+      .catch(() => setAllMakes([]))
+      .finally(() => setMakesLoading(false));
+  };
+
+  // Fetch models from NHTSA whenever the selected brand changes
+  useEffect(() => {
+    if (!selectedBrand) { setModelOptions([]); return; }
+    setModelsLoading(true);
+    setModelText("");
+    setModelSearch("");
+    fetch(`/api/car-models?make=${encodeURIComponent(selectedBrand)}`)
+      .then((r) => r.json())
+      .then(({ models }: { models: string[] }) => setModelOptions(models))
+      .catch(() => setModelOptions([]))
+      .finally(() => setModelsLoading(false));
+  }, [selectedBrand]);
 
   const handleBrandClick = (brand: string) => {
     setSelectedBrand(brand);
+    clearError("brand");
     if (valStep < 2) setValStep(2);
   };
 
   const handleYearSelect = (year: string) => {
     setSelectedYear(year);
     setYearDropdownOpen(false);
+    clearError("year");
     if (valStep < 3) setValStep(3);
   };
 
-  const handleFormChange = () => {
+  const handleDetailChange = () => {
     if (valStep < 3) setValStep(3);
+  };
+
+  const clearError = (field: string) =>
+    setErrors((prev) => { const next = { ...prev }; delete next[field]; return next; });
+
+  const goToStep2 = () => {
+    const e: Record<string, string> = {};
+    if (!selectedBrand) e.brand = "Please select a brand.";
+    if (!modelText.trim()) e.model = "Please enter a model.";
+    if (Object.keys(e).length) { setErrors(e); return; }
+    setErrors({});
+    setFormStep(2);
+  };
+
+  const goToStep3 = () => {
+    const e: Record<string, string> = {};
+    if (!selectedYear) e.year = "Please select a year.";
+    if (!kmsDriven.trim()) e.kmsDriven = "Please enter kms driven.";
+    if (!gcc) e.gcc = "Please select GCC or Non-GCC.";
+    if (Object.keys(e).length) { setErrors(e); return; }
+    setErrors({});
+    setFormStep(3);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const e2: Record<string, string> = {};
+    if (!phone.trim()) e2.phone = "Please enter your phone number.";
+    if (Object.keys(e2).length) { setErrors(e2); return; }
+    setErrors({});
     setIsSubmitting(true);
     setValStep(4);
     
     try {
       const supabase = createClient();
-      const message = `Valuation Request:\nBrand: ${selectedBrand || "Not specified"}\nYear: ${selectedYear || "Not specified"}\nMileage: ${mileage || "Not specified"}`;
-      
+      const makeModel = [selectedBrand, modelText].filter(Boolean).join(" ") || "Not specified";
+      const message = `Valuation Request:\nMake & Model: ${makeModel}\nYear: ${selectedYear || "Not specified"}\nChassis No: ${chassisNo || "Not specified"}\nKms Driven: ${kmsDriven || "Not specified"}\nGCC: ${gcc || "Not specified"}`;
+
       await supabase.from("inquiries").insert({
         name: "Valuation Request",
         email: "info@wheels2deals.com",
@@ -134,7 +199,7 @@ export default function HowItWorksPage() {
       });
 
       // Send to WhatsApp
-      const waText = encodeURIComponent(`Hi Wheels2Deals,\nI would like to get a valuation for my car:\n\nBrand: ${selectedBrand || "Not specified"}\nYear: ${selectedYear || "Not specified"}\nMileage: ${mileage || "Not specified"}\nPhone: ${phone || "Not specified"}`);
+      const waText = encodeURIComponent(`Hi Wheels2Deals,\nI would like to get a valuation for my car:\n\nMake & Model: ${makeModel}\nYear: ${selectedYear || "Not specified"}\nChassis No: ${chassisNo || "Not specified"}\nKms Driven: ${kmsDriven || "Not specified"}\nGCC: ${gcc || "Not specified"}\nPhone: ${phone || "Not specified"}`);
       window.open(`https://wa.me/971561498485?text=${waText}`, "_blank");
 
       setFormSuccess(true);
@@ -216,29 +281,92 @@ export default function HowItWorksPage() {
 
           {/* Valuation Form Card */}
           <div className="bg-white rounded-[24px] p-7 shadow-2xl relative max-w-[460px] w-full mx-auto lg:mx-0">
-            <div className="flex items-center justify-between mb-6">
+
+            {/* ── Success State ── */}
+            {formSuccess ? (
+              <div className="flex flex-col items-center text-center py-6 animate-in fade-in zoom-in-95 duration-500">
+                <div className="w-16 h-16 rounded-full bg-[#F0F3E8] flex items-center justify-center mb-5">
+                  <CheckCircle2 className="w-8 h-8 text-[#2A3510]" />
+                </div>
+                <h3 className="font-[family-name:var(--font-display)] text-[24px] font-bold text-[#2A3510] mb-2">
+                  Request Submitted!
+                </h3>
+                <p className="font-[family-name:var(--font-body)] text-[15px] text-[#5A5A5A] leading-relaxed mb-1">
+                  Thank you, <span className="font-semibold text-[#2A3510]">{selectedBrand} {modelText}</span>.
+                </p>
+                <p className="font-[family-name:var(--font-body)] text-[15px] text-[#5A5A5A] leading-relaxed mb-6">
+                  Our team will reach out to you within <span className="font-semibold text-[#2A3510]">24 hours</span> with your free market valuation.
+                </p>
+                <div className="w-full bg-[#F6F5F1] rounded-2xl px-5 py-4 flex items-center gap-3 text-left">
+                  <ShieldCheck className="w-5 h-5 text-[#2A3510] shrink-0" />
+                  <p className="font-[family-name:var(--font-body)] text-[13px] text-[#2A3510]/70 leading-snug">
+                    Check your WhatsApp - we may follow up there too.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <>
+            <div className="flex items-center justify-between mb-4">
               <h3 className="font-[family-name:var(--font-display)] text-[22px] font-bold text-[#2A3510]">
-                Free instant valuation
+                Sell Smart, Sell Fast
               </h3>
               <span className="font-[family-name:var(--font-mono)] text-[12px] text-[#2A3510]/50 font-medium">
-                STEP 0{valStep} / 04
+                STEP 0{formStep} / 03
               </span>
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full h-1 bg-[#F1F3E1] rounded-full mb-6 overflow-hidden">
+            <div className="w-full h-1 bg-[#F1F3E1] rounded-full mb-5 overflow-hidden">
               <div
                 className="h-full bg-[#C9A84C] transition-all duration-500 ease-out"
-                style={{ width: `${(valStep / 4) * 100}%` }}
+                style={{ width: `${(formStep / 3) * 100}%` }}
               />
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              <div>
-                <label className="block font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60 mb-3">
-                  Choose your make
-                </label>
-                <div className="grid grid-cols-4 gap-2">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {/* ── Completed step summaries ── */}
+              {formStep > 1 && (
+                <button
+                  type="button"
+                  onClick={() => setFormStep(1)}
+                  className="flex items-center justify-between w-full bg-[#F6F5F1] rounded-xl px-4 py-2.5 text-left group hover:bg-[#EDF1E3] transition-colors"
+                >
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#2A3510]/40">Make & Model</span>
+                    <p className="text-[13px] font-semibold text-[#2A3510] leading-tight mt-0.5">
+                      {selectedBrand}{modelText ? ` · ${modelText}` : ""}
+                    </p>
+                  </div>
+                  <span className="text-[11px] font-bold text-[#C9A84C] opacity-0 group-hover:opacity-100 transition-opacity">Edit</span>
+                </button>
+              )}
+              {formStep > 2 && (
+                <button
+                  type="button"
+                  onClick={() => setFormStep(2)}
+                  className="flex items-center justify-between w-full bg-[#F6F5F1] rounded-xl px-4 py-2.5 text-left group hover:bg-[#EDF1E3] transition-colors"
+                >
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#2A3510]/40">Details</span>
+                    <p className="text-[13px] font-semibold text-[#2A3510] leading-tight mt-0.5">
+                      {[selectedYear, kmsDriven ? `${kmsDriven} km` : "", gcc].filter(Boolean).join(" · ") || "-"}
+                    </p>
+                  </div>
+                  <span className="text-[11px] font-bold text-[#C9A84C] opacity-0 group-hover:opacity-100 transition-opacity">Edit</span>
+                </button>
+              )}
+
+              {/* ── Step 1: Make & Model ── */}
+              {formStep === 1 && (
+                <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <label className="block font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60">
+                        Brand
+                      </label>
+                      {errors.brand && <span className="text-[11px] text-red-500 font-medium">{errors.brand}</span>}
+                    </div>
+                    <div className="grid grid-cols-4 gap-2">
                   {BRANDS.map((brand) => (
                     <button
                       key={brand.name}
@@ -275,7 +403,7 @@ export default function HowItWorksPage() {
                   <div className="relative">
                     <button
                       type="button"
-                      onClick={() => setBrandDropdownOpen(!brandDropdownOpen)}
+                      onClick={() => brandDropdownOpen ? setBrandDropdownOpen(false) : handleOpenMoreBrands()}
                       className={`w-full h-full min-h-[64px] py-2 px-1 flex flex-col items-center justify-center gap-2 rounded-xl transition-all duration-300 ${
                         (selectedBrand && !BRANDS.some(b => b.name === selectedBrand)) || brandDropdownOpen
                           ? "border-2 border-[#C9A84C] bg-[#C9A84C]/5 text-[#C9A84C] shadow-sm ring-2 ring-[#C9A84C]/20"
@@ -294,58 +422,66 @@ export default function HowItWorksPage() {
                           className="fixed inset-0 z-20" 
                           onClick={() => setBrandDropdownOpen(false)} 
                         />
-                        <div className="absolute top-[calc(100%+8px)] right-0 w-[280px] sm:w-[320px] bg-white border border-[#2A3510]/10 rounded-2xl shadow-2xl z-30 flex flex-col overflow-hidden animate-in fade-in zoom-in-95">
-                          <div className="p-3 bg-[#F1F3E1]/50 border-b border-[#2A3510]/5 flex items-center justify-between">
-                            <span className="text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60">All Brands</span>
-                            <span className="text-[10px] font-medium bg-white px-2 py-0.5 rounded-full text-[#2A3510]/40 border border-[#2A3510]/5">{ALL_BRANDS.length} listed</span>
+                        <div className="absolute bottom-[calc(100%+8px)] right-0 w-[280px] sm:w-[320px] bg-white border border-[#2A3510]/10 rounded-2xl shadow-2xl z-30 flex flex-col overflow-hidden animate-in fade-in zoom-in-95">
+                          <div className="p-2 border-b border-[#2A3510]/5">
+                            <input
+                              type="text"
+                              autoFocus
+                              placeholder="Other brand? Search or type a name…"
+                              value={customBrand}
+                              onChange={(e) => setCustomBrand(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" && customBrand.trim()) {
+                                  handleBrandClick(customBrand.trim());
+                                  setBrandDropdownOpen(false);
+                                  setCustomBrand("");
+                                }
+                              }}
+                              className="w-full bg-[#F1F3E1] rounded-lg px-3 py-2 text-[13px] outline-none focus:ring-2 focus:ring-[#C9A84C]/40 placeholder:text-[#2A3510]/35"
+                            />
                           </div>
-                          
-                          <div 
+
+                          <div
                             className="max-h-[220px] overflow-y-auto overscroll-contain flex flex-col py-1"
                             onWheel={(e) => e.stopPropagation()}
                             onTouchMove={(e) => e.stopPropagation()}
                           >
-                            {ALL_BRANDS.map(b => (
-                              <button
-                                key={b}
-                                type="button"
-                                onClick={() => {
-                                  handleBrandClick(b);
-                                  setBrandDropdownOpen(false);
-                                }}
-                                className={`text-left px-4 py-2.5 text-[13px] font-medium transition-colors hover:bg-[#F1F3E1] ${selectedBrand === b ? 'text-[#C9A84C] bg-[#C9A84C]/5' : 'text-[#2A3510]'}`}
-                              >
-                                {b}
-                              </button>
-                            ))}
-                          </div>
-
-                          <div className="p-3 border-t border-[#2A3510]/10 bg-[#F9FAEC]">
-                            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60 mb-2">
-                              Other Brand?
-                            </label>
-                            <div className="flex gap-2">
-                              <input
-                                type="text"
-                                placeholder="Enter brand name"
-                                value={customBrand}
-                                onChange={(e) => setCustomBrand(e.target.value)}
-                                className="w-full bg-white border border-[#2A3510]/10 rounded-lg px-3 py-2 text-[13px] outline-none focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] placeholder:text-[#2A3510]/30"
-                              />
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  if (customBrand.trim()) {
-                                    handleBrandClick(customBrand.trim());
+                            {makesLoading ? (
+                              <div className="px-4 py-6 text-center text-[12px] text-[#2A3510]/40 font-medium">Loading makes…</div>
+                            ) : (() => {
+                              const filtered = allMakes.filter((b) =>
+                                b.toLowerCase().includes(customBrand.toLowerCase())
+                              );
+                              if (filtered.length === 0 && customBrand.trim()) {
+                                return (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      handleBrandClick(customBrand.trim());
+                                      setBrandDropdownOpen(false);
+                                      setCustomBrand("");
+                                    }}
+                                    className="text-left px-4 py-3 text-[13px] font-semibold text-[#C9A84C] hover:bg-[#F1F3E1] transition-colors"
+                                  >
+                                    Use &ldquo;{customBrand.trim()}&rdquo; →
+                                  </button>
+                                );
+                              }
+                              return filtered.map((b) => (
+                                <button
+                                  key={b}
+                                  type="button"
+                                  onClick={() => {
+                                    handleBrandClick(b);
                                     setBrandDropdownOpen(false);
                                     setCustomBrand("");
-                                  }
-                                }}
-                                className="bg-[#2A3510] text-white px-4 py-2 rounded-lg text-[12px] font-bold hover:bg-[#2A3510]/80 transition-colors whitespace-nowrap"
-                              >
-                                Add
-                              </button>
-                            </div>
+                                  }}
+                                  className={`text-left px-4 py-2.5 text-[13px] font-medium transition-colors hover:bg-[#F1F3E1] ${selectedBrand === b ? "text-[#C9A84C] bg-[#C9A84C]/5" : "text-[#2A3510]"}`}
+                                >
+                                  {b}
+                                </button>
+                              ));
+                            })()}
                           </div>
                         </div>
                       </>
@@ -354,11 +490,131 @@ export default function HowItWorksPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div className="relative">
-                  <label className="block font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60 mb-2">
-                    Year
+              <div className="relative">
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60">
+                    Model
                   </label>
+                  {errors.model && <span className="text-[11px] text-red-500 font-medium">{errors.model}</span>}
+                </div>
+
+                {modelOptions.length > 0 ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setModelDropdownOpen(!modelDropdownOpen);
+                        setTimeout(() => modelSearchRef.current?.focus(), 50);
+                      }}
+                      className="w-full flex items-center justify-between bg-[#F1F3E1] border-2 border-transparent rounded-xl px-4 py-3 text-[14px] font-medium outline-none focus:border-[#C9A84C]/50 transition-all"
+                    >
+                      <span className={modelText ? "text-[#2A3510]" : "text-[#2A3510]/50"}>
+                        {modelText || "Select model"}
+                      </span>
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-300 text-[#2A3510]/50 ${modelDropdownOpen ? "rotate-180 text-[#C9A84C]" : ""}`} />
+                    </button>
+
+                    {modelDropdownOpen && (
+                      <>
+                        <div className="fixed inset-0 z-20" onClick={() => setModelDropdownOpen(false)} />
+                        <div className="absolute bottom-[calc(100%+6px)] left-0 right-0 bg-white border border-[#2A3510]/10 rounded-2xl shadow-2xl z-30 flex flex-col overflow-hidden animate-in fade-in zoom-in-95">
+                          <div className="p-2 border-b border-[#2A3510]/5">
+                            <input
+                              ref={modelSearchRef}
+                              type="text"
+                              value={modelSearch}
+                              onChange={(e) => setModelSearch(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" && modelSearch.trim()) {
+                                  const filtered = modelOptions.filter((m) =>
+                                    m.toLowerCase().includes(modelSearch.toLowerCase())
+                                  );
+                                  const pick = filtered.length === 1 ? filtered[0] : modelSearch.trim();
+                                  setModelText(pick);
+                                  setModelDropdownOpen(false);
+                                  setModelSearch("");
+                                }
+                              }}
+                              placeholder="Search or type a model…"
+                              className="w-full bg-[#F1F3E1] rounded-lg px-3 py-2 text-[13px] outline-none placeholder:text-[#2A3510]/30"
+                            />
+                          </div>
+                          <div
+                            className="max-h-[200px] overflow-y-auto overscroll-contain flex flex-col py-1"
+                            onWheel={(e) => e.stopPropagation()}
+                          >
+                            {(() => {
+                              const filtered = modelOptions.filter((m) =>
+                                m.toLowerCase().includes(modelSearch.toLowerCase())
+                              );
+                              if (filtered.length === 0 && modelSearch.trim()) {
+                                return (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setModelText(modelSearch.trim());
+                                      setModelDropdownOpen(false);
+                                      setModelSearch("");
+                                    }}
+                                    className="text-left px-4 py-3 text-[13px] font-semibold text-[#C9A84C] hover:bg-[#F1F3E1] transition-colors"
+                                  >
+                                    Use &ldquo;{modelSearch.trim()}&rdquo; →
+                                  </button>
+                                );
+                              }
+                              return filtered.map((m) => (
+                                <button
+                                  key={m}
+                                  type="button"
+                                  onClick={() => {
+                                    setModelText(m);
+                                    setModelDropdownOpen(false);
+                                    setModelSearch("");
+                                    if (valStep < 2) setValStep(2);
+                                  }}
+                                  className={`text-left px-4 py-2.5 text-[13px] font-medium transition-colors hover:bg-[#F1F3E1] ${modelText === m ? "text-[#C9A84C] bg-[#C9A84C]/5" : "text-[#2A3510]"}`}
+                                >
+                                  {m}
+                                </button>
+                              ));
+                            })()}
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <input
+                    type="text"
+                    value={modelText}
+                    placeholder={modelsLoading ? "Loading models…" : selectedBrand ? "Type model name" : "Select a make first"}
+                    disabled={modelsLoading}
+                    onChange={(e) => { setModelText(e.target.value); if (valStep < 2) setValStep(2); }}
+                    className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[14px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30 disabled:opacity-50"
+                  />
+                )}
+              </div>
+
+                  {/* Step 1 Next button */}
+                  <button
+                    type="button"
+                    onClick={goToStep2}
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-full font-[family-name:var(--font-body)] text-[14px] font-bold transition-all duration-300 bg-[#2A3510] text-white hover:bg-[#3a4a1a]"
+                  >
+                    Next <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
+
+              {/* ── Step 2: Car Details ── */}
+              {formStep === 2 && (
+                <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="relative">
+                      <div className="flex items-center justify-between mb-2">
+                        <label className="font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60">Year</label>
+                        {errors.year && <span className="text-[11px] text-red-500 font-medium">{errors.year}</span>}
+                      </div>
                   <button
                     type="button"
                     onClick={() => setYearDropdownOpen(!yearDropdownOpen)}
@@ -383,7 +639,7 @@ export default function HowItWorksPage() {
                         className="fixed inset-0 z-20" 
                         onClick={() => setYearDropdownOpen(false)} 
                       />
-                      <div className="absolute top-[calc(100%+6px)] left-0 w-full bg-white border border-[#2A3510]/10 rounded-2xl shadow-2xl z-30 flex flex-col overflow-hidden animate-in fade-in zoom-in-95">
+                      <div className="absolute bottom-[calc(100%+6px)] left-0 w-full bg-white border border-[#2A3510]/10 rounded-2xl shadow-2xl z-30 flex flex-col overflow-hidden animate-in fade-in zoom-in-95">
                         <div className="p-3 bg-[#F1F3E1]/50 border-b border-[#2A3510]/5 flex items-center justify-between">
                           <span className="text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60">Select Year</span>
                         </div>
@@ -409,52 +665,126 @@ export default function HowItWorksPage() {
                 </div>
                 <div>
                   <label className="block font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60 mb-2">
-                    ODO meter reading
+                    Chassis No
                   </label>
                   <input
                     type="text"
-                    value={mileage}
-                    placeholder="e.g. 45,000"
-                    onChange={(e) => { setMileage(e.target.value); handleFormChange(); }}
+                    value={chassisNo}
+                    placeholder="Last 6 digits / VIN"
+                    onChange={(e) => { setChassisNo(e.target.value); handleDetailChange(); }}
                     className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[14px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30"
                   />
                 </div>
-              </div>
+                  </div>
 
-              <div>
-                <label className="block font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60 mb-2">
-                  Phone number
-                </label>
-                <input
-                  type="tel"
-                  value={phone}
-                  placeholder="+971 50 000 0000"
-                  onChange={(e) => { setPhone(e.target.value); setValStep(4); }}
-                  className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[14px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30"
-                />
-              </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <label className="font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60">Kms Driven</label>
+                        {errors.kmsDriven && <span className="text-[11px] text-red-500 font-medium">{errors.kmsDriven}</span>}
+                      </div>
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        value={kmsDriven}
+                        placeholder="e.g. 45,000"
+                        onChange={(e) => {
+                          const raw = e.target.value.replace(/[^\d]/g, "");
+                          const formatted = raw ? Number(raw).toLocaleString() : "";
+                          setKmsDriven(formatted);
+                          clearError("kmsDriven");
+                          handleDetailChange();
+                        }}
+                        className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[14px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <label className="font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60">Specs</label>
+                        {errors.gcc && <span className="text-[11px] text-red-500 font-medium">{errors.gcc}</span>}
+                      </div>
+                      <div className="flex gap-2 h-[46px]">
+                        {(["GCC", "Non-GCC"] as const).map((opt) => (
+                          <button
+                            key={opt}
+                            type="button"
+                            onClick={() => { setGcc(opt); clearError("gcc"); handleDetailChange(); }}
+                            className={`flex-1 rounded-xl text-[13px] font-semibold transition-all duration-200 ${
+                              gcc === opt
+                                ? "bg-[#C9A84C] text-[#2A3510] shadow-sm"
+                                : "bg-[#F1F3E1] text-[#2A3510]/60 hover:bg-[#E8EDD8]"
+                            }`}
+                          >
+                            {opt}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting || formSuccess}
-                className={`mt-2 w-full flex items-center justify-center gap-2 py-3.5 rounded-full font-[family-name:var(--font-body)] text-[15px] font-bold transition-all duration-300 ${
-                  formSuccess
-                    ? "bg-green-600 text-white"
-                    : "bg-[#C9A84C] hover:bg-[#b8963c] text-[#2A3510] hover:scale-[1.02] shadow-lg shadow-[#C9A84C]/20"
-                }`}
-              >
-                {isSubmitting
-                  ? "Calculating..."
-                  : formSuccess
-                    ? "We'll WhatsApp you ✓"
-                    : "Get market value →"}
-              </button>
+                  {/* Step 2 navigation */}
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => { setErrors({}); setFormStep(1); }}
+                      className="flex items-center gap-2 px-5 py-3 rounded-full font-[family-name:var(--font-body)] text-[14px] font-bold transition-all duration-300 bg-[#F1F3E1] text-[#2A3510] hover:bg-[#E8EDD8]"
+                    >
+                      <ArrowLeft className="w-4 h-4" /> Back
+                    </button>
+                    <button
+                      type="button"
+                      onClick={goToStep3}
+                      className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-[family-name:var(--font-body)] text-[14px] font-bold transition-all duration-300 bg-[#2A3510] text-white hover:bg-[#3a4a1a]"
+                    >
+                      Next <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
 
-              <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#2A3510]/50 font-medium mt-1">
+              {/* ── Step 3: Contact ── */}
+              {formStep === 3 && (
+                <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60">Phone number</label>
+                      {errors.phone && <span className="text-[11px] text-red-500 font-medium">{errors.phone}</span>}
+                    </div>
+                    <input
+                      type="tel"
+                      value={phone}
+                      placeholder="+971 50 000 0000"
+                      onChange={(e) => { setPhone(e.target.value); clearError("phone"); }}
+                      className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[14px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30"
+                    />
+                  </div>
+
+                  <div className="flex gap-2 items-center">
+                    <button
+                      type="button"
+                      onClick={() => setFormStep(2)}
+                      className="flex items-center gap-2 px-5 py-3 rounded-full font-[family-name:var(--font-body)] text-[14px] font-bold transition-all duration-300 bg-[#F1F3E1] text-[#2A3510] hover:bg-[#E8EDD8] shrink-0"
+                    >
+                      <ArrowLeft className="w-4 h-4" /> Back
+                    </button>
+                    <PremiumCTA
+                      type="submit"
+                      variant="gold"
+                      size="sm"
+                      text={isSubmitting ? "Calculating..." : formSuccess ? "We'll WhatsApp you ✓" : "Get Market Value"}
+                      className="flex-1 min-w-0"
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#2A3510]/50 font-medium">
                 <ShieldCheck className="w-3.5 h-3.5 text-green-600" />
                 Free, instant & no obligation.
               </div>
             </form>
+            </>
+            )}
           </div>
         </div>
       </section>

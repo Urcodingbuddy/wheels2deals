@@ -771,7 +771,7 @@ export default function HowItWorksPage() {
                       type="submit"
                       variant="gold"
                       size="sm"
-                      text={isSubmitting ? "Calculating..." : formSuccess ? "We'll WhatsApp you ✓" : "Get Market Value"}
+                      text={isSubmitting ? "Calculating..." : formSuccess ? "We'll WhatsApp you ✓" : "Sell My Car"}
                       className="flex-1 min-w-0"
                     />
                   </div>

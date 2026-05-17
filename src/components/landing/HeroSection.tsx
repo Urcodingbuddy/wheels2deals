@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { PremiumCTA } from "@/components/shared/PremiumCTA";
 
@@ -27,18 +27,30 @@ function ArrowIcon() {
 
 export function HeroSection() {
   const [videoReady, setVideoReady] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+
+    const tryPlay = () => {
+      if (!mq.matches) el.play().catch(() => {});
+    };
+
+    // Resume after tab becomes visible again (handles refresh/tab-switch pause)
+    const onVisibility = () => { if (!document.hidden) tryPlay(); };
+
+    tryPlay();
+    document.addEventListener("visibilitychange", onVisibility);
+    mq.addEventListener("change", (e) => { if (e.matches) el.pause(); else tryPlay(); });
+
+    return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
   return (
-    <section className="relative mx-3.5 mt-3.5 rounded-[24px] overflow-hidden flex flex-col min-h-[820px] md:min-h-0 md:h-[calc(100svh-28px)]">
+    <section className="relative md:mx-3.5 md:mt-3.5 rounded-none md:rounded-[24px] overflow-hidden flex flex-col min-h-[820px] md:min-h-0 md:h-[calc(100svh-28px)]">
       {/* Poster image — always visible as the base layer */}
       <img
         src={HERO_IMAGE}
@@ -49,21 +61,20 @@ export function HeroSection() {
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
 
-      {/* Video — skipped for reduced-motion users, fades in once buffered */}
-      {!reducedMotion && (
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          onLoadedData={() => setVideoReady(true)}
-          className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
-          style={{ opacity: videoReady ? 1 : 0 }}
-        >
-          <source src={HERO_VIDEO} type="video/mp4" />
-        </video>
-      )}
+      {/* Video — always in DOM; plays normally, pauses for reduced-motion users */}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        onLoadedData={() => setVideoReady(true)}
+        className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+        style={{ opacity: videoReady ? 1 : 0 }}
+      >
+        <source src={HERO_VIDEO} type="video/mp4" />
+      </video>
 
       {/* Dark overlay for text legibility */}
       <div className="absolute inset-0 bg-black/50 z-[1]" />

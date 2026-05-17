@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { PremiumCTA } from "@/components/shared/PremiumCTA";
 
 const HERO_VIDEO = "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-videos/hero_video.mp4";
+const HERO_POSTER = "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-images/hero-image/hero_image.webp";
 
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -32,13 +33,14 @@ export function HeroSection() {
         loop
         playsInline
         preload="auto"
+        poster={HERO_POSTER}
         className="absolute inset-0 w-full h-full object-cover [object-position:30%_50%] md:object-center"
       >
         <source src={HERO_VIDEO} type="video/mp4" />
       </video>
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/50 z-[1]" />
+      <div className="absolute inset-0 bg-black/50 z-[1] pointer-events-none" />
 
       {/* Center content — cards are inline on mobile, hidden on desktop */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 gap-3 pt-24 pb-8 md:absolute md:flex-none md:inset-x-0 md:top-1/2 md:-translate-y-1/2 md:pt-0 md:pb-0">
@@ -115,7 +117,7 @@ export function HeroSection() {
       </div>
 
       {/* Desktop cards — absolute at bottom, hidden on mobile */}
-      <div className="hidden md:flex absolute bottom-3.5 left-3.5 right-3.5 flex-row justify-between">
+      <div className="hidden md:flex absolute bottom-3.5 left-3.5 right-3.5 flex-row justify-between z-10">
         <div className="hero-enter hero-enter-delay-3 w-[360px] bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 flex flex-col gap-5">
           <div>
             <p className="font-[family-name:var(--font-display)] text-[36px] leading-[1.05] tracking-[-0.02em] text-white">

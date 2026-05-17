@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/server";
+import { absoluteUrl, buildCarDescription, buildCarTitle, buildPageMetadata } from "@/lib/seo";
 import { getEmbedUrl } from "@/lib/video";
 import EnquireButton from "./EnquireButton";
 import ImageGallery from "./ImageGallery";
@@ -32,6 +34,44 @@ const CONDITION_STYLE = {
   New:       "bg-emerald-500 text-white",
   Used:      "bg-[#3A4A20] text-white",
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const supabase = await createClient();
+
+  const { data: car } = await supabase
+    .from("cars")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "available")
+    .maybeSingle();
+
+  if (!car) {
+    return buildPageMetadata({
+      title: "Car Listing Not Found",
+      description: "This vehicle listing is no longer available on Wheels2Deals.",
+      path: `/buy/${slug}`,
+      noIndex: true,
+    });
+  }
+
+  return buildPageMetadata({
+    title: buildCarTitle(car),
+    description: buildCarDescription(car),
+    path: `/buy/${car.slug}`,
+    keywords: [
+      `${car.brand} for sale UAE`,
+      `${car.model} UAE`,
+      "used cars UAE",
+      "verified car listings",
+    ],
+    image: absoluteUrl(`/buy/${car.slug}/opengraph-image`),
+  });
+}
 
 // ─── Detail row ───────────────────────────────────────────────────────────────
 
@@ -69,6 +109,46 @@ export default async function CarDetailPage({
   return (
     <div className="bg-white min-h-screen">
       <ViewTracker slug={car.slug} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Car",
+            name: `${car.year} ${car.brand} ${car.model}`,
+            brand: {
+              "@type": "Brand",
+              name: car.brand,
+            },
+            model: car.model,
+            vehicleModelDate: String(car.year),
+            mileageFromOdometer: {
+              "@type": "QuantitativeValue",
+              value: car.km_driven,
+              unitCode: "KMT",
+            },
+            vehicleTransmission: TRANS_LABELS[car.transmission],
+            fuelType: FUEL_LABELS[car.fuel_type],
+            color: car.color,
+            image: car.images,
+            offers: {
+              "@type": "Offer",
+              price: String(car.price),
+              priceCurrency: "AED",
+              availability: "https://schema.org/InStock",
+              itemCondition:
+                car.km_driven === 0
+                  ? "https://schema.org/NewCondition"
+                  : "https://schema.org/UsedCondition",
+              url: absoluteUrl(`/buy/${car.slug}`),
+              seller: {
+                "@type": "AutoDealer",
+                name: "Wheels2Deals",
+              },
+            },
+          }),
+        }}
+      />
 
 
       {/* ── Main layout ── */}

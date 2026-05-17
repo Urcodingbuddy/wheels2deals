@@ -67,8 +67,6 @@ export function BlogsCarousel() {
           const zIndex = 5 - Math.abs(pos);
           const isActive = pos === 0;
 
-          const slug = blog.title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
-
           return (
             <div
               key={blog.title}
@@ -88,12 +86,12 @@ export function BlogsCarousel() {
               }}
             >
               {isActive ? (
-                <Link href={`/blog/${slug}`}>
+                <Link href={`/blog/${blog.slug}`}>
                   {/* Card */}
                   <div className="relative h-[390px] rounded-2xl overflow-hidden group/blog hover:scale-[1.02] transition-transform duration-300">
                     <img
                       src={blog.image}
-                      alt={blog.title}
+                      alt={blog.alt}
                       loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover"
@@ -117,7 +115,7 @@ export function BlogsCarousel() {
                 <div className="relative h-[390px] rounded-2xl overflow-hidden">
                   <img
                     src={blog.image}
-                    alt={blog.title}
+                    alt={blog.alt}
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover"

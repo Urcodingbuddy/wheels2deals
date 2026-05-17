@@ -58,7 +58,7 @@ export function CategorySection() {
             >
               <img
                 src={cat.img}
-                alt={cat.label}
+                alt={`${cat.label} available to buy through Wheels2Deals in the UAE`}
                 loading="lazy"
                 decoding="async"
                 className="absolute inset-0 w-full h-full object-cover"
@@ -99,7 +99,7 @@ export function CategorySection() {
               {/* Image - GPU zoom */}
               <img
                 src={cat.img}
-                alt={cat.label}
+                alt={`${cat.label} available to buy through Wheels2Deals in the UAE`}
                 loading="lazy"
                 decoding="async"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]"

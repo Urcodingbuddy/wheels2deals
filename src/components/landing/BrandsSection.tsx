@@ -32,7 +32,7 @@ function LogoCard({ brand }: { brand: Brand }) {
     <div className="relative mx-4 sm:mx-8 h-[40px] w-[100px] sm:h-[64px] sm:w-[140px] shrink-0">
       <Image
         src={brand.logo}
-        alt={`${brand.name} logo`}
+        alt={`${brand.name} certified used cars on Wheels2Deals UAE`}
         fill
         sizes="(max-width: 640px) 100px, 140px"
         className="object-contain"

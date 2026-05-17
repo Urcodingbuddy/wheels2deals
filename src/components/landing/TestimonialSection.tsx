@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star } from "lucide-react";
 
 export function TestimonialSection() {
   const testimonials = [
@@ -11,7 +10,7 @@ export function TestimonialSection() {
     },
     {
       name: "sabir zafar",
-      text: "Big thank you to Wheel2Deals. They made the purchase of my car a seamless experience. The staff was transparent about pricing, and the vehicle was delivered in perfect condition."
+      text: "Big thank you to Wheels2Deals. They made the purchase of my car a seamless experience. The staff was transparent about pricing, and the vehicle was delivered in perfect condition."
     },
     {
       name: "mohamed ahmed",
@@ -30,9 +29,6 @@ export function TestimonialSection() {
       text: "It was an awesome experience to use the best car service."
     }
   ];
-
-  // Double the array for infinite effect
-  const allTestimonials = [...testimonials, ...testimonials, ...testimonials];
 
   return (
     <section id="reviews" className="pt-24 pb-40 bg-[var(--color-page-bg)] overflow-hidden">
@@ -53,9 +49,9 @@ export function TestimonialSection() {
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--color-page-bg)] to-transparent z-10 pointer-events-none" />
 
         <div className="flex w-fit animate-infinite-scroll group-hover:[animation-play-state:paused]">
-          {allTestimonials.map((t, idx) => (
+          {testimonials.map((t, idx) => (
             <div 
-              key={idx} 
+              key={`${t.name}-${idx}`}
               className="w-[350px] md:w-[450px] flex-shrink-0 px-4"
             >
               <div className="bg-white/40 backdrop-blur-sm border border-[#2A3510]/5 p-8 md:p-10 rounded-[32px] h-full flex flex-col hover:border-[#C9A84C]/30 transition-colors duration-500">
@@ -65,7 +61,7 @@ export function TestimonialSection() {
                   ))}
                 </div>
                 <p className="font-[family-name:var(--font-body)] text-[16px] md:text-[18px] text-[#2A3510]/80 leading-relaxed mb-8 flex-grow italic">
-                  "{t.text}"
+                  &ldquo;{t.text}&rdquo;
                 </p>
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-[#2A3510]/5 flex items-center justify-center font-bold text-[#2A3510] text-[12px] uppercase">
@@ -88,7 +84,7 @@ export function TestimonialSection() {
         <style jsx global>{`
           @keyframes infinite-scroll {
             from { transform: translateX(0); }
-            to { transform: translateX(-33.33%); }
+            to { transform: translateX(-100%); }
           }
           .animate-infinite-scroll {
             animation: infinite-scroll 40s linear infinite;

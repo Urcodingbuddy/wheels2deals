@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PremiumCTA } from "@/components/shared/PremiumCTA";
 
-const HERO_IMAGE = "./blue_car_hero.webp";
+const HERO_IMAGE = "/blue_car_hero.webp";
 
 function ArrowIcon() {
   return (
@@ -27,7 +27,7 @@ export function HeroSection() {
       {/* Background image */}
       <img
         src={HERO_IMAGE}
-        alt="Hero car"
+        alt="Blue luxury sedan available through Wheels2Deals in the UAE"
         fetchPriority="high"
         decoding="async"
         className="absolute inset-0 w-full h-full object-cover object-center"
@@ -38,7 +38,7 @@ export function HeroSection() {
 
       {/* Center text - flex-1 on mobile so it fills space above cards; absolute centered on desktop */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 gap-3 pt-28 pb-12 md:absolute md:flex-none md:inset-x-0 md:top-1/2 md:-translate-y-1/2 md:pt-0 md:pb-0">
-        {/* Brand name */}
+        {/* Primary headline */}
         <h1
           className="hero-enter hero-enter-delay-2 font-[family-name:var(--font-display)] font-semibold leading-[0.95] tracking-[-0.04em] select-none"
           style={{ fontSize: "clamp(38px, 6vw, 80px)" }}
@@ -53,9 +53,9 @@ export function HeroSection() {
               filter: "drop-shadow(0 2px 24px rgba(201,168,76,0.45))",
             }}
           >
-            Wheels
+            Buy or Sell Cars
           </span>
-          <span className="text-white/90">2</span>
+          <span className="text-white/90"> in </span>
           <span
             style={{
               background:
@@ -66,7 +66,7 @@ export function HeroSection() {
               filter: "drop-shadow(0 2px 24px rgba(201,168,76,0.45))",
             }}
           >
-            Deals
+            the UAE
           </span>
         </h1>
 
@@ -75,7 +75,7 @@ export function HeroSection() {
           className="hero-enter hero-enter-delay-3 font-[family-name:var(--font-display)] font-normal text-white/70 leading-[1.4] tracking-[-0.01em]"
           style={{ fontSize: "clamp(14px, 2vw, 22px)", maxWidth: "540px" }}
         >
-          The smartest bridge between{" "}
+          Wheels2Deals is the smartest bridge between{" "}
           <span className="text-white font-medium">buyers</span> and{" "}
           <span className="text-white font-medium">sellers</span>.
         </p>
@@ -112,7 +112,7 @@ export function HeroSection() {
               <span className="font-normal">a car?</span>
             </p>
             <p className="font-[family-name:var(--font-body)] text-[12px] text-white/55 leading-[1.6] mt-1.5">
-              Get your car's true value in minutes.
+              Get your car&rsquo;s true value in minutes.
             </p>
           </div>
           <PremiumCTA

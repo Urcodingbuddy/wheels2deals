@@ -91,9 +91,9 @@ export function FooterSection() {
                   Office
                 </p>
                 <p className="font-[family-name:var(--font-body)] text-[13px] md:text-[14px] text-white/70 leading-[1.5] md:leading-[1.6]">
-                  SIT Tower, Dubai silicon Oasis, UAE
+                  SIT Tower, Dubai Silicon Oasis,
                   <br />
-                  UAE
+                  Dubai, United Arab Emirates
                 </p>
               </div>
               <div>
@@ -128,7 +128,7 @@ export function FooterSection() {
         {/* Bottom bar */}
         <div className="flex items-center justify-between pt-7 gap-4 flex-wrap">
           <p className="font-[family-name:var(--font-body)] text-[12px] text-white/30">
-            © 2026 Wheels2Deals. All Rights Reserved.
+            © {new Date().getFullYear()} Wheels2Deals. All Rights Reserved.
           </p>
           <div className="flex items-center gap-6">
             {[

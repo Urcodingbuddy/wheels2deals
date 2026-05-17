@@ -1,17 +1,35 @@
 export interface BlogPost {
+  slug: string;
   category: string;
   title: string;
+  description: string;
   readTime: string;
   image: string;
+  alt: string;
   content: string;
 }
 
-export const BLOGS: BlogPost[] = [
+type BlogSeed = Omit<BlogPost, "slug" | "description" | "alt">;
+
+function slugifyBlogTitle(title: string) {
+  return title.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
+}
+
+function getExcerpt(content: string) {
+  const normalized = content.replace(/\s+/g, " ").trim();
+  const limit = 165;
+
+  if (normalized.length <= limit) return normalized;
+
+  return `${normalized.slice(0, limit).trimEnd()}...`;
+}
+
+const BLOG_SEEDS: BlogSeed[] = [
   {
     category: "Buying Guide",
     title: "How to Spot a Flood-Damaged Car Before You Buy",
     readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=800&auto=format&fit=crop",
+    image: "/blog/flood-damaged-car.png",
     content: `The UAE's second-hand car market is booming, but hidden beneath the gleaming bonnets and polished interiors of some listings lies a costly secret: flood damage. Whether caused by a freak storm, a burst pipe, or a vehicle imported from a flood-prone region, water-damaged cars can cost buyers tens of thousands of dirhams in unexpected repairs - or worse, put lives at risk.
 
 At Wheels2Deals, we connect buyers with verified sellers and certified inspection centres so you never have to gamble on a used car purchase. But knowledge is your first line of defence. Here's your complete guide to spotting a flood-damaged car before you sign anything.
@@ -53,7 +71,7 @@ The single most important step any used car buyer can take is commissioning a pr
     category: "Market Trends",
     title: "UAE's Most In-Demand Cars of 2025",
     readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=800&auto=format&fit=crop",
+    image: "/blog/uae-most-in-demand-cars.webp",
     content: `The UAE automotive market in 2025 is a fascinating blend of tradition and transformation. Buyers remain loyal to proven workhorses while simultaneously embracing cutting-edge electric and hybrid technology. Whether you're shopping for a family SUV, a city runabout, or a weekend performance machine, understanding market demand gives you a serious edge - both as a buyer and as a seller.
 
 Here at Wheels2Deals, we analyse thousands of listings and buyer enquiries every month. This is what the data tells us about the UAE's most sought-after cars right now.
@@ -81,7 +99,7 @@ If you own a well-maintained Land Cruiser, Patrol, or Camry, you are sitting on 
     category: "Finance",
     title: "Car Loans in the UAE: Everything You Need to Know",
     readTime: "9 min read",
-    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop",
+    image: "/blog/car-loans-uae.png",
     content: `Buying a car in the UAE is one of the most significant financial decisions most residents will make. For the majority of buyers, that means a car loan. With dozens of banks and finance houses offering auto finance products, navigating the landscape can feel overwhelming. This guide cuts through the complexity so you can walk into your next purchase fully informed.
 
 Wheels2Deals connects buyers to trusted banks and flexible finance plans, making the loan application process straightforward and transparent.
@@ -107,7 +125,7 @@ The UAE has a robust Islamic banking sector, and Sharia-compliant auto finance (
     category: "Selling Tips",
     title: "10 Tricks That Get You a Higher Price for Your Car",
     readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=800&auto=format&fit=crop",
+    image: "/blog/sell-your-car-higher-price.png",
     content: `Selling your car in the UAE can be a quick and profitable experience - if you approach it strategically. Too many sellers leave money on the table by rushing the process or failing to present their vehicle properly. Whether you're trading up, relocating, or simply ready to let go, these 10 proven tips will help you command the best possible price.
 
 1. Start With a Professional Valuation
@@ -138,7 +156,7 @@ Certain times of year drive higher buyer activity in the UAE: the period before 
     category: "Electric Vehicles",
     title: "Is the UAE Ready for an EV Revolution?",
     readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=800&auto=format&fit=crop",
+    image: "/blog/uae-ev-revolution.png",
     content: `It's one of the most debated questions in the UAE automotive world right now: Is the Emirates genuinely ready to go electric? With soaring temperatures, a love affair with powerful engines, and an economy historically built on oil, the question has real complexity. But the momentum behind electric vehicles in the UAE is building faster than many expected - and the window for early adopters may be closing sooner than you think.
 
 The Government Is Pushing Hard
@@ -162,7 +180,7 @@ Here's the insight many buyers are missing: the pre-owned EV market in the UAE i
     category: "Insurance",
     title: "Third-Party vs Comprehensive: Which Cover Do You Need?",
     readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop",
+    image: "/blog/third-party-vs-comprehensive.webp",
     content: `Car insurance in the UAE is mandatory - but choosing the right type of cover is a decision that many drivers make based on habit or assumption rather than careful analysis. The two primary options, third-party liability and comprehensive cover, are built for very different situations. Getting it wrong means either paying far more than you need to, or being devastatingly exposed when something goes wrong.
 
 Wheels2Deals connects you with leading insurers across the UAE so you can compare policies side by side and make an informed choice. Here's what you need to know.
@@ -186,7 +204,7 @@ Agency repair is one of the most commonly misunderstood optional extras. It guar
     category: "Ownership",
     title: "RTA Transfer Process Explained Step by Step",
     readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?q=80&w=800&auto=format&fit=crop",
+    image: "/blog/rta-transfer-process.png",
     content: `Buying or selling a used car in Dubai involves a formal ownership transfer process managed by the Roads and Transport Authority (RTA). While the process is generally straightforward, errors or missing documents can cause significant delays - and in some cases, expose buyers or sellers to unexpected liability. This guide walks you through the complete RTA transfer process from start to finish.
 
 Step 1: Agree on the Sale Price and Terms
@@ -219,7 +237,7 @@ Once the transfer is processed and fees are paid, the buyer receives a new vehic
     category: "Luxury",
     title: "Inside the UAE's Booming Pre-Owned Supercar Market",
     readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=800&auto=format&fit=crop",
+    image: "/blog/pre-owned-supercar-market.webp",
     content: `In few places on earth does the pre-owned supercar market thrive quite like the UAE. Where global luxury car resale markets are often constrained by scarcity, high taxation, and harsh winters, the Emirates offers a near-perfect environment: year-round driving weather, enormous concentrations of wealth, a culture of upgrading frequently, and the logistical gateway of a world-class free port.
 
 The result is one of the world's most vibrant and accessible pre-owned supercar ecosystems - and Wheels2Deals is at the heart of connecting serious buyers and sellers within it.
@@ -242,7 +260,7 @@ The stakes are high in the supercar segment. A pre-purchase inspection is not op
     category: "Inspection",
     title: "What Happens During a Pre-Purchase Car Inspection?",
     readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=800&auto=format&fit=crop",
+    image: "/blog/pre-purchase-inspection.webp",
     content: `A pre-purchase inspection is the single most important step you can take before buying a used car. It is your independent verification of a vehicle's true condition - a professional second opinion that can save you from a costly mistake or arm you with the evidence to negotiate a better price.
 
 Yet despite its importance, many UAE buyers skip it, either to save time or because they don't know exactly what it involves. This guide explains the complete pre-purchase inspection process - and why Wheels2Deals makes it effortless to arrange.
@@ -271,8 +289,15 @@ A thorough test drive is conducted by the inspector, covering slow-speed manoeuv
   },
 ];
 
+export const BLOGS: BlogPost[] = BLOG_SEEDS.map((blog) => ({
+  ...blog,
+  slug: slugifyBlogTitle(blog.title),
+  description: getExcerpt(blog.content),
+  alt: `${blog.title} article cover illustration for Wheels2Deals`,
+}));
+
 export const getBlogBySlug = (slug: string) => {
-  return BLOGS.find(blog =>
-    blog.title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-') === slug
-  );
+  return BLOGS.find((blog) => blog.slug === slug);
 };
+
+export { slugifyBlogTitle };

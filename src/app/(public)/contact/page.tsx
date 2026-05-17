@@ -195,7 +195,7 @@ export default function ContactPage() {
                 <h4 className="text-[#C9A84C] font-bold uppercase tracking-[0.2em] text-[11px]">Headquarters</h4>
               </div>
               <p className="text-white/80 font-medium leading-loose text-[17px] pl-12 group-hover:text-white transition-colors">
-                SIT Tower, Dubai silicon Oasis, UAE
+                SIT Tower, Dubai Silicon Oasis, Dubai, United Arab Emirates
               </p>
            </div>
 

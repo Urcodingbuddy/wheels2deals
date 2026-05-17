@@ -18,7 +18,7 @@ export function LandingNav() {
           <Link href="/" className="flex items-center no-underline">
             <img
               src="/logo.svg"
-              alt="wheels2deals"
+              alt="Wheels2Deals - UAE car broker connecting buyers, sellers and dealers"
               className="h-[38px] w-auto brightness-0 invert block"
             />
           </Link>

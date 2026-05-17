@@ -1,6 +1,8 @@
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
 import { createClient } from "@/lib/server";
+import { buildPageMetadata } from "@/lib/seo";
 import type { Enums, Tables } from "@/types/database";
 import BuyClient from "./BuyClient";
 import {
@@ -14,6 +16,14 @@ import { matchesCarSearch } from "./search";
 type Car = Tables<"cars">;
 
 type SearchParamValue = string | string[] | undefined;
+
+function titleCase(value: string) {
+  return value
+    .split(/[\s-]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
 
 function getSingleParam(value: SearchParamValue) {
   return Array.isArray(value) ? value[0] ?? "" : value ?? "";
@@ -86,6 +96,39 @@ function parseFilters(params: Record<string, SearchParamValue>): BuyFilters {
     colors,
     specs,
   };
+}
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, SearchParamValue>>;
+}): Promise<Metadata> {
+  const params = await searchParams;
+  const category = getSingleParam(params.category).trim();
+  const brand = getSingleParam(params.brand).trim();
+  const query = getSingleParam(params.q).trim();
+
+  let title = "Used Cars for Sale in the UAE | Verified Listings";
+  let description =
+    "Browse verified used cars for sale across Dubai, Abu Dhabi, Sharjah, and the wider UAE. Explore trusted listings with finance, insurance, and transfer support.";
+
+  if (category) {
+    title = `${titleCase(category)} Cars for Sale in the UAE | Wheels2Deals`;
+    description = `Explore verified ${titleCase(category).toLowerCase()} cars for sale across the UAE with trusted listings, transparent details, and Wheels2Deals brokerage support.`;
+  } else if (brand && brand !== "All") {
+    title = `Used ${brand} Cars for Sale in the UAE | Wheels2Deals`;
+    description = `Browse verified used ${brand} cars for sale across Dubai and the UAE with finance, insurance, and transfer support from Wheels2Deals.`;
+  } else if (query) {
+    title = `${query} Cars for Sale in the UAE | Wheels2Deals`;
+    description = `Search verified UAE car listings for ${query} on Wheels2Deals, with support for inspections, financing, and ownership transfer.`;
+  }
+
+  return buildPageMetadata({
+    title,
+    description,
+    path: "/buy",
+    keywords: ["used cars for sale UAE", "used cars Dubai", "verified car listings UAE"],
+  });
 }
 
 export default async function BuyPage({

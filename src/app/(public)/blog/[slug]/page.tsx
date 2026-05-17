@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { getBlogBySlug, BLOGS } from "@/data/blogs";
+import { absoluteUrl } from "@/lib/seo";
 import { LandingNav } from "@/components/landing/LandingNav";
 import { FooterSection } from "@/components/landing/FooterSection";
 import { 
@@ -63,6 +64,34 @@ export default function BlogDetailPage() {
 
   return (
     <main className="min-h-screen bg-[var(--color-page-bg)] selection:bg-[#C9A84C] selection:text-[#2A3510]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: blog.title,
+            description: blog.description,
+            image: blog.image.startsWith("http") ? blog.image : absoluteUrl(blog.image),
+            author: {
+              "@type": "Organization",
+              name: "Wheels2Deals",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "Wheels2Deals",
+              logo: {
+                "@type": "ImageObject",
+                url: absoluteUrl("/circle_logo.png"),
+              },
+            },
+            mainEntityOfPage: absoluteUrl(`/blog/${blog.slug}`),
+            datePublished: "2026-05-12",
+            dateModified: "2026-05-12",
+            articleSection: blog.category,
+          }),
+        }}
+      />
       {/* Reading Progress Bar */}
       <div 
         className="fixed top-0 left-0 h-1 bg-[#C9A84C] z-[110] transition-all duration-100"
@@ -77,7 +106,7 @@ export default function BlogDetailPage() {
           <img 
             src={blog.image} 
             className="w-full h-full object-cover opacity-60 scale-105 hover:scale-100 transition-transform duration-[10s] ease-linear"
-            alt={blog.title}
+            alt={blog.alt}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         </div>
@@ -178,9 +207,9 @@ export default function BlogDetailPage() {
              {/* Featured Car CTA */}
              <div className="relative group rounded-[32px] overflow-hidden aspect-[3/4] bg-[#2A3510]">
                 <img 
-                  src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=800" 
+                  src="/blue_car_hero.webp" 
                   className="w-full h-full object-cover opacity-70 group-hover:scale-110 transition-transform duration-700"
-                  alt="Car ad"
+                  alt="Featured Wheels2Deals car listing"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#2A3510] to-transparent" />
                 <div className="absolute bottom-0 left-0 p-8">
@@ -212,14 +241,13 @@ export default function BlogDetailPage() {
 
           <div className="grid md:grid-cols-3 gap-8 md:gap-12">
             {BLOGS.filter(b => b.title !== blog.title).slice(0, 3).map((post, i) => {
-              const postSlug = post.title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
               return (
-                <Link key={i} href={`/blog/${postSlug}`} className="group block">
+                <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
                   <div className="aspect-[16/10] bg-black/5 rounded-3xl mb-6 overflow-hidden relative">
                     <img 
                       src={post.image} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      alt={post.title}
+                      alt={post.alt}
                     />
                     <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
                   </div>

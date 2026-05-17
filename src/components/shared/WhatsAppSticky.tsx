@@ -37,7 +37,7 @@ export function WhatsAppSticky() {
         <a
           href={`tel:+${phoneNumber}`}
           className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#2A3510] text-white shadow-[0_10px_30px_rgba(42,53,16,0.3)] border border-white/10 hover:scale-110 transition-transform duration-300 active:scale-95"
-          aria-label="Call us"
+          aria-label="Call Wheels2Deals"
         >
           <Phone className="w-5 h-5 md:w-6 md:h-6" />
         </a>
@@ -54,13 +54,13 @@ export function WhatsAppSticky() {
         <a
           href={whatsappUrl}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener nofollow"
           className="block w-14 h-14 md:w-16 md:h-16 rounded-full bg-white shadow-[0_10px_30px_rgb(0,0,0,0.2)] border border-black/5 hover:scale-110 transition-transform duration-300 overflow-hidden active:scale-95"
-          aria-label="Contact us on WhatsApp"
+          aria-label="Chat with Wheels2Deals on WhatsApp"
         >
           <img
             src="/whatsapp.png"
-            alt="WhatsApp"
+            alt=""
             className="w-full h-full object-contain p-3"
           />
         </a>

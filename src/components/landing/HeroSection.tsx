@@ -1,7 +1,11 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { PremiumCTA } from "@/components/shared/PremiumCTA";
 
-const HERO_IMAGE = "/blue_car_hero.webp";
+const HERO_IMAGE = "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-images/hero-image/hero_image.webp";
+const HERO_VIDEO = "https://hxkwxyypkbzxahteqzxv.supabase.co/storage/v1/object/public/car-videos/hero_video.mp4";
 
 function ArrowIcon() {
   return (
@@ -22,16 +26,44 @@ function ArrowIcon() {
 }
 
 export function HeroSection() {
+  const [videoReady, setVideoReady] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
   return (
     <section className="relative mx-3.5 mt-3.5 rounded-[24px] overflow-hidden flex flex-col min-h-[820px] md:min-h-0 md:h-[calc(100svh-28px)]">
-      {/* Background image */}
+      {/* Poster image — always visible as the base layer */}
       <img
         src={HERO_IMAGE}
-        alt="Blue luxury sedan available through Wheels2Deals in the UAE"
+        alt=""
+        aria-hidden="true"
         fetchPriority="high"
         decoding="async"
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
+
+      {/* Video — skipped for reduced-motion users, fades in once buffered */}
+      {!reducedMotion && (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          onCanPlay={() => setVideoReady(true)}
+          className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+          style={{ opacity: videoReady ? 1 : 0 }}
+        >
+          <source src={HERO_VIDEO} type="video/mp4" />
+        </video>
+      )}
 
       {/* Dark overlay for text legibility */}
       <div className="absolute inset-0 bg-black/50 z-[1]" />

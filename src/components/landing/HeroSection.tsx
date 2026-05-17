@@ -57,7 +57,7 @@ export function HeroSection() {
           loop
           playsInline
           preload="auto"
-          onCanPlay={() => setVideoReady(true)}
+          onLoadedData={() => setVideoReady(true)}
           className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
           style={{ opacity: videoReady ? 1 : 0 }}
         >

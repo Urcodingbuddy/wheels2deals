@@ -12,7 +12,7 @@ export function LandingNav() {
   return (
     <>
       {/* Navbar */}
-      <header className="absolute top-10 left-0 right-0 z-[100] flex items-center justify-between px-10">
+      <header className="absolute top-10 left-0 right-0 z-[100] flex items-center justify-between px-5 md:px-10">
         {/* Left - logo */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center no-underline">

@@ -353,6 +353,10 @@
   animation-delay: 0.85s;
   opacity: 0;
 }
+.hero-enter-delay-5 {
+  animation-delay: 1.05s;
+  opacity: 0;
+}
 
 /* ── Scroll indicator ── */
 @keyframes scrollPulse {

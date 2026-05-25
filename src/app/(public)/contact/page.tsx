@@ -6,9 +6,11 @@ import { FooterSection } from "@/components/landing/FooterSection";
 import { Send } from "lucide-react";
 import { FaInstagram, FaFacebookF, FaWhatsapp } from "react-icons/fa6";
 import { PremiumCTA } from "@/components/shared/PremiumCTA";
+import { createClient } from "@/lib/client";
 export default function ContactPage() {
   const [selectedService, setSelectedService] = useState<string>("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const services = [
     { id: "buy", label: "Car Buying Support" },
@@ -21,18 +23,46 @@ export default function ContactPage() {
 
   const selectedLabel = services.find(s => s.id === selectedService)?.label || "Select a Service";
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const message = formData.get("message") as string;
+    const phone = formData.get("phone") as string;
     const serviceLabel = services.find(s => s.id === selectedService)?.label || "General Inquiry";
 
-    const whatsappMessage = `Hi Wheels2Deals! 👋\n\n*Name:* ${name}\n*Email:* ${email}\n*Inquiry:* ${serviceLabel}\n\n*Message:* ${message}`;
-    const whatsappUrl = `https://wa.me/971561498485?text=${encodeURIComponent(whatsappMessage)}`;
-    
-    window.open(whatsappUrl, '_blank');
+    setIsSubmitting(true);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.from("inquiries").insert({
+        car_id: null,
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone.trim() || null,
+        message: `Inquiry Type: ${serviceLabel}\n\n${message.trim()}`,
+        status: "new",
+      });
+
+      if (error) {
+        console.error("Contact inquiry error:", error);
+        alert("Failed to send your message. Please try again.");
+        return;
+      }
+
+      const whatsappMessage = `Hi Wheels2Deals! 👋\n\n*Name:* ${name}\n*Email:* ${email}\n*Inquiry:* ${serviceLabel}\n\n*Message:* ${message}`;
+      const whatsappUrl = `https://wa.me/971561498485?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappUrl, "_blank");
+      e.currentTarget.reset();
+      setSelectedService("");
+    } catch (err) {
+      console.error(err);
+      alert("An unexpected error occurred.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -179,8 +209,9 @@ export default function ContactPage() {
 
               <PremiumCTA 
                 type="submit"
-                text="Send Message"
+                text={isSubmitting ? "Sending..." : "Send Message"}
                 variant="outline"
+                // The button stays inside the form; the disabled state is handled by the submit handler.
               />
             </div>
           </form>

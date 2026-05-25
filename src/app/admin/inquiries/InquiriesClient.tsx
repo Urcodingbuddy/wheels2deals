@@ -601,9 +601,9 @@ export default function InquiriesClient({
             <table className="w-full">
               <thead>
                 <tr className="border-b border-[#E0DDD8] bg-red-50/60">
-                  {["Type", "Contact", "Vehicle / Details", "Deleted", "Expires in", ""].map((h) => (
+                  {["Type", "Contact", "Vehicle / Details", "Deleted", "Expires in", ""].map((h, index) => (
                     <th
-                      key={h}
+                      key={`${h || "blank"}-${index}`}
                       className="px-5 py-3 text-left font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.15em] uppercase text-[#888888] whitespace-nowrap"
                     >
                       {h}
@@ -713,9 +713,9 @@ export default function InquiriesClient({
             <table className="w-full">
               <thead>
                 <tr className="border-b border-[#E0DDD8] bg-[#F6F5F1]">
-                  {["", "Type", "Contact", "Vehicle / Details", "Date", "Status", ""].map((h) => (
+                  {["", "Type", "Contact", "Vehicle / Details", "Date", "Status", ""].map((h, index) => (
                     <th
-                      key={h}
+                      key={`${h || "blank"}-${index}`}
                       className="px-5 py-3 text-left font-[family-name:var(--font-body)] text-[10px] font-semibold tracking-[0.15em] uppercase text-[#888888] whitespace-nowrap"
                     >
                       {h}

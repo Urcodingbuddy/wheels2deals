@@ -49,7 +49,7 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="admin@example.com"
-              className="w-full px-3.5 py-2.5 rounded-lg border border-[#E0DDD8] bg-[#F6F5F1] font-[family-name:var(--font-body)] text-[13px] text-[#2A3510] placeholder:text-[#BBBBBB] focus:outline-none focus:ring-2 focus:ring-[#3A4A20]/30 focus:border-[#3A4A20] transition-all"
+              className="w-full px-3.5 py-2.5 rounded-lg border border-[#E0DDD8] bg-[#F6F5F1] font-[family-name:var(--font-body)] text-[15px] text-[#2A3510] placeholder:text-[#BBBBBB] focus:outline-none focus:ring-2 focus:ring-[#3A4A20]/30 focus:border-[#3A4A20] transition-all"
             />
           </div>
 
@@ -63,7 +63,7 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="••••••••"
-              className="w-full px-3.5 py-2.5 rounded-lg border border-[#E0DDD8] bg-[#F6F5F1] font-[family-name:var(--font-body)] text-[13px] text-[#2A3510] placeholder:text-[#BBBBBB] focus:outline-none focus:ring-2 focus:ring-[#3A4A20]/30 focus:border-[#3A4A20] transition-all"
+              className="w-full px-3.5 py-2.5 rounded-lg border border-[#E0DDD8] bg-[#F6F5F1] font-[family-name:var(--font-body)] text-[15px] text-[#2A3510] placeholder:text-[#BBBBBB] focus:outline-none focus:ring-2 focus:ring-[#3A4A20]/30 focus:border-[#3A4A20] transition-all"
             />
           </div>
 

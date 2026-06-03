@@ -21,6 +21,8 @@ import { LandingNav } from "@/components/landing/LandingNav";
 import { FooterSection } from "@/components/landing/FooterSection";
 import { PremiumCTA } from "@/components/shared/PremiumCTA";
 import { createClient } from "@/lib/client";
+import { UAEFlag } from "@/components/shared/UAEFlag";
+import { validateUAEPhone, standardizeUAEPhone } from "@/lib/validation";
 
 const BRANDS = [
   { name: "Toyota", logo: "/brands/toyota.png" },
@@ -179,7 +181,7 @@ export default function HowItWorksPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const e2: Record<string, string> = {};
-    if (!phone.trim()) e2.phone = "Please enter your phone number.";
+    if (!validateUAEPhone(phone)) e2.phone = "Please enter a valid UAE phone number.";
     if (Object.keys(e2).length) { setErrors(e2); return; }
     setErrors({});
     setIsSubmitting(true);
@@ -193,12 +195,13 @@ export default function HowItWorksPage() {
       await supabase.from("inquiries").insert({
         name: "Valuation Request",
         email: "info@wheels2deals.com",
-        phone: phone || "Not specified",
+        phone: standardizeUAEPhone(phone),
         message: message,
         status: "new"
       });
 
       setFormSuccess(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       console.error(err);
       alert("Something went wrong, please try again.");
@@ -433,7 +436,7 @@ export default function HowItWorksPage() {
                                   setCustomBrand("");
                                 }
                               }}
-                              className="w-full bg-[#F1F3E1] rounded-lg px-3 py-2 text-[13px] outline-none focus:ring-2 focus:ring-[#C9A84C]/40 placeholder:text-[#2A3510]/35"
+                              className="w-full bg-[#F1F3E1] rounded-lg px-3 py-2 text-[15px] outline-none focus:ring-2 focus:ring-[#C9A84C]/40 placeholder:text-[#2A3510]/35"
                             />
                           </div>
 
@@ -502,7 +505,7 @@ export default function HowItWorksPage() {
                         setModelDropdownOpen(!modelDropdownOpen);
                         setTimeout(() => modelSearchRef.current?.focus(), 50);
                       }}
-                      className="w-full flex items-center justify-between bg-[#F1F3E1] border-2 border-transparent rounded-xl px-4 py-3 text-[14px] font-medium outline-none focus:border-[#C9A84C]/50 transition-all"
+                      className="w-full flex items-center justify-between bg-[#F1F3E1] border-2 border-transparent rounded-xl px-4 py-3 text-[16px] font-medium outline-none focus:border-[#C9A84C]/50 transition-all"
                     >
                       <span className={modelText ? "text-[#2A3510]" : "text-[#2A3510]/50"}>
                         {modelText || "Select model"}
@@ -532,7 +535,7 @@ export default function HowItWorksPage() {
                                 }
                               }}
                               placeholder="Search or type a model…"
-                              className="w-full bg-[#F1F3E1] rounded-lg px-3 py-2 text-[13px] outline-none placeholder:text-[#2A3510]/30"
+                              className="w-full bg-[#F1F3E1] rounded-lg px-3 py-2 text-[15px] outline-none placeholder:text-[#2A3510]/30"
                             />
                           </div>
                           <div
@@ -586,7 +589,7 @@ export default function HowItWorksPage() {
                     placeholder={modelsLoading ? "Loading models…" : selectedBrand ? "Type model name" : "Select a make first"}
                     disabled={modelsLoading}
                     onChange={(e) => { setModelText(e.target.value); if (valStep < 2) setValStep(2); }}
-                    className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[14px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30 disabled:opacity-50"
+                    className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[16px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30 disabled:opacity-50"
                   />
                 )}
               </div>
@@ -614,7 +617,7 @@ export default function HowItWorksPage() {
                   <button
                     type="button"
                     onClick={() => setYearDropdownOpen(!yearDropdownOpen)}
-                    className="w-full flex items-center justify-between bg-[#F1F3E1] border-2 border-transparent rounded-xl px-4 py-3 text-[#2A3510] text-[14px] font-medium outline-none focus:border-[#C9A84C]/50 transition-all"
+                    className="w-full flex items-center justify-between bg-[#F1F3E1] border-2 border-transparent rounded-xl px-4 py-3 text-[#2A3510] text-[16px] font-medium outline-none focus:border-[#C9A84C]/50 transition-all"
                   >
                     <span
                       className={
@@ -668,7 +671,7 @@ export default function HowItWorksPage() {
                     value={chassisNo}
                     placeholder="Last 6 digits / VIN"
                     onChange={(e) => { setChassisNo(e.target.value); handleDetailChange(); }}
-                    className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[14px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30"
+                    className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[16px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30"
                   />
                 </div>
                   </div>
@@ -691,7 +694,7 @@ export default function HowItWorksPage() {
                           clearError("kmsDriven");
                           handleDetailChange();
                         }}
-                        className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[14px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30"
+                        className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[16px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30"
                       />
                     </div>
                     <div>
@@ -705,7 +708,7 @@ export default function HowItWorksPage() {
                             key={opt}
                             type="button"
                             onClick={() => { setGcc(opt); clearError("gcc"); handleDetailChange(); }}
-                            className={`flex-1 rounded-xl text-[13px] font-semibold transition-all duration-200 ${
+                            className={`flex-1 rounded-xl text-[14.5px] font-semibold transition-all duration-200 ${
                               gcc === opt
                                 ? "bg-[#C9A84C] text-[#2A3510] shadow-sm"
                                 : "bg-[#F1F3E1] text-[#2A3510]/60 hover:bg-[#E8EDD8]"
@@ -746,13 +749,30 @@ export default function HowItWorksPage() {
                       <label className="font-[family-name:var(--font-body)] text-[11px] font-bold uppercase tracking-wider text-[#2A3510]/60">Phone number</label>
                       {errors.phone && <span className="text-[11px] text-red-500 font-medium">{errors.phone}</span>}
                     </div>
-                    <input
-                      type="tel"
-                      value={phone}
-                      placeholder="+971 50 000 0000"
-                      onChange={(e) => { setPhone(e.target.value); clearError("phone"); }}
-                      className="w-full bg-[#F1F3E1] border-none rounded-xl px-4 py-3 text-[#2A3510] text-[14px] font-medium outline-none focus:ring-2 focus:ring-[#C9A84C]/50 placeholder:text-[#2A3510]/30"
-                    />
+                    <div className="flex items-center gap-2 bg-[#F1F3E1] rounded-xl px-4 py-1.5 focus-within:ring-2 focus-within:ring-[#C9A84C]/50">
+                      <div className="flex items-center gap-1.5 shrink-0 bg-[#2A3510]/5 px-2.5 py-1.5 rounded border border-[#2A3510]/10 text-[#2A3510]/70">
+                        <UAEFlag className="w-5.5 h-3" />
+                        <span className="text-[14px] font-bold tracking-wider">+971</span>
+                      </div>
+                      <input
+                        type="tel"
+                        value={phone}
+                        placeholder="50 000 0000"
+                        onChange={(e) => {
+                          const v = e.target.value;
+                          setPhone(v);
+                          const cleaned = v.replace(/[\s\-()]/g, "");
+                          if (!v.trim()) {
+                            setErrors((prev) => ({ ...prev, phone: "Please enter your phone number." }));
+                          } else if (cleaned.length >= 7 && !validateUAEPhone(v)) {
+                            setErrors((prev) => ({ ...prev, phone: "Please enter a valid UAE phone number." }));
+                          } else {
+                            clearError("phone");
+                          }
+                        }}
+                        className="w-full bg-transparent border-none py-1.5 text-[#2A3510] text-[16px] font-medium outline-none placeholder:text-[#2A3510]/30"
+                      />
+                    </div>
                   </div>
 
                   <div className="flex gap-2 items-center">

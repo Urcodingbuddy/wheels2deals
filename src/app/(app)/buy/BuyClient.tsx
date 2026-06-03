@@ -373,7 +373,7 @@ function FlyoutContent({
                     placeholder="Search models…"
                     value={modelSearch}
                     onChange={e => setModelSearch(e.target.value)}
-                    className="w-full h-9 pl-8 pr-3 rounded-xl border border-[#DDD7CE] bg-white font-[family-name:var(--font-body)] text-[12px] text-[#2A3510] placeholder:text-[#C0BAB0] outline-none focus:border-[#C9A84C]/50 transition-colors"
+                    className="w-full h-9 pl-8 pr-3 rounded-xl border border-[#DDD7CE] bg-white font-[family-name:var(--font-body)] text-[15px] text-[#2A3510] placeholder:text-[#C0BAB0] outline-none focus:border-[#C9A84C]/50 transition-colors"
                   />
                 </div>
                 <div className={gridListCls} onWheel={e => e.stopPropagation()}>
@@ -430,7 +430,7 @@ function FlyoutContent({
               placeholder="Search makes…"
               value={brandSearch}
               onChange={e => setBrandSearch(e.target.value)}
-              className="w-full h-9 pl-8 pr-3 rounded-xl border border-[#DDD7CE] bg-white font-[family-name:var(--font-body)] text-[12px] text-[#2A3510] placeholder:text-[#C0BAB0] outline-none focus:border-[#C9A84C]/50 transition-colors"
+              className="w-full h-9 pl-8 pr-3 rounded-xl border border-[#DDD7CE] bg-white font-[family-name:var(--font-body)] text-[15px] text-[#2A3510] placeholder:text-[#C0BAB0] outline-none focus:border-[#C9A84C]/50 transition-colors"
             />
           </div>
           <div className={gridListCls} onWheel={e => e.stopPropagation()}>

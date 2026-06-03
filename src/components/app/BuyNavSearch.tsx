@@ -288,7 +288,7 @@ function SearchForm({
                   if (e.key === "Escape") setOpen(false);
                 }}
                 placeholder="Search cars..."
-                className="h-full w-full rounded-l-full bg-transparent pl-4 md:pl-5 pr-9 md:pr-10 font-[family-name:var(--font-body)] text-[12px] md:text-[13px] text-[#2A3510] font-medium outline-none placeholder:text-[#2A3510]/30"
+                className="h-full w-full rounded-l-full bg-transparent pl-4 md:pl-5 pr-9 md:pr-10 font-[family-name:var(--font-body)] text-[15px] md:text-[16px] text-[#2A3510] font-medium outline-none placeholder:text-[#2A3510]/30"
                 aria-label="Search cars"
               />
               {value && (

@@ -5,6 +5,8 @@ import { X, CheckCircle } from "lucide-react";
 
 import { createClient } from "@/lib/client";
 import { Loader2 } from "lucide-react";
+import { UAEFlag } from "@/components/shared/UAEFlag";
+import { validateUAEPhone, standardizeUAEPhone } from "@/lib/validation";
 
 type Props = { carId: string; carTitle: string };
 
@@ -25,8 +27,8 @@ export default function EnquireButton({ carId, carTitle }: Props) {
     if (!form.name.trim()) e.name = "Name is required";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = "Valid email required";
-    if (!/^\+?[\d\s\-()]{7,15}$/.test(form.phone))
-      e.phone = "Valid phone required";
+    if (!validateUAEPhone(form.phone))
+      e.phone = "Valid UAE phone required";
     return e;
   }
 
@@ -47,7 +49,7 @@ export default function EnquireButton({ carId, carTitle }: Props) {
         car_id: carId,
         name: form.name.trim(),
         email: form.email.trim(),
-        phone: form.phone.trim(),
+        phone: standardizeUAEPhone(form.phone),
         message: form.message.trim(),
         status: "new",
       });
@@ -179,7 +181,14 @@ export default function EnquireButton({ carId, carTitle }: Props) {
                     error={errors.phone}
                     onChange={(v) => {
                       setForm((f) => ({ ...f, phone: v }));
-                      setErrors((e) => ({ ...e, phone: undefined }));
+                      const cleaned = v.replace(/[\s\-()]/g, "");
+                      if (!v.trim()) {
+                        setErrors((e) => ({ ...e, phone: "Phone is required" }));
+                      } else if (cleaned.length >= 7 && !validateUAEPhone(v)) {
+                        setErrors((e) => ({ ...e, phone: "Valid UAE phone required" }));
+                      } else {
+                        setErrors((e) => ({ ...e, phone: undefined }));
+                      }
                     }}
                   />
                   <FloatTextarea
@@ -223,33 +232,41 @@ function FloatField({
 }) {
   const [focused, setFocused] = useState(false);
   const active = focused || value.length > 0;
+  const isPhone = type === "tel";
 
   return (
     <div className="flex flex-col gap-1">
       <div className="relative pt-5">
         <label
-          className={`absolute left-0 pointer-events-none font-[family-name:var(--font-body)] transition-all duration-500 ${
+          className={`absolute pointer-events-none font-[family-name:var(--font-body)] transition-all duration-500 ${
             active
-              ? "top-0 text-[10px] font-semibold tracking-[0.12em] uppercase text-[#3A4A20]"
-              : "bottom-2 text-[16px] text-[#3A4A20]"
+              ? "top-0 left-0 text-[10px] font-semibold tracking-[0.12em] uppercase text-[#3A4A20]"
+              : isPhone
+                ? "bottom-2 left-[94px] text-[16px] text-[#3A4A20]"
+                : "bottom-2 left-0 text-[16px] text-[#3A4A20]"
           }`}
         >
           {label}
         </label>
-        <input
-          type={type}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          className={`w-full pb-2 bg-transparent font-[family-name:var(--font-body)] text-[14px] text-[#2A3510] focus:outline-none border-b transition-colors duration-200 ${
-            error
-              ? "border-red-400"
-              : focused
-                ? "border-[#3A4A20]"
-                : "border-[#D8D4CE]"
-          }`}
-        />
+        <div
+          className="flex items-center gap-2 border-b transition-colors duration-200 w-full"
+          style={{ borderColor: error ? "#F87171" : focused ? "#3A4A20" : "#D8D4CE" }}
+        >
+          {isPhone && (
+            <div className="flex items-center gap-1.5 shrink-0 bg-[#F6F5F1] px-2.5 py-1.5 rounded border border-[#EBE8E2] text-[#555555] mb-1">
+              <UAEFlag className="w-5.5 h-3" />
+              <span className="text-[14px] font-bold tracking-wider">+971</span>
+            </div>
+          )}
+          <input
+            type={type}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            className="w-full pb-2 bg-transparent font-[family-name:var(--font-body)] text-[16px] text-[#2A3510] focus:outline-none border-none"
+          />
+        </div>
       </div>
       {error && (
         <span className="font-[family-name:var(--font-body)] text-[11px] text-red-500">
@@ -297,7 +314,7 @@ function FloatTextarea({
         onChange={handleChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className={`w-full pb-2 bg-transparent font-[family-name:var(--font-body)] text-[14px] text-[#2A3510] focus:outline-none border-b resize-none overflow-hidden transition-colors duration-500 ${
+        className={`w-full pb-2 bg-transparent font-[family-name:var(--font-body)] text-[16px] text-[#2A3510] focus:outline-none border-b resize-none overflow-hidden transition-colors duration-500 ${
           focused ? "border-[#3A4A20]" : "border-[#D8D4CE]"
         }`}
       />

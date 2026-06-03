@@ -98,8 +98,28 @@ export function HeroSection() {
                 <br />
                 <span className="font-normal whitespace-nowrap text-[25px]">a Car?</span>
               </p>
-              <p className="font-[family-name:var(--font-body)] text-[12px] text-white/55 leading-[1.6] mt-2 text-left">
-                Browse verified listings across the UAE.
+              <p className="font-[family-name:var(--font-body)] text-[13.5px] text-white/55 leading-[1.6] mt-2 text-left">
+                Source your dream car or browse verified listings.
+              </p>
+            </div>
+            <div className="absolute right-5 bottom-5 w-10 h-10 rounded-full bg-white flex items-center justify-center">
+              <ArrowRight className="w-5 h-5 text-[#2A3510]" />
+            </div>
+          </Link>
+
+          {/* Inspection */}
+          <Link
+            href="/inspection-and-transfer"
+            className="relative bg-black/25 backdrop-blur-2xl border border-white/10 rounded-xl p-5 pr-16 block active:bg-black/35"
+          >
+            <div>
+              <p className="font-[family-name:var(--font-display)] text-[28px] leading-[1.05] tracking-[-0.02em] text-white text-left">
+                <span className="font-normal text-white">Pre-Purchase</span>
+                <br />
+                <span className="font-semibold whitespace-nowrap text-[25px] text-[#C9A84C]">Inspection</span>
+              </p>
+              <p className="font-[family-name:var(--font-body)] text-[13.5px] text-white/55 leading-[1.6] mt-2 text-left">
+                Certified checks before you commit.
               </p>
             </div>
             <div className="absolute right-5 bottom-5 w-10 h-10 rounded-full bg-white flex items-center justify-center">
@@ -118,8 +138,28 @@ export function HeroSection() {
                 <br />
                 <span className="font-normal whitespace-nowrap text-[25px]">Polish &amp; Protection</span>
               </p>
-              <p className="font-[family-name:var(--font-body)] text-[12px] text-white/55 leading-[1.6] mt-2 text-left">
+              <p className="font-[family-name:var(--font-body)] text-[13.5px] text-white/55 leading-[1.6] mt-2 text-left">
                 Full interior &amp; exterior treatment.
+              </p>
+            </div>
+            <div className="absolute right-5 bottom-5 w-10 h-10 rounded-full bg-white flex items-center justify-center">
+              <ArrowRight className="w-5 h-5 text-[#2A3510]" />
+            </div>
+          </Link>
+
+          {/* Sell */}
+          <Link
+            href="/sell"
+            className="relative bg-black/25 backdrop-blur-2xl border border-white/10 rounded-xl p-5 pr-16 block active:bg-black/35"
+          >
+            <div>
+              <p className="font-[family-name:var(--font-display)] text-[28px] leading-[1.05] tracking-[-0.02em] text-white text-left">
+                <span className="font-semibold text-[#C9A84C]">Want to Sell</span>
+                <br />
+                <span className="font-normal whitespace-nowrap text-[25px]">a Car?</span>
+              </p>
+              <p className="font-[family-name:var(--font-body)] text-[13.5px] text-white/55 leading-[1.6] mt-2 text-left">
+                Get your car&apos;s true value in minutes.
               </p>
             </div>
             <div className="absolute right-5 bottom-5 w-10 h-10 rounded-full bg-white flex items-center justify-center">
@@ -131,36 +171,66 @@ export function HeroSection() {
       </div>
 
       {/* Desktop cards */}
-      <div className="hidden md:flex absolute bottom-3.5 left-3.5 right-3.5 flex-row justify-between items-end z-10">
+      <div className="hidden md:flex absolute bottom-3.5 left-3.5 right-3.5 flex-row justify-between items-end z-10 gap-3">
 
-        {/* Buy - main size */}
-        <div className="hero-enter hero-enter-delay-3 w-[23%] bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 xl:p-8 flex flex-col gap-4 xl:gap-5">
+        {/* Buy */}
+        <div className="hero-enter hero-enter-delay-3 w-[24%] bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 xl:p-8 flex flex-col gap-4 xl:gap-5">
           <div>
-            <p className="font-[family-name:var(--font-display)] leading-[1.05] tracking-[-0.02em] text-white" style={{ fontSize: "clamp(22px, 2.3vw, 36px)" }}>
+            <p className="font-[family-name:var(--font-display)] leading-[1.05] tracking-[-0.02em] text-white" style={{ fontSize: "clamp(22px, 2.1vw, 32px)" }}>
               <span className="font-semibold text-[#C9A84C]">Want to Buy</span>
               <br />
-              <span className="font-normal whitespace-nowrap" style={{ fontSize: "clamp(17px, 1.55vw, 25px)" }}>a Car?</span>
+              <span className="font-normal whitespace-nowrap" style={{ fontSize: "clamp(16px, 1.4vw, 22px)" }}>a Car?</span>
             </p>
-            <p className="font-[family-name:var(--font-body)] text-[11px] xl:text-[12px] text-white/55 leading-[1.6] mt-1.5">
-              Browse verified listings across the UAE.
+            <p className="font-[family-name:var(--font-body)] text-[12.5px] xl:text-[13.5px] text-white/55 leading-[1.6] mt-1.5 min-h-[40px]">
+              Source your dream car or browse verified listings.
             </p>
           </div>
           <PremiumCTA href="/buy" text="Explore Listings" variant="outline" size="sm" className="w-full !min-w-0" />
         </div>
 
-        {/* Detail - main size */}
-        <div className="hero-enter hero-enter-delay-5 w-[23%] bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 xl:p-8 flex flex-col gap-4 xl:gap-5">
+        {/* Pre-Purchase Inspection */}
+        <div className="hero-enter hero-enter-delay-4 w-[24%] bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 xl:p-8 flex flex-col gap-4 xl:gap-5">
           <div>
-            <p className="font-[family-name:var(--font-display)] leading-[1.05] tracking-[-0.02em] text-white" style={{ fontSize: "clamp(22px, 2.3vw, 36px)" }}>
+            <p className="font-[family-name:var(--font-display)] leading-[1.05] tracking-[-0.02em] text-white" style={{ fontSize: "clamp(22px, 2.1vw, 32px)" }}>
+              <span className="font-normal">Pre-Purchase</span>
+              <br />
+              <span className="font-semibold text-[#C9A84C] whitespace-nowrap" style={{ fontSize: "clamp(16px, 1.4vw, 22px)" }}>Inspection</span>
+            </p>
+            <p className="font-[family-name:var(--font-body)] text-[12.5px] xl:text-[13.5px] text-white/55 leading-[1.6] mt-1.5 min-h-[40px]">
+              Certified checks before you commit.
+            </p>
+          </div>
+          <PremiumCTA href="/inspection-and-transfer" text="Inspect Now" variant="outline" size="sm" className="w-full !min-w-0" />
+        </div>
+
+        {/* Detailing */}
+        <div className="hero-enter hero-enter-delay-5 w-[24%] bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 xl:p-8 flex flex-col gap-4 xl:gap-5">
+          <div>
+            <p className="font-[family-name:var(--font-display)] leading-[1.05] tracking-[-0.02em] text-white" style={{ fontSize: "clamp(22px, 2.1vw, 32px)" }}>
               <span className="font-semibold text-[#C9A84C]">Detailing</span>
               <br />
-              <span className="font-normal whitespace-nowrap" style={{ fontSize: "clamp(17px, 1.55vw, 25px)" }}>Polish &amp; Protection</span>
+              <span className="font-normal whitespace-nowrap" style={{ fontSize: "clamp(16px, 1.4vw, 22px)" }}>Polish &amp; Protection</span>
             </p>
-            <p className="font-[family-name:var(--font-body)] text-[11px] xl:text-[12px] text-white/55 leading-[1.6] mt-1.5">
+            <p className="font-[family-name:var(--font-body)] text-[12.5px] xl:text-[13.5px] text-white/55 leading-[1.6] mt-1.5 min-h-[40px]">
               Full interior &amp; exterior treatment.
             </p>
           </div>
           <PremiumCTA href="/detailing" text="Detail Now" variant="outline" size="sm" className="w-full !min-w-0" />
+        </div>
+
+        {/* Sell */}
+        <div className="hero-enter hero-enter-delay-5 w-[24%] bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 xl:p-8 flex flex-col gap-4 xl:gap-5">
+          <div>
+            <p className="font-[family-name:var(--font-display)] leading-[1.05] tracking-[-0.02em] text-white" style={{ fontSize: "clamp(22px, 2.1vw, 32px)" }}>
+              <span className="font-semibold text-[#C9A84C]">Want to Sell</span>
+              <br />
+              <span className="font-normal whitespace-nowrap" style={{ fontSize: "clamp(16px, 1.4vw, 22px)" }}>a Car?</span>
+            </p>
+            <p className="font-[family-name:var(--font-body)] text-[12.5px] xl:text-[13.5px] text-white/55 leading-[1.6] mt-1.5 min-h-[40px]">
+              Get your car&apos;s true value in minutes.
+            </p>
+          </div>
+          <PremiumCTA href="/sell" text="Get Best Price" variant="outline" size="sm" className="w-full !min-w-0" />
         </div>
 
       </div>

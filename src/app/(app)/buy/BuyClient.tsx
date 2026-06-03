@@ -906,7 +906,13 @@ function CarCard({ car, searchQuery }: { car: Car; searchQuery?: string }) {
       <Link href={`/buy/${car.slug}`} className="flex h-full flex-col" onClick={handleCardClick}>
         <div className="relative aspect-video shrink-0 overflow-hidden">
           {imageUrl ? (
-            <img src={imageUrl} alt={car.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img
+              src={imageUrl}
+              alt={car.title}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-surface-cream">
               <span className="font-[family-name:var(--font-body)] text-[12px] text-stone-grey">No image available</span>
@@ -964,6 +970,68 @@ function CarCard({ car, searchQuery }: { car: Car; searchQuery?: string }) {
         </button>
       </div>
     </article>
+  );
+}
+
+// ── Viewport-based card rendering ─────────────────────────────────────────────
+
+const CARD_BATCH_SIZE = 4;
+const INITIAL_CARD_COUNT = 8;
+
+function getInitialCardCount() {
+  if (typeof window === "undefined") return INITIAL_CARD_COUNT;
+  const columns = window.innerWidth >= 1536 ? 3 : window.innerWidth >= 640 ? 2 : 1;
+  const visibleRows = window.innerHeight >= 900 ? 3 : 2;
+  return columns * visibleRows + CARD_BATCH_SIZE;
+}
+
+function LazyCarGrid({
+  cars,
+  searchQuery,
+  className = "",
+}: {
+  cars: Car[];
+  searchQuery?: string;
+  className?: string;
+}) {
+  const [visibleCount, setVisibleCount] = useState(() => Math.min(INITIAL_CARD_COUNT, cars.length));
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setVisibleCount(Math.min(getInitialCardCount(), cars.length));
+  }, [cars]);
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel || visibleCount >= cars.length) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setVisibleCount((count) => Math.min(count + CARD_BATCH_SIZE, cars.length));
+      },
+      {
+        // Starts loading the next batch before the user reaches the end.
+        rootMargin: "900px 0px",
+        threshold: 0,
+      },
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [cars.length, visibleCount]);
+
+  const visibleCars = cars.slice(0, visibleCount);
+
+  return (
+    <>
+      <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 xl:gap-5 ${className}`}>
+        {visibleCars.map((car) => (
+          <CarCard key={car.id} car={car} searchQuery={searchQuery} />
+        ))}
+      </div>
+      {visibleCount < cars.length && <div ref={sentinelRef} className="h-px w-full" aria-hidden="true" />}
+    </>
   );
 }
 
@@ -1158,9 +1226,11 @@ function BuyClientView({
                 </div>
               )}
               {cars.length > 0 ? (
-                <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 xl:gap-5 transition-all duration-500 ${isPending ? "opacity-30 blur-[2px]" : ""}`}>
-                  {cars.map(car => <CarCard key={car.id} car={car} searchQuery={localFilters.q} />)}
-                </div>
+                <LazyCarGrid
+                  cars={cars}
+                  searchQuery={localFilters.q}
+                  className={`transition-all duration-500 ${isPending ? "opacity-30 blur-[2px]" : ""}`}
+                />
               ) : (
                 !isPending && <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-[#2A3510]/30 text-center mb-2">No exact matches found</p>
               )}
@@ -1172,9 +1242,7 @@ function BuyClientView({
                       <h2 className="font-[family-name:var(--font-display)] text-[11px] sm:text-[16px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.25em] text-[#3A4A20]">Explore other premium listings</h2>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 xl:gap-5">
-                    {otherCars.map(car => <CarCard key={car.id} car={car} searchQuery={localFilters.q} />)}
-                  </div>
+                  <LazyCarGrid cars={otherCars} searchQuery={localFilters.q} />
                 </div>
               )}
             </div>

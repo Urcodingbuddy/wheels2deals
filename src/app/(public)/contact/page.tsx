@@ -29,9 +29,8 @@ export default function ContactPage() {
 
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const message = formData.get("message") as string;
     const phone = formData.get("phone") as string;
+    const message = formData.get("message") as string;
     const serviceLabel = services.find(s => s.id === selectedService)?.label || "General Inquiry";
 
     setIsSubmitting(true);
@@ -40,8 +39,8 @@ export default function ContactPage() {
       const { error } = await supabase.from("inquiries").insert({
         car_id: null,
         name: name.trim(),
-        email: email.trim(),
-        phone: phone.trim() || null,
+        email: "info@wheels2deals.com",
+        phone: phone?.trim() || null,
         message: `Inquiry Type: ${serviceLabel}\n\n${message.trim()}`,
         status: "new",
       });
@@ -52,9 +51,6 @@ export default function ContactPage() {
         return;
       }
 
-      const whatsappMessage = `Hi Wheels2Deals! 👋\n\n*Name:* ${name}\n*Email:* ${email}\n*Inquiry:* ${serviceLabel}\n\n*Message:* ${message}`;
-      const whatsappUrl = `https://wa.me/971561498485?text=${encodeURIComponent(whatsappMessage)}`;
-      window.open(whatsappUrl, "_blank");
       e.currentTarget.reset();
       setSelectedService("");
     } catch (err) {

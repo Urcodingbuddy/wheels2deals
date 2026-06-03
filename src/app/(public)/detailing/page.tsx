@@ -84,7 +84,7 @@ export default function DetailingPage() {
                     Ceramic Coating, Polish &amp; Protection
                   </p>
                 </div>
-                <ServiceInquiryForm serviceName="Detailing — Ceramic Coating, Polish & Protection" />
+                <ServiceInquiryForm serviceName="Detailing - Ceramic Coating, Polish & Protection" />
               </div>
             </div>
           </div>

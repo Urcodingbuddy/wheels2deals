@@ -912,7 +912,7 @@ Please contact us for more details or to schedule a viewing.`.trim();
                             const occupant = indexedCars.find((c) => c.sort_order === pos);
                             if (occupant) return (
                               <p className="font-[family-name:var(--font-body)] text-[11px] text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-lg">
-                                Position {pos} is occupied by <strong>{occupant.title}</strong> — it will be bumped to the next available slot.
+                                Position {pos} is occupied by <strong>{occupant.title}</strong> - it will be bumped to the next available slot.
                               </p>
                             );
                             return (

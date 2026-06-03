@@ -113,7 +113,7 @@ export default async function AdminDashboard() {
               Top Search
             </p>
             <p className="font-[family-name:var(--font-body)] text-[15px] font-semibold text-[#2A3510] leading-none truncate max-w-[140px]">
-              {topSearch ? topSearch.query : "—"}
+              {topSearch ? topSearch.query : "-"}
             </p>
             {topSearch && (
               <p className="font-[family-name:var(--font-body)] text-[10px] text-[#AAA] mt-0.5">
@@ -132,7 +132,7 @@ export default async function AdminDashboard() {
               Most Viewed
             </p>
             <p className="font-[family-name:var(--font-body)] text-[13px] font-semibold text-[#2A3510] leading-tight truncate max-w-[140px]">
-              {topCar?.title ?? "—"}
+              {topCar?.title ?? "-"}
             </p>
             {topCar && (
               <p className="font-[family-name:var(--font-body)] text-[10px] text-[#AAA] mt-0.5">

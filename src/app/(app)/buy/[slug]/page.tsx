@@ -160,7 +160,7 @@ export default async function CarDetailPage({
         */}
         <div className="flex flex-col lg:grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-10 lg:items-start">
 
-          {/* ── Gallery + title — order 1 on mobile, col-1 rows on desktop ── */}
+          {/* ── Gallery + title - order 1 on mobile, col-1 rows on desktop ── */}
           <div className="order-1 lg:order-none flex flex-col gap-4">
             <ImageGallery images={car.images} title={car.title} />
             <div>
@@ -173,7 +173,7 @@ export default async function CarDetailPage({
             </div>
           </div>
 
-          {/* ── Details panel — order 2 on mobile, col-2 sticky spanning all rows ── */}
+          {/* ── Details panel - order 2 on mobile, col-2 sticky spanning all rows ── */}
           <div className="order-2 lg:order-none lg:sticky lg:top-[88px] lg:col-start-2 lg:row-start-1 lg:row-span-3">
 
             {car.is_featured && (
@@ -209,7 +209,7 @@ export default async function CarDetailPage({
             <EnquireButton carId={car.id} carTitle={car.title} />
           </div>
 
-          {/* ── Video — order 3 on mobile ── */}
+          {/* ── Video - order 3 on mobile ── */}
           {car.video_url && (
             <div className="order-3 lg:order-none">
               <h3 className="font-[family-name:var(--font-body)] text-[11px] font-semibold tracking-[0.15em] uppercase text-[#888888] mb-3">
@@ -226,7 +226,7 @@ export default async function CarDetailPage({
             </div>
           )}
 
-          {/* ── About — order 4 on mobile (last), col-1 on desktop ── */}
+          {/* ── About - order 4 on mobile (last), col-1 on desktop ── */}
           {car.description && (
             <div className="order-4 lg:order-none p-4 bg-[#F6F5F1] rounded-xl border border-[#E8E4DE]">
               <h3 className="font-[family-name:var(--font-body)] text-[11px] font-bold tracking-[0.12em] uppercase text-[#3A4A20] mb-2">

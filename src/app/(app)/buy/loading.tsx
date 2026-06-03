@@ -32,20 +32,20 @@ export default function Loading() {
             <div className="h-10 w-24 animate-pulse rounded-full bg-[#E8E2D8]" />
           </div>
 
-          {/* Car grid — 6 card skeletons */}
+          {/* Car grid - 6 card skeletons */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-5">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
                 className="relative flex flex-col overflow-hidden rounded-lg border border-[#E5E0D8] bg-white shadow-sm"
               >
-                {/* Image — exact aspect-video */}
+                {/* Image - exact aspect-video */}
                 <div className="relative aspect-video animate-pulse bg-[#ECE5D9] shrink-0">
-                  {/* Condition badge — absolute top-4 left-4 */}
+                  {/* Condition badge - absolute top-4 left-4 */}
                   <div className="absolute top-4 left-4 h-6 w-24 animate-pulse rounded-full bg-[#E0D9CE]" />
                 </div>
 
-                {/* Like button — absolute top-4 right-4 */}
+                {/* Like button - absolute top-4 right-4 */}
                 <div className="absolute top-4 right-4 h-10 w-10 animate-pulse rounded-full bg-[#E0D9CE] z-10" />
 
                 {/* Card body */}

@@ -8,7 +8,7 @@ export default function Loading() {
         <div className="h-3.5 w-72 animate-pulse rounded-full bg-[#EDE8E1]" />
       </div>
 
-      {/* Summary cards — 2 cols */}
+      {/* Summary cards - 2 cols */}
       <div className="grid grid-cols-2 gap-4 mb-8">
         {Array.from({ length: 2 }).map((_, i) => (
           <div key={i} className="rounded-2xl border border-[#E8E4DE] bg-white p-5">
@@ -24,7 +24,7 @@ export default function Loading() {
         <div className="h-48 animate-pulse rounded-xl bg-[#F0EDE9]" />
       </div>
 
-      {/* Bottom charts — 2 cols */}
+      {/* Bottom charts - 2 cols */}
       <div className="grid grid-cols-2 gap-6">
         {Array.from({ length: 2 }).map((_, i) => (
           <div key={i} className="rounded-2xl border border-[#E8E4DE] bg-white p-5">

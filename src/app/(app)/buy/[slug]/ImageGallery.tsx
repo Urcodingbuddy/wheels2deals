@@ -65,7 +65,7 @@ export default function ImageGallery({
     }, 50);
   }, [stopZooming]);
 
-  // Sync thumbnail scroll — fullscreen strip
+  // Sync thumbnail scroll - fullscreen strip
   useEffect(() => {
     if (thumbnailsRef.current) {
       const activeThumb = thumbnailsRef.current.children[active] as HTMLElement;
@@ -75,7 +75,7 @@ export default function ImageGallery({
     }
   }, [active]);
 
-  // Sync thumbnail scroll — inline strip
+  // Sync thumbnail scroll - inline strip
   useEffect(() => {
     if (inlineThumbnailsRef.current) {
       const activeThumb = inlineThumbnailsRef.current.children[active] as HTMLElement;

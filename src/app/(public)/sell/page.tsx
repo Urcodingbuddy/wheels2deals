@@ -198,10 +198,6 @@ export default function HowItWorksPage() {
         status: "new"
       });
 
-      // Send to WhatsApp
-      const waText = encodeURIComponent(`Hi Wheels2Deals,\nI would like to get a valuation for my car:\n\nMake & Model: ${makeModel}\nYear: ${selectedYear || "Not specified"}\nChassis No: ${chassisNo || "Not specified"}\nKms Driven: ${kmsDriven || "Not specified"}\nGCC: ${gcc || "Not specified"}\nPhone: ${phone || "Not specified"}`);
-      window.open(`https://wa.me/971561498485?text=${waText}`, "_blank");
-
       setFormSuccess(true);
     } catch (err) {
       console.error(err);

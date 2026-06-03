@@ -148,7 +148,7 @@ export default function OrderingClient({
           {saved && <Check size={14} className="text-emerald-600" />}
           <span className="font-[family-name:var(--font-body)] text-[12px] font-semibold text-[#2A3510]">
             {isDirty
-              ? "You have unsaved changes — drag to reorder, then save"
+              ? "You have unsaved changes - drag to reorder, then save"
               : saved
               ? "Order saved successfully"
               : `${indexed.length} cars indexed · ${unindexed.length} unindexed`}
@@ -211,7 +211,7 @@ export default function OrderingClient({
                       <div className="absolute -top-[2px] left-4 right-4 h-[2px] rounded-full bg-[#C9A84C]" />
                     )}
 
-                    {/* Position badge — click to edit */}
+                    {/* Position badge - click to edit */}
                     {editingIndex === i ? (
                       <input
                         autoFocus

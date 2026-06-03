@@ -10,7 +10,7 @@ export default function Loading() {
         <div className="h-9 w-24 animate-pulse rounded-lg bg-[#E8E4DE]" />
       </div>
 
-      {/* Inventory stats — 4 cols */}
+      {/* Inventory stats - 4 cols */}
       <div className="grid grid-cols-4 gap-4 mb-6">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="bg-white rounded-xl border border-[#E0DDD8] px-5 py-4">
@@ -20,7 +20,7 @@ export default function Loading() {
         ))}
       </div>
 
-      {/* Analytics mini-stats — 3 cols */}
+      {/* Analytics mini-stats - 3 cols */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="bg-white rounded-xl border border-[#E0DDD8] px-5 py-4 flex items-center gap-4">
@@ -33,7 +33,7 @@ export default function Loading() {
         ))}
       </div>
 
-      {/* Quick links — 3 cols */}
+      {/* Quick links - 3 cols */}
       <div className="grid grid-cols-3 gap-3 mb-8">
         {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="flex items-center justify-between px-5 py-4 bg-white rounded-xl border border-[#E0DDD8]">

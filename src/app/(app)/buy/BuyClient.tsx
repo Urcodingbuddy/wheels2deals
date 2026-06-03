@@ -42,6 +42,7 @@ import {
   type BuyFilters,
 } from "./filters";
 import { KNOWN_BRANDS } from "./search";
+import FindMyCarSidebar from "./FindMyCarSidebar";
 
 type Car = Tables<"cars">;
 
@@ -704,7 +705,7 @@ function FilterRail({
                 <div className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full bg-[#C9A84C]" />
               )}
 
-              {/* Icon — no bg */}
+              {/* Icon - no bg */}
               <Icon size={18} className={`shrink-0 transition-colors duration-150 ${
                 isActive ? "text-[#C9A84C]" :
                 hasValue ? "text-[#C9A84C]" :
@@ -989,7 +990,7 @@ export default function BuyClient({
   );
 }
 
-const RAIL_WIDTH = 280;
+const RAIL_WIDTH = 200;
 
 function BuyClientView({
   cars,
@@ -1123,8 +1124,11 @@ function BuyClientView({
         </div>
       )}
 
-      <main className="min-w-0 bg-[#FCFAF6] pb-12 lg:ml-[280px]">
-        <div className="mx-auto w-full max-w-[1120px] px-6 py-6 lg:px-8 lg:py-8">
+      {/* Right concierge sidebar */}
+      <FindMyCarSidebar />
+
+      <main className="min-w-0 bg-[#FCFAF6] pb-12 lg:ml-[200px] xl:mr-[280px]">
+        <div className="w-full px-6 py-6 lg:px-8 lg:py-8">
 
             {/* Mobile filter button */}
           <div className="mb-5 lg:hidden">
@@ -1154,7 +1158,7 @@ function BuyClientView({
                 </div>
               )}
               {cars.length > 0 ? (
-                <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-5 transition-all duration-500 ${isPending ? "opacity-30 blur-[2px]" : ""}`}>
+                <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 xl:gap-5 transition-all duration-500 ${isPending ? "opacity-30 blur-[2px]" : ""}`}>
                   {cars.map(car => <CarCard key={car.id} car={car} searchQuery={localFilters.q} />)}
                 </div>
               ) : (
@@ -1168,7 +1172,7 @@ function BuyClientView({
                       <h2 className="font-[family-name:var(--font-display)] text-[11px] sm:text-[16px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.25em] text-[#3A4A20]">Explore other premium listings</h2>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-5">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 xl:gap-5">
                     {otherCars.map(car => <CarCard key={car.id} car={car} searchQuery={localFilters.q} />)}
                   </div>
                 </div>

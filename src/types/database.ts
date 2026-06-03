@@ -95,6 +95,48 @@ export type Database = {
         }
         Relationships: []
       }
+      dream_car_requests: {
+        Row: {
+          id: string
+          created_at: string
+          full_name: string
+          phone: string
+          brand: string
+          model: string | null
+          budget: string | null
+          year_range: string | null
+          timeline: string | null
+          notes: string | null
+          status: string
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          full_name: string
+          phone: string
+          brand: string
+          model?: string | null
+          budget?: string | null
+          year_range?: string | null
+          timeline?: string | null
+          notes?: string | null
+          status?: string
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          full_name?: string
+          phone?: string
+          brand?: string
+          model?: string | null
+          budget?: string | null
+          year_range?: string | null
+          timeline?: string | null
+          notes?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       inquiries: {
         Row: {
           car_id: string | null

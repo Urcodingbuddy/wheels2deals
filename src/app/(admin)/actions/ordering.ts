@@ -11,7 +11,7 @@ async function requireAdmin() {
   return supabase;
 }
 
-// Save full state — indexed cars get positions 1…n, unindexedIds get null
+// Save full state - indexed cars get positions 1…n, unindexedIds get null
 export async function saveCarOrder(ids: string[], unindexedIds: string[] = []) {
   const supabase = await requireAdmin();
 

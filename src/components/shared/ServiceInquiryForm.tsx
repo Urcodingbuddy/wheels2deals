@@ -48,15 +48,6 @@ export function ServiceInquiryForm({ serviceName }: Props) {
         return;
       }
 
-      const whatsappNumber = "971561498485";
-      const messageText =
-        `*New Service Enquiry*\n\n` +
-        `*Service:* ${serviceName}\n` +
-        `*Name:* ${form.name.trim()}\n` +
-        `*Phone:* ${form.phone.trim()}\n` +
-        `*Email:* ${form.email.trim()}`;
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`, "_blank");
-
       setSent(true);
     } catch (err) {
       console.error(err);

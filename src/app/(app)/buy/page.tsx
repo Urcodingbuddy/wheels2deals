@@ -208,7 +208,7 @@ export default async function BuyPage({
     carsQuery = carsQuery.or(orClause);
   }
 
-  // Regional specs (title ilike — best effort until DB column added)
+  // Regional specs (title ilike - best effort until DB column added)
   if (filters.specs !== "any") {
     const SPEC_KEYWORDS: Record<string, string[]> = {
       gcc:      ["GCC"],

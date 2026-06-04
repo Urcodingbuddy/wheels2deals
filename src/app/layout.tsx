@@ -55,10 +55,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/circle_logo.ico" },
-      { url: "/circle_logo.png", type: "image/png" },
+      { url: "/favicon.ico" },
+      { url: "/logo-circle.png", type: "image/png" },
     ],
-    apple: [{ url: "/circle_logo.png" }],
+    apple: [{ url: "/logo-circle.png" }],
   },
   openGraph: {
     type: "website",
@@ -132,7 +132,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               name: siteConfig.name,
               alternateName: siteConfig.shortName,
               url: siteConfig.domain,
-              logo: absoluteUrl("/circle_logo.png"),
+              logo: absoluteUrl("/logo-circle.png"),
               image: absoluteUrl("/opengraph-image"),
               description: siteConfig.description,
               telephone: siteConfig.phone,

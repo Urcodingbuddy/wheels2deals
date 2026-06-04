@@ -27,7 +27,7 @@ export default async function Image({
 
   if (!car) notFound();
 
-  const logoBuffer = await readFile(join(process.cwd(), "public", "circle_logo.png"));
+  const logoBuffer = await readFile(join(process.cwd(), "public", "logo-circle.png"));
   const logoSrc = `data:image/png;base64,${logoBuffer.toString("base64")}`;
   const heroImage = car.images[0] ?? null;
 
@@ -107,7 +107,7 @@ export default async function Image({
             >
               Wheels2Deals Verified Listing
             </div>
-            <img src={logoSrc} alt="Wheels2Deals" width={100} height={100} />
+            <img src={logoSrc} alt="Wheels2Deals" width={127} height={127} />
           </div>
           <div
             style={{

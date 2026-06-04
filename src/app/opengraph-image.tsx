@@ -11,7 +11,7 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image() {
-  const logoBuffer = await readFile(join(process.cwd(), "public", "circle_logo.png"));
+  const logoBuffer = await readFile(join(process.cwd(), "public", "logo-circle.png"));
   const logoSrc = `data:image/png;base64,${logoBuffer.toString("base64")}`;
 
   return new ImageResponse(
@@ -91,22 +91,18 @@ export default async function Image() {
           </div>
           <div
             style={{
-              width: 280,
-              height: 280,
+              width: 355,
+              height: 355,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              borderRadius: 999,
-              background: "rgba(255,255,255,0.08)",
-              border: "1px solid rgba(255,255,255,0.12)",
-              boxShadow: "0 0 80px rgba(201,168,76,0.24)",
             }}
           >
             <img
               src={logoSrc}
               alt={siteConfig.name}
-              width={220}
-              height={220}
+              width={279}
+              height={279}
               style={{ objectFit: "contain" }}
             />
           </div>

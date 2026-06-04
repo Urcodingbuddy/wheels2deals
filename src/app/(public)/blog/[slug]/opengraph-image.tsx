@@ -21,7 +21,7 @@ export default async function Image({
 
   if (!blog) notFound();
 
-  const logoBuffer = await readFile(join(process.cwd(), "public", "circle_logo.png"));
+  const logoBuffer = await readFile(join(process.cwd(), "public", "logo-circle.png"));
   const logoSrc = `data:image/png;base64,${logoBuffer.toString("base64")}`;
 
   return new ImageResponse(
@@ -97,8 +97,8 @@ export default async function Image({
             <img
               src={logoSrc}
               alt="Wheels2Deals"
-              width={110}
-              height={110}
+              width={140}
+              height={140}
               style={{ objectFit: "contain" }}
             />
           </div>

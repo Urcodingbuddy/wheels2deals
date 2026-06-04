@@ -82,7 +82,7 @@ export default function BlogDetailPage() {
               name: "Wheels2Deals",
               logo: {
                 "@type": "ImageObject",
-                url: absoluteUrl("/circle_logo.png"),
+                url: absoluteUrl("/logo-circle.png"),
               },
             },
             mainEntityOfPage: absoluteUrl(`/blog/${blog.slug}`),

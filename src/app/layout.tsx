@@ -82,6 +82,9 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [absoluteUrl("/twitter-image")],
   },
+  other: {
+    "og:logo": absoluteUrl("/logo-circle.png"),
+  },
 };
 
 export default function RootLayout({

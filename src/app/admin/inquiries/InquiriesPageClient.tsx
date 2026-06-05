@@ -20,7 +20,7 @@ export default function InquiriesPageClient({
 }) {
   const [tab, setTab] = useState<Tab>("inquiries");
 
-  const newDreamCars = requests.filter(r => r.status === "new").length;
+  const newDreamCars = requests.filter(r => r.status === "new" && !r.deleted_at).length;
   const newInquiries = counts.new;
 
   return (

@@ -43,7 +43,7 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-black/50 z-[1] pointer-events-none" />
 
       {/* Center content - cards are inline on mobile, hidden on desktop */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 gap-3 pt-24 pb-8 md:absolute md:flex-none md:inset-x-0 md:top-1/2 md:-translate-y-1/2 md:pt-0 md:pb-0">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 gap-2.5 pt-20 pb-5 md:absolute md:flex-none md:inset-x-0 md:top-1/2 md:-translate-y-1/2 md:pt-0 md:pb-0">
         {/* Brand headline */}
         <h1
           className="hero-enter hero-enter-delay-2 font-[family-name:var(--font-display)] font-semibold leading-[0.95] tracking-[-0.04em] select-none"
@@ -90,80 +90,80 @@ export function HeroSection() {
           {/* Buy */}
           <Link
             href="/buy"
-            className="relative bg-black/25 backdrop-blur-2xl border border-white/10 rounded-xl p-5 pr-16 block active:bg-black/35"
+            className="relative bg-black/25 backdrop-blur-2xl border border-white/10 rounded-xl p-3.5 pr-14 block active:bg-black/35"
           >
             <div>
-              <p className="font-[family-name:var(--font-display)] text-[28px] leading-[1.05] tracking-[-0.02em] text-white text-left">
+              <p className="font-[family-name:var(--font-display)] text-[22px] leading-[1.05] tracking-[-0.02em] text-white text-left">
                 <span className="font-semibold text-[#C9A84C]">Want to Buy</span>
                 <br />
-                <span className="font-normal whitespace-nowrap text-[25px]">a Car?</span>
+                <span className="font-normal whitespace-nowrap text-[19px]">a Car?</span>
               </p>
-              <p className="font-[family-name:var(--font-body)] text-[13.5px] text-white/55 leading-[1.6] mt-2 text-left">
+              <p className="font-[family-name:var(--font-body)] text-[12px] text-white/55 leading-[1.45] mt-1 text-left">
                 Source your dream car or browse verified listings.
               </p>
             </div>
-            <div className="absolute right-5 bottom-5 w-10 h-10 rounded-full bg-white flex items-center justify-center">
-              <ArrowRight className="w-5 h-5 text-[#2A3510]" />
+            <div className="absolute right-4 bottom-4 w-9 h-9 rounded-full bg-white flex items-center justify-center">
+              <ArrowRight className="w-4 h-4 text-[#2A3510]" />
             </div>
           </Link>
 
           {/* Inspection */}
           <Link
             href="/inspection-and-transfer"
-            className="relative bg-black/25 backdrop-blur-2xl border border-white/10 rounded-xl p-5 pr-16 block active:bg-black/35"
+            className="relative bg-black/25 backdrop-blur-2xl border border-white/10 rounded-xl p-3.5 pr-14 block active:bg-black/35"
           >
             <div>
-              <p className="font-[family-name:var(--font-display)] text-[28px] leading-[1.05] tracking-[-0.02em] text-white text-left">
+              <p className="font-[family-name:var(--font-display)] text-[22px] leading-[1.05] tracking-[-0.02em] text-white text-left">
                 <span className="font-normal text-white">Pre-Purchase</span>
                 <br />
-                <span className="font-semibold whitespace-nowrap text-[25px] text-[#C9A84C]">Inspection</span>
+                <span className="font-semibold whitespace-nowrap text-[19px] text-[#C9A84C]">Inspection</span>
               </p>
-              <p className="font-[family-name:var(--font-body)] text-[13.5px] text-white/55 leading-[1.6] mt-2 text-left">
+              <p className="font-[family-name:var(--font-body)] text-[12px] text-white/55 leading-[1.45] mt-1 text-left">
                 Certified checks before you commit.
               </p>
             </div>
-            <div className="absolute right-5 bottom-5 w-10 h-10 rounded-full bg-white flex items-center justify-center">
-              <ArrowRight className="w-5 h-5 text-[#2A3510]" />
+            <div className="absolute right-4 bottom-4 w-9 h-9 rounded-full bg-white flex items-center justify-center">
+              <ArrowRight className="w-4 h-4 text-[#2A3510]" />
             </div>
           </Link>
 
           {/* Detail */}
           <Link
             href="/detailing"
-            className="relative bg-black/25 backdrop-blur-2xl border border-white/10 rounded-xl p-5 pr-16 block active:bg-black/35"
+            className="relative bg-black/25 backdrop-blur-2xl border border-white/10 rounded-xl p-3.5 pr-14 block active:bg-black/35"
           >
             <div>
-              <p className="font-[family-name:var(--font-display)] text-[28px] leading-[1.05] tracking-[-0.02em] text-white text-left">
+              <p className="font-[family-name:var(--font-display)] text-[22px] leading-[1.05] tracking-[-0.02em] text-white text-left">
                 <span className="font-semibold text-[#C9A84C]">Detailing</span>
                 <br />
-                <span className="font-normal whitespace-nowrap text-[25px]">Polish &amp; Protection</span>
+                <span className="font-normal whitespace-nowrap text-[19px]">Polish &amp; Protection</span>
               </p>
-              <p className="font-[family-name:var(--font-body)] text-[13.5px] text-white/55 leading-[1.6] mt-2 text-left">
+              <p className="font-[family-name:var(--font-body)] text-[12px] text-white/55 leading-[1.45] mt-1 text-left">
                 Full interior &amp; exterior treatment.
               </p>
             </div>
-            <div className="absolute right-5 bottom-5 w-10 h-10 rounded-full bg-white flex items-center justify-center">
-              <ArrowRight className="w-5 h-5 text-[#2A3510]" />
+            <div className="absolute right-4 bottom-4 w-9 h-9 rounded-full bg-white flex items-center justify-center">
+              <ArrowRight className="w-4 h-4 text-[#2A3510]" />
             </div>
           </Link>
 
           {/* Sell */}
           <Link
             href="/sell"
-            className="relative bg-black/25 backdrop-blur-2xl border border-white/10 rounded-xl p-5 pr-16 block active:bg-black/35"
+            className="relative bg-black/25 backdrop-blur-2xl border border-white/10 rounded-xl p-3.5 pr-14 block active:bg-black/35"
           >
             <div>
-              <p className="font-[family-name:var(--font-display)] text-[28px] leading-[1.05] tracking-[-0.02em] text-white text-left">
+              <p className="font-[family-name:var(--font-display)] text-[22px] leading-[1.05] tracking-[-0.02em] text-white text-left">
                 <span className="font-semibold text-[#C9A84C]">Want to Sell</span>
                 <br />
-                <span className="font-normal whitespace-nowrap text-[25px]">a Car?</span>
+                <span className="font-normal whitespace-nowrap text-[19px]">a Car?</span>
               </p>
-              <p className="font-[family-name:var(--font-body)] text-[13.5px] text-white/55 leading-[1.6] mt-2 text-left">
+              <p className="font-[family-name:var(--font-body)] text-[12px] text-white/55 leading-[1.45] mt-1 text-left">
                 Get your car&apos;s true value in minutes.
               </p>
             </div>
-            <div className="absolute right-5 bottom-5 w-10 h-10 rounded-full bg-white flex items-center justify-center">
-              <ArrowRight className="w-5 h-5 text-[#2A3510]" />
+            <div className="absolute right-4 bottom-4 w-9 h-9 rounded-full bg-white flex items-center justify-center">
+              <ArrowRight className="w-4 h-4 text-[#2A3510]" />
             </div>
           </Link>
 

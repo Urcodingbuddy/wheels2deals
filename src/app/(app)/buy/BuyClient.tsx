@@ -42,7 +42,6 @@ import {
   type BuyFilters,
 } from "./filters";
 import { KNOWN_BRANDS } from "./search";
-import FindMyCarSidebar from "./FindMyCarSidebar";
 
 type Car = Tables<"cars">;
 
@@ -250,13 +249,17 @@ function FlyoutContent({
   sectionKey,
   filters,
   onUpdate,
+  onClose,
   mobile = false,
 }: {
   sectionKey: SectionKey;
   filters: BuyFilters;
   onUpdate: (f: BuyFilters) => void;
+  onClose?: () => void;
   mobile?: boolean;
 }) {
+  // Apply a value and close the flyout — used by single-choice sections only
+  const selectAndClose = (f: BuyFilters) => { onUpdate(f); onClose?.(); };
   const [brandOpen, setBrandOpen] = useState(false);
   const [brandSearch, setBrandSearch] = useState("");
   const [modelOpen, setModelOpen] = useState(false);
@@ -317,7 +320,7 @@ function FlyoutContent({
             const on = (filters.category ?? "") === opt.value;
             return (
               <button key={opt.value} type="button"
-                onClick={() => onUpdate({ ...filters, category: (opt.value as any) || null })}
+                onClick={() => selectAndClose({ ...filters, category: (opt.value as any) || null })}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-[16px] font-medium transition-colors ${on ? "text-[#C9A84C] font-semibold bg-[#C9A84C]/8" : "text-[#4A453E] hover:bg-[#F5F2EC] hover:text-[#2A3510]"}`}>
                 <span>{opt.label}</span>
                 {on && <Check size={18} className="text-[#C9A84C] shrink-0" />}
@@ -335,7 +338,7 @@ function FlyoutContent({
             const on = filters.city === city;
             return (
               <button key={city || "all"} type="button"
-                onClick={() => onUpdate({ ...filters, city })}
+                onClick={() => selectAndClose({ ...filters, city })}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-[16px] font-medium transition-colors ${on ? "text-[#C9A84C] font-semibold bg-[#C9A84C]/8" : "text-[#4A453E] hover:bg-[#F5F2EC] hover:text-[#2A3510]"}`}>
                 <span>{city || "All Cities"}</span>
                 {on && <Check size={18} className="text-[#C9A84C] shrink-0" />}
@@ -380,7 +383,7 @@ function FlyoutContent({
                   {!modelSearch && (
                     <button
                       type="button"
-                      onClick={() => onUpdate({ ...filters, model: "" })}
+                      onClick={() => selectAndClose({ ...filters, model: "" })}
                       className={`${mobile ? "col-span-2" : ""} text-left px-3 py-2 rounded-lg ${mobile ? "text-[14px]" : "text-[16px]"} font-medium transition-colors ${!filters.model ? "text-[#C9A84C] font-semibold bg-[#C9A84C]/8" : "text-[#4A453E] hover:bg-[#F5F2EC] hover:text-[#2A3510]"}`}
                     >
                       All Models
@@ -390,7 +393,7 @@ function FlyoutContent({
                     <button
                       key={model}
                       type="button"
-                      onClick={() => onUpdate({ ...filters, model })}
+                      onClick={() => selectAndClose({ ...filters, model })}
                       className={`text-left px-3 py-2 rounded-lg ${mobile ? "text-[14px] truncate" : "text-[16px]"} font-medium transition-colors ${filters.model === model ? "text-[#2A3510] font-semibold bg-[#2A3510]/8" : "text-[#4A453E] hover:bg-[#F5F2EC] hover:text-[#2A3510]"}`}
                     >
                       {model}
@@ -528,7 +531,7 @@ function FlyoutContent({
             const on = filters.kmRange === opt.value;
             return (
               <button key={opt.value} type="button"
-                onClick={() => onUpdate({ ...filters, kmRange: opt.value })}
+                onClick={() => selectAndClose({ ...filters, kmRange: opt.value })}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-[16px] font-medium transition-colors ${on ? "text-[#C9A84C] font-semibold bg-[#C9A84C]/8" : "text-[#4A453E] hover:bg-[#F5F2EC] hover:text-[#2A3510]"}`}>
                 <span>{opt.label}</span>
                 {on && <Check size={18} className="text-[#C9A84C] shrink-0" />}
@@ -545,7 +548,7 @@ function FlyoutContent({
             const on = filters.specs === opt.value;
             return (
               <button key={opt.value} type="button"
-                onClick={() => onUpdate({ ...filters, specs: opt.value })}
+                onClick={() => selectAndClose({ ...filters, specs: opt.value })}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-[16px] font-medium transition-colors ${on ? "text-[#C9A84C] font-semibold bg-[#C9A84C]/8" : "text-[#4A453E] hover:bg-[#F5F2EC] hover:text-[#2A3510]"}`}>
                 <span>{opt.label}</span>
                 {on && <Check size={18} className="text-[#C9A84C] shrink-0" />}
@@ -586,7 +589,7 @@ function FlyoutContent({
             const on = filters.transmission === opt.value;
             return (
               <button key={opt.value} type="button"
-                onClick={() => onUpdate({ ...filters, transmission: opt.value as BuyFilters["transmission"] })}
+                onClick={() => selectAndClose({ ...filters, transmission: opt.value as BuyFilters["transmission"] })}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-[16px] font-medium transition-colors ${on ? "text-[#C9A84C] font-semibold bg-[#C9A84C]/8" : "text-[#4A453E] hover:bg-[#F5F2EC] hover:text-[#2A3510]"}`}>
                 <span>{opt.label}</span>
                 {on && <Check size={18} className="text-[#C9A84C] shrink-0" />}
@@ -655,12 +658,12 @@ function FlyoutContent({
 function FilterRail({
   filters,
   activeSection,
-  onHoverSection,
+  onSelectSection,
   onReset,
 }: {
   filters: BuyFilters;
   activeSection: SectionKey | null;
-  onHoverSection: (key: SectionKey) => void;
+  onSelectSection: (key: SectionKey) => void;
   onReset: () => void;
 }) {
   const totalActive = FILTER_SECTIONS.filter(s => sectionHasValue(s.key, filters)).length;
@@ -695,7 +698,7 @@ function FilterRail({
             <button
               key={key}
               type="button"
-              onMouseEnter={() => onHoverSection(key)}
+              onClick={() => onSelectSection(key)}
               className={`group relative flex w-full items-center gap-4 px-4 py-2.5 text-left transition-all duration-150 ${
                 isActive ? "bg-white" : "hover:bg-[#F7F4EF]"
               }`}
@@ -744,16 +747,14 @@ function FilterFlyout({
   activeSection,
   filters,
   onUpdate,
-  onMouseEnter,
-  onMouseLeave,
+  onClose,
   railWidth,
   isClosing,
 }: {
   activeSection: SectionKey;
   filters: BuyFilters;
   onUpdate: (f: BuyFilters) => void;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
+  onClose: () => void;
   railWidth: number;
   isClosing?: boolean;
 }) {
@@ -778,14 +779,13 @@ function FilterFlyout({
 
   return (
     <div
-      className={`fixed top-[72px] h-[calc(100vh-72px)] flex flex-col overflow-hidden bg-white border-r border-[#E5DDD0] z-[29] duration-150 ${
+      data-filter-flyout
+      className={`fixed top-[72px] h-[calc(100vh-72px)] flex flex-col overflow-hidden bg-white border-r border-[#E5DDD0] z-[29] duration-300 ease-out ${
         isClosing
-          ? "animate-out slide-out-to-left-2 fade-out"
-          : "animate-in slide-in-from-left-2 fade-in"
+          ? "animate-out slide-out-to-left-[280px]"
+          : "animate-in slide-in-from-left-[280px]"
       }`}
       style={{ left: railWidth, width: 280, boxShadow: "4px 0 24px rgba(42,53,16,0.08)" }}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
     >
       {/* Flyout header */}
       <div className="sticky top-0 bg-white border-b border-[#EAE6DF] px-5 py-4 z-10">
@@ -811,6 +811,7 @@ function FilterFlyout({
           sectionKey={activeSection}
           filters={filters}
           onUpdate={onUpdate}
+          onClose={onClose}
         />
       </div>
     </div>
@@ -1058,7 +1059,7 @@ export default function BuyClient({
   );
 }
 
-const RAIL_WIDTH = 200;
+const RAIL_WIDTH = 240;
 
 function BuyClientView({
   cars,
@@ -1085,34 +1086,41 @@ function BuyClientView({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(filters)]);
 
-  // Flyout hover state
+  // Flyout click state
   const [activeSection, setActiveSection] = useState<SectionKey | null>(null);
   const [flyoutClosing, setFlyoutClosing] = useState(false);
-  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const closingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const openFlyout = (key: SectionKey) => {
-    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+  const closeFlyout = () => {
+    setFlyoutClosing(true);
     if (closingTimerRef.current) clearTimeout(closingTimerRef.current);
-    setFlyoutClosing(false);
-    setActiveSection(key);
+    closingTimerRef.current = setTimeout(() => {
+      setActiveSection(null);
+      setFlyoutClosing(false);
+    }, 200);
   };
 
-  const scheduleFlyoutClose = () => {
-    closeTimerRef.current = setTimeout(() => {
-      setFlyoutClosing(true);
-      closingTimerRef.current = setTimeout(() => {
-        setActiveSection(null);
-        setFlyoutClosing(false);
-      }, 150);
-    }, 220);
+  const toggleFlyout = (key: SectionKey) => {
+    if (closingTimerRef.current) clearTimeout(closingTimerRef.current);
+    if (activeSection === key && !flyoutClosing) {
+      closeFlyout();
+    } else {
+      setFlyoutClosing(false);
+      setActiveSection(key);
+    }
   };
 
-  const cancelFlyoutClose = () => {
-    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    if (closingTimerRef.current) clearTimeout(closingTimerRef.current);
-    setFlyoutClosing(false);
-  };
+  // Close the flyout when clicking outside the rail / flyout
+  useEffect(() => {
+    if (!activeSection) return;
+    const handler = (e: MouseEvent) => {
+      const t = e.target as Element | null;
+      if (t?.closest?.("[data-filter-rail],[data-filter-flyout]")) return;
+      closeFlyout();
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [activeSection]);
 
   const activeFilters = useMemo(() => {
     const items: Array<{ key: ActiveFilterKey; value?: string; label: string }> = [];
@@ -1164,15 +1172,15 @@ function BuyClientView({
 
       {/* Desktop rail sidebar */}
       <aside
+        data-filter-rail
         className="hidden lg:flex flex-col fixed left-0 top-[72px] h-[calc(100vh-72px)] shrink-0 bg-[#FBF8F2] border-r border-[#E5DDD0] z-30 overflow-y-auto custom-scrollbar"
         style={{ width: RAIL_WIDTH }}
-        onMouseLeave={scheduleFlyoutClose}
         onWheel={e => e.stopPropagation()}
       >
         <FilterRail
           filters={localFilters}
           activeSection={activeSection}
-          onHoverSection={openFlyout}
+          onSelectSection={toggleFlyout}
           onReset={resetAll}
         />
       </aside>
@@ -1184,19 +1192,15 @@ function BuyClientView({
             activeSection={activeSection}
             filters={localFilters}
             onUpdate={applyFilters}
-            onMouseEnter={cancelFlyoutClose}
-            onMouseLeave={scheduleFlyoutClose}
+            onClose={closeFlyout}
             railWidth={RAIL_WIDTH}
             isClosing={flyoutClosing}
           />
         </div>
       )}
 
-      {/* Right concierge sidebar */}
-      <FindMyCarSidebar />
-
-      <main className="min-w-0 bg-[#FCFAF6] pb-12 lg:ml-[200px] xl:mr-[280px]">
-        <div className="w-full px-6 py-6 lg:px-8 lg:py-8">
+      <main className="min-w-0 bg-[#FCFAF6] pb-12 lg:ml-[240px]">
+        <div className="w-full px-6 py-6 lg:px-8 lg:py-8 xl:px-12 2xl:px-20">
 
             {/* Mobile filter button */}
           <div className="mb-5 lg:hidden">

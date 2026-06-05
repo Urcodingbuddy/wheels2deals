@@ -38,12 +38,63 @@ export async function deleteDreamCarRequest(
     const { supabase } = await requireAdmin();
     const { error } = await supabase
       .from("dream_car_requests")
+      .update({ deleted_at: new Date().toISOString() })
+      .eq("id", id);
+    if (error) return { success: false, error: error.message };
+    revalidatePath("/admin/cars");
+    revalidatePath("/admin/inquiries");
+    return { success: true };
+  } catch (e) {
+    return { success: false, error: String(e) };
+  }
+}
+
+export async function restoreDreamCarRequest(
+  id: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const { supabase } = await requireAdmin();
+    const { error } = await supabase
+      .from("dream_car_requests")
+      .update({ deleted_at: null })
+      .eq("id", id);
+    if (error) return { success: false, error: error.message };
+    revalidatePath("/admin/cars");
+    revalidatePath("/admin/inquiries");
+    return { success: true };
+  } catch (e) {
+    return { success: false, error: String(e) };
+  }
+}
+
+export async function permanentDeleteDreamCarRequest(
+  id: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const { supabase } = await requireAdmin();
+    const { error } = await supabase
+      .from("dream_car_requests")
       .delete()
       .eq("id", id);
     if (error) return { success: false, error: error.message };
     revalidatePath("/admin/cars");
+    revalidatePath("/admin/inquiries");
     return { success: true };
   } catch (e) {
     return { success: false, error: String(e) };
+  }
+}
+
+export async function purgeExpiredDreamCarRequests(): Promise<void> {
+  try {
+    const { supabase } = await requireAdmin();
+    const cutoff = new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString();
+    await supabase
+      .from("dream_car_requests")
+      .delete()
+      .not("deleted_at", "is", null)
+      .lt("deleted_at", cutoff);
+  } catch {
+    // non-critical background cleanup - fail silently
   }
 }

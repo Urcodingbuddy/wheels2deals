@@ -1,11 +1,12 @@
 import { createClient } from "@/lib/server";
 import { purgeExpiredInquiries } from "@/app/(admin)/actions/inquiry";
+import { purgeExpiredDreamCarRequests } from "@/app/(admin)/actions/dream-car-request";
 import InquiriesClient from "./InquiriesClient";
 import InquiriesPageClient from "./InquiriesPageClient";
 import type { DreamCarRow } from "../cars/DreamCarRequestsTable";
 
 export default async function AdminInquiriesPage() {
-  await purgeExpiredInquiries();
+  await Promise.all([purgeExpiredInquiries(), purgeExpiredDreamCarRequests()]);
 
   const supabase = await createClient();
 
@@ -16,7 +17,7 @@ export default async function AdminInquiriesPage() {
       .order("created_at", { ascending: false }),
     supabase
       .from("dream_car_requests")
-      .select("id, created_at, full_name, phone, brand, model, budget, year_range, timeline, notes, status")
+      .select("id, created_at, full_name, phone, brand, model, budget, year_range, timeline, notes, status, deleted_at")
       .order("created_at", { ascending: false }),
   ]);
 

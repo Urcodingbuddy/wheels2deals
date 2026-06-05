@@ -3,8 +3,12 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { FaWhatsapp } from "react-icons/fa6";
-import { Trash2, Star, Inbox, X, Phone, PanelRightOpen, ChevronRight } from "lucide-react";
-import { updateDreamCarStatus, deleteDreamCarRequest, type DreamCarStatus } from "@/app/(admin)/actions/dream-car-request";
+import { Trash2, Star, Inbox, X, Phone, PanelRightOpen, ChevronRight, RotateCcw } from "lucide-react";
+import {
+  updateDreamCarStatus, deleteDreamCarRequest,
+  restoreDreamCarRequest, permanentDeleteDreamCarRequest,
+  type DreamCarStatus,
+} from "@/app/(admin)/actions/dream-car-request";
 
 export type DreamCarRow = {
   id: string;
@@ -18,6 +22,7 @@ export type DreamCarRow = {
   timeline: string | null;
   notes: string | null;
   status: DreamCarStatus;
+  deleted_at: string | null;
 };
 
 const STATUS_CONFIG: Record<DreamCarStatus, { badge: string; label: string; next: DreamCarStatus | null; nextLabel: string | null }> = {
@@ -60,14 +65,19 @@ function DetailDrawer({
   onClose,
   onAdvance,
   onDelete,
+  onRestore,
+  onPermanentDelete,
   busy,
 }: {
   req: DreamCarRow;
   onClose: () => void;
   onAdvance: (req: DreamCarRow) => void;
   onDelete: (id: string) => void;
+  onRestore: (id: string) => void;
+  onPermanentDelete: (id: string) => void;
   busy: boolean;
 }) {
+  const isDeleted = !!req.deleted_at;
   const cfg = STATUS_CONFIG[req.status];
   const { date, time } = formatDate(req.created_at);
 
@@ -171,24 +181,47 @@ function DetailDrawer({
 
         {/* ── FOOTER ── */}
         <div className="shrink-0 px-5 py-4 border-t border-[#EDEAE6] flex items-center gap-3">
-          <button
-            onClick={() => onDelete(req.id)}
-            disabled={busy}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-red-50 hover:bg-red-100 border border-red-200 transition-colors cursor-pointer shrink-0 disabled:opacity-40"
-            title="Delete request"
-          >
-            <Trash2 size={15} strokeWidth={1.8} className="text-red-500" />
-          </button>
+          {isDeleted ? (
+            <>
+              <button
+                onClick={() => onPermanentDelete(req.id)}
+                disabled={busy}
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-red-50 hover:bg-red-100 border border-red-200 transition-colors cursor-pointer shrink-0 disabled:opacity-40"
+                title="Delete permanently"
+              >
+                <Trash2 size={15} strokeWidth={1.8} className="text-red-500" />
+              </button>
+              <button
+                onClick={() => onRestore(req.id)}
+                disabled={busy}
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full bg-[#2A3510] text-white font-[family-name:var(--font-body)] text-[12px] font-bold tracking-[0.08em] uppercase hover:bg-[#3A4A20] transition-colors disabled:opacity-40 cursor-pointer border-none"
+              >
+                <RotateCcw className="w-4 h-4" />
+                Restore
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => onDelete(req.id)}
+                disabled={busy}
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-red-50 hover:bg-red-100 border border-red-200 transition-colors cursor-pointer shrink-0 disabled:opacity-40"
+                title="Move to deleted"
+              >
+                <Trash2 size={15} strokeWidth={1.8} className="text-red-500" />
+              </button>
 
-          <a
-            href={waHref(req.phone)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full bg-[#25D366] text-white font-[family-name:var(--font-body)] text-[12px] font-bold tracking-[0.08em] uppercase hover:bg-[#1fbd5a] transition-colors no-underline"
-          >
-            <FaWhatsapp className="w-4 h-4" />
-            WhatsApp
-          </a>
+              <a
+                href={waHref(req.phone)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full bg-[#25D366] text-white font-[family-name:var(--font-body)] text-[12px] font-bold tracking-[0.08em] uppercase hover:bg-[#1fbd5a] transition-colors no-underline"
+              >
+                <FaWhatsapp className="w-4 h-4" />
+                WhatsApp
+              </a>
+            </>
+          )}
         </div>
       </div>
     </>
@@ -197,13 +230,13 @@ function DetailDrawer({
 
 // ─── Main component ────────────────────────────────────────────────────────────
 
-type StatusFilter = DreamCarStatus | "all";
+type StatusFilter = DreamCarStatus | "all" | "deleted";
 
 const FILTER_TABS: { key: StatusFilter; label: string }[] = [
   { key: "all",       label: "All"       },
   { key: "new",       label: "New"       },
   { key: "contacted", label: "Contacted" },
-  { key: "fulfilled", label: "Fulfilled" },
+  { key: "deleted",   label: "Deleted"   },
 ];
 
 export default function DreamCarRequestsTable({ requests }: { requests: DreamCarRow[] }) {
@@ -213,14 +246,20 @@ export default function DreamCarRequestsTable({ requests }: { requests: DreamCar
   const [filter, setFilter] = useState<StatusFilter>("all");
   const [actionId, setActionId] = useState<string | null>(null);
 
+  const active = requests.filter(r => !r.deleted_at);
+
   const counts = {
-    all:       requests.length,
-    new:       requests.filter(r => r.status === "new").length,
-    contacted: requests.filter(r => r.status === "contacted").length,
-    fulfilled: requests.filter(r => r.status === "fulfilled").length,
+    all:       active.length,
+    new:       active.filter(r => r.status === "new").length,
+    contacted: active.filter(r => r.status === "contacted").length,
+    fulfilled: active.filter(r => r.status === "fulfilled").length,
+    deleted:   requests.filter(r => r.deleted_at).length,
   };
 
-  const filtered = filter === "all" ? requests : requests.filter(r => r.status === filter);
+  const filtered =
+    filter === "deleted" ? requests.filter(r => r.deleted_at)
+    : filter === "all"   ? active
+    : active.filter(r => r.status === filter);
   const selected = requests.find(r => r.id === selectedId) ?? null;
 
   function advanceStatus(req: DreamCarRow) {
@@ -235,11 +274,31 @@ export default function DreamCarRequestsTable({ requests }: { requests: DreamCar
   }
 
   function handleDelete(id: string) {
-    if (!confirm("Delete this request permanently?")) return;
     setSelectedId(null);
     setActionId(id);
     startTransition(async () => {
       await deleteDreamCarRequest(id);
+      router.refresh();
+      setActionId(null);
+    });
+  }
+
+  function handleRestore(id: string) {
+    setSelectedId(null);
+    setActionId(id);
+    startTransition(async () => {
+      await restoreDreamCarRequest(id);
+      router.refresh();
+      setActionId(null);
+    });
+  }
+
+  function handlePermanentDelete(id: string) {
+    if (!confirm("Permanently delete this request? This cannot be undone.")) return;
+    setSelectedId(null);
+    setActionId(id);
+    startTransition(async () => {
+      await permanentDeleteDreamCarRequest(id);
       router.refresh();
       setActionId(null);
     });
@@ -409,16 +468,37 @@ export default function DreamCarRequestsTable({ requests }: { requests: DreamCar
                         </span>
                       </td>
 
-                      {/* Delete */}
-                      <td className="px-4 py-4" onClick={e => e.stopPropagation()}>
-                        <button
-                          onClick={() => handleDelete(req.id)}
-                          disabled={busy}
-                          className="w-8 h-8 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 bg-transparent hover:bg-red-50 border-none transition-all cursor-pointer disabled:opacity-40"
-                          title="Delete request"
-                        >
-                          <Trash2 size={14} strokeWidth={1.8} className="text-red-400" />
-                        </button>
+                      {/* Delete / Restore */}
+                      <td className="px-4 py-4 whitespace-nowrap" onClick={e => e.stopPropagation()}>
+                        {req.deleted_at ? (
+                          <div className="flex items-center gap-1">
+                            <button
+                              onClick={() => handleRestore(req.id)}
+                              disabled={busy}
+                              className="w-8 h-8 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 bg-transparent hover:bg-[#E4EBCE] border-none transition-all cursor-pointer disabled:opacity-40"
+                              title="Restore request"
+                            >
+                              <RotateCcw size={14} strokeWidth={1.8} className="text-[#4A6020]" />
+                            </button>
+                            <button
+                              onClick={() => handlePermanentDelete(req.id)}
+                              disabled={busy}
+                              className="w-8 h-8 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 bg-transparent hover:bg-red-50 border-none transition-all cursor-pointer disabled:opacity-40"
+                              title="Delete permanently"
+                            >
+                              <Trash2 size={14} strokeWidth={1.8} className="text-red-400" />
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => handleDelete(req.id)}
+                            disabled={busy}
+                            className="w-8 h-8 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 bg-transparent hover:bg-red-50 border-none transition-all cursor-pointer disabled:opacity-40"
+                            title="Move to deleted"
+                          >
+                            <Trash2 size={14} strokeWidth={1.8} className="text-red-400" />
+                          </button>
+                        )}
                       </td>
                     </tr>
                   );
@@ -436,6 +516,8 @@ export default function DreamCarRequestsTable({ requests }: { requests: DreamCar
           onClose={() => setSelectedId(null)}
           onAdvance={advanceStatus}
           onDelete={handleDelete}
+          onRestore={handleRestore}
+          onPermanentDelete={handlePermanentDelete}
           busy={actionId === selected.id}
         />
       )}

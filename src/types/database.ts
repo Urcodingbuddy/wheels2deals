@@ -108,6 +108,7 @@ export type Database = {
           timeline: string | null
           notes: string | null
           status: string
+          deleted_at: string | null
         }
         Insert: {
           id?: string
@@ -121,6 +122,7 @@ export type Database = {
           timeline?: string | null
           notes?: string | null
           status?: string
+          deleted_at?: string | null
         }
         Update: {
           id?: string
@@ -134,6 +136,7 @@ export type Database = {
           timeline?: string | null
           notes?: string | null
           status?: string
+          deleted_at?: string | null
         }
         Relationships: []
       }

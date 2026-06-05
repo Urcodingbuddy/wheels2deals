@@ -38,7 +38,7 @@ export const PremiumCTA = ({ href, onClick, type = "button", text, className = "
           ? "pl-6 pr-[50px] group-hover:pr-6 group-hover:pl-[50px]"
           : "pl-8 pr-[60px] group-hover:pr-8 group-hover:pl-[60px]"
       }`}>
-        <span className={`relative z-10 font-[family-name:var(--font-body)] font-bold ${isSm ? "text-[11px]" : "text-[12px] md:text-[13px]"} uppercase tracking-[0.25em] transition-colors duration-700 ${
+        <span className={`relative z-10 font-[family-name:var(--font-body)] font-bold ${isSm ? "text-[13px] tracking-[0.18em]" : "text-[12px] md:text-[13px] tracking-[0.25em]"} uppercase transition-colors duration-700 ${
           variant === "primary" ? "text-white group-hover:text-[#2A3510]" : "text-[#2A3510] group-hover:text-white"
         }`}>
           {text}

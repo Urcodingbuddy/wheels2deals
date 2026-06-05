@@ -3,7 +3,8 @@ import { Montserrat, Inter } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
-import { WhatsAppSticky } from "@/components/shared/WhatsAppSticky";
+import { SocialRail } from "@/components/shared/SocialRail";
+import { ChatbotWidget } from "@/components/shared/ChatbotWidget";
 import { absoluteUrl, siteConfig } from "@/lib/seo";
 import "./globals.css";
 
@@ -200,7 +201,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
         <SmoothScrollProvider>
           <div id="main-content">{children}</div>
-          <WhatsAppSticky />
+          <SocialRail />
+          <ChatbotWidget />
         </SmoothScrollProvider>
         <Analytics />
       </body>

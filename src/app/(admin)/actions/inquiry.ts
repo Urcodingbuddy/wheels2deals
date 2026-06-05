@@ -79,7 +79,7 @@ export async function permanentDeleteInquiry(
 export async function purgeExpiredInquiries(): Promise<void> {
   try {
     const { supabase } = await requireAdmin();
-    const cutoff = new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString();
+    const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
     await supabase
       .from("inquiries")
       .delete()

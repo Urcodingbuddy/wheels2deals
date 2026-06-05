@@ -42,7 +42,7 @@ type InquiryType = "buy" | "sell" | "contact";
 type FilterType = InquiryType | "all" | "trash";
 
 function daysLeft(deletedAt: string): number {
-  const expiry = new Date(deletedAt).getTime() + 15 * 24 * 60 * 60 * 1000;
+  const expiry = new Date(deletedAt).getTime() + 30 * 24 * 60 * 60 * 1000;
   return Math.max(0, Math.ceil((expiry - Date.now()) / (24 * 60 * 60 * 1000)));
 }
 
@@ -536,7 +536,7 @@ export default function InquiriesClient({
         <div className="mb-6 flex items-center gap-3 bg-red-50 border border-red-200 rounded-xl px-5 py-3.5">
           <Trash2 size={15} strokeWidth={1.8} className="text-red-400 shrink-0" />
           <p className="font-[family-name:var(--font-body)] text-[12.5px] text-red-600">
-            Items in trash are permanently deleted after <span className="font-semibold">15 days</span>.
+            Items in trash are permanently deleted after <span className="font-semibold">30 days</span>.
           </p>
         </div>
       )}

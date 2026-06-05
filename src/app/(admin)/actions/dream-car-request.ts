@@ -88,7 +88,7 @@ export async function permanentDeleteDreamCarRequest(
 export async function purgeExpiredDreamCarRequests(): Promise<void> {
   try {
     const { supabase } = await requireAdmin();
-    const cutoff = new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString();
+    const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
     await supabase
       .from("dream_car_requests")
       .delete()

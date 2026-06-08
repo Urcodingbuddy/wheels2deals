@@ -7,6 +7,7 @@ import { createClient } from "@/lib/client";
 import { Loader2 } from "lucide-react";
 import { UAEFlag } from "@/components/shared/UAEFlag";
 import { validateUAEPhone, standardizeUAEPhone } from "@/lib/validation";
+import ShareButton from "./ShareButton";
 
 type Props = { carId: string; carTitle: string };
 
@@ -81,21 +82,27 @@ export default function EnquireButton({ carId, carTitle }: Props) {
   return (
     <>
       {/* Desktop - inline in the right panel */}
-      <button
-        onClick={() => setOpen(true)}
-        className="hidden lg:block w-full py-4 rounded-full bg-[#3A4A20] text-white font-[family-name:var(--font-body)] text-[12px] font-semibold tracking-[0.1em] uppercase hover:bg-[#2A3510] active:scale-[0.98] transition-all duration-150 cursor-pointer border-none"
-      >
-        Enquire About This Car
-      </button>
-
-      {/* Mobile - fixed bottom bar */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 py-3 bg-gradient-to-t from-white/5 to-transparent backdrop-blur-[2px]">
+      <div className="hidden lg:flex items-center gap-3">
+        <ShareButton carTitle={carTitle} />
         <button
           onClick={() => setOpen(true)}
-          className="w-full py-4 rounded-full bg-[#3A4A20] text-white font-[family-name:var(--font-body)] text-[12px] font-semibold tracking-[0.1em] uppercase hover:bg-[#2A3510] active:scale-[0.98] transition-all duration-150 cursor-pointer border-none"
+          className="flex-1 py-4 rounded-full bg-[#3A4A20] text-white font-[family-name:var(--font-body)] text-[12px] font-semibold tracking-[0.1em] uppercase hover:bg-[#2A3510] active:scale-[0.98] transition-all duration-150 cursor-pointer border-none"
         >
           Enquire About This Car
         </button>
+      </div>
+
+      {/* Mobile - fixed bottom bar */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 py-3 bg-gradient-to-t from-white/5 to-transparent backdrop-blur-[2px]">
+        <div className="flex items-center gap-3">
+          <ShareButton carTitle={carTitle} />
+          <button
+            onClick={() => setOpen(true)}
+            className="flex-1 py-4 rounded-full bg-[#3A4A20] text-white font-[family-name:var(--font-body)] text-[12px] font-semibold tracking-[0.1em] uppercase hover:bg-[#2A3510] active:scale-[0.98] transition-all duration-150 cursor-pointer border-none"
+          >
+            Enquire About This Car
+          </button>
+        </div>
       </div>
 
       {open && (

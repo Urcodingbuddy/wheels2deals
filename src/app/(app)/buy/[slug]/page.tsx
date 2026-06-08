@@ -69,7 +69,7 @@ export async function generateMetadata({
       "used cars UAE",
       "verified car listings",
     ],
-    image: absoluteUrl(`/buy/${car.slug}/opengraph-image`),
+    image: car.images[0],
   });
 }
 

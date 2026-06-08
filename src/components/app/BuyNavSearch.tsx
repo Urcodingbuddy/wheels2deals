@@ -314,7 +314,7 @@ function SearchForm({
           {/* ── Dropdown ── */}
           {showDropdown && (
             <div
-              className="absolute left-0 right-0 top-[calc(100%+8px)] md:top-[calc(100%+10px)] z-50 overflow-hidden rounded-[20px] md:rounded-[24px] border border-[#DCCFB6] bg-white shadow-[0_22px_50px_rgba(42,53,16,0.18)]"
+              className="fixed md:absolute left-1/2 top-[64px] w-[90vw] -translate-x-1/2 md:left-0 md:right-0 md:top-[calc(100%+10px)] md:w-auto md:translate-x-0 z-50 overflow-hidden rounded-[20px] md:rounded-[24px] border border-[#DCCFB6] bg-white shadow-[0_22px_50px_rgba(42,53,16,0.18)]"
               role="listbox"
             >
               {/* Empty input: show Recent + Trending */}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { FaInstagram, FaFacebookF, FaWhatsapp } from "react-icons/fa6";
 import type { IconType } from "react-icons";
@@ -17,6 +18,23 @@ function getMessage(pathname: string) {
 
 export function SocialRail() {
   const pathname = usePathname() ?? "/";
+
+  // Tuck the rail away while the user is scrolling, then reveal it when idle
+  const [visible, setVisible] = useState(true);
+  const hideTimer = useRef<number | undefined>(undefined);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setVisible(false);
+      window.clearTimeout(hideTimer.current);
+      hideTimer.current = window.setTimeout(() => setVisible(true), 1200);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.clearTimeout(hideTimer.current);
+    };
+  }, []);
 
   // Available on every page except admin routes
   if (pathname.startsWith("/admin")) return null;
@@ -43,7 +61,11 @@ export function SocialRail() {
   ];
 
   return (
-    <div className="fixed right-0 top-1/2 -translate-y-1/2 z-[90]">
+    <div
+      className={`fixed right-0 top-1/2 -translate-y-1/2 z-[90] transition-all duration-500 ease-out ${
+        visible ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
+      }`}
+    >
       <div className="relative flex flex-col items-end gap-px rounded-l-xl sm:rounded-l-2xl border border-r-0 border-[#C9A84C]/25 bg-[#2A3510]/95 backdrop-blur-md p-1 sm:p-1.5 shadow-[-8px_8px_28px_rgba(42,53,16,0.28)]">
         {/* Concave slope easing the rail into the screen edge — top */}
         <span

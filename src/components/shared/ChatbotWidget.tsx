@@ -349,7 +349,7 @@ export function ChatbotWidget() {
 
       {/* Chat nudge pill — Telegram/Instagram style teaser */}
       {nudge && !open && (
-        <div className="fixed bottom-[166px] right-5 sm:bottom-[94px] z-[97] animate-in slide-in-from-bottom-3 fade-in zoom-in-95 duration-500 ease-out">
+        <div className="fixed bottom-[150px] right-5 sm:bottom-[94px] z-[97] animate-in slide-in-from-bottom-3 fade-in zoom-in-95 duration-500 ease-out">
           <div className="relative">
             <button
               type="button"
@@ -384,7 +384,7 @@ export function ChatbotWidget() {
         onClick={() => { setOpen(o => !o); setNudge(false); }}
         aria-label={open ? "Close chat" : "Open dream car chat"}
         aria-expanded={open}
-        className={`group fixed bottom-24 sm:bottom-6 right-6 z-[97] h-[52px] w-[52px] items-center justify-center rounded-full bg-[#2A3510] shadow-[0_12px_34px_rgba(42,53,16,0.4)] border border-[#C9A84C]/30 transition-transform duration-300 hover:scale-105 active:scale-95 ${open ? "hidden sm:flex" : "flex"}`}
+        className={`group fixed bottom-20 sm:bottom-6 right-6 z-[97] h-[52px] w-[52px] items-center justify-center rounded-full bg-[#2A3510] shadow-[0_12px_34px_rgba(42,53,16,0.4)] border border-[#C9A84C]/30 transition-transform duration-300 hover:scale-105 active:scale-95 ${open ? "hidden sm:flex" : "flex"}`}
       >
         {!open && (
           <span className="absolute inset-0 -z-10 rounded-full bg-[#C9A84C]/25 animate-ping" style={{ animationDuration: "2.4s" }} />

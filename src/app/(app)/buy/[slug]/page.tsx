@@ -164,10 +164,7 @@ export default async function CarDetailPage({
           <div className="order-1 lg:order-none flex flex-col gap-4">
             <ImageGallery images={car.images} title={car.title} />
             <div>
-              <span className="font-[family-name:var(--font-body)] text-[10px] font-bold text-[#6C675F] uppercase tracking-[0.08em]">
-                {car.year} &middot; {car.brand} &middot; {car.model}
-              </span>
-              <h1 className="font-[family-name:var(--font-display)] text-[22px] sm:text-[26px] font-bold text-[#2A3510] leading-tight mt-0.5">
+              <h1 className="font-[family-name:var(--font-display)] text-[22px] sm:text-[26px] font-bold text-[#2A3510] leading-tight">
                 {car.title}
               </h1>
             </div>

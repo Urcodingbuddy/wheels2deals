@@ -8,11 +8,16 @@ import type { IconType } from "react-icons";
 const PHONE = "971561498485";
 
 function getMessage(pathname: string) {
-  if (pathname === "/") return "Hi Wheels2Deals, I'm on your homepage and would like to learn more about your car services.";
-  if (pathname === "/about") return "Hi Wheels2Deals, I'm reading about you and would like to know more about the team and the bridge model.";
-  if (pathname === "/sell") return "Hi Wheels2Deals, I want to sell my car and would like a free valuation.";
-  if (pathname === "/how-it-works") return "Hi Wheels2Deals, I have a question about how your process works.";
-  if (pathname.startsWith("/buy/")) return `Hi Wheels2Deals, I'm interested in this specific car: ${pathname.split("/").pop()}.`;
+  if (pathname === "/")
+    return "Hi Wheels2Deals, I'm on your homepage and would like to learn more about your car services.";
+  if (pathname === "/about")
+    return "Hi Wheels2Deals, I'm reading about you and would like to know more about the team and the bridge model.";
+  if (pathname === "/sell")
+    return "Hi Wheels2Deals, I want to sell my car and would like a free valuation.";
+  if (pathname === "/how-it-works")
+    return "Hi Wheels2Deals, I have a question about how your process works.";
+  if (pathname.startsWith("/buy/"))
+    return `Hi Wheels2Deals, I'm interested in this specific car: ${pathname.split("/").pop()}.`;
   return "Hi Wheels2Deals, I'd like to inquire about your services.";
 }
 
@@ -39,7 +44,12 @@ export function SocialRail() {
   // Available on every page except admin routes
   if (pathname.startsWith("/admin")) return null;
 
-  const links: { Icon: IconType; href: string; label: string; external?: boolean }[] = [
+  const links: {
+    Icon: IconType;
+    href: string;
+    label: string;
+    external?: boolean;
+  }[] = [
     {
       Icon: FaWhatsapp,
       href: `https://wa.me/${PHONE}?text=${encodeURIComponent(getMessage(pathname))}`,
@@ -48,7 +58,7 @@ export function SocialRail() {
     },
     {
       Icon: FaInstagram,
-      href: "https://www.instagram.com/wheels2dealsfze/",
+      href: "https://www.instagram.com/wheels2dealss/",
       label: "Instagram",
       external: true,
     },
@@ -70,18 +80,26 @@ export function SocialRail() {
         {/* Concave slope easing the rail into the screen edge — top */}
         <span
           className="pointer-events-none absolute right-0 bottom-full h-3.5 w-2.5 sm:h-4 sm:w-3"
-          style={{ background: "radial-gradient(10px 16px at top left, transparent 99.2%, rgba(42,53,16,0.95) 100%)" }}
+          style={{
+            background:
+              "radial-gradient(10px 16px at top left, transparent 99.2%, rgba(42,53,16,0.95) 100%)",
+          }}
         />
         {/* Concave slope easing the rail into the screen edge — bottom */}
         <span
           className="pointer-events-none absolute right-0 top-full h-3.5 w-2.5 sm:h-4 sm:w-3"
-          style={{ background: "radial-gradient(10px 16px at bottom left, transparent 99.2%, rgba(42,53,16,0.95) 100%)" }}
+          style={{
+            background:
+              "radial-gradient(10px 16px at bottom left, transparent 99.2%, rgba(42,53,16,0.95) 100%)",
+          }}
         />
         {links.map(({ Icon, href, label, external }) => (
           <a
             key={label}
             href={href}
-            {...(external ? { target: "_blank", rel: "noopener nofollow" } : {})}
+            {...(external
+              ? { target: "_blank", rel: "noopener nofollow" }
+              : {})}
             aria-label={label}
             className="group/icon relative flex items-center justify-center"
           >

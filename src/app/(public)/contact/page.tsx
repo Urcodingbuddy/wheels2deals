@@ -26,7 +26,8 @@ export default function ContactPage() {
     { id: "other", label: "General Inquiry" },
   ];
 
-  const selectedLabel = services.find(s => s.id === selectedService)?.label || "Select a Service";
+  const selectedLabel =
+    services.find((s) => s.id === selectedService)?.label || "Select a Service";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,7 +39,9 @@ export default function ContactPage() {
     const email = formData.get("email") as string;
     const phone = formData.get("phone") as string;
     const message = formData.get("message") as string;
-    const serviceLabel = services.find(s => s.id === selectedService)?.label || "General Inquiry";
+    const serviceLabel =
+      services.find((s) => s.id === selectedService)?.label ||
+      "General Inquiry";
 
     // Validate phone number for UAE
     if (!validateUAEPhone(phone)) {
@@ -85,15 +88,26 @@ export default function ContactPage() {
         <section className="relative pt-48 pb-40 px-6 bg-[#2A3510] rounded-b-[40px] md:rounded-b-[80px] shadow-[0_40px_80px_rgba(0,0,0,0.3)] z-10 min-h-[60vh] flex items-center justify-center">
           <div className="max-w-xl mx-auto text-center py-12 px-6 bg-[#1F270B]/50 rounded-[32px] border border-white/5 shadow-2xl backdrop-blur-sm animate-in fade-in zoom-in-95 duration-500">
             <div className="w-20 h-20 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/20 flex items-center justify-center mx-auto mb-8 shadow-[0_8px_32px_rgba(201,168,76,0.15)]">
-              <svg className="w-10 h-10 text-[#C9A84C]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg
+                className="w-10 h-10 text-[#C9A84C]"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
             </div>
             <h2 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl font-bold text-white mb-4">
               Message Sent!
             </h2>
             <p className="text-white/60 text-base md:text-lg font-[family-name:var(--font-body)] leading-relaxed mb-10">
-              Thank you for reaching out. A Wheels2Deals consultant will get back to you shortly (usually within 2 hours).
+              Thank you for reaching out. A Wheels2Deals consultant will get
+              back to you shortly (usually within 2 hours).
             </p>
             <button
               onClick={() => {
@@ -114,7 +128,6 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-[var(--color-page-bg)] text-white selection:bg-[#C9A84C] selection:text-[#2A3510]">
       <LandingNav />
-
       <section className="relative pt-48 pb-40 px-6 bg-[#2A3510] rounded-b-[40px] md:rounded-b-[80px] shadow-[0_40px_80px_rgba(0,0,0,0.3)] z-10">
         <div className="max-w-4xl mx-auto text-center mb-24 md:mb-32">
           <span className="inline-block mb-6 font-[family-name:var(--font-body)] text-[12px] font-bold uppercase tracking-[0.3em] text-[#C9A84C]">
@@ -122,10 +135,13 @@ export default function ContactPage() {
           </span>
           <h1 className="font-[family-name:var(--font-display)] text-[clamp(40px,7vw,90px)] font-bold leading-[1.1] tracking-tight mb-8">
             Let's start <br />
-            <span className="italic font-light text-[#C9A84C]">the conversation.</span>
+            <span className="italic font-light text-[#C9A84C]">
+              the conversation.
+            </span>
           </h1>
           <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto font-[family-name:var(--font-body)]">
-            Whether you're looking to buy, sell, or simply have a question about the UAE market, our experts are here to help.
+            Whether you're looking to buy, sell, or simply have a question about
+            the UAE market, our experts are here to help.
           </p>
         </div>
 
@@ -134,15 +150,15 @@ export default function ContactPage() {
             <div className="grid md:grid-cols-2 gap-8 md:gap-16">
               {/* Name Input */}
               <div className="group relative">
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   id="name"
                   name="name"
                   required
                   placeholder=" "
                   className="peer w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none focus:border-[#C9A84C] transition-all"
                 />
-                <label 
+                <label
                   htmlFor="name"
                   className="absolute left-0 top-4 text-white/40 pointer-events-none transition-all text-[17px] peer-focus:-top-6 peer-focus:text-[11px] peer-focus:text-[#C9A84C] peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-[11px] uppercase tracking-[0.2em] font-bold"
                 >
@@ -152,33 +168,35 @@ export default function ContactPage() {
 
               {/* Email Input */}
               <div className="group relative">
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   id="email"
                   name="email"
                   required
                   placeholder=" "
                   className="peer w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none focus:border-[#C9A84C] transition-all"
                 />
-                <label 
+                <label
                   htmlFor="email"
                   className="absolute left-0 top-4 text-white/40 pointer-events-none transition-all text-[17px] peer-focus:-top-6 peer-focus:text-[11px] peer-focus:text-[#C9A84C] peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-[11px] uppercase tracking-[0.2em] font-bold"
                 >
                   Email Address
                 </label>
+              </div>
             </div>
-          </div>
 
-          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
               {/* Phone Input with UAE Flag */}
               <div className="group relative">
                 <div className="flex items-center gap-2 border-b border-white/20 py-4 focus-within:border-[#C9A84C] transition-all relative">
                   <div className="flex items-center gap-1.5 shrink-0 bg-white/5 px-2.5 py-1 rounded border border-white/10 text-white/60">
                     <UAEFlag className="w-5.5 h-3" />
-                    <span className="text-[14px] font-bold tracking-wider">+971</span>
+                    <span className="text-[14px] font-bold tracking-wider">
+                      +971
+                    </span>
                   </div>
-                  <input 
-                    type="tel" 
+                  <input
+                    type="tel"
                     id="phone"
                     name="phone"
                     required
@@ -196,7 +214,7 @@ export default function ContactPage() {
                       }
                     }}
                   />
-                  <label 
+                  <label
                     htmlFor="phone"
                     className="whitespace-nowrap absolute left-[94px] top-4 text-white/40 pointer-events-none transition-all text-[17px] peer-focus:-top-6 peer-focus:left-0 peer-focus:text-[11px] peer-focus:text-[#C9A84C] peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:left-0 peer-[:not(:placeholder-shown)]:text-[11px] uppercase tracking-[0.2em] font-bold"
                   >
@@ -215,29 +233,49 @@ export default function ContactPage() {
                 <label className="absolute left-0 -top-8 text-[11px] text-white/40 uppercase tracking-[0.2em] font-bold">
                   Inquiry Type
                 </label>
-                
+
                 <button
                   type="button"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   className={`group w-full bg-transparent border-b py-4 text-xl outline-none text-left flex justify-between items-center transition-all duration-500 ${
-                    isDropdownOpen ? 'border-[#C9A84C]' : 'border-white/20 hover:border-white/40'
+                    isDropdownOpen
+                      ? "border-[#C9A84C]"
+                      : "border-white/20 hover:border-white/40"
                   }`}
                 >
-                  <span className={`transition-colors duration-500 ${selectedService ? 'text-white' : 'text-white/40'}`}>
+                  <span
+                    className={`transition-colors duration-500 ${selectedService ? "text-white" : "text-white/40"}`}
+                  >
                     {selectedLabel}
                   </span>
-                  <div className={`transition-transform duration-500 ${isDropdownOpen ? 'rotate-180' : ''}`}>
-                    <svg width="14" height="8" viewBox="0 0 14 8" fill="none" className={isDropdownOpen ? 'text-[#C9A84C]' : 'text-white/20'}>
-                      <path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <div
+                    className={`transition-transform duration-500 ${isDropdownOpen ? "rotate-180" : ""}`}
+                  >
+                    <svg
+                      width="14"
+                      height="8"
+                      viewBox="0 0 14 8"
+                      fill="none"
+                      className={
+                        isDropdownOpen ? "text-[#C9A84C]" : "text-white/20"
+                      }
+                    >
+                      <path
+                        d="M1 1L7 7L13 1"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </div>
                 </button>
 
                 {isDropdownOpen && (
                   <>
-                    <div 
-                      className="fixed inset-0 z-[-1]" 
-                      onClick={() => setIsDropdownOpen(false)} 
+                    <div
+                      className="fixed inset-0 z-[-1]"
+                      onClick={() => setIsDropdownOpen(false)}
                     />
                     <div className="absolute top-full left-0 right-0 mt-4 bg-[#2A3510] border border-white/10 rounded-[24px] overflow-hidden shadow-[0_30px_90px_rgba(0,0,0,0.6)] backdrop-blur-xl animate-in fade-in slide-in-from-top-4 duration-500">
                       <div className="py-3 px-2">
@@ -250,9 +288,9 @@ export default function ContactPage() {
                               setIsDropdownOpen(false);
                             }}
                             className={`w-full px-6 py-4 rounded-xl text-left text-[17px] font-medium transition-all duration-300 group flex items-center justify-between ${
-                              selectedService === service.id 
-                                ? 'bg-[#C9A84C] text-[#2A3510]' 
-                                : 'text-white/60 hover:bg-white/5 hover:text-white'
+                              selectedService === service.id
+                                ? "bg-[#C9A84C] text-[#2A3510]"
+                                : "text-white/60 hover:bg-white/5 hover:text-white"
                             }`}
                           >
                             <span>{service.label}</span>
@@ -271,7 +309,7 @@ export default function ContactPage() {
 
             {/* Message Input */}
             <div className="group relative">
-              <textarea 
+              <textarea
                 id="message"
                 name="message"
                 required
@@ -285,7 +323,7 @@ export default function ContactPage() {
                 placeholder=" "
                 className="peer w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none focus:border-[#C9A84C] transition-all resize-none overflow-hidden"
               />
-              <label 
+              <label
                 htmlFor="message"
                 className="absolute left-0 top-4 text-white/40 pointer-events-none transition-all text-[17px] peer-focus:-top-6 peer-focus:text-[11px] peer-focus:text-[#C9A84C] peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-[11px] uppercase tracking-[0.2em] font-bold"
               >
@@ -300,10 +338,13 @@ export default function ContactPage() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C9A84C] opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C9A84C]"></span>
                 </span>
-                <span>Avg Response Time: <span className="text-white">24 Hours</span></span>
+                <span>
+                  Avg Response Time:{" "}
+                  <span className="text-white">24 Hours</span>
+                </span>
               </div>
 
-              <PremiumCTA 
+              <PremiumCTA
                 type="submit"
                 text={isSubmitting ? "Sending..." : "Send Message"}
                 variant="outline"
@@ -314,61 +355,82 @@ export default function ContactPage() {
 
         {/* Direct Contact Links */}
         <div className="max-w-[1200px] mx-auto grid md:grid-cols-3 gap-12">
-           {/* HQ */}
-           <div className="group">
-              <div className="mb-8 flex items-center gap-4">
-                <div className="w-8 h-[1px] bg-[#C9A84C] transition-all duration-500 group-hover:w-16" />
-                <h4 className="text-[#C9A84C] font-bold uppercase tracking-[0.2em] text-[11px]">Headquarters</h4>
-              </div>
-              <p className="text-white/80 font-medium leading-loose text-[17px] pl-12 group-hover:text-white transition-colors">
-                SIT Tower, Dubai Silicon Oasis, Dubai, United Arab Emirates
-              </p>
-           </div>
+          {/* HQ */}
+          <div className="group">
+            <div className="mb-8 flex items-center gap-4">
+              <div className="w-8 h-[1px] bg-[#C9A84C] transition-all duration-500 group-hover:w-16" />
+              <h4 className="text-[#C9A84C] font-bold uppercase tracking-[0.2em] text-[11px]">
+                Headquarters
+              </h4>
+            </div>
+            <p className="text-white/80 font-medium leading-loose text-[17px] pl-12 group-hover:text-white transition-colors">
+              SIT Tower, Dubai Silicon Oasis, Dubai, United Arab Emirates
+            </p>
+          </div>
 
-           {/* Channels */}
-           <div className="group">
-              <div className="mb-8 flex items-center gap-4">
-                <div className="w-8 h-[1px] bg-[#C9A84C] transition-all duration-500 group-hover:w-16" />
-                <h4 className="text-[#C9A84C] font-bold uppercase tracking-[0.2em] text-[11px]">Direct Channels</h4>
-              </div>
-              <div className="pl-12 space-y-4">
-                 <a href="mailto:info@wheels2deals.com" className="block text-white/80 hover:text-[#C9A84C] transition-all font-medium text-[17px] hover:translate-x-2">
-                   info@wheels2deals.com
-                 </a>
-                 <a href="tel:+971561498485" className="block text-white/80 hover:text-[#C9A84C] transition-all font-medium text-[17px] hover:translate-x-2">
-                   +971 56 149 8485
-                 </a>
-              </div>
-           </div>
+          {/* Channels */}
+          <div className="group">
+            <div className="mb-8 flex items-center gap-4">
+              <div className="w-8 h-[1px] bg-[#C9A84C] transition-all duration-500 group-hover:w-16" />
+              <h4 className="text-[#C9A84C] font-bold uppercase tracking-[0.2em] text-[11px]">
+                Direct Channels
+              </h4>
+            </div>
+            <div className="pl-12 space-y-4">
+              <a
+                href="mailto:info@wheels2deals.com"
+                className="block text-white/80 hover:text-[#C9A84C] transition-all font-medium text-[17px] hover:translate-x-2"
+              >
+                info@wheels2deals.com
+              </a>
+              <a
+                href="tel:+971561498485"
+                className="block text-white/80 hover:text-[#C9A84C] transition-all font-medium text-[17px] hover:translate-x-2"
+              >
+                +971 56 149 8485
+              </a>
+            </div>
+          </div>
 
-           {/* Social */}
-           <div className="group">
-              <div className="mb-8 flex items-center gap-4">
-                <div className="w-8 h-[1px] bg-[#C9A84C] transition-all duration-500 group-hover:w-16" />
-                <h4 className="text-[#C9A84C] font-bold uppercase tracking-[0.2em] text-[11px]">Follow Our Drive</h4>
-              </div>
-              <div className="pl-12 flex gap-6">
-                <a 
-                  href={`https://wa.me/971561498485?text=${encodeURIComponent("Hi, I'm reaching out from the Wheels2Deals Contact page. I'd like to inquire about your services.")}`}
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-white/40 hover:text-[#C9A84C] transition-all hover:-translate-y-1"
-                >
-                  <FaWhatsapp className="w-6 h-6" />
-                </a>
-                <a href="https://www.instagram.com/wheels2dealsfze/" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#C9A84C] transition-all hover:-translate-y-1">
-                  <FaInstagram className="w-6 h-6" />
-                </a>
-                <a href="https://www.facebook.com/people/Wheels2Deals/100052648911178/" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#C9A84C] transition-all hover:-translate-y-1">
-                  <FaFacebookF className="w-6 h-6" />
-                </a>
-              </div>
-           </div>
+          {/* Social */}
+          <div className="group">
+            <div className="mb-8 flex items-center gap-4">
+              <div className="w-8 h-[1px] bg-[#C9A84C] transition-all duration-500 group-hover:w-16" />
+              <h4 className="text-[#C9A84C] font-bold uppercase tracking-[0.2em] text-[11px]">
+                Follow Our Drive
+              </h4>
+            </div>
+            <div className="pl-12 flex gap-6">
+              <a
+                href={`https://wa.me/971561498485?text=${encodeURIComponent("Hi, I'm reaching out from the Wheels2Deals Contact page. I'd like to inquire about your services.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/40 hover:text-[#C9A84C] transition-all hover:-translate-y-1"
+              >
+                <FaWhatsapp className="w-6 h-6" />
+              </a>
+              <a
+                href="https://www.instagram.com/wheels2dealss/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/40 hover:text-[#C9A84C] transition-all hover:-translate-y-1"
+              >
+                <FaInstagram className="w-6 h-6" />
+              </a>
+              <a
+                href="https://www.facebook.com/people/Wheels2Deals/100052648911178/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/40 hover:text-[#C9A84C] transition-all hover:-translate-y-1"
+              >
+                <FaFacebookF className="w-6 h-6" />
+              </a>
+            </div>
+          </div>
         </div>
       </section>
-
-      <div className="h-32 w-full bg-[var(--color-page-bg)]" /> {/* Spacer gap before footer */}
-
+      <div className="h-32 w-full bg-[var(--color-page-bg)]" />{" "}
+      {/* Spacer gap before footer */}
       <FooterSection />
     </main>
   );

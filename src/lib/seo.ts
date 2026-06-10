@@ -23,7 +23,7 @@ export const siteConfig = {
   email: "info@wheels2deals.com",
   address: "SIT Tower, Dubai Silicon Oasis, Dubai, United Arab Emirates",
   socialLinks: [
-    "https://www.instagram.com/wheels2dealsfze/",
+    "https://www.instagram.com/wheels2dealss/",
     "https://www.facebook.com/people/Wheels2Deals/100052648911178/",
   ],
 } as const;
@@ -107,12 +107,22 @@ export function buildPageMetadata({
   };
 }
 
-export function buildCarTitle(car: Pick<Tables<"cars">, "year" | "brand" | "model" | "title">) {
+export function buildCarTitle(
+  car: Pick<Tables<"cars">, "year" | "brand" | "model" | "title">,
+) {
   return `${car.year} ${car.brand} ${car.model} for Sale in the UAE`;
 }
 
 export function buildCarDescription(
-  car: Pick<Tables<"cars">, "price" | "km_driven" | "location" | "fuel_type" | "transmission" | "description">
+  car: Pick<
+    Tables<"cars">,
+    | "price"
+    | "km_driven"
+    | "location"
+    | "fuel_type"
+    | "transmission"
+    | "description"
+  >,
 ) {
   const summary = `${car.price.toLocaleString("en-AE")} AED · ${car.km_driven.toLocaleString("en-AE")} km · ${capitalize(car.fuel_type)} · ${capitalize(car.transmission)} · ${car.location}`;
   const details = car.description?.trim();

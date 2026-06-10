@@ -196,7 +196,7 @@ export function MegaMenu({ onClose }: { onClose: () => void }) {
               <FaWhatsapp className="w-7 h-7" />
             </a>
             <a
-              href="https://www.instagram.com/wheels2dealsfze/"
+              href="https://www.instagram.com/wheels2dealss/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#2A3510] hover:text-[#C9A84C] transition-all hover:-translate-y-1"

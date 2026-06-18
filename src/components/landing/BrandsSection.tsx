@@ -89,7 +89,7 @@ export function BrandsSection() {
               Every Brand. One Platform.
             </h2>
             <p className="mt-2 font-[family-name:var(--font-body)] text-[17px] text-[#2A3510]/58">
-              One Reliable Platform.
+              Private seller listings across all major brands in the UAE - in one place.
             </p>
           </div>
         </div>

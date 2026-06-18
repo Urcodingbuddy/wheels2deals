@@ -52,7 +52,7 @@ export function FooterSection() {
                 Ready to Find Your Next Car?
               </h2>
               <p className="font-[family-name:var(--font-body)] text-[14px] md:text-[15px] text-white/70 max-w-[450px] leading-relaxed">
-                Browse pre-inspected cars from private sellers across the UAE — or list yours today.
+                Browse pre-inspected cars from private sellers across the UAE - or list yours today.
               </p>
             </div>
             <div className="flex flex-wrap gap-4">

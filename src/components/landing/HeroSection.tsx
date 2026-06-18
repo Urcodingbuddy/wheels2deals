@@ -76,12 +76,12 @@ export function HeroSection() {
 
         {/* Tagline */}
         <p
-          className="hero-enter hero-enter-delay-3 font-[family-name:var(--font-display)] font-normal text-white/70 leading-[1.4] tracking-[-0.01em]"
-          style={{ fontSize: "clamp(14px, 2vw, 22px)", maxWidth: "540px" }}
+          className="hero-enter hero-enter-delay-3 font-[family-name:var(--font-display)] font-normal text-white/70 leading-[1.4] tracking-[-0.01em] whitespace-nowrap"
+          style={{ fontSize: "clamp(12px, 2vw, 22px)" }}
         >
-          The smartest bridge between{" "}
-          <span className="text-white font-medium">buyers</span> and{" "}
-          <span className="text-white font-medium">sellers</span>.
+          We support in{" "}
+          <span className="text-white font-medium">buying, selling</span> and{" "}
+          <span className="text-white font-medium">maintaining</span> your vehicle.
         </p>
 
         {/* Mobile cards */}
@@ -182,7 +182,7 @@ export function HeroSection() {
               <span className="font-normal whitespace-nowrap" style={{ fontSize: "clamp(16px, 1.4vw, 22px)" }}>a Car?</span>
             </p>
             <p className="font-[family-name:var(--font-body)] text-[12.5px] xl:text-[13.5px] text-white/55 leading-[1.6] mt-1.5 min-h-[40px]">
-              Source your dream car or browse verified listings.
+              We source, verify, and guide you through the entire car purchase - stress-free.
             </p>
           </div>
           <PremiumCTA href="/buy" text="Explore Listings" variant="outline" size="sm" className="w-full !min-w-0" />
@@ -222,9 +222,9 @@ export function HeroSection() {
         <div className="hero-enter hero-enter-delay-5 w-[24%] bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 xl:p-8 flex flex-col gap-4 xl:gap-5">
           <div>
             <p className="font-[family-name:var(--font-display)] leading-[1.05] tracking-[-0.02em] text-white" style={{ fontSize: "clamp(22px, 2.1vw, 32px)" }}>
-              <span className="font-semibold text-[#C9A84C]">Want to Sell</span>
+              <span className="font-semibold text-[#C9A84C]">Sell a Car</span>
               <br />
-              <span className="font-normal whitespace-nowrap" style={{ fontSize: "clamp(16px, 1.4vw, 22px)" }}>a Car?</span>
+              <span className="font-normal whitespace-nowrap" style={{ fontSize: "clamp(16px, 1.4vw, 22px)" }}>Best Price</span>
             </p>
             <p className="font-[family-name:var(--font-body)] text-[12.5px] xl:text-[13.5px] text-white/55 leading-[1.6] mt-1.5 min-h-[40px]">
               Get your car&apos;s true value in minutes.

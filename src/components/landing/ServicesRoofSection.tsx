@@ -15,7 +15,7 @@ const services = [
   {
     number: "01",
     icon: CarFront,
-    title: "Car Buying Support",
+    title: "Help Buying a Car",
     description:
       "End-to-end assistance for a smart, stress-free purchase.",
     href: "/buying",
@@ -24,7 +24,7 @@ const services = [
   {
     number: "02",
     icon: BadgeDollarSign,
-    title: "Car Selling Support",
+    title: "Help Selling a Car",
     description:
       "Sell your vehicle quickly, securely, and at the best price.",
     href: "/selling",
@@ -33,7 +33,7 @@ const services = [
   {
     number: "03",
     icon: ClipboardCheck,
-    title: "Inspection, Passing & Ownership Transfer",
+    title: "Inspection, RTA Passing & Transfer",
     description:
       "Hassle-free vehicle compliance and administrative support.",
     href: "/inspection-and-transfer",
@@ -42,7 +42,7 @@ const services = [
   {
     number: "04",
     icon: ShieldCheck,
-    title: "Car Insurance Services",
+    title: "Car Insurance",
     description:
       "Tailored coverage from trusted insurers at the best rates.",
     href: "/insurance",
@@ -51,7 +51,7 @@ const services = [
   {
     number: "05",
     icon: Wallet,
-    title: "Car Finance & Loan Assistance",
+    title: "Finance & Loan Help",
     description:
       "Competitive rates and flexible repayment plans made easy.",
     href: "/finance",
@@ -60,7 +60,7 @@ const services = [
   {
     number: "06",
     icon: Sparkles,
-    title: "Car Detailing & Protection",
+    title: "Detailing & Protection",
     description:
       "Polish, ceramic coating, and premium aesthetic care.",
     href: "/detailing",

@@ -85,7 +85,7 @@ export function ServicesRoofSection() {
         {/* Header */}
         <div className="reveal relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 md:mb-10">
           <h2 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight">
-            <span className="text-white">Everything You Need</span>
+            <span className="text-white">What We Handle For You</span>
             <br />
             <span className="bg-gradient-to-r from-[#C9A84C] to-[#E8D5A3] bg-clip-text text-transparent">
               Under One Roof
@@ -146,10 +146,10 @@ function ServiceCard({
       </span>
 
       {/* Icon */}
-      <div className="mb-6 w-12 h-12 rounded-xl bg-[#C9A84C]/15 flex items-center justify-center group-hover:bg-[#C9A84C]/25 transition-all duration-300 group-hover:shadow-[0_0_25px_rgba(201,168,76,0.2)]">
+      <div className="mb-6">
         <Icon
-          className="w-6 h-6 text-[#C9A84C] group-hover:text-[#E8D5A3] transition-colors"
-          strokeWidth={1.8}
+          className="w-10 h-10 text-[#C9A84C] group-hover:text-[#E8D5A3] transition-all duration-300 group-hover:scale-110"
+          strokeWidth={1.5}
         />
       </div>
 

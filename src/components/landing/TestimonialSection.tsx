@@ -38,8 +38,11 @@ export function TestimonialSection() {
             Real Experiences
           </p>
           <h2 className="font-[family-name:var(--font-display)] text-[clamp(32px,4vw,48px)] font-bold text-[#2A3510] leading-[1.05] tracking-tight">
-            Loved by buyers <span className="italic font-light">&amp;</span> sellers.
+            What Buyers <span className="italic font-light">&amp;</span> Sellers Are Saying
           </h2>
+          <p className="mt-2 font-[family-name:var(--font-body)] text-[17px] text-[#2A3510]/58">
+            Real people. Real deals. Here&apos;s what they experienced.
+          </p>
         </div>
       </div>
 
@@ -49,34 +52,38 @@ export function TestimonialSection() {
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--color-page-bg)] to-transparent z-10 pointer-events-none" />
 
         <div className="flex w-fit animate-infinite-scroll group-hover:[animation-play-state:paused]">
-          {testimonials.map((t, idx) => (
-            <div 
-              key={`${t.name}-${idx}`}
-              className="w-[350px] md:w-[450px] flex-shrink-0 px-4"
-            >
-              <div className="bg-white/40 backdrop-blur-sm border border-[#2A3510]/5 p-8 md:p-10 rounded-[32px] h-full flex flex-col hover:border-[#C9A84C]/30 transition-colors duration-500">
-                <div className="flex gap-1 mb-6">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-[#C9A84C] text-[#C9A84C]" />
-                  ))}
-                </div>
-                <p className="font-[family-name:var(--font-body)] text-[16px] md:text-[18px] text-[#2A3510]/80 leading-relaxed mb-8 flex-grow italic">
-                  &ldquo;{t.text}&rdquo;
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-[#2A3510]/5 flex items-center justify-center font-bold text-[#2A3510] text-[12px] uppercase">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <h4 className="font-[family-name:var(--font-display)] text-[15px] font-bold text-[#2A3510] capitalize">
-                      {t.name}
-                    </h4>
-                    <p className="font-[family-name:var(--font-body)] text-[11px] text-[#C9A84C] uppercase tracking-widest font-bold">
-                      Verified Client
+          {Array.from({ length: 3 }).map((_, repeatIndex) => (
+            <div key={repeatIndex} className="flex">
+              {testimonials.map((t, idx) => (
+                <div 
+                  key={`${t.name}-${repeatIndex}-${idx}`}
+                  className="w-[350px] md:w-[450px] flex-shrink-0 px-4"
+                >
+                  <div className="bg-white/40 backdrop-blur-sm border border-[#2A3510]/5 p-8 md:p-10 rounded-[32px] h-full flex flex-col hover:border-[#C9A84C]/30 transition-colors duration-500">
+                    <div className="flex gap-1 mb-6">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-3.5 h-3.5 fill-[#C9A84C] text-[#C9A84C]" />
+                      ))}
+                    </div>
+                    <p className="font-[family-name:var(--font-body)] text-[16px] md:text-[18px] text-[#2A3510]/80 leading-relaxed mb-8 flex-grow italic">
+                      &ldquo;{t.text}&rdquo;
                     </p>
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-full bg-[#2A3510]/5 flex items-center justify-center font-bold text-[#2A3510] text-[12px] uppercase">
+                        {t.name.charAt(0)}
+                      </div>
+                      <div>
+                        <h4 className="font-[family-name:var(--font-display)] text-[15px] font-bold text-[#2A3510] capitalize">
+                          {t.name}
+                        </h4>
+                        <p className="font-[family-name:var(--font-body)] text-[11px] text-[#C9A84C] uppercase tracking-widest font-bold">
+                          Verified Client
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           ))}
         </div>
@@ -84,10 +91,10 @@ export function TestimonialSection() {
         <style jsx global>{`
           @keyframes infinite-scroll {
             from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
+            to { transform: translateX(-33.3333%); }
           }
           .animate-infinite-scroll {
-            animation: infinite-scroll 40s linear infinite;
+            animation: infinite-scroll 45s linear infinite;
           }
         `}</style>
       </div>

@@ -86,7 +86,7 @@ export function BrandsSection() {
               Built on Trust
             </p>
             <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-semibold leading-[1.05] tracking-tight text-[#2A3510] -ml-[3px]">
-              Every Leading Brand
+              Every Brand. One Platform.
             </h2>
             <p className="mt-2 font-[family-name:var(--font-body)] text-[17px] text-[#2A3510]/58">
               One Reliable Platform.

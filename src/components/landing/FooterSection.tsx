@@ -46,20 +46,29 @@ export function FooterSection() {
             <div>
               <p className="inline-flex items-center gap-2 font-[family-name:var(--font-body)] text-[10px] md:text-[11px] font-semibold tracking-[0.2em] uppercase text-[#C9A84C] mb-3 md:mb-5">
                 <span className="w-1 h-1 rounded-full bg-[#C9A84C] inline-block" />
-                Get in Touch
+                Get Started
               </p>
-              <h2 className="font-[family-name:var(--font-display)] text-[28px] md:text-[clamp(28px,3vw,42px)] font-semibold text-white leading-[1.1] tracking-[-0.02em]">
-                Are you ready
-                <br />
-                to get started?
+              <h2 className="font-[family-name:var(--font-display)] text-[28px] md:text-[clamp(28px,3vw,42px)] font-semibold text-white leading-[1.1] tracking-[-0.02em] mb-4">
+                Ready to Find Your Next Car?
               </h2>
+              <p className="font-[family-name:var(--font-body)] text-[14px] md:text-[15px] text-white/70 max-w-[450px] leading-relaxed">
+                Browse pre-inspected cars from private sellers across the UAE — or list yours today.
+              </p>
             </div>
-            <PremiumCTA
-              href="/buy"
-              text="Explore Listings"
-              variant="outline"
-              className="self-start"
-            />
+            <div className="flex flex-wrap gap-4">
+              <PremiumCTA
+                href="/buy"
+                text="Explore Listings"
+                variant="outline"
+                className="self-start"
+              />
+              <PremiumCTA
+                href="/sell"
+                text="Sell My Car"
+                variant="primary"
+                className="self-start"
+              />
+            </div>
           </div>
 
           {/* Right - Info Grid (2 cols on mobile) */}
@@ -126,24 +135,29 @@ export function FooterSection() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex items-center justify-between pt-7 gap-4 flex-wrap">
-          <p className="font-[family-name:var(--font-body)] text-[12px] text-white/30">
-            © {new Date().getFullYear()} Wheels2Deals. All Rights Reserved.
+        <div className="relative z-10 pt-7">
+          <p className="font-[family-name:var(--font-body)] text-[12px] text-white/50 mb-6 leading-relaxed max-w-4xl">
+            We are a car brokerage platform based in Dubai Silicon Oasis. We connect private buyers and sellers — we do not own the cars on our platform.
           </p>
-          <div className="flex items-center gap-6">
-            {[
-              { label: "Privacy Policy", href: "/privacy" },
-              { label: "Terms & Conditions", href: "/terms" },
-            ].map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="group relative font-[family-name:var(--font-body)] text-[12px] font-medium text-white/40 no-underline transition-colors duration-200 hover:text-white py-0.5"
-              >
-                {link.label}
-                <span className="absolute left-0 bottom-0 right-full h-[1px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
-              </Link>
-            ))}
+          <div className="flex items-center justify-between gap-4 flex-wrap pt-5">
+            <p className="font-[family-name:var(--font-body)] text-[12px] text-white/30">
+              © {new Date().getFullYear()} Wheels2Deals. All Rights Reserved.
+            </p>
+            <div className="flex items-center gap-6">
+              {[
+                { label: "Privacy Policy", href: "/privacy" },
+                { label: "Terms & Conditions", href: "/terms" },
+              ].map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="group relative font-[family-name:var(--font-body)] text-[12px] font-medium text-white/40 no-underline transition-colors duration-200 hover:text-white py-0.5"
+                >
+                  {link.label}
+                  <span className="absolute left-0 bottom-0 right-full h-[1px] bg-[#C9A84C] transition-all duration-300 ease-out group-hover:right-0" />
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

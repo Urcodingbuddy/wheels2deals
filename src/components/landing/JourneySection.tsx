@@ -80,10 +80,10 @@ export function JourneySection() {
               Trending Models
             </p>
             <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-semibold text-[#2A3510] leading-[1.05] tracking-tight -ml-[3px]">
-              Explore popular car models
+              Popular Cars People Are Buying Right Now
             </h2>
             <p className="mt-2 font-[family-name:var(--font-body)] text-[17px] text-[#2A3510]/58">
-              Handpicked models - trending across the UAE this week
+              These are the most searched models from private seller listings this week. 
             </p>
           </div>
           <PremiumCTA 

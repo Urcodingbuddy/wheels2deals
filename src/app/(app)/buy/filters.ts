@@ -41,6 +41,16 @@ export const DEFAULT_BUY_FILTERS: BuyFilters = {
   specs: "any",
 };
 
+export const PRICE_RANGES: { value: string; label: string; min: number | null; max: number | null }[] = [
+  { value: "",            label: "Any",              min: null,    max: null },
+  { value: "under50k",    label: "Under 50,000",     min: null,    max: 50000 },
+  { value: "50k-100k",    label: "50K – 100K",       min: 50000,   max: 100000 },
+  { value: "100k-200k",   label: "100K – 200K",      min: 100000,  max: 200000 },
+  { value: "200k-350k",   label: "200K – 350K",      min: 200000,  max: 350000 },
+  { value: "350k-500k",   label: "350K – 500K",      min: 350000,  max: 500000 },
+  { value: "over500k",    label: "500K & above",     min: 500000,  max: null },
+];
+
 export const KM_RANGES: { value: string; label: string }[] = [
   { value: "", label: "Any" },
   { value: "new", label: "Brand New" },

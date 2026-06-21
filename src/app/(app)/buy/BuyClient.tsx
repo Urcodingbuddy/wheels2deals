@@ -33,6 +33,7 @@ import {
   DEFAULT_BUY_FILTERS,
   FUEL_LABELS,
   KM_RANGES,
+  PRICE_RANGES,
   REGIONAL_SPECS,
   SORT_OPTIONS,
   TRANSMISSION_LABELS,
@@ -107,7 +108,7 @@ const FILTER_SECTIONS = [
   { key: "category",     label: "Category",       icon: Tag },
   { key: "city",         label: "City",            icon: MapPin },
   { key: "make",         label: "Brand & Model",   icon: Car },
-  // { key: "price",        label: "Price Range",     icon: Banknote },
+  { key: "price",        label: "Price Range",     icon: Banknote },
   { key: "year",         label: "Year",            icon: CalendarDays },
   { key: "km",           label: "Kilometers",      icon: Gauge },
   { key: "specs",        label: "Regional Specs",  icon: Globe },
@@ -124,7 +125,7 @@ function sectionHasValue(key: SectionKey, filters: BuyFilters): boolean {
     case "category":     return !!filters.category;
     case "city":         return !!filters.city;
     case "make":         return filters.brand !== "All" || !!filters.model;
-    // case "price":        return filters.minPrice !== null || filters.maxPrice !== null;
+    case "price":        return filters.minPrice !== null || filters.maxPrice !== null;
     case "year":         return filters.minYear !== null || filters.maxYear !== null;
     case "km":           return !!filters.kmRange;
     case "specs":        return filters.specs !== "any";
@@ -143,7 +144,14 @@ function getSectionSummary(key: SectionKey, filters: BuyFilters): string {
       if (filters.brand === "All") return "";
       return filters.model ? `${filters.brand} · ${filters.model}` : filters.brand;
     }
-    // case "price": { ... }
+    case "price": {
+      const match = PRICE_RANGES.find(r => r.min === filters.minPrice && r.max === filters.maxPrice);
+      if (match && match.value) return match.label;
+      if (filters.minPrice !== null && filters.maxPrice !== null) return `AED ${filters.minPrice.toLocaleString()} – ${filters.maxPrice.toLocaleString()}`;
+      if (filters.minPrice !== null) return `From AED ${filters.minPrice.toLocaleString()}`;
+      if (filters.maxPrice !== null) return `Up to AED ${filters.maxPrice.toLocaleString()}`;
+      return "";
+    }
     case "year": {
       if (filters.minYear && filters.maxYear) return `${filters.minYear} – ${filters.maxYear}`;
       if (filters.minYear) return `From ${filters.minYear}`;
@@ -463,7 +471,22 @@ function FlyoutContent({
         </div>
       );
 
-    /* case "price": { ... price filter commented out ... } */
+    case "price":
+      return (
+        <div className={listCls} onWheel={e => e.stopPropagation()}>
+          {PRICE_RANGES.map(opt => {
+            const on = filters.minPrice === opt.min && filters.maxPrice === opt.max;
+            return (
+              <button key={opt.value} type="button"
+                onClick={() => selectAndClose({ ...filters, minPrice: opt.min, maxPrice: opt.max })}
+                className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-[16px] font-medium transition-colors ${on ? "text-[#C9A84C] font-semibold bg-[#C9A84C]/8" : "text-[#4A453E] hover:bg-[#F5F2EC] hover:text-[#2A3510]"}`}>
+                <span>{opt.label}</span>
+                {on && <Check size={18} className="text-[#C9A84C] shrink-0" />}
+              </button>
+            );
+          })}
+        </div>
+      );
 
     case "year": {
       const allYears = Array.from({ length: currentYear - 1949 }, (_, i) => currentYear - i);
@@ -766,7 +789,7 @@ function FilterFlyout({
       case "category":     onUpdate({ ...filters, category: null }); break;
       case "city":         onUpdate({ ...filters, city: "" }); break;
       case "make":         onUpdate({ ...filters, brand: "All", model: "" }); break;
-      // case "price":        onUpdate({ ...filters, minPrice: null, maxPrice: null }); break;
+      case "price":        onUpdate({ ...filters, minPrice: null, maxPrice: null }); break;
       case "year":         onUpdate({ ...filters, minYear: null, maxYear: null }); break;
       case "km":           onUpdate({ ...filters, kmRange: "" }); break;
       case "specs":        onUpdate({ ...filters, specs: "any" }); break;
@@ -954,7 +977,10 @@ function CarCard({ car, searchQuery }: { car: Car; searchQuery?: string }) {
             </div>
           </div>
           <div className="mt-auto flex justify-between items-center">
-            <span className="bg-emirate-teal/10 px-2 py-0.5 rounded text-[9px] font-bold text-emirate-teal uppercase tracking-tighter">READY TO DRIVE</span>
+            <div className="flex flex-col leading-none">
+              <span className="font-[family-name:var(--font-body)] text-[10px] font-semibold text-stone-grey uppercase tracking-[0.08em]">Price</span>
+              <span className="font-[family-name:var(--font-display)] text-[18px] font-bold text-sovereign-navy">AED {car.price.toLocaleString("en-AE")}</span>
+            </div>
             <div className="bg-prestige-gold hover:bg-prestige-gold/90 text-sovereign-navy px-4 py-2 rounded-full flex items-center gap-1.5 transition-all duration-300 group shadow-sm active:scale-95">
               <span className="font-[family-name:var(--font-body)] text-[11px] font-bold uppercase">View Details</span>
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

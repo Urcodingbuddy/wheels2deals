@@ -23,6 +23,9 @@ export function HeroSection() {
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
+  // Opens the corner "Find My Dream Car" chatbot (listened for in ChatbotWidget)
+  const openChat = () => window.dispatchEvent(new CustomEvent("w2d:open-chat"));
+
   return (
     <section className="relative md:mx-3.5 md:mt-3.5 rounded-none md:rounded-[24px] overflow-hidden flex flex-col min-h-svh md:min-h-0 md:h-[calc(100svh-28px)]">
       {/* Video */}
@@ -107,25 +110,26 @@ export function HeroSection() {
             </div>
           </Link>
 
-          {/* Inspection */}
-          <Link
-            href="/inspection-and-transfer"
-            className="relative bg-black/25 backdrop-blur-2xl border border-white/10 rounded-xl p-3.5 pr-14 block active:bg-black/35"
+          {/* Source your dream car */}
+          <button
+            type="button"
+            onClick={openChat}
+            className="relative w-full text-left bg-black/25 backdrop-blur-2xl border border-white/10 rounded-xl p-3.5 pr-14 block active:bg-black/35"
           >
             <div>
               <p className="font-[family-name:var(--font-display)] text-[22px] leading-[1.05] tracking-[-0.02em] text-white text-left">
-                <span className="font-normal text-white">Pre-Purchase</span>
+                <span className="font-normal text-white">Source Your</span>
                 <br />
-                <span className="font-semibold whitespace-nowrap text-[19px] text-[#C9A84C]">Inspection</span>
+                <span className="font-semibold whitespace-nowrap text-[19px] text-[#C9A84C]">Dream Car</span>
               </p>
               <p className="font-[family-name:var(--font-body)] text-[12px] text-white/55 leading-[1.45] mt-1 text-left">
-                Certified checks before you commit.
+                Can&apos;t find it? We&apos;ll source it for you.
               </p>
             </div>
             <div className="absolute right-4 bottom-4 w-9 h-9 rounded-full bg-white flex items-center justify-center">
               <ArrowRight className="w-4 h-4 text-[#2A3510]" />
             </div>
-          </Link>
+          </button>
 
           {/* Detail */}
           <Link
@@ -188,19 +192,19 @@ export function HeroSection() {
           <PremiumCTA href="/buy" text="Explore Listings" variant="outline" size="sm" className="w-full !min-w-0" />
         </div>
 
-        {/* Pre-Purchase Inspection */}
+        {/* Source your dream car */}
         <div className="hero-enter hero-enter-delay-4 w-[24%] bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 xl:p-8 flex flex-col gap-4 xl:gap-5">
           <div>
             <p className="font-[family-name:var(--font-display)] leading-[1.05] tracking-[-0.02em] text-white" style={{ fontSize: "clamp(22px, 2.1vw, 32px)" }}>
-              <span className="font-normal">Pre-Purchase</span>
+              <span className="font-normal">Source Your</span>
               <br />
-              <span className="font-semibold text-[#C9A84C] whitespace-nowrap" style={{ fontSize: "clamp(16px, 1.4vw, 22px)" }}>Inspection</span>
+              <span className="font-semibold text-[#C9A84C] whitespace-nowrap" style={{ fontSize: "clamp(16px, 1.4vw, 22px)" }}>Dream Car</span>
             </p>
             <p className="font-[family-name:var(--font-body)] text-[12.5px] xl:text-[13.5px] text-white/55 leading-[1.6] mt-1.5 min-h-[40px]">
-              Certified checks before you commit.
+              Can&apos;t find it? Tell us and we&apos;ll source it for you.
             </p>
           </div>
-          <PremiumCTA href="/inspection-and-transfer" text="Inspect Now" variant="outline" size="sm" className="w-full !min-w-0" />
+          <PremiumCTA onClick={openChat} text="Source Now" variant="outline" size="sm" className="w-full !min-w-0" />
         </div>
 
         {/* Detailing */}

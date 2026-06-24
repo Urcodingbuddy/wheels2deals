@@ -238,6 +238,13 @@ export function ChatbotWidget() {
     try { sessionStorage.setItem("w2d_chat_nudge", "dismissed"); } catch {}
   };
 
+  // Allow other parts of the page (e.g. the hero "Source your dream car" card) to open the chat
+  useEffect(() => {
+    const openChat = () => { setOpen(true); setNudge(false); };
+    window.addEventListener("w2d:open-chat", openChat);
+    return () => window.removeEventListener("w2d:open-chat", openChat);
+  }, []);
+
   // Thumb drag-to-dismiss for the mobile full-screen sheet
   const [dragY, setDragY] = useState(0);
   const dragStartRef = useRef<number | null>(null);

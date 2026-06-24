@@ -41,10 +41,10 @@ export function CategorySection() {
             Top Categories
           </p>
           <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,3.5vw,44px)] font-semibold text-[#2A3510] leading-[1.05] tracking-tight -ml-[3px]">
-            Browse Cars Listed by Private Sellers
+            Browse Handpicked Cars Ready for You
           </h2>
           <p className="mt-2 font-[family-name:var(--font-body)] text-[17px] text-[#2A3510]/58">
-            Every listing is from a real owner - inspected, verified, and ready to transfer. 
+            Popular Cars People Are Buying Right Now
           </p>
         </div>
 

@@ -26,6 +26,80 @@ function getExcerpt(content: string) {
 
 const BLOG_SEEDS: BlogSeed[] = [
   {
+    category: "Market Trends",
+    title: "Popular Cars People Are Buying Right Now: 6 Brands UAE Buyers Want in 2026",
+    readTime: "11 min read",
+    image: "/blog/popular-cars-2026.webp",
+    content: `The UAE car market in 2026 tells a clear story: buyers still reward reliability and resale value above almost everything, but a new wave of Chinese SUVs and electric vehicles is reshaping the showroom floor. Full-year 2025 sales reached roughly 335,772 units, and while Q1 2026 cooled as supply caught up with demand, six brands continue to dominate UAE buyer interest. Here's a closer look at each - what they sell, why people buy them, and who each one is right for.
+
+1. Toyota - Still the Undisputed Leader
+Toyota remains the most popular car brand in the UAE by a wide margin, holding roughly 22-25% market share through late 2025 and into 2026. No other brand comes close on volume.
+
+The reasons are the same ones that have held for two decades: rugged reliability, the best service network in the country, and class-leading resale value. A Land Cruiser bought for around AED 300,000 typically sells three years later for close to AED 210,000 - depreciation of roughly AED 90,000, far gentler than most European rivals over the same period.
+
+The headline story in 2026 is the Toyota Hilux, which overtook traditional leaders to become the UAE's best-selling vehicle, blending workhorse durability with city-friendly practicality. The Land Cruiser remains the ultimate desert-and-family SUV (typically AED 239,000-399,000), while the Corolla and Camry anchor the affordable-sedan segment. Toyota's growing hybrid lineup is also climbing the charts as buyers look for fuel savings without the range anxiety of a full EV.
+
+Best for: Buyers who prioritise reliability, resale value, parts availability, and low total cost of ownership above all else.
+
+2. Nissan - The Value and Heritage Play
+Nissan sits firmly in second place, with a market share in the mid-teens. The brand has built its UAE reputation on budget-friendly pricing, dependable performance, and a vast after-sales network.
+
+The Nissan Patrol is the brand's crown jewel - a genuine status symbol and family favourite that traded the overall sales lead back and forth with the Hilux through 2024 and 2025. Beyond the Patrol, the X-Trail appeals to families wanting a versatile seven-seater at a mid-range price, the Altima is prized for ride quality and comfort, and the Sunny is frequently cited as the cheapest car to own in the UAE - total yearly running costs around AED 15,000 including fuel, insurance, and maintenance.
+
+Nissan's appeal is straightforward: strong resale value (the Patrol especially), proven heat-tolerant engineering, and a price ladder that has something for nearly every budget.
+
+Best for: Buyers who want Japanese reliability and strong resale, whether on a tight budget (Sunny) or after a flagship SUV (Patrol).
+
+3. Jetour - The Breakout Chinese Challenger
+If one brand defines the 2026 UAE market shift, it's Jetour. While the overall market contracted in early 2026, Jetour was the only top-five brand to post gains - up more than 30% year-on-year - climbing to fourth place overall.
+
+The star is the Jetour T2, a boxy, Defender-inspired mid-size 4x4 that became one of the most talked-about SUVs in the country. Globally, the T2 hit 500,000 cumulative sales in just 33 months - the fastest boxy SUV ever to that milestone - and it leads the boxy segment in nine markets including the UAE. Priced from around AED 144,000 to AED 185,000, it undercuts premium rivals like the Land Rover Defender (from AED 237,600) while offering a 15.6-inch touchscreen, Snapdragon 8155 cockpit chip, true 4WD with seven terrain modes, 220mm ground clearance, and both turbo-petrol (254 hp) and plug-in hybrid powertrains.
+
+Jetour's other trump card is ownership confidence: a 10-year / 1-million-km warranty through exclusive partner Elite Group Holding, plus aggressive financing offers. The main caveats buyers should weigh are a newer dealer network, an estimated 75% resale retention (good, but below established Japanese brands), and a limited long-term reliability track record.
+
+Best for: Tech-focused, value-driven buyers who want a feature-packed off-road-capable SUV and aren't fixated on legacy-brand resale.
+
+4. Mitsubishi - The Quiet Climber
+Mitsubishi has steadily worked its way into the top three on the UAE charts, holding around 7-8% share. Its rise has been powered largely by the Outlander, which posted dramatic year-on-year growth and climbed the rankings sharply through late 2025 and into 2026.
+
+The brand's appeal is value-led practicality: comfortable, well-equipped family SUVs and crossovers at competitive prices, backed by a reputation for durability in harsh conditions. The Pajero name still carries weight with off-road and desert enthusiasts, while the Outlander targets families wanting space, modern features, and an accessible price point.
+
+Mitsubishi doesn't chase the prestige buyer or the bleeding edge of tech - it wins on dependable, affordable family transport, which is exactly what a large slice of the UAE market wants.
+
+Best for: Families seeking a roomy, reliable, and reasonably priced SUV without paying a premium-badge markup.
+
+5. BYD - The EV Disruptor
+No brand better represents the UAE's electric shift than BYD. Its sales surged by a staggering 970% in early 2026, driving much of the country's EV expansion. The UAE's EV segment grew around 11% to an 8.5% market share - supported by government net-zero backing, expanding charging infrastructure, and increasingly affordable Chinese models.
+
+BYD's pitch is compelling: modern, well-priced electric vehicles with strong range and tech, at a time when a full charge can cost as little as AED 30-50 versus AED 120 for a tank of petrol. The brand spans efficient city EVs to larger family electric SUVs, and its rapid growth shows UAE buyers are increasingly willing to go electric when the price and practicality line up.
+
+The honest caveats remain familiar to EV adoption anywhere: charging access depends on where you live and drive, resale values for newer EV brands are still stabilising, and the dealer and service footprint is younger than the Japanese incumbents. But momentum is firmly on BYD's side.
+
+Best for: Early-adopter and cost-conscious buyers ready to switch to electric, especially those with home or convenient public charging.
+
+6. Mercedes-Benz - The Luxury Statement
+In a market with a large high-income population, Mercedes-Benz remains the default luxury choice and a genuine status symbol. The brand pairs cutting-edge technology with the comfort and refinement that UAE premium buyers expect.
+
+The GLE is a standout - a large SUV that blends sporty dynamics with luxury for buyers who want presence and capability. The C-Class continues as the elegant, tech-rich entry point into the three-pointed star, while the broader S-Class and SUV range serve the top of the market. Mercedes ownership in the UAE is as much about brand prestige and innovation leadership as it is about the driving experience.
+
+The trade-off, as with all European luxury here, is steeper depreciation and higher running costs versus Japanese rivals - something value-focused buyers weigh carefully, but prestige buyers generally accept as part of the package.
+
+Best for: Buyers prioritising luxury, prestige, and the latest technology over running costs and resale efficiency.
+
+The Bigger Picture: What's Driving UAE Buyers in 2026
+Across all six brands, a few consistent themes shape what people are buying right now.
+
+SUVs and pickups dominate. Spacious cabins, off-road and desert capability, and strong resale value make them the backbone of the market - from the Hilux and Patrol to the T2 and Outlander.
+
+Reliability and resale value still rule. In a region of 50C summers and long highway drives, buyers reward cars that simply don't break down - and that hold their value. This is why Toyota and Nissan remain untouchable at the top.
+
+Chinese brands and EVs are the real story of 2026. Jetour and BYD prove that aggressive pricing, generous warranties, and feature-rich vehicles can win share fast - even as the overall market cools. The question for these challengers is long-term resale and service reputation, which only time will settle.
+
+Total cost of ownership beats sticker price. Savvy UAE buyers increasingly look past the monthly payment to depreciation, fuel, insurance, and maintenance over the full ownership period - where Japanese brands and EVs both make strong, if different, cases.
+
+Pricing and market-share figures reflect UAE data through mid-2026 and may vary by trim, dealer, emirate, and current promotions. Always confirm the latest on-road price and financing offers with an authorised dealer before purchase.`
+  },
+  {
     category: "Buying Guide",
     title: "How to Spot a Flood-Damaged Car Before You Buy",
     readTime: "8 min read",

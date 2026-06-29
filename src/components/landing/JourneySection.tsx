@@ -1,48 +1,51 @@
 import Link from "next/link";
 import { PremiumCTA } from "@/components/shared/PremiumCTA";
 
+// Every card opens the same deep-dive guide that ranks these six brands.
+const POPULAR_CARS_BLOG = "/blog/popular-cars-people-are-buying-right-now-6-brands-uae-buyers-want-in-2026";
+
 const CARS = [
   {
-    title: "BMW 3 Series",
-    specs: "AWD · 2.0T Turbo · 8-Speed",
-    href: "/buy?brand=BMW",
+    title: "Jetour T2",
+    specs: "4WD · 2.0T Turbo · 7 Terrain Modes",
+    href: POPULAR_CARS_BLOG,
     image:
-      "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?q=80&w=1215&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1170&auto=format&fit=crop",
   },
   {
     title: "Mercedes S-Class",
     specs: "RWD · 2.0T Turbo · 9-Speed",
-    href: "/buy?brand=Mercedes",
+    href: POPULAR_CARS_BLOG,
     image:
       "https://images.unsplash.com/photo-1610099610040-ab19f3a5ec35?q=80&w=764&auto=format&fit=crop",
   },
   {
     title: "Toyota Land Cruiser",
     specs: "4WD · 3.3L Twin-Turbo · 10-Speed",
-    href: "/buy?brand=Toyota",
+    href: POPULAR_CARS_BLOG,
     image:
       "https://images.unsplash.com/photo-1650530579355-7ad9d4766043?q=80&w=1170&auto=format&fit=crop",
   },
   {
     title: "Nissan Patrol",
     specs: "4WD · 5.6L V8 · 7-Speed",
-    href: "/buy?brand=Nissan",
+    href: POPULAR_CARS_BLOG,
     image:
       "https://images.unsplash.com/photo-1742230285052-8c3b445c01fc?q=80&w=1170&auto=format&fit=crop",
   },
   {
-    title: "Porsche 911",
-    specs: "AWD · 3.0T · 8-Speed Tiptronic",
-    href: "/buy?brand=Porsche",
+    title: "Mitsubishi Outlander",
+    specs: "AWD · 2.5L · CVT Automatic",
+    href: POPULAR_CARS_BLOG,
     image:
-      "https://images.unsplash.com/photo-1634673970798-a15ae56f6c65?q=80&w=1228&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?q=80&w=1170&auto=format&fit=crop",
   },
   {
-    title: "Range Rover Sport",
-    specs: "AWD · 3.0L Inline-6 · 8-Speed",
-    href: "/buy?brand=land+Rover",
+    title: "BYD Seal",
+    specs: "AWD · Electric · Long Range",
+    href: POPULAR_CARS_BLOG,
     image:
-      "https://images.unsplash.com/photo-1725815761064-b84c3f4f9b94?q=80&w=1170&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=1170&auto=format&fit=crop",
   },
 ];
 

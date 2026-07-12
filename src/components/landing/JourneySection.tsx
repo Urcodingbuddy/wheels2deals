@@ -10,21 +10,21 @@ const CARS = [
     specs: "4WD · 2.0T Turbo · 7 Terrain Modes",
     href: POPULAR_CARS_BLOG,
     image:
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1170&auto=format&fit=crop",
+      "./Jetour_T2.png",
   },
   {
     title: "Mercedes S-Class",
     specs: "RWD · 2.0T Turbo · 9-Speed",
     href: POPULAR_CARS_BLOG,
     image:
-      "https://images.unsplash.com/photo-1610099610040-ab19f3a5ec35?q=80&w=764&auto=format&fit=crop",
+      "./Mercedes-S-Class.png",
   },
   {
     title: "Toyota Land Cruiser",
     specs: "4WD · 3.3L Twin-Turbo · 10-Speed",
     href: POPULAR_CARS_BLOG,
     image:
-      "https://images.unsplash.com/photo-1650530579355-7ad9d4766043?q=80&w=1170&auto=format&fit=crop",
+      "./Toyota-land-cruiser.png",
   },
   {
     title: "Nissan Patrol",
@@ -38,14 +38,14 @@ const CARS = [
     specs: "AWD · 2.5L · CVT Automatic",
     href: POPULAR_CARS_BLOG,
     image:
-      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?q=80&w=1170&auto=format&fit=crop",
+      "./mitsubishi-outlander.png",
   },
   {
     title: "BYD Seal",
     specs: "AWD · Electric · Long Range",
     href: POPULAR_CARS_BLOG,
     image:
-      "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=1170&auto=format&fit=crop",
+      "./BYD_Seal.png",
   },
 ];
 

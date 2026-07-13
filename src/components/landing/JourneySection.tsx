@@ -1,51 +1,49 @@
 import Link from "next/link";
 import { PremiumCTA } from "@/components/shared/PremiumCTA";
 
-// Every card opens the same deep-dive guide that ranks these six brands.
-const POPULAR_CARS_BLOG = "/blog/popular-cars-people-are-buying-right-now-6-brands-uae-buyers-want-in-2026";
-
+// Each card opens that model's own deep-dive guide.
 const CARS = [
   {
     title: "Jetour T2",
     specs: "4WD · 2.0T Turbo · 7 Terrain Modes",
-    href: POPULAR_CARS_BLOG,
+    href: "/blog/jetour-t2-uae",
     image:
-      "./Jetour_T2.png",
+      "/Jetour_T2.png",
   },
   {
     title: "Mercedes S-Class",
     specs: "RWD · 2.0T Turbo · 9-Speed",
-    href: POPULAR_CARS_BLOG,
+    href: "/blog/mercedes-s-class-uae",
     image:
-      "./Mercedes-S-Class.png",
+      "/Mercedes-S-Class.png",
   },
   {
     title: "Toyota Land Cruiser",
     specs: "4WD · 3.3L Twin-Turbo · 10-Speed",
-    href: POPULAR_CARS_BLOG,
+    href: "/blog/toyota-land-cruiser-uae",
     image:
-      "./Toyota-land-cruiser.png",
+      "/Toyota-land-cruiser.png",
   },
   {
     title: "Nissan Patrol",
     specs: "4WD · 5.6L V8 · 7-Speed",
-    href: POPULAR_CARS_BLOG,
+    href: "/blog/nissan-patrol-uae",
     image:
       "https://images.unsplash.com/photo-1742230285052-8c3b445c01fc?q=80&w=1170&auto=format&fit=crop",
   },
   {
     title: "Mitsubishi Outlander",
     specs: "AWD · 2.5L · CVT Automatic",
-    href: POPULAR_CARS_BLOG,
+    href: "/blog/mitsubishi-outlander-uae",
     image:
-      "./mitsubishi-outlander.png",
+      "/mitsubishi-outlander.png",
   },
   {
     title: "BYD Seal",
     specs: "AWD · Electric · Long Range",
-    href: POPULAR_CARS_BLOG,
+    href: "/blog/byd-seal-uae",
     image:
-      "./BYD_Seal.png",
+      "/BYD_Seal.png",
   },
 ];
 

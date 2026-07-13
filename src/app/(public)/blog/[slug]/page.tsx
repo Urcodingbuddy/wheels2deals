@@ -7,10 +7,10 @@ import { getBlogBySlug, BLOGS } from "@/data/blogs";
 import { absoluteUrl } from "@/lib/seo";
 import { LandingNav } from "@/components/landing/LandingNav";
 import { FooterSection } from "@/components/landing/FooterSection";
-import { 
-  ArrowLeft, Calendar, User, Clock, 
+import {
+  Calendar, Clock,
   Share2, Link2, MessageCircle,
-  ChevronRight, ArrowRight, Check
+  ArrowRight, Check
 } from "lucide-react";
 
 export default function BlogDetailPage() {
@@ -112,13 +112,6 @@ export default function BlogDetailPage() {
         </div>
 
         <div className="relative z-10 h-full max-w-[1440px] mx-auto px-6 flex flex-col justify-end pb-20 md:pb-32">
-          <Link 
-            href="/"
-            className="group inline-flex items-center gap-2 text-[#C9A84C] font-bold uppercase tracking-[0.2em] text-[11px] mb-12 hover:gap-4 transition-all"
-          >
-            <ArrowLeft className="w-4 h-4" /> Back to Insights
-          </Link>
-
           <div className="max-w-4xl">
             <div className="flex flex-wrap items-center gap-6 mb-8">
               <span className="px-4 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-[12px] font-bold uppercase tracking-widest">
